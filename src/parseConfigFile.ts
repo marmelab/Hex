@@ -1,18 +1,22 @@
 import * as fs from "fs";
 import { Cell, CellValue, GameState } from "./gamestate";
 
-export function parseConfigFile(filePath: string): GameState {
+export function loadGameStateFromFile(filePath: string): GameState {
+  let data = parseConfigFile(filePath);
+  if (!Array.isArray(data)) {
+    throw Error(`Malformed config file ${filePath}`);
+  }
+  let rowsCount = data.length;
+  let gameState = { board: [] };
+  for (let row of data) {
+    gameState.board.push(parseRow(row, rowsCount, filePath));
+  }
+  return gameState;
+}
+
+function parseConfigFile(filePath: string): any {
   try {
-    let data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-    if (!Array.isArray(data)) {
-      throw Error(`Malformed config file ${filePath}`);
-    }
-    let rowsCount = data.length;
-    let gameState = { board: [] };
-    for (let row of data) {
-      gameState.board.push(parseRow(row, rowsCount, filePath));
-    }
-    return gameState;
+    return JSON.parse(fs.readFileSync(filePath, "utf-8"));
   } catch (error) {
     console.error(error);
     throw Error(`Unable to parse config file ${filePath}`);
