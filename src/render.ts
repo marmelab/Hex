@@ -1,5 +1,10 @@
 import { GameState, CellValue } from "./gamestate";
 
+export function displayGameState(gameState: GameState) {
+  const renderedGameState = getRenderedGameState(gameState);
+  console.log(renderedGameState);
+}
+
 export function getRenderedGameState(gameState: GameState): string {
   const spaceCharacter = " ";
   const lineSeparatorCharacter = "\n";
