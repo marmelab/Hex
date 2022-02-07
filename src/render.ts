@@ -17,10 +17,8 @@ export function getRenderedGameState(gameState: GameState): string {
       const renderedCell = cell.value == CellValue.Black ? "⬢" : "⬡";
       renderedRow += renderedCell;
     });
-    if (index > 0) {
-      result += lineSeparatorCharacter;
-    }
     result += renderedRow;
+    result += lineSeparatorCharacter;
   });
   return result;
 }
