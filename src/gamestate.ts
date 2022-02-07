@@ -1,12 +1,12 @@
-interface GameState {
+export interface GameState {
   board: Array<Array<Cell>>;
 }
 
-interface Cell {
+export interface Cell {
   value: CellValue;
 }
 
-enum CellValue {
+export enum CellValue {
   Empty,
   Black,
 }
