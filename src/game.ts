@@ -5,12 +5,9 @@ const readline = require("readline").createInterface({
   output: process.stdout,
 });
 
-export async function runGameLoop() {
-  // 1.Initialize the game state
-  // initialState = load it from a file
-  // 2.Render the game state to screen
-  // displayGameState(initialState);
-  // let currentState = initialState;
+export async function runGameLoop(initialGameState: GameState) {
+  displayGameState(initialGameState);
+  let currentState = initialGameState;
   let continueGame = true;
   while (continueGame) {
     const userCoordinates = await askCellCoordinatesToUser();
@@ -58,4 +55,35 @@ function getBoardCoordinatesFromUserCoordinates(
   } else {
     throw new Error(`Given number is not included in the range of [0,25]`);
   }
+}
+
+export function generateNewBoard(): GameState {
+  return {
+    board: [
+      [
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+      ],
+      [
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+      ],
+      [
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+      ],
+      [
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+      ],
+    ],
+  };
 }
