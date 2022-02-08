@@ -1,5 +1,5 @@
 import expect from "expect";
-import { CellValue, GameState } from "./gamestate";
+import { GameState } from "./gamestate";
 import { parseConfigFile } from "./parseConfigFile";
 
 describe("load game state from a config file content", () => {
@@ -16,21 +16,9 @@ describe("load game state from a config file content", () => {
     // then
     const expected: GameState = {
       board: [
-        [
-          { value: CellValue.Black },
-          { value: CellValue.Empty },
-          { value: CellValue.Black },
-        ],
-        [
-          { value: CellValue.Empty },
-          { value: CellValue.Empty },
-          { value: CellValue.Empty },
-        ],
-        [
-          { value: CellValue.Empty },
-          { value: CellValue.Empty },
-          { value: CellValue.Empty },
-        ],
+        [{ value: "black" }, { value: "empty" }, { value: "black" }],
+        [{ value: "empty" }, { value: "empty" }, { value: "empty" }],
+        [{ value: "empty" }, { value: "empty" }, { value: "empty" }],
       ],
     };
     expect(ouput).toStrictEqual(expected);

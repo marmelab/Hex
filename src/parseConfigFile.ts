@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { Cell, CellValue, GameState } from "./gamestate";
+import { Cell, GameState } from "./gamestate";
 
 const BLACK_PAWN_VALUE = 1;
 
@@ -57,16 +57,16 @@ function parseRow(row: any, rowsCount: number, filePath: string): Array<Cell> {
 }
 
 function parseCell(cell: any): Cell {
-  let parsedCellValue = CellValue.Empty;
+  let parsedCell: Cell;
   switch (cell.value) {
     case null:
+      parsedCell = { value: "empty" };
       break;
     case BLACK_PAWN_VALUE:
-      parsedCellValue = CellValue.Black;
+      parsedCell = { value: "black" };
       break;
     default:
       throw Error(`Cannot parse config file: Invalid value: ${cell.value}`);
   }
-  const parsedCell: Cell = { value: parsedCellValue };
   return parsedCell;
 }
