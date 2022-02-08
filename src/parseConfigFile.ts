@@ -1,25 +1,41 @@
 import * as fs from "fs";
 import { Cell, CellValue, GameState } from "./gamestate";
 
-export function loadGameStateFromFile(filePath: string): GameState {
-  let data = parseConfigFile(filePath);
-  if (!Array.isArray(data)) {
-    throw Error(`Malformed config file ${filePath}`);
-  }
-  let rowsCount = data.length;
-  let gameState = { board: [] };
-  for (let row of data) {
-    gameState.board.push(parseRow(row, rowsCount, filePath));
-  }
-  return gameState;
+const BLACK_PAWN_VALUE = 1;
+
+export function parseGameStateFromFile(filePath: string): GameState {
+  const fileContent = loadFile(filePath);
+  return parseConfigFile(fileContent, filePath);
 }
 
-function parseConfigFile(filePath: string): any {
+export function parseConfigFile(
+  fileContent: string,
+  filePath: string
+): GameState {
   try {
-    return JSON.parse(fs.readFileSync(filePath, "utf-8"));
+    const data = JSON.parse(fileContent);
+    if (!Array.isArray(data)) {
+      throw Error(`Malformed config file ${filePath}`);
+    }
+    const rowsCount = data.length;
+    let board = [];
+    for (const row of data) {
+      board.push(parseRow(row, rowsCount, filePath));
+    }
+    const gameState = { board: board };
+    return gameState;
   } catch (error) {
     console.error(error);
     throw Error(`Unable to parse config file ${filePath}`);
+  }
+}
+
+function loadFile(filePath: string): string {
+  try {
+    return fs.readFileSync(filePath, "utf-8");
+  } catch (error) {
+    console.error(error);
+    throw Error(`Unable to read config file ${filePath}`);
   }
 }
 
@@ -34,18 +50,22 @@ function parseRow(row: any, rowsCount: number, filePath: string): Array<Cell> {
   }
   let parsedRow: Array<Cell> = [];
   for (let cell of row) {
-    let parsedCell = { value: parseCellValue(cell) };
-    parsedRow.push(parsedCell);
+    parsedRow.push(parseCell(cell));
   }
   return parsedRow;
 }
 
-function parseCellValue(cell: any): CellValue {
-  if (cell.value == null) {
-    return CellValue.Empty;
-  } else if (cell.value == "1") {
-    return CellValue.Black;
-  } else {
-    throw Error(`Cannot parse config file: Invalid value: ${cell.value}`);
+function parseCell(cell: any): Cell {
+  let parsedCellValue = CellValue.Empty;
+  switch (cell.value) {
+    case null:
+      break;
+    case BLACK_PAWN_VALUE:
+      parsedCellValue = CellValue.Black;
+      break;
+    default:
+      throw Error(`Cannot parse config file: Invalid value: ${cell.value}`);
   }
+  const parsedCell: Cell = { value: parsedCellValue };
+  return parsedCell;
 }

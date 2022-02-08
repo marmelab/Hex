@@ -1,4 +1,4 @@
-import { loadGameStateFromFile } from "./parseConfigFile";
+import { parseGameStateFromFile } from "./parseConfigFile";
 
 // Config vars
 let filePath: string;
@@ -22,6 +22,6 @@ if (!filePath) {
 }
 
 // Parse config file into GameState object
-let gameState = loadGameStateFromFile(filePath);
+let gameState = parseGameStateFromFile(filePath);
 
 console.log(gameState);
