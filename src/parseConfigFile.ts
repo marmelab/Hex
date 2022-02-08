@@ -12,22 +12,23 @@ export function parseConfigFile(
   fileContent: string,
   filePath: string
 ): GameState {
+  let data;
   try {
-    const data = JSON.parse(fileContent);
-    if (!Array.isArray(data)) {
-      throw Error(`Malformed config file ${filePath}`);
-    }
-    const rowsCount = data.length;
-    let board = [];
-    for (const row of data) {
-      board.push(parseRow(row, rowsCount, filePath));
-    }
-    const gameState = { board: board };
-    return gameState;
+    data = JSON.parse(fileContent);
   } catch (error) {
     console.error(error);
     throw Error(`Unable to parse config file ${filePath}`);
   }
+  if (!Array.isArray(data)) {
+    throw Error(`Malformed config file ${filePath}`);
+  }
+  const rowsCount = data.length;
+  let board = [];
+  for (const row of data) {
+    board.push(parseRow(row, rowsCount, filePath));
+  }
+  const gameState = { board: board };
+  return gameState;
 }
 
 function loadFile(filePath: string): string {
