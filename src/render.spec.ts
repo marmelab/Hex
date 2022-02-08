@@ -14,9 +14,10 @@ describe("Render a boad in string from a game state object", () => {
     const renderedGameState = getRenderedGameState(twoRowsAllCellsEmpty);
 
     expect(renderedGameState).toBe(
-      `⬡⬡
+      `
+⬡⬡
  ⬡⬡
-`
+`.substring(1)
     );
   });
   it("Should get a 2-rows board with all cells black", () => {
@@ -30,9 +31,10 @@ describe("Render a boad in string from a game state object", () => {
     const renderedGameState = getRenderedGameState(twoRowsWithAllCellsBlack);
 
     expect(renderedGameState).toBe(
-      `⬢⬢
+      `
+⬢⬢
  ⬢⬢
-`
+`.substring(1)
     );
   });
   it("Should get a 2-rows board with mixed cells values", () => {
@@ -46,9 +48,10 @@ describe("Render a boad in string from a game state object", () => {
     const renderedGameState = getRenderedGameState(twoRowsWithMixedCellValues);
 
     expect(renderedGameState).toBe(
-      `⬡⬢
+      `
+⬡⬢
  ⬡⬢
-`
+`.substring(1)
     );
   });
   it("Should get a 5-rows board with mixed cells values", () => {
@@ -65,12 +68,13 @@ describe("Render a boad in string from a game state object", () => {
     const renderedGameState = getRenderedGameState(fiveRowsWithMixedCellValues);
 
     expect(renderedGameState).toBe(
-      `⬡⬢
+      `
+⬡⬢
  ⬡⬢
   ⬡⬢
    ⬡⬢
     ⬡⬢
-`
+`.substring(1)
     );
   });
   it("Should get an empty board", () => {
@@ -93,9 +97,10 @@ describe("Render a boad in string from a game state object", () => {
     const renderedGameState = getRenderedGameState(nonSquareBoard);
 
     expect(renderedGameState).toBe(
-      `⬡
+      `
+⬡
  ⬡⬢
-`
+`.substring(1)
     );
   });
 });
