@@ -11,22 +11,21 @@ export function displayGameState(gameState: GameState) {
 }
 
 export function getRenderedGameState(gameState: GameState): string {
-  let result = "";
-  gameState.board.forEach((row, index) => {
-    const initialSpace = SPACE_CHARACTER.repeat(index);
-    let renderedRow = initialSpace + getRenderedRow(row);
-    result += renderedRow;
-    result += LINE_SEPARATOR_CHARACTER;
-  });
-  return result;
+  return gameState.board
+    .map((row, index) => {
+      return SPACE_CHARACTER.repeat(index) + getRenderedRow(row);
+    })
+    .reduce(
+      (previousValue, currentValue) =>
+        previousValue + currentValue + LINE_SEPARATOR_CHARACTER,
+      ""
+    );
 }
 
 function getRenderedRow(row: Cell[]): string {
-  let result = "";
-  row.forEach((cell) => {
-    const renderedCell =
-      cell.value == CellValue.Black ? RENDERED_BLACK_PAWN : RENDERED_NO_PAWN;
-    result += renderedCell;
-  });
-  return result;
+  return row
+    .map((cell) =>
+      cell.value == CellValue.Black ? RENDERED_BLACK_PAWN : RENDERED_NO_PAWN
+    )
+    .reduce((previousValue, currentValue) => previousValue + currentValue, "");
 }
