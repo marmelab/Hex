@@ -1,3 +1,6 @@
+import { GameState } from "./gamestate";
+import { displayGameState } from "./render";
+
 const UTF16_CODE_OF_LETTER_A = 65;
 
 const readline = require("readline").createInterface({
@@ -87,3 +90,21 @@ export function generateNewBoard(): GameState {
     ],
   };
 }
+
+
+export function areCoordinatesValid(
+  gameState: GameState,
+  coordinates: { x: number; y: number }
+): boolean {
+  if (coordinates.y < 0 || coordinates.y >= gameState.board.length) {
+    return false;
+  }
+  if (
+    coordinates.x < 0 ||
+    coordinates.x >= gameState.board[coordinates.y].length
+  ) {
+    return false;
+  }
+  return true;
+}
+
