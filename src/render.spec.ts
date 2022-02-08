@@ -1,13 +1,13 @@
 import expect from "expect";
 import { getRenderedGameState } from "./render";
-import { GameState, CellValue } from "./gamestate";
+import { GameState } from "./gamestate";
 
 describe("Render a boad in string from a game state object", () => {
   it("Should get a 2-rows board with all cells empty", () => {
     const twoRowsAllCellsEmpty: GameState = {
       board: [
-        [{ value: CellValue.Empty }, { value: CellValue.Empty }],
-        [{ value: CellValue.Empty }, { value: CellValue.Empty }],
+        [{ value: "empty" }, { value: "empty" }],
+        [{ value: "empty" }, { value: "empty" }],
       ],
     };
 
@@ -21,10 +21,10 @@ describe("Render a boad in string from a game state object", () => {
     );
   });
   it("Should get a 2-rows board with all cells black", () => {
-    const twoRowsWithAllCellsBlack = {
+    const twoRowsWithAllCellsBlack: GameState = {
       board: [
-        [{ value: CellValue.Black }, { value: CellValue.Black }],
-        [{ value: CellValue.Black }, { value: CellValue.Black }],
+        [{ value: "black" }, { value: "black" }],
+        [{ value: "black" }, { value: "black" }],
       ],
     };
 
@@ -38,10 +38,10 @@ describe("Render a boad in string from a game state object", () => {
     );
   });
   it("Should get a 2-rows board with mixed cells values", () => {
-    const twoRowsWithMixedCellValues = {
+    const twoRowsWithMixedCellValues: GameState = {
       board: [
-        [{ value: CellValue.Empty }, { value: CellValue.Black }],
-        [{ value: CellValue.Empty }, { value: CellValue.Black }],
+        [{ value: "empty" }, { value: "black" }],
+        [{ value: "empty" }, { value: "black" }],
       ],
     };
 
@@ -55,13 +55,13 @@ describe("Render a boad in string from a game state object", () => {
     );
   });
   it("Should get a 5-rows board with mixed cells values", () => {
-    const fiveRowsWithMixedCellValues = {
+    const fiveRowsWithMixedCellValues: GameState = {
       board: [
-        [{ value: CellValue.Empty }, { value: CellValue.Black }],
-        [{ value: CellValue.Empty }, { value: CellValue.Black }],
-        [{ value: CellValue.Empty }, { value: CellValue.Black }],
-        [{ value: CellValue.Empty }, { value: CellValue.Black }],
-        [{ value: CellValue.Empty }, { value: CellValue.Black }],
+        [{ value: "empty" }, { value: "black" }],
+        [{ value: "empty" }, { value: "black" }],
+        [{ value: "empty" }, { value: "black" }],
+        [{ value: "empty" }, { value: "black" }],
+        [{ value: "empty" }, { value: "black" }],
       ],
     };
 
@@ -87,11 +87,8 @@ describe("Render a boad in string from a game state object", () => {
     expect(renderedGameState).toBe("");
   });
   it("Should get an non square board", () => {
-    const nonSquareBoard = {
-      board: [
-        [{ value: CellValue.Empty }],
-        [{ value: CellValue.Empty }, { value: CellValue.Black }],
-      ],
+    const nonSquareBoard: GameState = {
+      board: [[{ value: "empty" }], [{ value: "empty" }, { value: "black" }]],
     };
 
     const renderedGameState = getRenderedGameState(nonSquareBoard);

@@ -3,10 +3,5 @@ export interface GameState {
 }
 
 export interface Cell {
-  value: CellValue;
-}
-
-export enum CellValue {
-  Empty,
-  Black,
+  value: "empty" | "black";
 }

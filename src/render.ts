@@ -1,4 +1,4 @@
-import { GameState, CellValue, Cell } from "./gamestate";
+import { GameState, Cell } from "./gamestate";
 
 const SPACE_CHARACTER = " ";
 const LINE_SEPARATOR_CHARACTER = "\n";
@@ -25,7 +25,7 @@ export function getRenderedGameState(gameState: GameState): string {
 function getRenderedRow(row: Cell[]): string {
   return row
     .map((cell) =>
-      cell.value == CellValue.Black ? RENDERED_BLACK_PAWN : RENDERED_NO_PAWN
+      cell.value == "black" ? RENDERED_BLACK_PAWN : RENDERED_NO_PAWN
     )
     .reduce((previousValue, currentValue) => previousValue + currentValue, "");
 }
