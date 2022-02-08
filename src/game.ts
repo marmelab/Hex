@@ -38,9 +38,10 @@ function askCellCoordinatesToUser(): Promise<string> {
   });
 }
 
-function getBoardCoordinatesFromUserCoordinates(
-  userCoordinates: string
-): [number, number] {
+function getBoardCoordinatesFromUserCoordinates(userCoordinates: string): {
+  x: number;
+  y: number;
+} {
   let x: number, y: number;
   if (userCoordinates.length < 2) {
     throw new Error(
@@ -54,7 +55,7 @@ function getBoardCoordinatesFromUserCoordinates(
   }
   y = parseInt(userCoordinates.slice(1, userCoordinates.length));
   if (y >= 0 && y <= 25) {
-    return [x, y];
+    return { x: x, y: y };
   } else {
     throw new Error(`Given number is not included in the range of [0,25]`);
   }
