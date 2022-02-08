@@ -1,3 +1,5 @@
+const UTF16_CODE_OF_LETTER_A = 65;
+
 const readline = require("readline").createInterface({
   input: process.stdin,
   output: process.stdout,
@@ -12,18 +14,19 @@ export async function runGameLoop() {
   let continueGame = true;
   while (continueGame) {
     const userCoordinates = await askCellCoordinatesToUser();
-    console.log(`Coordinates : ${userCoordinates}`);
-    readline.close();
-    continueGame = false;
-    // 3.Take input from the user
-    // prompt a msg to user and read user input
-    // console.log
-    // let userAction = parse user input
-    // 4. Update the game state from the input
-    // currentState = updateGame(currentState, userAction)
-    // 2.Render the game state to screen
-    // displayGameState(currentState);
+    try {
+      const boardCoordinates =
+                getBoardCoordinatesFromUserCoordinates(userCoordinates);
+      console.log(`Board coordinates : ${boardCoordinates}`);
+    } catch (error) {
+      console.log(error.message);
+    }
   }
+  readline.close();
+  // 4. Update the game state from the input
+  // currentState = updateGame(currentState, userAction)
+  // 2.Render the game state to screen
+  // displayGameState(currentState);
 }
 
 function askCellCoordinatesToUser(): Promise<string> {
@@ -35,9 +38,24 @@ function askCellCoordinatesToUser(): Promise<string> {
   });
 }
 
-// function updateGame(previousState: GameState, action: "string"): GameState {
-//     // userAction could be a valid position, not in board or position with already a pawn on it
-//     return null;
-// }
-
-runGameLoop();
+function getBoardCoordinatesFromUserCoordinates(
+  userCoordinates: string
+): [number, number] {
+  let x: number, y: number;
+  if (userCoordinates.length < 2) {
+    throw new Error(
+      `Given coordinates is not compatible. Must be something like "H4"`
+    );
+  }
+  if (/[A-Z]/.test(userCoordinates[0])) {
+    x = userCoordinates[0].charCodeAt(0) - UTF16_CODE_OF_LETTER_A;
+  } else {
+    throw new Error(`Given character is not included in the range [A,Z]`);
+  }
+  y = parseInt(userCoordinates.slice(1, userCoordinates.length));
+  if (y >= 0 && y <= 25) {
+    return [x, y];
+  } else {
+    throw new Error(`Given number is not included in the range of [0,25]`);
+  }
+}
