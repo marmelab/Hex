@@ -17,16 +17,13 @@ export async function runGameLoop(initialGameState: GameState) {
     try {
       const boardCoordinates =
                 getBoardCoordinatesFromUserCoordinates(userCoordinates);
-      console.log(`Board coordinates : ${boardCoordinates}`);
+      currentState = updateGameState(currentState, boardCoordinates);
+      displayGameState(currentState);
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
     }
   }
   readline.close();
-  // 4. Update the game state from the input
-  // currentState = updateGame(currentState, userAction)
-  // 2.Render the game state to screen
-  // displayGameState(currentState);
 }
 
 function askCellCoordinatesToUser(): Promise<string> {
@@ -92,6 +89,24 @@ export function generateNewBoard(): GameState {
   };
 }
 
+function updateGameState(
+  previousState: GameState,
+  actionCoordinates: { x: number; y: number }
+): GameState {
+  if (!areCoordinatesValid(previousState, actionCoordinates)) {
+    throw new Error("Given coordinates are outside the scope of the board.");
+  }
+  if (
+    previousState.board[actionCoordinates[1]][actionCoordinates[0]].value !==
+    "empty"
+  ) {
+    throw new Error("A pawn is already set in the selected cell.");
+  }
+  const newGameState = { board: previousState.board };
+  newGameState.board[actionCoordinates[1]][actionCoordinates[0]].value =
+    "black";
+  return newGameState;
+}
 
 export function areCoordinatesValid(
   gameState: GameState,
