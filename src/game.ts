@@ -1,12 +1,8 @@
 import { GameState } from "./gamestate";
 import { displayGameState } from "./render";
+import { createInterface } from "readline";
 
 const UTF16_CODE_OF_LETTER_A = 65;
-
-const readline = require("readline").createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
 
 export async function runGameLoop(initialGameState: GameState) {
   displayGameState(initialGameState);
@@ -23,14 +19,20 @@ export async function runGameLoop(initialGameState: GameState) {
       console.error(error.message);
     }
   }
-  readline.close();
 }
 
 function askCellCoordinatesToUser(): Promise<string> {
+  const readline = createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
   return new Promise((resolve) => {
     readline.question(
       "Where would you like to put you stone ?",
-      (cellCoordinates) => resolve(cellCoordinates)
+      (cellCoordinates) => {
+        readline.close();
+        resolve(cellCoordinates);
+      }
     );
   });
 }
