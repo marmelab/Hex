@@ -1,4 +1,4 @@
-import { GameState, CellValue } from "./gamestate";
+import { GameState, CellValue, Cell } from "./gamestate";
 
 const spaceCharacter = " ";
 const lineSeparatorCharacter = "\n";
@@ -14,14 +14,19 @@ export function getRenderedGameState(gameState: GameState): string {
   let result = "";
   gameState.board.forEach((row, index) => {
     const initialSpace = spaceCharacter.repeat(index);
-    let renderedRow = initialSpace;
-    row.forEach((cell) => {
-      const renderedCell =
-        cell.value == CellValue.Black ? renderedBlackPawn : renderedNoPawn;
-      renderedRow += renderedCell;
-    });
+    let renderedRow = initialSpace + getRenderedRow(row);
     result += renderedRow;
     result += lineSeparatorCharacter;
+  });
+  return result;
+}
+
+function getRenderedRow(row: Cell[]): string {
+  let result = "";
+  row.forEach((cell) => {
+    const renderedCell =
+      cell.value == CellValue.Black ? renderedBlackPawn : renderedNoPawn;
+    result += renderedCell;
   });
   return result;
 }
