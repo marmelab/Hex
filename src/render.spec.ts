@@ -2,35 +2,56 @@ import expect from "expect";
 import { getRenderedGameState } from "./render";
 import { GameState, CellValue } from "./gamestate";
 
-describe("Draw a boad from a game state object", () => {
-  it("Draw 2-rows board with all cells empty", () => {
+describe("Render a boad in string from a game state object", () => {
+  it("Should get a 2-rows board with all cells empty", () => {
     const twoRowsAllCellsEmpty: GameState = {
       board: [
         [{ value: CellValue.Empty }, { value: CellValue.Empty }],
         [{ value: CellValue.Empty }, { value: CellValue.Empty }],
       ],
     };
-    expect(getRenderedGameState(twoRowsAllCellsEmpty)).toBe("⬡⬡\n ⬡⬡\n");
+
+    const renderedGameState = getRenderedGameState(twoRowsAllCellsEmpty);
+
+    expect(renderedGameState).toBe(
+      `⬡⬡
+ ⬡⬡
+`
+    );
   });
-  it("Draw 2-rows board with all cells black", () => {
+  it("Should get a 2-rows board with all cells black", () => {
     const twoRowsWithAllCellsBlack = {
       board: [
         [{ value: CellValue.Black }, { value: CellValue.Black }],
         [{ value: CellValue.Black }, { value: CellValue.Black }],
       ],
     };
-    expect(getRenderedGameState(twoRowsWithAllCellsBlack)).toBe("⬢⬢\n ⬢⬢\n");
+
+    const renderedGameState = getRenderedGameState(twoRowsWithAllCellsBlack);
+
+    expect(renderedGameState).toBe(
+      `⬢⬢
+ ⬢⬢
+`
+    );
   });
-  it("Draw 2-rows board with mixed cells values", () => {
+  it("Should get a 2-rows board with mixed cells values", () => {
     const twoRowsWithMixedCellValues = {
       board: [
         [{ value: CellValue.Empty }, { value: CellValue.Black }],
         [{ value: CellValue.Empty }, { value: CellValue.Black }],
       ],
     };
-    expect(getRenderedGameState(twoRowsWithMixedCellValues)).toBe("⬡⬢\n ⬡⬢\n");
+
+    const renderedGameState = getRenderedGameState(twoRowsWithMixedCellValues);
+
+    expect(renderedGameState).toBe(
+      `⬡⬢
+ ⬡⬢
+`
+    );
   });
-  it("Draw 5-rows board with mixed cells values", () => {
+  it("Should get a 5-rows board with mixed cells values", () => {
     const fiveRowsWithMixedCellValues = {
       board: [
         [{ value: CellValue.Empty }, { value: CellValue.Black }],
@@ -40,8 +61,41 @@ describe("Draw a boad from a game state object", () => {
         [{ value: CellValue.Empty }, { value: CellValue.Black }],
       ],
     };
-    expect(getRenderedGameState(fiveRowsWithMixedCellValues)).toBe(
-      "⬡⬢\n ⬡⬢\n  ⬡⬢\n   ⬡⬢\n    ⬡⬢\n"
+
+    const renderedGameState = getRenderedGameState(fiveRowsWithMixedCellValues);
+
+    expect(renderedGameState).toBe(
+      `⬡⬢
+ ⬡⬢
+  ⬡⬢
+   ⬡⬢
+    ⬡⬢
+`
+    );
+  });
+  it("Should get an empty board", () => {
+    const emptyBoard = {
+      board: [],
+    };
+
+    const renderedGameState = getRenderedGameState(emptyBoard);
+
+    expect(renderedGameState).toBe("");
+  });
+  it("Should get an non square board", () => {
+    const nonSquareBoard = {
+      board: [
+        [{ value: CellValue.Empty }],
+        [{ value: CellValue.Empty }, { value: CellValue.Black }],
+      ],
+    };
+
+    const renderedGameState = getRenderedGameState(nonSquareBoard);
+
+    expect(renderedGameState).toBe(
+      `⬡
+ ⬡⬢
+`
     );
   });
 });
