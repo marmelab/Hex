@@ -1,4 +1,5 @@
 import { parseGameStateFromFile } from "./parseConfigFile";
+import { displayGameState } from "./render";
 
 // Config vars
 let filePath: string;
@@ -21,7 +22,6 @@ if (!filePath) {
   throw Error("No config file was provided");
 }
 
-// Parse config file into GameState object
 let gameState = parseGameStateFromFile(filePath);
 
-console.log(gameState);
+displayGameState(gameState);
