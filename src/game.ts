@@ -24,16 +24,3 @@ export async function runGameLoop(initialGameState: GameState) {
     displayGameState(currentState);
   }
 }
-// runGameLoop();
-// console.log(mapFromUserInputToBoardCoordinates("A1"));
-// console.log(mapFromUserInputToBoardCoordinates("A2"));
-// console.log(mapFromUserInputToBoardCoordinates("C2"));
-
-// console.log(mapFromUserInputToBoardCoordinates("e2"));
-// console.log(mapFromUserInputToBoardCoordinates("eee2"));
-// console.log(mapFromUserInputToBoardCoordinates("E200"));
-
-// console.log(isCoordinatesInBoard(generateNewBoard(), 1, 1));
-// console.log(isCoordinatesInBoard(generateNewBoard(), 4, 1));
-// console.log(isCoordinatesInBoard(generateNewBoard(), 0, 4));
-// console.log(isCoordinatesInBoard(generateNewBoard(), 4, 0));
