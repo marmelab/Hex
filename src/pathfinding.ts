@@ -13,11 +13,11 @@ interface Coordinates {
 
 export function playerHasWon(gameState: GameState): boolean {
   const hexBoardGraph = createGraphFromGameState(gameState);
-  return existsPathForPlayer(hexBoardGraph);
+  return doesPathExistForPlayer(hexBoardGraph);
 }
 
 function createGraphFromGameState(gameState: GameState): HexBoardGraph {
-  let hexBoardGraph: HexBoardGraph = {
+  const hexBoardGraph: HexBoardGraph = {
     graph: new jkstra.Graph(),
     vertexMap: new Map<string, jkstra.Vertex>(),
   };
@@ -50,22 +50,22 @@ function createEdgesFromGameState(
   gameState: GameState,
   hexBoardGraph: HexBoardGraph
 ) {
-  const stone_color = "black";
+  const stoneColor = "black";
 
   // Add edge pair for all nodes with one of its 3 possible neighbors
   // if the stone color matches
   gameState.board.forEach((row, y) => {
     row.forEach((cell, x) => {
-      if (cell.value == stone_color) {
-        const current_cell: Coordinates = { y: y, x: x };
+      if (cell.value == stoneColor) {
+        const currentCell: Coordinates = { y: y, x: x };
         let neighbor: Coordinates;
         // 1st possible neighbor
         neighbor = { y: y, x: x + 1 };
         createEdgePairForNeighbor(
           gameState,
           hexBoardGraph,
-          stone_color,
-          current_cell,
+          stoneColor,
+          currentCell,
           neighbor
         );
         // 2nd possible neighbor
@@ -73,8 +73,8 @@ function createEdgesFromGameState(
         createEdgePairForNeighbor(
           gameState,
           hexBoardGraph,
-          stone_color,
-          current_cell,
+          stoneColor,
+          currentCell,
           neighbor
         );
         // 3rd possible neighbor
@@ -82,8 +82,8 @@ function createEdgesFromGameState(
         createEdgePairForNeighbor(
           gameState,
           hexBoardGraph,
-          stone_color,
-          current_cell,
+          stoneColor,
+          currentCell,
           neighbor
         );
       }
@@ -102,23 +102,23 @@ function createEdgesFromGameState(
 function createEdgePairForNeighbor(
   gameState: GameState,
   hexBoardGraph: HexBoardGraph,
-  stone_color: "black",
-  current_cell: Coordinates,
+  stoneColor: "black",
+  currentCell: Coordinates,
   neighbor: Coordinates
 ) {
-  if (cellExistsAndHasStone(gameState, neighbor, stone_color)) {
-    addEdgePair(
+  if (doesCellExistAndHaveStone(gameState, neighbor, stoneColor)) {
+    addBidirectionalEdge(
       hexBoardGraph,
-      `${current_cell.y}-${current_cell.x}`,
+      `${currentCell.y}-${currentCell.x}`,
       `${neighbor.y}-${neighbor.x}`
     );
   }
 }
 
-function cellExistsAndHasStone(
+function doesCellExistAndHaveStone(
   gameState: GameState,
   cell: Coordinates,
-  stone_color: "black"
+  stoneColor: "black"
 ): boolean {
   if (cell.y < 0 || cell.y >= gameState.board.length) {
     return false;
@@ -126,7 +126,7 @@ function cellExistsAndHasStone(
   if (cell.x < 0 || cell.x >= gameState.board[cell.y].length) {
     return false;
   }
-  return gameState.board[cell.y][cell.x].value == stone_color;
+  return gameState.board[cell.y][cell.x].value == stoneColor;
 }
 
 function addVertex(hexBoardGraph: HexBoardGraph, id: string) {
@@ -145,7 +145,7 @@ function addEdge(
   );
 }
 
-function addEdgePair(
+function addBidirectionalEdge(
   hexBoardGraph: HexBoardGraph,
   vertex1: string,
   vertex2: string
@@ -157,7 +157,7 @@ function addEdgePair(
   );
 }
 
-function existsPathForPlayer(hexBoardGraph: HexBoardGraph): boolean {
+function doesPathExistForPlayer(hexBoardGraph: HexBoardGraph): boolean {
   const dijkstra = new jkstra.algos.Dijkstra(hexBoardGraph.graph);
 
   const path_black = dijkstra.shortestPath(
