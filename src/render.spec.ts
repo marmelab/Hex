@@ -15,8 +15,8 @@ describe("Render a boad in string from a game state object", () => {
 
     expect(renderedGameState).toBe(
       `
-⬡⬡
- ⬡⬡
+ ⬡ ⬡
+  ⬡ ⬡
 `.substring(1)
     );
   });
@@ -32,8 +32,8 @@ describe("Render a boad in string from a game state object", () => {
 
     expect(renderedGameState).toBe(
       `
-⬢⬢
- ⬢⬢
+ ⬢ ⬢
+  ⬢ ⬢
 `.substring(1)
     );
   });
@@ -49,8 +49,8 @@ describe("Render a boad in string from a game state object", () => {
 
     expect(renderedGameState).toBe(
       `
-⬡⬢
- ⬡⬢
+ ⬡ ⬢
+  ⬡ ⬢
 `.substring(1)
     );
   });
@@ -69,11 +69,11 @@ describe("Render a boad in string from a game state object", () => {
 
     expect(renderedGameState).toBe(
       `
-⬡⬢
- ⬡⬢
-  ⬡⬢
-   ⬡⬢
-    ⬡⬢
+ ⬡ ⬢
+  ⬡ ⬢
+   ⬡ ⬢
+    ⬡ ⬢
+     ⬡ ⬢
 `.substring(1)
     );
   });
@@ -95,8 +95,8 @@ describe("Render a boad in string from a game state object", () => {
 
     expect(renderedGameState).toBe(
       `
-⬡
- ⬡⬢
+ ⬡
+  ⬡ ⬢
 `.substring(1)
     );
   });
