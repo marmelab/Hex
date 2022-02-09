@@ -1,6 +1,5 @@
 import expect from "expect";
-import { GameState } from "./gamestate";
-import { playerHasWon } from "./pathfinding";
+import { GameState, playerHasWon } from "./gamestate";
 
 describe("check whether player has won the game", () => {
     it("should say WIN with a 3x3 board with a vertical path", () => {

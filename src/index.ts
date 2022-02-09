@@ -1,6 +1,6 @@
 import { parseGameStateFromFile } from "./parseConfigFile";
 import { displayGameState } from "./render";
-import { playerHasWon } from "./pathfinding";
+import { playerHasWon } from "./gamestate";
 
 // Config vars
 let filePath: string;
