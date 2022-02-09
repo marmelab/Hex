@@ -99,14 +99,13 @@ function updateGameState(
     throw new Error("Given coordinates are outside the scope of the board.");
   }
   if (
-    previousState.board[actionCoordinates[1]][actionCoordinates[0]].value !==
+    previousState.board[actionCoordinates.y][actionCoordinates.x].value !==
     "empty"
   ) {
     throw new Error("A pawn is already set in the selected cell.");
   }
   const newGameState = { board: previousState.board };
-  newGameState.board[actionCoordinates[1]][actionCoordinates[0]].value =
-    "black";
+  newGameState.board[actionCoordinates.y][actionCoordinates.x].value = "black";
   return newGameState;
 }
 
