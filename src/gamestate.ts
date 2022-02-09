@@ -1,5 +1,6 @@
 import { createGraphFromGameState, HexBoardGraph } from "./graph";
 import { doesPathExist } from "./pathfinding";
+import { areCoordinatesValid } from "./user";
 import { Coordinates } from "./utils";
 
 export interface GameState {
@@ -49,4 +50,52 @@ export function doesCellHaveStone(
   stoneColor: "black"
 ): boolean {
   return gameState.board[cell.y][cell.x].value == stoneColor;
+}
+export function generateNewBoard(): GameState {
+  return {
+    board: [
+      [
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+      ],
+      [
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+      ],
+      [
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+      ],
+      [
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+      ],
+    ],
+  };
+}
+
+export function updateGameState(
+  previousState: GameState,
+  actionCoordinates: Coordinates
+): GameState {
+  if (!areCoordinatesValid(previousState, actionCoordinates)) {
+    throw new Error("Given coordinates are outside the scope of the board.");
+  }
+  if (
+    previousState.board[actionCoordinates.y][actionCoordinates.x].value !==
+    "empty"
+  ) {
+    throw new Error("A pawn is already set in the selected cell.");
+  }
+  const newGameState = { board: previousState.board };
+  newGameState.board[actionCoordinates.y][actionCoordinates.x].value = "black";
+  return newGameState;
 }

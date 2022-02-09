@@ -1,6 +1,6 @@
 import { parseGameStateFromFile } from "./parseConfigFile";
-import { playerHasWon } from "./gamestate";
-import { runGameLoop, generateNewBoard } from "./game";
+import { playerHasWon, generateNewBoard } from "./gamestate";
+import { runGameLoop } from "./game";
 
 // Config vars
 let filePath: string;
