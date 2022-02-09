@@ -4,7 +4,7 @@ import { UTF16_CODE_OF_LETTER_A, Coordinates } from "./utils";
 export function getBoardCoordinatesFromUserInput(
   userInput: string
 ): Coordinates {
-  const regexValidationUserInput = /^(A)([0-9]*)$/;
+  const regexValidationUserInput = /^([A-Z][0-9]*)$/;
   if (!regexValidationUserInput.test(userInput)) {
     throw new Error(
       `Given coordinates aren't valid. Must be something like "H4"`
