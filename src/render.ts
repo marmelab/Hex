@@ -2,8 +2,8 @@ import { GameState, Cell } from "./gamestate";
 
 const SPACE_CHARACTER = " ";
 const LINE_SEPARATOR_CHARACTER = "\n";
-const RENDERED_BLACK_PAWN = "⬢";
-const RENDERED_NO_PAWN = "⬡";
+const RENDERED_BLACK_STONE = "⬢";
+const RENDERED_NO_STONE = "⬡";
 
 export function displayGameState(gameState: GameState) {
   const renderedGameState = getRenderedGameState(gameState);
@@ -25,7 +25,7 @@ export function getRenderedGameState(gameState: GameState): string {
 function getRenderedRow(row: Cell[]): string {
   return row
     .map((cell) =>
-      cell.value == "black" ? RENDERED_BLACK_PAWN : RENDERED_NO_PAWN
+      cell.value == "black" ? RENDERED_BLACK_STONE : RENDERED_NO_STONE
     )
     .reduce((previousValue, currentValue) => previousValue + currentValue, "");
 }

@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import { Cell, GameState } from "./gamestate";
 
-const BLACK_PAWN_VALUE = 1;
+const BLACK_STONE_VALUE = 1;
 
 export function parseGameStateFromFile(filePath: string): GameState {
   const fileContent = loadFile(filePath);
@@ -62,7 +62,7 @@ function parseCell(cell: any): Cell {
     case null:
       parsedCell = { value: "empty" };
       break;
-    case BLACK_PAWN_VALUE:
+    case BLACK_STONE_VALUE:
       parsedCell = { value: "black" };
       break;
     default:
