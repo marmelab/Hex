@@ -4,6 +4,11 @@ import { createInterface } from "readline";
 
 const UTF16_CODE_OF_LETTER_A = 65;
 
+export interface Coordinates {
+  x: number;
+  y: number;
+}
+
 export async function runGameLoop(initialGameState: GameState) {
   displayGameState(initialGameState);
   let currentState = initialGameState;
@@ -40,10 +45,9 @@ function askCellCoordinatesToUser(): Promise<string> {
   });
 }
 
-function getBoardCoordinatesFromUserInput(userCoordinates: string): {
-  x: number;
-  y: number;
-} {
+function getBoardCoordinatesFromUserInput(
+  userCoordinates: string
+): Coordinates {
   let x: number, y: number;
   if (userCoordinates.length < 2) {
     throw new Error(
@@ -96,7 +100,7 @@ export function generateNewBoard(): GameState {
 
 function updateGameState(
   previousState: GameState,
-  actionCoordinates: { x: number; y: number }
+  actionCoordinates: Coordinates
 ): GameState {
   if (!areCoordinatesValid(previousState, actionCoordinates)) {
     throw new Error("Given coordinates are outside the scope of the board.");
@@ -114,7 +118,7 @@ function updateGameState(
 
 export function areCoordinatesValid(
   gameState: GameState,
-  coordinates: { x: number; y: number }
+  coordinates: Coordinates
 ): boolean {
   if (coordinates.y < 0 || coordinates.y >= gameState.board.length) {
     return false;
