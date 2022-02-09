@@ -1,5 +1,6 @@
 import { parseGameStateFromFile } from "./parseConfigFile";
 import { displayGameState } from "./render";
+import { playerHasWon } from "./pathfinding";
 
 // Config vars
 let filePath: string;
@@ -25,3 +26,8 @@ if (!filePath) {
 let gameState = parseGameStateFromFile(filePath);
 
 displayGameState(gameState);
+
+if (playerHasWon(gameState)) {
+  console.log("Player has won the game!");
+}
+

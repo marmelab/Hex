@@ -3474,6 +3474,13 @@ jest@^27.0.6:
     import-local "^3.0.2"
     jest-cli "^27.0.6"
 
+jkstra@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/jkstra/-/jkstra-0.1.1.tgz#fb3119b458ce32cb6324aa7c95500dbec5e138b0"
+  integrity sha512-vHW/I2L4ch2GRmbghqalJ7muYBfpN+msUXDm554IoDNfDiY/1kKe7om+hrlkpS6xb2tBnCsVLuE0YuQ7ZXHieQ==
+  dependencies:
+    updatable-priority-queue "0.0.1"
+
 js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
@@ -4816,6 +4823,11 @@ universalify@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/universalify/-/universalify-0.1.2.tgz#b646f69be3942dabcecc9d6639c80dc105efaa66"
   integrity sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==
+
+updatable-priority-queue@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/updatable-priority-queue/-/updatable-priority-queue-0.0.1.tgz#87b6053503c59469eb6d328cebd849dc8d4f6410"
+  integrity sha1-h7YFNQPFlGnrbTKM69hJ3I1PZBA=
 
 update-notifier@^5.1.0:
   version "5.1.0"
