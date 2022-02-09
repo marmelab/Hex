@@ -189,19 +189,19 @@ describe("Update game state based on a user action", () => {
 
     expect(updateGameStateCall).toThrowError();
   });
-  it("Should throw an error if the cell already have a pawn", () => {
+  it("Should throw an error if the cell already have a stone", () => {
     const gamestate: GameState = {
       board: [[{ value: "black" }]],
     };
-    const coordinatesWithAPawnOnCell = { x: 0, y: 0 };
+    const coordinatesWithAStoneOnCell = { x: 0, y: 0 };
 
     const updateGameStateCall = () => {
-      updateGameState(gamestate, coordinatesWithAPawnOnCell);
+      updateGameState(gamestate, coordinatesWithAStoneOnCell);
     };
 
     expect(updateGameStateCall).toThrowError();
   });
-  it("Should get a board with a pawn in the up left cell", () => {
+  it("Should get a board with a stone in the up left cell", () => {
     const gamestate: GameState = {
       board: [
         [{ value: "empty" }, { value: "empty" }, { value: "black" }],
@@ -221,7 +221,7 @@ describe("Update game state based on a user action", () => {
       ],
     });
   });
-  it("Should get a board with a pawn in the bottom right cell", () => {
+  it("Should get a board with a stone in the bottom right cell", () => {
     const gamestate: GameState = {
       board: [
         [{ value: "empty" }, { value: "empty" }, { value: "black" }],

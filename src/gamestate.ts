@@ -1,6 +1,5 @@
 import { createGraphFromGameState, HexBoardGraph } from "./graph";
 import { doesPathExist } from "./pathfinding";
-import { areCoordinatesValid } from "./user";
 import { Coordinates } from "./utils";
 
 export interface GameState {
@@ -84,18 +83,15 @@ export function generateNewBoard(): GameState {
 
 export function updateGameState(
   previousState: GameState,
-  actionCoordinates: Coordinates
+  nextMove: Coordinates
 ): GameState {
-  if (!areCoordinatesValid(previousState, actionCoordinates)) {
+  if (!doesCellExist(previousState, nextMove)) {
     throw new Error("Given coordinates are outside the scope of the board.");
   }
-  if (
-    previousState.board[actionCoordinates.y][actionCoordinates.x].value !==
-    "empty"
-  ) {
-    throw new Error("A pawn is already set in the selected cell.");
+  if (previousState.board[nextMove.y][nextMove.x].value !== "empty") {
+    throw new Error("A stone is already set in the selected cell.");
   }
   const newGameState = { board: previousState.board };
-  newGameState.board[actionCoordinates.y][actionCoordinates.x].value = "black";
+  newGameState.board[nextMove.y][nextMove.x].value = "black";
   return newGameState;
 }

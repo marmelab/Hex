@@ -1,5 +1,4 @@
 import { createInterface } from "readline";
-import { GameState } from "./gamestate";
 import { UTF16_CODE_OF_LETTER_A, Coordinates } from "./utils";
 
 export function getBoardCoordinatesFromUserInput(
@@ -12,19 +11,9 @@ export function getBoardCoordinatesFromUserInput(
     );
   } else {
     const x = userInput[0].charCodeAt(0) - UTF16_CODE_OF_LETTER_A;
-    const y = parseInt(userInput.slice(1, userInput.length));
+    const y = parseInt(userInput.slice(1, userInput.length)) - 1;
     return { x, y };
   }
-}
-
-export function areCoordinatesValid(
-  gameState: GameState,
-  coordinates: Coordinates
-): boolean {
-  return (
-    coordinates.y < gameState.board.length &&
-    coordinates.x < gameState.board[coordinates.y].length
-  );
 }
 
 export function askCellCoordinatesToUser(): Promise<string> {
@@ -34,7 +23,7 @@ export function askCellCoordinatesToUser(): Promise<string> {
   });
   return new Promise((resolve) => {
     readline.question(
-      "Where would you like to put you stone ?",
+      "Where would you like to put your stone ?",
       (cellCoordinates) => {
         readline.close();
         resolve(cellCoordinates);
