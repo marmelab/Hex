@@ -9,15 +9,18 @@ export async function runGameLoop(initialGameState: GameState) {
   let currentState = initialGameState;
   let continueGame = true;
   while (continueGame) {
-    const userCoordinates = await askCellCoordinatesToUser();
-    try {
-      const boardCoordinates =
-                getBoardCoordinatesFromUserCoordinates(userCoordinates);
-      currentState = updateGameState(currentState, boardCoordinates);
-      displayGameState(currentState);
-    } catch (error) {
-      console.error(error.message);
+    const userInput = await askCellCoordinatesToUser();
+    let isUserCoordinatesAreValid = false;
+    while (!isUserCoordinatesAreValid) {
+      try {
+        const boardCoordinates = getBoardCoordinatesFromUserInput(userInput);
+        currentState = updateGameState(currentState, boardCoordinates);
+        isUserCoordinatesAreValid = true;
+      } catch (error) {
+        console.error(error.message);
+      }
     }
+    displayGameState(currentState);
   }
 }
 
@@ -37,7 +40,7 @@ function askCellCoordinatesToUser(): Promise<string> {
   });
 }
 
-function getBoardCoordinatesFromUserCoordinates(userCoordinates: string): {
+function getBoardCoordinatesFromUserInput(userCoordinates: string): {
   x: number;
   y: number;
 } {
@@ -125,3 +128,16 @@ export function areCoordinatesValid(
   return true;
 }
 
+// runGameLoop();
+// console.log(mapFromUserInputToBoardCoordinates("A1"));
+// console.log(mapFromUserInputToBoardCoordinates("A2"));
+// console.log(mapFromUserInputToBoardCoordinates("C2"));
+
+// console.log(mapFromUserInputToBoardCoordinates("e2"));
+// console.log(mapFromUserInputToBoardCoordinates("eee2"));
+// console.log(mapFromUserInputToBoardCoordinates("E200"));
+
+// console.log(isCoordinatesInBoard(generateNewBoard(), 1, 1));
+// console.log(isCoordinatesInBoard(generateNewBoard(), 4, 1));
+// console.log(isCoordinatesInBoard(generateNewBoard(), 0, 4));
+// console.log(isCoordinatesInBoard(generateNewBoard(), 4, 0));
