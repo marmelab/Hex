@@ -30,4 +30,3 @@ displayGameState(gameState);
 if (playerHasWon(gameState)) {
   console.log("Player has won the game!");
 }
-
