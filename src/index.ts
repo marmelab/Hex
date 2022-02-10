@@ -1,6 +1,6 @@
 import { parseGameStateFromFile } from "./parseConfigFile";
-import { displayGameState } from "./render";
-import { playerHasWon } from "./gamestate";
+import { playerHasWon, generateNewBoard } from "./gamestate";
+import { runGameLoop } from "./game";
 
 // Config vars
 let filePath: string;
@@ -16,17 +16,15 @@ process.argv.forEach((arg, i) => {
   }
 });
 
-// Check mandatory parameters
-if (!filePath) {
-  console.error("No config file was provided");
-  console.error("usage: yarn start -f=myconfigfile");
-  throw Error("No config file was provided");
+let gameState;
+if (filePath) {
+  gameState = parseGameStateFromFile(filePath);
+  if (playerHasWon(gameState)) {
+    console.log("Player has won the game!");
+  }
+} else {
+  console.log("No config file was provided. Initializing board from scratch..");
+  gameState = generateNewBoard();
 }
 
-let gameState = parseGameStateFromFile(filePath);
-
-displayGameState(gameState);
-
-if (playerHasWon(gameState)) {
-  console.log("Player has won the game!");
-}
+runGameLoop(gameState);

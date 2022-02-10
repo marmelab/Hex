@@ -27,5 +27,9 @@ function getRenderedRow(row: Cell[]): string {
     .map((cell) =>
       cell.value == "black" ? RENDERED_BLACK_STONE : RENDERED_NO_STONE
     )
-    .reduce((previousValue, currentValue) => previousValue + currentValue, "");
+    .reduce(
+      (previousValue, currentValue) =>
+        previousValue + SPACE_CHARACTER + currentValue,
+      ""
+    );
 }

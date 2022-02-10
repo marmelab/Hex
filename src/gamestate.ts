@@ -27,7 +27,10 @@ export function doesCellExistAndHaveStone(
   cell: Coordinates,
   stoneColor: "black"
 ): boolean {
-  return doesCellExist(gameState, cell) && doesCellHaveStone(gameState, cell, stoneColor);
+  return (
+    doesCellExist(gameState, cell) &&
+    doesCellHaveStone(gameState, cell, stoneColor)
+  );
 }
 
 export function doesCellExist(
@@ -49,4 +52,49 @@ export function doesCellHaveStone(
   stoneColor: "black"
 ): boolean {
   return gameState.board[cell.y][cell.x].value == stoneColor;
+}
+export function generateNewBoard(): GameState {
+  return {
+    board: [
+      [
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+      ],
+      [
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+      ],
+      [
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+      ],
+      [
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+        { value: "empty" },
+      ],
+    ],
+  };
+}
+
+export function updateGameState(
+  previousState: GameState,
+  nextMove: Coordinates
+): GameState {
+  if (!doesCellExist(previousState, nextMove)) {
+    throw new Error("Given coordinates are outside the scope of the board.");
+  }
+  if (previousState.board[nextMove.y][nextMove.x].value !== "empty") {
+    throw new Error("A stone is already set in the selected cell.");
+  }
+  const newGameState = { board: previousState.board };
+  newGameState.board[nextMove.y][nextMove.x].value = "black";
+  return newGameState;
 }

@@ -133,4 +133,3 @@ function addBidirectionalEdge(
     1
   );
 }
-
