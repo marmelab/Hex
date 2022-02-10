@@ -170,15 +170,19 @@ export function generateNewBoard(): GameState {
 
 export function updateGameState(
   previousState: GameState,
-  nextMove: Coordinates
+  nextMove: { coordinates: Coordinates; stoneColor: stoneColor }
 ): GameState {
-  if (!doesCellExist(previousState, nextMove)) {
+  if (!doesCellExist(previousState, nextMove.coordinates)) {
     throw new Error("Given coordinates are outside the scope of the board.");
   }
-  if (previousState.board[nextMove.y][nextMove.x].value !== "empty") {
+  if (
+    doesCellHaveStone(previousState, nextMove.coordinates, "black") ||
+    doesCellHaveStone(previousState, nextMove.coordinates, "white")
+  ) {
     throw new Error("A stone is already set in the selected cell.");
   }
   const newGameState = { board: previousState.board };
-  newGameState.board[nextMove.y][nextMove.x].value = "black";
+  newGameState.board[nextMove.coordinates.y][nextMove.coordinates.x].value =
+    nextMove.stoneColor;
   return newGameState;
 }
