@@ -7,7 +7,7 @@ export interface GameState {
 }
 
 export interface Cell {
-  value: "empty" | "black";
+  value: "empty" | "black" | "white";
 }
 
 export function playerHasWon(gameState: GameState): boolean {
