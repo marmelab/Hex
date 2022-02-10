@@ -23,6 +23,12 @@ export function playerHasWon(
 function doesPathExistForPlayer(
   hexBoardGraph: HexBoardGraph,
   stoneColor: stoneColor
+): boolean {
+  if (stoneColor == "black") {
+    return !!doesPathExist(hexBoardGraph, "black-start", "black-end");
+  } else {
+    return !!doesPathExist(hexBoardGraph, "white-start", "white-end");
+  }
 }
 
 export function doesCellExistAndHaveStone(

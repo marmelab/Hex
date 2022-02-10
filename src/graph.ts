@@ -17,7 +17,7 @@ export function createGraphFromGameState(
   };
 
   createVerticesFromBoard(gameState, hexBoardGraph);
-  createEdgesFromGameState(gameState, hexBoardGraph);
+  createEdgesFromGameState(gameState, hexBoardGraph, stoneColor);
 
   return hexBoardGraph;
 }
