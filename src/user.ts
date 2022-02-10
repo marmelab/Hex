@@ -1,5 +1,5 @@
 import { createInterface } from "readline";
-import { stoneColor } from "./gameState";
+import { StoneColor } from "./gameState";
 import { UTF16_CODE_OF_LETTER_A, Coordinates } from "./utils";
 
 export function getBoardCoordinatesFromUserInput(
@@ -18,7 +18,7 @@ export function getBoardCoordinatesFromUserInput(
 }
 
 export function askCellCoordinatesToUser(
-  stoneUser: stoneColor
+  stoneUser: StoneColor
 ): Promise<string> {
   const readline = createInterface({
     input: process.stdin,

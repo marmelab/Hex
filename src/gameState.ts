@@ -10,11 +10,11 @@ export interface Cell {
   value: "empty" | "black" | "white";
 }
 
-export type stoneColor = "black" | "white";
+export type StoneColor = "black" | "white";
 
 export function playerHasWon(
   gameState: GameState,
-  stoneColor: stoneColor
+  stoneColor: StoneColor
 ): boolean {
   const hexBoardGraph = createGraphFromGameState(gameState, stoneColor);
   return doesPathExistForPlayer(hexBoardGraph, stoneColor);
@@ -22,19 +22,19 @@ export function playerHasWon(
 
 function doesPathExistForPlayer(
   hexBoardGraph: HexBoardGraph,
-  stoneColor: stoneColor
+  stoneColor: StoneColor
 ): boolean {
   if (stoneColor == "black") {
-    return !!doesPathExist(hexBoardGraph, "black-start", "black-end");
+    return doesPathExist(hexBoardGraph, "black-start", "black-end");
   } else {
-    return !!doesPathExist(hexBoardGraph, "white-start", "white-end");
+    return doesPathExist(hexBoardGraph, "white-start", "white-end");
   }
 }
 
 export function doesCellExistAndHaveStone(
   gameState: GameState,
   cell: Coordinates,
-  stoneColor: stoneColor
+  stoneColor: StoneColor
 ): boolean {
   return (
     doesCellExist(gameState, cell) &&
@@ -58,7 +58,7 @@ export function doesCellExist(
 export function doesCellHaveStone(
   gameState: GameState,
   cell: Coordinates,
-  stoneColor: stoneColor
+  stoneColor: StoneColor
 ): boolean {
   return gameState.board[cell.y][cell.x].value == stoneColor;
 }
@@ -170,7 +170,7 @@ export function generateNewBoard(): GameState {
 
 export function updateGameState(
   previousState: GameState,
-  nextMove: { coordinates: Coordinates; stoneColor: stoneColor }
+  nextMove: { coordinates: Coordinates; stoneColor: StoneColor }
 ): GameState {
   if (!doesCellExist(previousState, nextMove.coordinates)) {
     throw new Error("Given coordinates are outside the scope of the board.");

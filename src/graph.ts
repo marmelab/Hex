@@ -1,5 +1,5 @@
 import * as jkstra from "jkstra";
-import { doesCellExistAndHaveStone, GameState, stoneColor } from "./gameState";
+import { doesCellExistAndHaveStone, GameState, StoneColor } from "./gameState";
 import { Coordinates } from "./utils";
 
 export interface HexBoardGraph {
@@ -9,7 +9,7 @@ export interface HexBoardGraph {
 
 export function createGraphFromGameState(
   gameState: GameState,
-  stoneColor: stoneColor
+  stoneColor: StoneColor
 ): HexBoardGraph {
   const hexBoardGraph: HexBoardGraph = {
     graph: new jkstra.Graph(),
@@ -43,7 +43,7 @@ function createVerticesFromBoard(
 function createEdgesFromGameState(
   gameState: GameState,
   hexBoardGraph: HexBoardGraph,
-  stoneColor: stoneColor
+  stoneColor: StoneColor
 ) {
   // Add edge pair for all nodes with one of its 3 possible neighbors
   // if the stone color matches
@@ -95,7 +95,7 @@ function createEdgesFromGameState(
 function createEdgePairForNeighbor(
   gameState: GameState,
   hexBoardGraph: HexBoardGraph,
-  stoneColor: stoneColor,
+  stoneColor: StoneColor,
   currentCell: Coordinates,
   neighbor: Coordinates
 ) {

@@ -2,7 +2,7 @@ import {
   GameState,
   updateGameState,
   playerHasWon,
-  stoneColor,
+  StoneColor,
 } from "./gameState";
 import {
   askCellCoordinatesToUser,
@@ -15,7 +15,7 @@ export async function runGameLoop(initialGameState: GameState) {
   let currentState = initialGameState;
   let hasBlackWon = playerHasWon(currentState, "black");
   let hasWhiteWon = playerHasWon(currentState, "white");
-  let activeStoneColor: stoneColor = "white";
+  let activeStoneColor: StoneColor = "white";
   while (!hasBlackWon && !hasWhiteWon) {
     let areUserCoordinatesValid = false;
     while (!areUserCoordinatesValid) {
