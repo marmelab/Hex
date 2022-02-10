@@ -1,9 +1,9 @@
 import expect from "expect";
 import { GameState, playerHasWon } from "./gamestate";
 
-function parseGameStateFromMultilineString(gameStateStr: string): GameState {
+function parseGameStateFromMultilineString(gameState: string): GameState {
     return {
-        board: gameStateStr.split(/\r?\n/)
+        board: gameState.split(/\r?\n/)
             .filter(line => line.replace(/ /g, '').length > 0)
             .map(line => line.replace(/ /g, '').split('')
                 .map(cell => {
