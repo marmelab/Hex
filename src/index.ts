@@ -1,6 +1,7 @@
 import { parseGameStateFromFile } from "./parseConfigFile";
-import { playerHasWon, generateNewBoard } from "./gameState";
+import { generateNewBoard } from "./gameState";
 import { runGameLoop } from "./game";
+import { initScreen, renderBoard } from "./gui";
 
 // Config vars
 let filePath: string;
@@ -24,4 +25,11 @@ if (filePath) {
   gameState = generateNewBoard();
 }
 
-runGameLoop(gameState);
+//runGameLoop(gameState);
+
+// TESTS BLESSED
+
+const screen = initScreen();
+
+renderBoard(gameState, screen);
+
