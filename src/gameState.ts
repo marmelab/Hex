@@ -46,13 +46,23 @@ export function doesCellExist(
   return true;
 }
 
+/**
+ * Returns true if a given cell has a stone placed on it.
+ * If a `stoneColor` is defined, this function will return true only if the cell
+ * has a stone on it and this stone is of the given color.
+ */
 export function doesCellHaveStone(
   gameState: GameState,
   cell: Coordinates,
-  stoneColor: "black"
+  stoneColor?: "black"
 ): boolean {
-  return gameState.board[cell.y][cell.x].value == stoneColor;
+  if (stoneColor) {
+    return gameState.board[cell.y][cell.x].value == stoneColor;
+  } else {
+    return gameState.board[cell.y][cell.x].value !== "empty";
+  }
 }
+
 export function generateNewBoard(): GameState {
   return {
     board: [
@@ -166,7 +176,7 @@ export function updateGameState(
   if (!doesCellExist(previousState, nextMove)) {
     throw new Error("Given coordinates are outside the scope of the board.");
   }
-  if (previousState.board[nextMove.y][nextMove.x].value !== "empty") {
+  if (doesCellHaveStone(previousState, nextMove)) {
     throw new Error("A stone is already set in the selected cell.");
   }
   const newGameState = { board: previousState.board };

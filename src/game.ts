@@ -4,11 +4,18 @@ import {
   getBoardCoordinatesFromUserInput,
 } from "./user";
 import { displayGameState } from "./render";
+import { Coordinates } from "./utils";
+import * as blessed from "blessed";
+import { renderBoardAndLoop } from "./gui";
+
+export interface GameEvent {
+  type: "click";
+  coords: Coordinates;
+}
 
 export async function runGameLoop(initialGameState: GameState) {
   displayGameState(initialGameState);
   let currentState = initialGameState;
-  let continueGame = true;
   while (!playerHasWon(currentState)) {
     let areUserCoordinatesValid = false;
     while (!areUserCoordinatesValid) {
@@ -25,3 +32,18 @@ export async function runGameLoop(initialGameState: GameState) {
   }
   console.log("Player has won the game!");
 }
+
+export function handleGameEvent(previousState: GameState, event: GameEvent) {
+  switch (event.type) {
+    case "click":
+      updateGameState(previousState, event.coords);
+      break;
+    default:
+      throw Error(`Invlid event recieved: ${event}`);
+  }
+}
+
+export function startGameLoop(initialGameState: GameState, screen: blessed.Widgets.Screen) {
+  renderBoardAndLoop(initialGameState, screen, handleGameEvent, playerHasWon);
+}
+
