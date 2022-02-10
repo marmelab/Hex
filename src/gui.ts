@@ -1,5 +1,5 @@
 import * as blessed from "blessed";
-import { Cell, doesCellHaveStone, GameState, someoneWon, updateGameState } from "./gameState";
+import { Cell, doesCellHaveStone, GameState, playerHasWon, someoneWon, updateGameState, whoHasWon } from "./gameState";
 import { UTF16_CODE_OF_LETTER_A } from "./utils";
 
 const CELL_WIDTH = 2;
@@ -9,6 +9,7 @@ const PADDING_HEIGHT = 2;
 const RENDERED_STONE = "⬢";
 const RENDERED_NO_STONE = "⬡";
 const RENDERED_SPACE = " ";
+const TEXT_LEFT_OFFSET = -30;
 
 export function initScreen(): blessed.Widgets.Screen {
   const screen = blessed.screen({
@@ -77,7 +78,7 @@ export function renderBoardAndLoop(
 
   const text = blessed.text({
     top: 0,
-    left: -20,
+    left: TEXT_LEFT_OFFSET,
     content: "The Game of Hex",
     tags: true,
   });
@@ -100,24 +101,25 @@ export function renderBoardAndLoop(
 function createBoxForPlayerTurn(gameState: GameState): blessed.Widgets.TextElement {
   return blessed.text({
     top: 'center',
-    left: -20,
+    left: TEXT_LEFT_OFFSET,
     content: `{bold}${gameState.turn}{/bold} turn to play`,
     tags: true,
   });
 }
 
 function createWinMsg(gameState: GameState): blessed.Widgets.TextElement {
+  const winner = whoHasWon(gameState);
   return blessed.text({
-    top: CELL_HEIGHT * gameState.board.length,
-    left: -20,
-    content: `Player {bold}${gameState.turn}{/bold} has won!`,
+    top: CELL_HEIGHT * (gameState.board.length - 1),
+    left: TEXT_LEFT_OFFSET,
+    content: `Player {bold}${winner}{/bold} has won!`,
     tags: true,
   });
 }
 function createHelpMsg(gameState: GameState): blessed.Widgets.TextElement {
   return blessed.text({
-    top: (CELL_HEIGHT + 1) * gameState.board.length,
-    left: -20,
+    top: CELL_HEIGHT * gameState.board.length,
+    left: TEXT_LEFT_OFFSET,
     content: "Press q to exit",
     tags: true,
     style: {
