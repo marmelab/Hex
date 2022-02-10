@@ -1,7 +1,7 @@
 import { parseGameStateFromFile } from "./parseConfigFile";
 import { generateNewBoard } from "./gameState";
 import { initScreen } from "./gui";
-import { startGameLoop } from "./game";
+import { renderBoardAndLoop } from "./gui";
 
 // Config vars
 let filePath: string;
@@ -26,7 +26,6 @@ if (filePath) {
 }
 
 const screen = initScreen();
-startGameLoop(gameState, screen);
+renderBoardAndLoop(gameState, screen);
 
-console.log("Player has won the game!");
 

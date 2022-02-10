@@ -28,7 +28,10 @@ export function parseConfigFile(
   for (const row of data) {
     board.push(parseRow(row, rowsCount, filePath));
   }
-  const gameState = { board: board };
+  const gameState: GameState = {
+    turn: "white",
+    board: board
+  };
   return gameState;
 }
 

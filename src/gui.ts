@@ -1,6 +1,5 @@
 import * as blessed from "blessed";
-import { GameEvent } from "./game";
-import { Cell, doesCellHaveStone, GameState } from "./gameState";
+import { Cell, doesCellHaveStone, GameState, someoneWon, updateGameState } from "./gameState";
 import { UTF16_CODE_OF_LETTER_A } from "./utils";
 
 const CELL_WIDTH = 2;
@@ -24,9 +23,7 @@ export function initScreen(): blessed.Widgets.Screen {
 
 export function renderBoardAndLoop(
   gameState: GameState,
-  screen: blessed.Widgets.Screen,
-  gameEventHandler: { (previousState: GameState, event: GameEvent): void },
-  winDetectionHandler: { (gameState: GameState): boolean }
+  screen: blessed.Widgets.Screen
 ) {
 
   const boardLayout = blessed.box({
@@ -74,33 +71,65 @@ export function renderBoardAndLoop(
     }));
     // Create line cells
     line.forEach((_, x) => {
-      boardLayout.append(createBoxForCell(gameState, screen, x, y, gameEventHandler, winDetectionHandler));
+      boardLayout.append(createBoxForCell(gameState, screen, x, y));
     })
   });
 
   const text = blessed.text({
-    top: 'center',
+    top: 0,
     left: -20,
     content: "The Game of Hex",
     tags: true,
   });
   boardLayout.append(text);
 
+  // Add player turn label
+  boardLayout.append(createBoxForPlayerTurn(gameState));
+
+  // Add msg to tell if so has won
+  if (someoneWon(gameState)) {
+    boardLayout.append(createWinMsg(gameState));
+    boardLayout.append(createHelpMsg(gameState));
+  }
+
   screen.append(boardLayout);
 
-  if (winDetectionHandler(gameState)) {
-    screen.destroy();
-  } else {
-    screen.render();
-  }
+  screen.render();
+}
+
+function createBoxForPlayerTurn(gameState: GameState): blessed.Widgets.TextElement {
+  return blessed.text({
+    top: 'center',
+    left: -20,
+    content: `{bold}${gameState.turn}{/bold} turn to play`,
+    tags: true,
+  });
+}
+
+function createWinMsg(gameState: GameState): blessed.Widgets.TextElement {
+  return blessed.text({
+    top: CELL_HEIGHT * gameState.board.length,
+    left: -20,
+    content: `Player {bold}${gameState.turn}{/bold} has won!`,
+    tags: true,
+  });
+}
+function createHelpMsg(gameState: GameState): blessed.Widgets.TextElement {
+  return blessed.text({
+    top: (CELL_HEIGHT + 1) * gameState.board.length,
+    left: -20,
+    content: "Press q to exit",
+    tags: true,
+    style: {
+      fg: "gray"
+    }
+  });
 }
 
 function createBoxForCell(gameState: GameState,
   screen: blessed.Widgets.Screen,
   x: number,
-  y: number,
-  gameEventHandler: { (previousState: GameState, event: GameEvent): void },
-  winDetectionHandler: { (gameState: GameState): boolean }
+  y: number
 ): blessed.Widgets.TextElement {
   const cellBox = blessed.text({
     top: (y + 1) * CELL_HEIGHT,
@@ -112,14 +141,10 @@ function createBoxForCell(gameState: GameState,
       bg: 'gray'
     }
   });
-  if (!doesCellHaveStone(gameState, { x, y })) {
+  if (!doesCellHaveStone(gameState, { x, y }) && !someoneWon(gameState)) {
     cellBox.on('click', () => {
-      const event: GameEvent = {
-        type: "click",
-        coords: { x, y }
-      };
-      gameEventHandler(gameState, event);
-      renderBoardAndLoop(gameState, screen, gameEventHandler, winDetectionHandler);
+      updateGameState(gameState, { x, y });
+      renderBoardAndLoop(gameState, screen);
     });
   }
   return cellBox;

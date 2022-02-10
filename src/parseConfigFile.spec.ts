@@ -15,6 +15,7 @@ describe("load game state from a config file content", () => {
     const ouput = parseConfigFile(input, filePath);
     // then
     const expected: GameState = {
+      turn: "white",
       board: [
         [{ value: "black" }, { value: "empty" }, { value: "black" }],
         [{ value: "empty" }, { value: "empty" }, { value: "empty" }],
@@ -75,6 +76,7 @@ describe("load game state from a config file content", () => {
     const ouput = parseConfigFile(input, filePath);
     // then
     const expected: GameState = {
+      turn: "white",
       board: [],
     };
     expect(ouput).toStrictEqual(expected);

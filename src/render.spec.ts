@@ -5,6 +5,7 @@ import { GameState } from "./gameState";
 describe("Render a boad in string from a game state object", () => {
   it("Should get a 2-rows board with all cells empty", () => {
     const twoRowsAllCellsEmpty: GameState = {
+      turn: "white",
       board: [
         [{ value: "empty" }, { value: "empty" }],
         [{ value: "empty" }, { value: "empty" }],
@@ -22,6 +23,7 @@ describe("Render a boad in string from a game state object", () => {
   });
   it("Should get a 2-rows board with all cells black", () => {
     const twoRowsWithAllCellsBlack: GameState = {
+      turn: "white",
       board: [
         [{ value: "black" }, { value: "black" }],
         [{ value: "black" }, { value: "black" }],
@@ -39,6 +41,7 @@ describe("Render a boad in string from a game state object", () => {
   });
   it("Should get a 2-rows board with mixed cells values", () => {
     const twoRowsWithMixedCellValues: GameState = {
+      turn: "white",
       board: [
         [{ value: "empty" }, { value: "black" }],
         [{ value: "empty" }, { value: "black" }],
@@ -56,6 +59,7 @@ describe("Render a boad in string from a game state object", () => {
   });
   it("Should get a 5-rows board with mixed cells values", () => {
     const fiveRowsWithMixedCellValues: GameState = {
+      turn: "white",
       board: [
         [{ value: "empty" }, { value: "black" }],
         [{ value: "empty" }, { value: "black" }],
@@ -78,7 +82,8 @@ describe("Render a boad in string from a game state object", () => {
     );
   });
   it("Should get an empty board", () => {
-    const emptyBoard = {
+    const emptyBoard: GameState = {
+      turn: "white",
       board: [],
     };
 
@@ -88,6 +93,7 @@ describe("Render a boad in string from a game state object", () => {
   });
   it("Should get an non square board", () => {
     const nonSquareBoard: GameState = {
+      turn: "white",
       board: [[{ value: "empty" }], [{ value: "empty" }, { value: "black" }]],
     };
 
