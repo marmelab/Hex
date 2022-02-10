@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { Cell, GameState } from "./gamestate";
+import { Cell, GameState } from "./gameState";
 
 const BLACK_STONE_VALUE = 1;
 

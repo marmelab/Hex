@@ -1,4 +1,4 @@
-import { GameState, updateGameState } from "./gamestate";
+import { GameState, updateGameState, playerHasWon } from "./gameState";
 import {
   askCellCoordinatesToUser,
   getBoardCoordinatesFromUserInput,
@@ -9,7 +9,7 @@ export async function runGameLoop(initialGameState: GameState) {
   displayGameState(initialGameState);
   let currentState = initialGameState;
   let continueGame = true;
-  while (continueGame) {
+  while (!playerHasWon(currentState)) {
     let areUserCoordinatesValid = false;
     while (!areUserCoordinatesValid) {
       try {
@@ -23,4 +23,5 @@ export async function runGameLoop(initialGameState: GameState) {
     }
     displayGameState(currentState);
   }
+  console.log("Player has won the game!");
 }

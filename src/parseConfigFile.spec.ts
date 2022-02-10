@@ -1,5 +1,5 @@
 import expect from "expect";
-import { GameState } from "./gamestate";
+import { GameState } from "./gameState";
 import { parseConfigFile } from "./parseConfigFile";
 
 describe("load game state from a config file content", () => {
