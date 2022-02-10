@@ -35,7 +35,11 @@ if (filePath) {
   const userBoardSizeOrDefault = isNaN(boardSize)
     ? DEFAULT_BOARD_SIZE
     : parseInt(boardSize);
-  gameState = generateNewBoard();
+  if (userBoardSizeOrDefault < 2) {
+    console.error("Board size need to be >= 2. Please restart the game.");
+    exit();
+  }
+  gameState = generateNewBoard(userBoardSizeOrDefault);
 }
 
 runGameLoop(gameState);
