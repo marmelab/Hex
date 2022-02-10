@@ -1,5 +1,5 @@
 import * as blessed from "blessed";
-import { Cell, doesCellHaveStone, GameState, playerHasWon, someoneWon, updateGameState, whoHasWon } from "./gameState";
+import { Cell, doesCellHaveStone, GameState, someoneWon, updateGameState, whoHasWon } from "./gameState";
 import { UTF16_CODE_OF_LETTER_A } from "./utils";
 
 const CELL_WIDTH = 2;
