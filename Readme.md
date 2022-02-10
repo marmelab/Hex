@@ -14,8 +14,37 @@ yarn
 
 ### Playing
 
+#### From scratch
 ```sh
 yarn start
+```
+
+#### From a config file
+```sh
+yarn start -f=config.json
+```
+
+With config.json at the root of the project.
+Example of content :
+```
+[
+    [
+        {
+            "value": 1
+        },
+        {
+            "value": null
+        }
+    ],
+    [
+        {
+            "value": null
+        },
+        {
+            "value": 2
+        }
+    ]
+]
 ```
 
 ### Developing
