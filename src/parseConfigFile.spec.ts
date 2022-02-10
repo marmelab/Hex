@@ -8,7 +8,7 @@ describe("load game state from a config file content", () => {
     const input = `[
       [{ "value": 1 }, { "value": null }, { "value": 1 }],
       [{ "value": null }, { "value": null }, { "value": null }],
-      [{ "value": null }, { "value": null }, { "value": null }]
+      [{ "value": 2 }, { "value": null }, { "value": 2 }]
     ]`;
     const filePath = "configfile.json";
     // when
@@ -18,7 +18,7 @@ describe("load game state from a config file content", () => {
       board: [
         [{ value: "black" }, { value: "empty" }, { value: "black" }],
         [{ value: "empty" }, { value: "empty" }, { value: "empty" }],
-        [{ value: "empty" }, { value: "empty" }, { value: "empty" }],
+        [{ value: "white" }, { value: "empty" }, { value: "white" }],
       ],
     };
     expect(ouput).toStrictEqual(expected);
@@ -55,7 +55,7 @@ describe("load game state from a config file content", () => {
   it("should throw an error if an unrecognized value is found", () => {
     // given
     const input = `[
-      [{ "value": 1 }, { "value": 2 }, { "value": 1 }],
+      [{ "value": 1 }, { "value": 99 }, { "value": 1 }],
       [{ "value": null }, { "value": null }, { "value": null }],
       [{ "value": null }, { "value": null }, { "value": null }]
     ]`;
@@ -63,7 +63,7 @@ describe("load game state from a config file content", () => {
     // when
     const func = () => parseConfigFile(input, filePath);
     // then
-    expect(func).toThrowError("Cannot parse config file: Invalid value: 2");
+    expect(func).toThrowError("Cannot parse config file: Invalid value: 99");
   });
 
   it("should load a an empty board when the file is empty", () => {

@@ -4,28 +4,58 @@ import { Coordinates } from "./utils";
 
 export interface GameState {
   board: Array<Array<Cell>>;
+  turn: StoneColor;
 }
 
 export interface Cell {
-  value: "empty" | "black";
+  value: "empty" | "black" | "white";
 }
 
-export function playerHasWon(gameState: GameState): boolean {
-  const hexBoardGraph = createGraphFromGameState(gameState);
-  return doesPathExistForPlayer(hexBoardGraph);
+export type StoneColor = "black" | "white";
+
+export function whoHasWon(
+  gameState: GameState
+): StoneColor {
+  let stoneColor: StoneColor = "black";
+  if (playerHasWon(gameState, stoneColor)) {
+    return stoneColor;
+  }
+  stoneColor = "white";
+  if (playerHasWon(gameState, stoneColor)) {
+    return stoneColor;
+  }
+  return null;
 }
 
-function doesPathExistForPlayer(hexBoardGraph: HexBoardGraph): boolean {
-  const pathBlack = doesPathExist(hexBoardGraph, "black-start", "black-end");
-  const pathWhite = doesPathExist(hexBoardGraph, "white-start", "white-end");
+export function someoneWon(
+  gameState: GameState
+): boolean {
+  return !!whoHasWon(gameState);
+}
 
-  return !!(pathBlack || pathWhite);
+export function playerHasWon(
+  gameState: GameState,
+  stoneColor: StoneColor
+): boolean {
+  const hexBoardGraph = createGraphFromGameState(gameState, stoneColor);
+  return doesPathExistForPlayer(hexBoardGraph, stoneColor);
+}
+
+function doesPathExistForPlayer(
+  hexBoardGraph: HexBoardGraph,
+  stoneColor: StoneColor
+): boolean {
+  if (stoneColor == "black") {
+    return doesPathExist(hexBoardGraph, "black-start", "black-end");
+  } else {
+    return doesPathExist(hexBoardGraph, "white-start", "white-end");
+  }
 }
 
 export function doesCellExistAndHaveStone(
   gameState: GameState,
   cell: Coordinates,
-  stoneColor: "black"
+  stoneColor: StoneColor
 ): boolean {
   return (
     doesCellExist(gameState, cell) &&
@@ -54,7 +84,7 @@ export function doesCellExist(
 export function doesCellHaveStone(
   gameState: GameState,
   cell: Coordinates,
-  stoneColor?: "black"
+  stoneColor?: StoneColor
 ): boolean {
   if (stoneColor) {
     return gameState.board[cell.y][cell.x].value == stoneColor;
@@ -65,6 +95,7 @@ export function doesCellHaveStone(
 
 export function generateNewBoard(): GameState {
   return {
+    turn: "white",
     board: [
       [
         { value: "empty" },
@@ -179,7 +210,8 @@ export function updateGameState(
   if (doesCellHaveStone(previousState, nextMove)) {
     throw new Error("A stone is already set in the selected cell.");
   }
-  const newGameState = { board: previousState.board };
-  newGameState.board[nextMove.y][nextMove.x].value = "black";
+  const newTurn: StoneColor = previousState.turn == "white" ? "black" : "white";
+  const newGameState = { board: previousState.board, turn: newTurn };
+  newGameState.board[nextMove.y][nextMove.x].value = previousState.turn;
   return newGameState;
 }
