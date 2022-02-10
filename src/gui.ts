@@ -1,6 +1,7 @@
 import * as blessed from "blessed";
 import { GameEvent } from "./game";
 import { Cell, doesCellHaveStone, GameState } from "./gameState";
+import { UTF16_CODE_OF_LETTER_A } from "./utils";
 
 const CELL_WIDTH = 2;
 const CELL_HEIGHT = 1;
@@ -31,8 +32,8 @@ export function renderBoardAndLoop(
   const boardLayout = blessed.box({
     top: 'center',
     left: 'center',
-    width: CELL_WIDTH * gameState.board.length * 1.5 + PADDING_WIDTH,
-    height: CELL_HEIGHT * gameState.board.length + PADDING_HEIGHT,
+    width: CELL_WIDTH * (gameState.board.length + 1) * 1.5 + PADDING_WIDTH,
+    height: CELL_HEIGHT * (gameState.board.length + 1) + PADDING_HEIGHT,
     tags: true,
     border: {
       type: 'line',
@@ -41,14 +42,49 @@ export function renderBoardAndLoop(
       border: {
         fg: 'white',
       },
+      bg: 'gray'
     },
   });
 
+  // Create col header labels
+  gameState.board[0].forEach((_, x) => {
+    boardLayout.append(blessed.text({
+      top: 0,
+      left: (x + 1) * CELL_WIDTH,
+      content: getColNameDisplayContent(x),
+      tags: true,
+      style: {
+        fg: 'black',
+        bg: 'gray'
+      }
+    }));
+  });
+
   gameState.board.forEach((line, y) => {
+    // Create line header label
+    boardLayout.append(blessed.text({
+      top: (y + 1) * CELL_HEIGHT,
+      left: y * CELL_WIDTH / 2,
+      content: getRowNameDisplayContent(y),
+      tags: true,
+      style: {
+        fg: 'black',
+        bg: 'gray'
+      }
+    }));
+    // Create line cells
     line.forEach((_, x) => {
       boardLayout.append(createBoxForCell(gameState, screen, x, y, gameEventHandler, winDetectionHandler));
     })
-  })
+  });
+
+  const text = blessed.text({
+    top: 'center',
+    left: -20,
+    content: "The Game of Hex",
+    tags: true,
+  });
+  boardLayout.append(text);
 
   screen.append(boardLayout);
 
@@ -65,16 +101,15 @@ function createBoxForCell(gameState: GameState,
   y: number,
   gameEventHandler: { (previousState: GameState, event: GameEvent): void },
   winDetectionHandler: { (gameState: GameState): boolean }
-): blessed.Widgets.BoxElement {
-  const cellBox = blessed.box({
-    top: y * CELL_HEIGHT,
-    left: x * CELL_WIDTH + y * CELL_WIDTH / 2,
-    width: CELL_WIDTH,
-    height: CELL_HEIGHT,
+): blessed.Widgets.TextElement {
+  const cellBox = blessed.text({
+    top: (y + 1) * CELL_HEIGHT,
+    left: (x + 1) * CELL_WIDTH + y * CELL_WIDTH / 2,
     content: getCellDisplayContent(gameState.board[y][x]),
     tags: true,
     style: {
-      fg: 'white'
+      fg: getCellDisplayColor(gameState.board[y][x]),
+      bg: 'gray'
     }
   });
   if (!doesCellHaveStone(gameState, { x, y })) {
@@ -91,5 +126,17 @@ function createBoxForCell(gameState: GameState,
 }
 
 function getCellDisplayContent(cell: Cell): string {
-  return RENDERED_SPACE + (cell.value == "black" ? RENDERED_STONE : RENDERED_NO_STONE);
+  return RENDERED_SPACE + (cell.value == "empty" ? RENDERED_NO_STONE : RENDERED_STONE);
+}
+
+function getCellDisplayColor(cell: Cell): string {
+  return cell.value == "black" ? "black" : "white";
+}
+
+function getRowNameDisplayContent(rowNumber: number): string {
+  return RENDERED_SPACE + String(rowNumber + 1);
+}
+
+function getColNameDisplayContent(colNumber: number): string {
+  return RENDERED_SPACE + String.fromCharCode(colNumber + UTF16_CODE_OF_LETTER_A);
 }
