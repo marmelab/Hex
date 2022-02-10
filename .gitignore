@@ -1,4 +1,4 @@
 node_modules
 dist
 .vscode/launch.json
-configfile.json
+test/configfiles
