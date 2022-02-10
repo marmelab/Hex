@@ -17,6 +17,7 @@ const RENDERED_STONE = "⬢";
 const RENDERED_NO_STONE = "⬡";
 const RENDERED_SPACE = " ";
 const TEXT_LEFT_OFFSET = -30;
+const HOVER_FG_COLOR = "#999999";
 
 export function initScreen(): blessed.Widgets.Screen {
   const screen = blessed.screen({
@@ -208,6 +209,9 @@ function createBoxForCell(
     style: {
       fg: getCellDisplayColor(gameState.board[y][x]),
       bg: "gray",
+      hover: {
+        fg: (!doesCellHaveStone(gameState, { x, y }) && !someoneWon(gameState)) ? HOVER_FG_COLOR : getCellDisplayColor(gameState.board[y][x])
+      }
     },
   });
   if (!doesCellHaveStone(gameState, { x, y }) && !someoneWon(gameState)) {
