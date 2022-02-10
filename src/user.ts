@@ -1,4 +1,5 @@
 import { createInterface } from "readline";
+import { stoneColor } from "./gameState";
 import { UTF16_CODE_OF_LETTER_A, Coordinates } from "./utils";
 
 export function getBoardCoordinatesFromUserInput(
@@ -16,14 +17,18 @@ export function getBoardCoordinatesFromUserInput(
   }
 }
 
-export function askCellCoordinatesToUser(): Promise<string> {
+export function askCellCoordinatesToUser(
+  stoneUser: stoneColor
+): Promise<string> {
   const readline = createInterface({
     input: process.stdin,
     output: process.stdout,
   });
   return new Promise((resolve) => {
     readline.question(
-      "Where would you like to put your stone ?",
+      `$Hey ${
+        stoneUser == "black" ? "Black" : "White"
+      } where would you like to put your stone ? `,
       (cellCoordinates) => {
         readline.close();
         resolve(cellCoordinates);

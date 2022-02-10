@@ -10,22 +10,25 @@ export interface Cell {
   value: "empty" | "black" | "white";
 }
 
-export function playerHasWon(gameState: GameState): boolean {
-  const hexBoardGraph = createGraphFromGameState(gameState);
-  return doesPathExistForPlayer(hexBoardGraph);
+export type stoneColor = "black" | "white";
+
+export function playerHasWon(
+  gameState: GameState,
+  stoneColor: stoneColor
+): boolean {
+  const hexBoardGraph = createGraphFromGameState(gameState, stoneColor);
+  return doesPathExistForPlayer(hexBoardGraph, stoneColor);
 }
 
-function doesPathExistForPlayer(hexBoardGraph: HexBoardGraph): boolean {
-  const pathBlack = doesPathExist(hexBoardGraph, "black-start", "black-end");
-  const pathWhite = doesPathExist(hexBoardGraph, "white-start", "white-end");
-
-  return !!(pathBlack || pathWhite);
+function doesPathExistForPlayer(
+  hexBoardGraph: HexBoardGraph,
+  stoneColor: stoneColor
 }
 
 export function doesCellExistAndHaveStone(
   gameState: GameState,
   cell: Coordinates,
-  stoneColor: "black"
+  stoneColor: stoneColor
 ): boolean {
   return (
     doesCellExist(gameState, cell) &&
@@ -49,7 +52,7 @@ export function doesCellExist(
 export function doesCellHaveStone(
   gameState: GameState,
   cell: Coordinates,
-  stoneColor: "black"
+  stoneColor: stoneColor
 ): boolean {
   return gameState.board[cell.y][cell.x].value == stoneColor;
 }
