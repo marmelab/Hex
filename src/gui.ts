@@ -143,7 +143,7 @@ function createBoxForCell(gameState: GameState,
   });
   if (!doesCellHaveStone(gameState, { x, y }) && !someoneWon(gameState)) {
     cellBox.on('click', () => {
-      updateGameState(gameState, { x, y });
+      gameState = updateGameState(gameState, { x, y });
       renderBoardAndLoop(gameState, screen);
     });
   }
