@@ -21,7 +21,7 @@ yarn start
 
 #### From a config file
 ```sh
-yarn start -f=config.json
+yarn start -f config.json
 ```
 
 With config.json at the root of the project.

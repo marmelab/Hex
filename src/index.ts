@@ -1,23 +1,21 @@
+import { program } from "commander";
 import { parseGameStateFromFile } from "./parseConfigFile";
 import { playerHasWon, generateNewBoard } from "./gameState";
 import { runGameLoop } from "./game";
 
-// Config vars
-let filePath: string;
+program.option(
+  "-f, --file <filePath>",
+  "define the config file to use as default board"
+);
 
-// Parse cmd line args
-process.argv.forEach((arg, i) => {
-  if (i > 1) {
-    // Ignore first two args
-    if (arg.startsWith("-f=")) {
-      filePath = arg.substring(3);
-      console.debug(`Using config file: ${filePath}`);
-    }
-  }
-});
+program.parse();
+
+const params = program.opts();
+const filePath = params.file || undefined;
 
 let gameState;
 if (filePath) {
+  console.debug(`Using config file: ${filePath}`);
   gameState = parseGameStateFromFile(filePath);
 } else {
   console.log("No config file was provided. Initializing board from scratch..");
