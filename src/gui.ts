@@ -36,8 +36,8 @@ export function renderBoardAndLoop(
   const boardLayout = blessed.box({
     top: "center",
     left: "center",
-    width: CELL_WIDTH * (gameState.board.length + 1) * 1.5 + PADDING_WIDTH,
-    height: CELL_HEIGHT * (gameState.board.length + 1) + PADDING_HEIGHT,
+    width: CELL_WIDTH * (gameState.board.length + 3) * 1.5 + PADDING_WIDTH,
+    height: CELL_HEIGHT * (gameState.board.length + 3) + PADDING_HEIGHT,
     tags: true,
     border: {
       type: "line",
@@ -50,16 +50,43 @@ export function renderBoardAndLoop(
     },
   });
 
-  // Create col header labels
   gameState.board[0].forEach((_, x) => {
+    // Create col header label
     boardLayout.append(
       blessed.text({
         top: 0,
-        left: (x + 1) * CELL_WIDTH,
+        left: (x + 2) * CELL_WIDTH,
         content: getColNameDisplayContent(x),
         tags: true,
         style: {
           fg: "black",
+          bg: "gray",
+        },
+      })
+    );
+
+    // Create top edge
+    boardLayout.append(
+      blessed.text({
+        top: CELL_HEIGHT,
+        left: (x + 2) * CELL_WIDTH,
+        content: " -",
+        tags: true,
+        style: {
+          fg: "white",
+          bg: "gray",
+        },
+      })
+    );
+    // Create bottom edge
+    boardLayout.append(
+      blessed.text({
+        top: (gameState.board.length + 2) * CELL_HEIGHT,
+        left: (x + 2) * CELL_WIDTH + (gameState.board.length + 1) * CELL_WIDTH / 2,
+        content: " -",
+        tags: true,
+        style: {
+          fg: "white",
           bg: "gray",
         },
       })
@@ -70,7 +97,7 @@ export function renderBoardAndLoop(
     // Create line header label
     boardLayout.append(
       blessed.text({
-        top: (y + 1) * CELL_HEIGHT,
+        top: (y + 2) * CELL_HEIGHT,
         left: (y * CELL_WIDTH) / 2,
         content: getRowNameDisplayContent(y),
         tags: true,
@@ -84,6 +111,33 @@ export function renderBoardAndLoop(
     line.forEach((_, x) => {
       boardLayout.append(createBoxForCell(gameState, screen, x, y));
     });
+
+    // Create left edge
+    boardLayout.append(
+      blessed.text({
+        top: (y + 2) * CELL_HEIGHT,
+        left: CELL_WIDTH + (y * CELL_WIDTH) / 2,
+        content: " \\",
+        tags: true,
+        style: {
+          fg: "black",
+          bg: "gray",
+        },
+      })
+    );
+    // Create right edge
+    boardLayout.append(
+      blessed.text({
+        top: (y + 2) * CELL_HEIGHT,
+        left: (2 + gameState.board.length) * CELL_WIDTH + ((y + 1) * CELL_WIDTH) / 2,
+        content: " \\",
+        tags: true,
+        style: {
+          fg: "black",
+          bg: "gray",
+        },
+      })
+    );
   });
 
   const text = blessed.text({
@@ -147,8 +201,8 @@ function createBoxForCell(
   y: number
 ): blessed.Widgets.TextElement {
   const cellBox = blessed.text({
-    top: (y + 1) * CELL_HEIGHT,
-    left: (x + 1) * CELL_WIDTH + (y * CELL_WIDTH) / 2,
+    top: (y + 2) * CELL_HEIGHT,
+    left: (x + 2) * CELL_WIDTH + (y * CELL_WIDTH) / 2,
     content: getCellDisplayContent(gameState.board[y][x]),
     tags: true,
     style: {
