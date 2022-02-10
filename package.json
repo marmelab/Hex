@@ -20,7 +20,9 @@
     "start": "ts-node src/index.ts",
     "dev": "nodemon --quiet --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
     "build": "tsc",
-    "test": "jest"
+    "test": "jest",
+    "format": "prettier --write ./src/",
+    "watch": "tsc --watch"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.14.5",

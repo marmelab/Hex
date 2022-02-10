@@ -7,7 +7,7 @@ export function doesPathExist(
   endNodeId: string
 ): boolean {
   const dijkstra = new jkstra.algos.Dijkstra(hexBoardGraph.graph);
-  return dijkstra.shortestPath(
+  return !!dijkstra.shortestPath(
     hexBoardGraph.vertexMap.get(startNodeId),
     hexBoardGraph.vertexMap.get(endNodeId)
   );

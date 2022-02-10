@@ -19,6 +19,8 @@ function parseGameStateFromMultilineString(gameState: string): GameState {
             switch (cell) {
               case "⬢":
                 return { value: "black" };
+              case "W":
+                return { value: "white" };
               default:
                 return { value: "empty" };
             }
@@ -28,20 +30,20 @@ function parseGameStateFromMultilineString(gameState: string): GameState {
 }
 
 describe("check whether player has won the game", () => {
-  it("should say WIN with a 3x3 board with a vertical path", () => {
+  it("should say WIN for white with a 3x3 board with a vertical path", () => {
     // given
     const input = parseGameStateFromMultilineString(`
-⬡ ⬢ ⬡
- ⬡ ⬢ ⬡
-  ⬡ ⬢ ⬡
+⬡ W ⬡
+ ⬡ W ⬡
+  ⬡ W ⬡
         `);
     // when
-    const ouput = playerHasWon(input);
+    const ouputWhite = playerHasWon(input, "white");
     // then
-    expect(ouput).toStrictEqual(true);
+    expect(ouputWhite).toStrictEqual(true);
   });
 
-  it("should say WIN with a 3x3 board with an horizontal path", () => {
+  it("should say WIN for black with a 3x3 board with an horizontal path", () => {
     // given
     const input = parseGameStateFromMultilineString(`
 ⬡ ⬡ ⬡
@@ -49,12 +51,12 @@ describe("check whether player has won the game", () => {
   ⬡ ⬡ ⬡
         `);
     // when
-    const ouput = playerHasWon(input);
+    const ouputBlack = playerHasWon(input, "black");
     // then
-    expect(ouput).toStrictEqual(true);
+    expect(ouputBlack).toStrictEqual(true);
   });
 
-  it("should NOT say WIN with a 3x3 board with a first diagonal", () => {
+  it("should NOT say WIN for black nor white with a 3x3 board with a first diagonal", () => {
     // given
     const input = parseGameStateFromMultilineString(`
 ⬢ ⬡ ⬡
@@ -62,25 +64,26 @@ describe("check whether player has won the game", () => {
   ⬡ ⬡ ⬢
         `);
     // when
-    const ouput = playerHasWon(input);
+    const outputBlack = playerHasWon(input, "black");
+    const outputWhite = playerHasWon(input, "white");
     // then
-    expect(ouput).toStrictEqual(false);
+    expect(outputBlack && outputWhite).toStrictEqual(false);
   });
 
-  it("should say WIN with a 3x3 board with an anti diagonal", () => {
+  it("should say WIN for white with a 3x3 board with an anti diagonal", () => {
     // given
     const input = parseGameStateFromMultilineString(`
-⬡ ⬡ ⬢
- ⬡ ⬢ ⬡
-  ⬢ ⬡ ⬡
+⬡ ⬡ W
+ ⬡ W ⬡
+  W ⬡ ⬡
         `);
     // when
-    const ouput = playerHasWon(input);
+    const outputWhite = playerHasWon(input, "white");
     // then
-    expect(ouput).toStrictEqual(true);
+    expect(outputWhite).toStrictEqual(true);
   });
 
-  it("should NOT say WIN with a 3x3 board with an incomplete vertical path", () => {
+  it("should NOT say WIN for black nor white with a 3x3 board with an incomplete vertical path", () => {
     // given
     const input = parseGameStateFromMultilineString(`
 ⬡ ⬢ ⬡
@@ -88,27 +91,28 @@ describe("check whether player has won the game", () => {
   ⬡ ⬡ ⬡
         `);
     // when
-    const ouput = playerHasWon(input);
+    const outputBlack = playerHasWon(input, "black");
+    const outputWhite = playerHasWon(input, "white");
     // then
-    expect(ouput).toStrictEqual(false);
+    expect(outputBlack && outputWhite).toStrictEqual(false);
   });
 
-  it("should say WIN with this 5x5 board with a continuous line", () => {
+  it("should say WIN for white with this 5x5 board with a continuous line", () => {
     // given
     const input = parseGameStateFromMultilineString(`
-⬡ ⬢ ⬡ ⬡ ⬡
- ⬡ ⬢ ⬢ ⬢ ⬡
-  ⬡ ⬡ ⬡ ⬢ ⬢
-   ⬡ ⬡ ⬡ ⬢ ⬡
-    ⬡ ⬡ ⬢ ⬡ ⬡
+⬡ W ⬡ ⬡ ⬡
+ ⬡ W W W ⬡
+  ⬡ ⬡ ⬡ W W
+   ⬡ ⬡ ⬡ W ⬡
+    ⬡ ⬡ W ⬡ ⬡
         `);
     // when
-    const ouput = playerHasWon(input);
+    const outputWhite = playerHasWon(input, "white");
     // then
-    expect(ouput).toStrictEqual(true);
+    expect(outputWhite).toStrictEqual(true);
   });
 
-  it("should NOT say WIN with this 5x5 board with a non continuous line", () => {
+  it("should NOT say WIN for black nor white with this 5x5 board with a non continuous line", () => {
     // given
     const input = parseGameStateFromMultilineString(`
 ⬢ ⬡ ⬡ ⬡ ⬡
@@ -118,12 +122,13 @@ describe("check whether player has won the game", () => {
     ⬡ ⬡ ⬢ ⬡ ⬡
         `);
     // when
-    const ouput = playerHasWon(input);
+    const outputBlack = playerHasWon(input, "black");
+    const outputWhite = playerHasWon(input, "white");
     // then
-    expect(ouput).toStrictEqual(false);
+    expect(outputBlack && outputWhite).toStrictEqual(false);
   });
 
-  it("should say WIN with this 5x5 board with a Z", () => {
+  it("should say WIN for black with this 5x5 board with a Z", () => {
     // given
     const input = parseGameStateFromMultilineString(`
 ⬡ ⬡ ⬡ ⬡ ⬡
@@ -133,9 +138,9 @@ describe("check whether player has won the game", () => {
     ⬡ ⬡ ⬡ ⬡ ⬡
         `);
     // when
-    const ouput = playerHasWon(input);
+    const outputBlack = playerHasWon(input, "black");
     // then
-    expect(ouput).toStrictEqual(true);
+    expect(outputBlack).toStrictEqual(true);
   });
 });
 
@@ -257,7 +262,7 @@ describe("Update game state based on a user action", () => {
     const coordinates = { x: 1, y: 1 };
 
     const updateGameStateCall = () => {
-      updateGameState(emptyGameState, coordinates);
+      updateGameState(emptyGameState, { coordinates, stoneColor: "black" });
     };
 
     expect(updateGameStateCall).toThrowError();
@@ -269,7 +274,10 @@ describe("Update game state based on a user action", () => {
     const outsideBoardCoordinates = { x: 999, y: 999 };
 
     const updateGameStateCall = () => {
-      updateGameState(gamestate, outsideBoardCoordinates);
+      updateGameState(gamestate, {
+        coordinates: outsideBoardCoordinates,
+        stoneColor: "black",
+      });
     };
 
     expect(updateGameStateCall).toThrowError();
@@ -281,12 +289,15 @@ describe("Update game state based on a user action", () => {
     const coordinatesWithAStoneOnCell = { x: 0, y: 0 };
 
     const updateGameStateCall = () => {
-      updateGameState(gamestate, coordinatesWithAStoneOnCell);
+      updateGameState(gamestate, {
+        coordinates: coordinatesWithAStoneOnCell,
+        stoneColor: "black",
+      });
     };
 
     expect(updateGameStateCall).toThrowError();
   });
-  it("Should get a board with a stone in the up left cell", () => {
+  it("Should get a board with a black stone in the up left cell", () => {
     const gamestate: GameState = {
       board: [
         [{ value: "empty" }, { value: "empty" }, { value: "black" }],
@@ -296,7 +307,10 @@ describe("Update game state based on a user action", () => {
     };
     const topLeftCoords = { x: 0, y: 0 };
 
-    const updatedGameState = updateGameState(gamestate, topLeftCoords);
+    const updatedGameState = updateGameState(gamestate, {
+      coordinates: topLeftCoords,
+      stoneColor: "black",
+    });
 
     expect(updatedGameState).toEqual({
       board: [
@@ -306,7 +320,7 @@ describe("Update game state based on a user action", () => {
       ],
     });
   });
-  it("Should get a board with a stone in the bottom right cell", () => {
+  it("Should get a board with a white stone in the bottom right cell", () => {
     const gamestate: GameState = {
       board: [
         [{ value: "empty" }, { value: "empty" }, { value: "black" }],
@@ -316,13 +330,16 @@ describe("Update game state based on a user action", () => {
     };
     const bottomRightCoords = { x: 2, y: 2 };
 
-    const updatedGameState = updateGameState(gamestate, bottomRightCoords);
+    const updatedGameState = updateGameState(gamestate, {
+      coordinates: bottomRightCoords,
+      stoneColor: "white",
+    });
 
     expect(updatedGameState).toEqual({
       board: [
         [{ value: "empty" }, { value: "empty" }, { value: "black" }],
         [{ value: "black" }, { value: "empty" }, { value: "empty" }],
-        [{ value: "black" }, { value: "empty" }, { value: "black" }],
+        [{ value: "black" }, { value: "empty" }, { value: "white" }],
       ],
     });
   });

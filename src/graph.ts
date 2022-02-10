@@ -1,5 +1,5 @@
 import * as jkstra from "jkstra";
-import { doesCellExistAndHaveStone, GameState } from "./gameState";
+import { doesCellExistAndHaveStone, GameState, StoneColor } from "./gameState";
 import { Coordinates } from "./utils";
 
 export interface HexBoardGraph {
@@ -7,14 +7,17 @@ export interface HexBoardGraph {
   vertexMap: Map<string, jkstra.Vertex>;
 }
 
-export function createGraphFromGameState(gameState: GameState): HexBoardGraph {
+export function createGraphFromGameState(
+  gameState: GameState,
+  stoneColor: StoneColor
+): HexBoardGraph {
   const hexBoardGraph: HexBoardGraph = {
     graph: new jkstra.Graph(),
     vertexMap: new Map<string, jkstra.Vertex>(),
   };
 
   createVerticesFromBoard(gameState, hexBoardGraph);
-  createEdgesFromGameState(gameState, hexBoardGraph);
+  createEdgesFromGameState(gameState, hexBoardGraph, stoneColor);
 
   return hexBoardGraph;
 }
@@ -39,10 +42,9 @@ function createVerticesFromBoard(
 
 function createEdgesFromGameState(
   gameState: GameState,
-  hexBoardGraph: HexBoardGraph
+  hexBoardGraph: HexBoardGraph,
+  stoneColor: StoneColor
 ) {
-  const stoneColor = "black";
-
   // Add edge pair for all nodes with one of its 3 possible neighbors
   // if the stone color matches
   gameState.board.forEach((row, y) => {
@@ -93,7 +95,7 @@ function createEdgesFromGameState(
 function createEdgePairForNeighbor(
   gameState: GameState,
   hexBoardGraph: HexBoardGraph,
-  stoneColor: "black",
+  stoneColor: StoneColor,
   currentCell: Coordinates,
   neighbor: Coordinates
 ) {

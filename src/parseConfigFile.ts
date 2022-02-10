@@ -2,6 +2,7 @@ import * as fs from "fs";
 import { Cell, GameState } from "./gameState";
 
 const BLACK_STONE_VALUE = 1;
+const WHITE_STONE_VALUE = 2;
 
 export function parseGameStateFromFile(filePath: string): GameState {
   const fileContent = loadFile(filePath);
@@ -64,6 +65,9 @@ function parseCell(cell: any): Cell {
       break;
     case BLACK_STONE_VALUE:
       parsedCell = { value: "black" };
+      break;
+    case WHITE_STONE_VALUE:
+      parsedCell = { value: "white" };
       break;
     default:
       throw Error(`Cannot parse config file: Invalid value: ${cell.value}`);

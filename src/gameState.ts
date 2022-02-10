@@ -7,25 +7,34 @@ export interface GameState {
 }
 
 export interface Cell {
-  value: "empty" | "black";
+  value: "empty" | "black" | "white";
 }
 
-export function playerHasWon(gameState: GameState): boolean {
-  const hexBoardGraph = createGraphFromGameState(gameState);
-  return doesPathExistForPlayer(hexBoardGraph);
+export type StoneColor = "black" | "white";
+
+export function playerHasWon(
+  gameState: GameState,
+  stoneColor: StoneColor
+): boolean {
+  const hexBoardGraph = createGraphFromGameState(gameState, stoneColor);
+  return doesPathExistForPlayer(hexBoardGraph, stoneColor);
 }
 
-function doesPathExistForPlayer(hexBoardGraph: HexBoardGraph): boolean {
-  const pathBlack = doesPathExist(hexBoardGraph, "black-start", "black-end");
-  const pathWhite = doesPathExist(hexBoardGraph, "white-start", "white-end");
-
-  return !!(pathBlack || pathWhite);
+function doesPathExistForPlayer(
+  hexBoardGraph: HexBoardGraph,
+  stoneColor: StoneColor
+): boolean {
+  if (stoneColor == "black") {
+    return doesPathExist(hexBoardGraph, "black-start", "black-end");
+  } else {
+    return doesPathExist(hexBoardGraph, "white-start", "white-end");
+  }
 }
 
 export function doesCellExistAndHaveStone(
   gameState: GameState,
   cell: Coordinates,
-  stoneColor: "black"
+  stoneColor: StoneColor
 ): boolean {
   return (
     doesCellExist(gameState, cell) &&
@@ -49,7 +58,7 @@ export function doesCellExist(
 export function doesCellHaveStone(
   gameState: GameState,
   cell: Coordinates,
-  stoneColor: "black"
+  stoneColor: StoneColor
 ): boolean {
   return gameState.board[cell.y][cell.x].value == stoneColor;
 }
@@ -161,15 +170,19 @@ export function generateNewBoard(): GameState {
 
 export function updateGameState(
   previousState: GameState,
-  nextMove: Coordinates
+  nextMove: { coordinates: Coordinates; stoneColor: StoneColor }
 ): GameState {
-  if (!doesCellExist(previousState, nextMove)) {
+  if (!doesCellExist(previousState, nextMove.coordinates)) {
     throw new Error("Given coordinates are outside the scope of the board.");
   }
-  if (previousState.board[nextMove.y][nextMove.x].value !== "empty") {
+  if (
+    doesCellHaveStone(previousState, nextMove.coordinates, "black") ||
+    doesCellHaveStone(previousState, nextMove.coordinates, "white")
+  ) {
     throw new Error("A stone is already set in the selected cell.");
   }
   const newGameState = { board: previousState.board };
-  newGameState.board[nextMove.y][nextMove.x].value = "black";
+  newGameState.board[nextMove.coordinates.y][nextMove.coordinates.x].value =
+    nextMove.stoneColor;
   return newGameState;
 }
