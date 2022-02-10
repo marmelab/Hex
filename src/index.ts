@@ -19,9 +19,6 @@ process.argv.forEach((arg, i) => {
 let gameState;
 if (filePath) {
   gameState = parseGameStateFromFile(filePath);
-  if (playerHasWon(gameState)) {
-    console.log("Player has won the game!");
-  }
 } else {
   console.log("No config file was provided. Initializing board from scratch..");
   gameState = generateNewBoard();
