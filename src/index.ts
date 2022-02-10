@@ -27,5 +27,3 @@ if (filePath) {
 
 const screen = initScreen();
 renderBoardAndLoop(gameState, screen);
-
-

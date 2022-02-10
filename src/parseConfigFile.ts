@@ -30,7 +30,7 @@ export function parseConfigFile(
   }
   const gameState: GameState = {
     turn: "white",
-    board: board
+    board: board,
   };
   return gameState;
 }

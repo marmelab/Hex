@@ -1,5 +1,12 @@
 import * as blessed from "blessed";
-import { Cell, doesCellHaveStone, GameState, someoneWon, updateGameState, whoHasWon } from "./gameState";
+import {
+  Cell,
+  doesCellHaveStone,
+  GameState,
+  someoneWon,
+  updateGameState,
+  whoHasWon,
+} from "./gameState";
 import { UTF16_CODE_OF_LETTER_A } from "./utils";
 
 const CELL_WIDTH = 2;
@@ -13,10 +20,10 @@ const TEXT_LEFT_OFFSET = -30;
 
 export function initScreen(): blessed.Widgets.Screen {
   const screen = blessed.screen({
-    smartCSR: true
+    smartCSR: true,
   });
   // Quit on Escape, q, or Control-C.
-  screen.key(['escape', 'q', 'C-c'], function (ch, key) {
+  screen.key(["escape", "q", "C-c"], function (ch, key) {
     return process.exit(0);
   });
   return screen;
@@ -26,54 +33,57 @@ export function renderBoardAndLoop(
   gameState: GameState,
   screen: blessed.Widgets.Screen
 ) {
-
   const boardLayout = blessed.box({
-    top: 'center',
-    left: 'center',
+    top: "center",
+    left: "center",
     width: CELL_WIDTH * (gameState.board.length + 1) * 1.5 + PADDING_WIDTH,
     height: CELL_HEIGHT * (gameState.board.length + 1) + PADDING_HEIGHT,
     tags: true,
     border: {
-      type: 'line',
+      type: "line",
     },
     style: {
       border: {
-        fg: 'white',
+        fg: "white",
       },
-      bg: 'gray'
+      bg: "gray",
     },
   });
 
   // Create col header labels
   gameState.board[0].forEach((_, x) => {
-    boardLayout.append(blessed.text({
-      top: 0,
-      left: (x + 1) * CELL_WIDTH,
-      content: getColNameDisplayContent(x),
-      tags: true,
-      style: {
-        fg: 'black',
-        bg: 'gray'
-      }
-    }));
+    boardLayout.append(
+      blessed.text({
+        top: 0,
+        left: (x + 1) * CELL_WIDTH,
+        content: getColNameDisplayContent(x),
+        tags: true,
+        style: {
+          fg: "black",
+          bg: "gray",
+        },
+      })
+    );
   });
 
   gameState.board.forEach((line, y) => {
     // Create line header label
-    boardLayout.append(blessed.text({
-      top: (y + 1) * CELL_HEIGHT,
-      left: y * CELL_WIDTH / 2,
-      content: getRowNameDisplayContent(y),
-      tags: true,
-      style: {
-        fg: 'black',
-        bg: 'gray'
-      }
-    }));
+    boardLayout.append(
+      blessed.text({
+        top: (y + 1) * CELL_HEIGHT,
+        left: (y * CELL_WIDTH) / 2,
+        content: getRowNameDisplayContent(y),
+        tags: true,
+        style: {
+          fg: "black",
+          bg: "gray",
+        },
+      })
+    );
     // Create line cells
     line.forEach((_, x) => {
       boardLayout.append(createBoxForCell(gameState, screen, x, y));
-    })
+    });
   });
 
   const text = blessed.text({
@@ -98,9 +108,11 @@ export function renderBoardAndLoop(
   screen.render();
 }
 
-function createBoxForPlayerTurn(gameState: GameState): blessed.Widgets.TextElement {
+function createBoxForPlayerTurn(
+  gameState: GameState
+): blessed.Widgets.TextElement {
   return blessed.text({
-    top: 'center',
+    top: "center",
     left: TEXT_LEFT_OFFSET,
     content: `{bold}${gameState.turn}{/bold} turn to play`,
     tags: true,
@@ -123,28 +135,29 @@ function createHelpMsg(gameState: GameState): blessed.Widgets.TextElement {
     content: "Press q to exit",
     tags: true,
     style: {
-      fg: "gray"
-    }
+      fg: "gray",
+    },
   });
 }
 
-function createBoxForCell(gameState: GameState,
+function createBoxForCell(
+  gameState: GameState,
   screen: blessed.Widgets.Screen,
   x: number,
   y: number
 ): blessed.Widgets.TextElement {
   const cellBox = blessed.text({
     top: (y + 1) * CELL_HEIGHT,
-    left: (x + 1) * CELL_WIDTH + y * CELL_WIDTH / 2,
+    left: (x + 1) * CELL_WIDTH + (y * CELL_WIDTH) / 2,
     content: getCellDisplayContent(gameState.board[y][x]),
     tags: true,
     style: {
       fg: getCellDisplayColor(gameState.board[y][x]),
-      bg: 'gray'
-    }
+      bg: "gray",
+    },
   });
   if (!doesCellHaveStone(gameState, { x, y }) && !someoneWon(gameState)) {
-    cellBox.on('click', () => {
+    cellBox.on("click", () => {
       gameState = updateGameState(gameState, { x, y });
       renderBoardAndLoop(gameState, screen);
     });
@@ -153,7 +166,10 @@ function createBoxForCell(gameState: GameState,
 }
 
 function getCellDisplayContent(cell: Cell): string {
-  return RENDERED_SPACE + (cell.value == "empty" ? RENDERED_NO_STONE : RENDERED_STONE);
+  return (
+    RENDERED_SPACE +
+    (cell.value == "empty" ? RENDERED_NO_STONE : RENDERED_STONE)
+  );
 }
 
 function getCellDisplayColor(cell: Cell): string {
@@ -165,5 +181,7 @@ function getRowNameDisplayContent(rowNumber: number): string {
 }
 
 function getColNameDisplayContent(colNumber: number): string {
-  return RENDERED_SPACE + String.fromCharCode(colNumber + UTF16_CODE_OF_LETTER_A);
+  return (
+    RENDERED_SPACE + String.fromCharCode(colNumber + UTF16_CODE_OF_LETTER_A)
+  );
 }

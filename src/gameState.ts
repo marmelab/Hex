@@ -13,9 +13,7 @@ export interface Cell {
 
 export type StoneColor = "black" | "white";
 
-export function whoHasWon(
-  gameState: GameState
-): StoneColor {
+export function whoHasWon(gameState: GameState): StoneColor {
   let stoneColor: StoneColor = "black";
   if (playerHasWon(gameState, stoneColor)) {
     return stoneColor;
@@ -27,9 +25,7 @@ export function whoHasWon(
   return null;
 }
 
-export function someoneWon(
-  gameState: GameState
-): boolean {
+export function someoneWon(gameState: GameState): boolean {
   return !!whoHasWon(gameState);
 }
 
