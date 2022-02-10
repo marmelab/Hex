@@ -1,19 +1,29 @@
 import expect from "expect";
-import { GameState, playerHasWon, generateNewBoard, updateGameState } from "./gamestate";
+import {
+  GameState,
+  playerHasWon,
+  generateNewBoard,
+  updateGameState,
+} from "./gamestate";
 
 function parseGameStateFromMultilineString(gameState: string): GameState {
   return {
-    board: gameState.split(/\r?\n/)
-      .filter(line => line.replace(/ /g, '').length > 0)
-      .map(line => line.replace(/ /g, '').split('')
-        .map(cell => {
-          switch (cell) {
-            case "⬢":
-              return { value: "black" };
-            default:
-              return { value: "empty" };
-          }
-        }))
+    board: gameState
+      .split(/\r?\n/)
+      .filter((line) => line.replace(/ /g, "").length > 0)
+      .map((line) =>
+        line
+          .replace(/ /g, "")
+          .split("")
+          .map((cell) => {
+            switch (cell) {
+              case "⬢":
+                return { value: "black" };
+              default:
+                return { value: "empty" };
+            }
+          })
+      ),
   };
 }
 

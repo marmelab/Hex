@@ -27,7 +27,10 @@ export function doesCellExistAndHaveStone(
   cell: Coordinates,
   stoneColor: "black"
 ): boolean {
-  return doesCellExist(gameState, cell) && doesCellHaveStone(gameState, cell, stoneColor);
+  return (
+    doesCellExist(gameState, cell) &&
+    doesCellHaveStone(gameState, cell, stoneColor)
+  );
 }
 
 export function doesCellExist(
