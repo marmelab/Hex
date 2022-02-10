@@ -150,6 +150,7 @@ describe("Init a new board from scratch", () => {
     const generatedBoard = generateNewBoard();
 
     expect(generatedBoard).toEqual({
+      turn: "white",
       board: [
         [
           { value: "empty" },
@@ -297,7 +298,7 @@ describe("Update game state based on a user action", () => {
   });
   it("Should get a board with a black stone in the up left cell", () => {
     const gamestate: GameState = {
-      turn: "white",
+      turn: "black",
       board: [
         [{ value: "empty" }, { value: "empty" }, { value: "black" }],
         [{ value: "black" }, { value: "empty" }, { value: "empty" }],
@@ -309,7 +310,7 @@ describe("Update game state based on a user action", () => {
     const updatedGameState = updateGameState(gamestate, topLeftCoords);
 
     expect(updatedGameState).toEqual({
-      turn: "black",
+      turn: "white",
       board: [
         [{ value: "black" }, { value: "empty" }, { value: "black" }],
         [{ value: "black" }, { value: "empty" }, { value: "empty" }],
@@ -319,7 +320,7 @@ describe("Update game state based on a user action", () => {
   });
   it("Should get a board with a white stone in the bottom right cell", () => {
     const gamestate: GameState = {
-      turn: "black",
+      turn: "white",
       board: [
         [{ value: "empty" }, { value: "empty" }, { value: "black" }],
         [{ value: "black" }, { value: "empty" }, { value: "empty" }],
@@ -331,7 +332,7 @@ describe("Update game state based on a user action", () => {
     const updatedGameState = updateGameState(gamestate, bottomRightCoords);
 
     expect(updatedGameState).toEqual({
-      turn: "white",
+      turn: "black",
       board: [
         [{ value: "empty" }, { value: "empty" }, { value: "black" }],
         [{ value: "black" }, { value: "empty" }, { value: "empty" }],
