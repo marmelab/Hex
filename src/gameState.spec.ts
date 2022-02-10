@@ -4,7 +4,7 @@ import {
   playerHasWon,
   generateNewBoard,
   updateGameState,
-} from "./gamestate";
+} from "./gameState";
 
 function parseGameStateFromMultilineString(gameState: string): GameState {
   return {

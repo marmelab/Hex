@@ -1,5 +1,5 @@
 import { parseGameStateFromFile } from "./parseConfigFile";
-import { playerHasWon, generateNewBoard } from "./gamestate";
+import { playerHasWon, generateNewBoard } from "./gameState";
 import { runGameLoop } from "./game";
 
 // Config vars

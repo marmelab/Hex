@@ -1,5 +1,5 @@
 import * as jkstra from "jkstra";
-import { doesCellExistAndHaveStone, GameState } from "./gamestate";
+import { doesCellExistAndHaveStone, GameState } from "./gameState";
 import { Coordinates } from "./utils";
 
 export interface HexBoardGraph {

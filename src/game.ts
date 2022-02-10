@@ -1,4 +1,4 @@
-import { GameState, updateGameState, playerHasWon } from "./gamestate";
+import { GameState, updateGameState, playerHasWon } from "./gameState";
 import {
   askCellCoordinatesToUser,
   getBoardCoordinatesFromUserInput,

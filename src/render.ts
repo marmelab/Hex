@@ -1,4 +1,4 @@
-import { GameState, Cell } from "./gamestate";
+import { GameState, Cell } from "./gameState";
 
 const SPACE_CHARACTER = " ";
 const LINE_SEPARATOR_CHARACTER = "\n";

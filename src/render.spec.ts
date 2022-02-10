@@ -1,6 +1,6 @@
 import expect from "expect";
 import { getRenderedGameState } from "./render";
-import { GameState } from "./gamestate";
+import { GameState } from "./gameState";
 
 describe("Render a boad in string from a game state object", () => {
   it("Should get a 2-rows board with all cells empty", () => {
