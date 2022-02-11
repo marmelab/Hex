@@ -2,7 +2,7 @@ import expect from "expect";
 import {
   GameState,
   playerHasWon,
-  generateNewBoard,
+  initNewGameState,
   updateGameState,
 } from "./gameState";
 
@@ -147,7 +147,7 @@ describe("check whether player has won the game", () => {
 
 describe("Init a new board from scratch", () => {
   it("Should return a game state object with a board of size 4x4 full of empty values", () => {
-    const generatedBoard = generateNewBoard(4);
+    const generatedBoard = initNewGameState(4);
 
     expect(generatedBoard).toEqual({
       turn: "white",
@@ -180,7 +180,7 @@ describe("Init a new board from scratch", () => {
     });
   });
   it("Should return an empty board", () => {
-    const generatedBoard = generateNewBoard(0);
+    const generatedBoard = initNewGameState(0);
 
     expect(generatedBoard).toEqual({
       turn: "white",

@@ -3,6 +3,7 @@ import { doesPathExist } from "./pathfinding";
 import { Coordinates, deepCloneObject } from "./utils";
 
 const DEFAULT_CELL_VALUE: Cell = { value: "empty" };
+const NEW_GAME_STARTING_STONE_COLOR = "white";
 
 export interface GameState {
   board: Array<Array<Cell>>;
@@ -91,7 +92,7 @@ export function cellHasStone(
   }
 }
 
-export function generateNewBoard(size: number): GameState {
+export function initNewGameState(size: number): GameState {
   const newBoard = Array(size)
     .fill({})
     .map(() =>
@@ -101,7 +102,7 @@ export function generateNewBoard(size: number): GameState {
     );
 
   return {
-    turn: "white",
+    turn: NEW_GAME_STARTING_STONE_COLOR,
     board: newBoard
   };
 }

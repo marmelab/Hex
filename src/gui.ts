@@ -30,7 +30,7 @@ export function initScreen(): blessed.Widgets.Screen {
   return screen;
 }
 
-export function renderBoardAndLoop(
+export function renderBoard(
   gameState: GameState,
   screen: blessed.Widgets.Screen
 ) {
@@ -38,32 +38,22 @@ export function renderBoardAndLoop(
 
   // For each column
   gameState.board[0].forEach((_, x) => {
-    // Create col header label
     createColumnHeaderLabel(boardLayout, x);
-    // Create top edge
     createBoardTopEdge(boardLayout, x);
-    // Create bottom edge
     createBoardBottomEdge(boardLayout, gameState, x);
   });
 
   // For each row
   gameState.board.forEach((row, y) => {
-    // Create row header label
     createRowHeaderLabel(boardLayout, y);
-    // Create text element for each cell in a row
     row.forEach((_, x) => {
       boardLayout.append(createCell(gameState, screen, x, y));
     });
-    // Create left edge
     createBoardLeftEdge(boardLayout, y);
-    // Create right edge
     createBoardRightEdge(boardLayout, y, gameState);
   });
 
-  // Add game title label
   boardLayout.append(createGameTitleLabel());
-
-  // Add player turn label
   boardLayout.append(createCurrentPlayerMsg(gameState));
 
   // Add msg to tell if so has won
@@ -200,7 +190,7 @@ function createCurrentPlayerMsg(
   return blessed.text({
     top: "center",
     left: TEXT_LEFT_OFFSET,
-    content: `{bold}${gameState.turn}{/bold} turn to play`,
+    content: `{bold}${gameState.turn.toUpperCase()}{/bold} turn to play`,
     tags: true,
   });
 }
@@ -252,7 +242,7 @@ function createCell(
   if (!cellHasStone(gameState, { x, y }) && !gameIsFinished(gameState)) {
     cellBox.on("click", () => {
       gameState = updateGameState(gameState, { x, y });
-      renderBoardAndLoop(gameState, screen);
+      renderBoard(gameState, screen);
     });
   }
   return cellBox;
