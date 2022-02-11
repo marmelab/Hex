@@ -19,9 +19,14 @@ yarn
 yarn start
 ```
 
+#### From scratch with a specific board size
+```sh
+yarn start -s 9
+```
+
 #### From a config file
 ```sh
-yarn start -f=config.json
+yarn start -f config.json
 ```
 
 With config.json at the root of the project.

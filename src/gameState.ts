@@ -1,6 +1,8 @@
 import { createGraphFromGameState, HexBoardGraph } from "./graph";
 import { doesPathExist } from "./pathfinding";
-import { Coordinates } from "./utils";
+import { Coordinates, deepCloneObject } from "./utils";
+
+const DEFAULT_CELL_VALUE: Cell = { value: "empty" };
 
 export interface GameState {
   board: Array<Array<Cell>>;
@@ -62,110 +64,17 @@ export function doesCellHaveStone(
 ): boolean {
   return gameState.board[cell.y][cell.x].value == stoneColor;
 }
-export function generateNewBoard(): GameState {
-  return {
-    board: [
-      [
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-      ],
-      [
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-      ],
-      [
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-      ],
-      [
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-      ],
-      [
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-      ],
-      [
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-      ],
-      [
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-      ],
-      [
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-      ],
-      [
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-      ],
-    ],
-  };
+
+export function generateNewBoard(size: number): GameState {
+  const newBoard = Array(size)
+    .fill({})
+    .map(() =>
+      Array(size)
+        .fill({})
+        .map(() => deepCloneObject(DEFAULT_CELL_VALUE))
+    );
+
+  return { board: newBoard };
 }
 
 export function updateGameState(
