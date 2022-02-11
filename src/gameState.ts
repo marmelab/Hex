@@ -3,9 +3,11 @@ import { doesPathExist } from "./pathfinding";
 import { Coordinates, deepCloneObject } from "./utils";
 
 const DEFAULT_CELL_VALUE: Cell = { value: "empty" };
+const NEW_GAME_STARTING_STONE_COLOR = "white";
 
 export interface GameState {
   board: Array<Array<Cell>>;
+  turn: StoneColor;
 }
 
 export interface Cell {
@@ -13,6 +15,22 @@ export interface Cell {
 }
 
 export type StoneColor = "black" | "white";
+
+export function getWinner(gameState: GameState): StoneColor {
+  let stoneColor: StoneColor = "black";
+  if (playerHasWon(gameState, stoneColor)) {
+    return stoneColor;
+  }
+  stoneColor = "white";
+  if (playerHasWon(gameState, stoneColor)) {
+    return stoneColor;
+  }
+  return null;
+}
+
+export function gameIsFinished(gameState: GameState): boolean {
+  return !!getWinner(gameState);
+}
 
 export function playerHasWon(
   gameState: GameState,
@@ -40,7 +58,7 @@ export function doesCellExistAndHaveStone(
 ): boolean {
   return (
     doesCellExist(gameState, cell) &&
-    doesCellHaveStone(gameState, cell, stoneColor)
+    cellHasStone(gameState, cell, stoneColor)
   );
 }
 
@@ -57,15 +75,24 @@ export function doesCellExist(
   return true;
 }
 
-export function doesCellHaveStone(
+/**
+ * Returns true if a given cell has a stone placed on it.
+ * If a `stoneColor` is defined, this function will return true only if the cell
+ * has a stone on it and this stone is of the given color.
+ */
+export function cellHasStone(
   gameState: GameState,
   cell: Coordinates,
-  stoneColor: StoneColor
+  stoneColor?: StoneColor
 ): boolean {
-  return gameState.board[cell.y][cell.x].value == stoneColor;
+  if (stoneColor) {
+    return gameState.board[cell.y][cell.x].value == stoneColor;
+  } else {
+    return gameState.board[cell.y][cell.x].value !== "empty";
+  }
 }
 
-export function generateNewBoard(size: number): GameState {
+export function initNewGameState(size: number): GameState {
   const newBoard = Array(size)
     .fill({})
     .map(() =>
@@ -74,24 +101,24 @@ export function generateNewBoard(size: number): GameState {
         .map(() => deepCloneObject(DEFAULT_CELL_VALUE))
     );
 
-  return { board: newBoard };
+  return {
+    turn: NEW_GAME_STARTING_STONE_COLOR,
+    board: newBoard
+  };
 }
 
 export function updateGameState(
   previousState: GameState,
-  nextMove: { coordinates: Coordinates; stoneColor: StoneColor }
+  nextMove: Coordinates
 ): GameState {
-  if (!doesCellExist(previousState, nextMove.coordinates)) {
+  if (!doesCellExist(previousState, nextMove)) {
     throw new Error("Given coordinates are outside the scope of the board.");
   }
-  if (
-    doesCellHaveStone(previousState, nextMove.coordinates, "black") ||
-    doesCellHaveStone(previousState, nextMove.coordinates, "white")
-  ) {
+  if (cellHasStone(previousState, nextMove)) {
     throw new Error("A stone is already set in the selected cell.");
   }
-  const newGameState = { board: previousState.board };
-  newGameState.board[nextMove.coordinates.y][nextMove.coordinates.x].value =
-    nextMove.stoneColor;
+  const newTurn: StoneColor = previousState.turn == "white" ? "black" : "white";
+  const newGameState = { board: previousState.board, turn: newTurn };
+  newGameState.board[nextMove.y][nextMove.x].value = previousState.turn;
   return newGameState;
 }

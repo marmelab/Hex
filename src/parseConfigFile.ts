@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { Cell, GameState } from "./gameState";
+import { Cell, GameState, StoneColor } from "./gameState";
 
 const BLACK_STONE_VALUE = 1;
 const WHITE_STONE_VALUE = 2;
@@ -28,8 +28,25 @@ export function parseConfigFile(
   for (const row of data) {
     board.push(parseRow(row, rowsCount, filePath));
   }
-  const gameState = { board: board };
+  const gameState: GameState = {
+    turn: getGameStateTurn(board),
+    board: board,
+  };
   return gameState;
+}
+
+function getGameStateTurn(board: Cell[][]): StoneColor {
+  const whiteStonesCount = countStonesByColor(board, "white");
+  const blackStonesCount = countStonesByColor(board, "black");
+  if (whiteStonesCount > blackStonesCount) {
+    return "black";
+  } else {
+    return "white";
+  }
+}
+
+function countStonesByColor(board: Cell[][], color: StoneColor): number {
+  return board.reduce((prevCount, currentRow) => prevCount + currentRow.filter((cell) => cell.value === color).reduce((prev, _) => prev + 1, 0), 0);
 }
 
 function loadFile(filePath: string): string {

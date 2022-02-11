@@ -15,6 +15,7 @@ describe("load game state from a config file content", () => {
     const ouput = parseConfigFile(input, filePath);
     // then
     const expected: GameState = {
+      turn: "white",
       board: [
         [{ value: "black" }, { value: "empty" }, { value: "black" }],
         [{ value: "empty" }, { value: "empty" }, { value: "empty" }],
@@ -75,7 +76,52 @@ describe("load game state from a config file content", () => {
     const ouput = parseConfigFile(input, filePath);
     // then
     const expected: GameState = {
+      turn: "white",
       board: [],
+    };
+    expect(ouput).toStrictEqual(expected);
+  });
+
+  it("should tell it's white player's turn to play if there is more black stones than white stones", () => {
+    // given
+    const input = `[
+      [{ "value": 1 }, { "value": null }, { "value": 1 }],
+      [{ "value": null }, { "value": 1 }, { "value": null }],
+      [{ "value": 2 }, { "value": null }, { "value": 2 }]
+    ]`;
+    const filePath = "configfile.json";
+    // when
+    const ouput = parseConfigFile(input, filePath);
+    // then
+    const expected: GameState = {
+      turn: "white",
+      board: [
+        [{ value: "black" }, { value: "empty" }, { value: "black" }],
+        [{ value: "empty" }, { value: "black" }, { value: "empty" }],
+        [{ value: "white" }, { value: "empty" }, { value: "white" }],
+      ],
+    };
+    expect(ouput).toStrictEqual(expected);
+  });
+
+  it("should tell it's black player's turn to play if there is more white stones than black stones", () => {
+    // given
+    const input = `[
+      [{ "value": 1 }, { "value": null }, { "value": 1 }],
+      [{ "value": null }, { "value": 2 }, { "value": null }],
+      [{ "value": 2 }, { "value": null }, { "value": 2 }]
+    ]`;
+    const filePath = "configfile.json";
+    // when
+    const ouput = parseConfigFile(input, filePath);
+    // then
+    const expected: GameState = {
+      turn: "black",
+      board: [
+        [{ value: "black" }, { value: "empty" }, { value: "black" }],
+        [{ value: "empty" }, { value: "white" }, { value: "empty" }],
+        [{ value: "white" }, { value: "empty" }, { value: "white" }],
+      ],
     };
     expect(ouput).toStrictEqual(expected);
   });

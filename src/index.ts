@@ -1,7 +1,8 @@
 import { program } from "commander";
 import { parseGameStateFromFile } from "./parseConfigFile";
-import { playerHasWon, generateNewBoard } from "./gameState";
-import { runGameLoop } from "./game";
+import { initScreen } from "./gui";
+import { renderBoard } from "./gui";
+import { initNewGameState } from "./gameState";
 import { exit } from "process";
 
 const DEFAULT_BOARD_SIZE = 19;
@@ -39,7 +40,8 @@ if (filePath) {
     console.error("Board size need to be >= 2. Please restart the game.");
     exit();
   }
-  gameState = generateNewBoard(userBoardSizeOrDefault);
+  gameState = initNewGameState(userBoardSizeOrDefault);
 }
 
-runGameLoop(gameState);
+const screen = initScreen();
+renderBoard(gameState, screen);
