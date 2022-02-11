@@ -182,7 +182,10 @@ describe("Init a new board from scratch", () => {
   it("Should return an empty board", () => {
     const generatedBoard = generateNewBoard(0);
 
-    expect(generatedBoard).toEqual({ board: [] });
+    expect(generatedBoard).toEqual({
+      turn: "white",
+      board: []
+    });
   });
 });
 
