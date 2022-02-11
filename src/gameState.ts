@@ -1,6 +1,8 @@
 import { createGraphFromGameState, HexBoardGraph } from "./graph";
 import { doesPathExist } from "./pathfinding";
-import { Coordinates } from "./utils";
+import { Coordinates, deepCloneObject } from "./utils";
+
+const DEFAULT_CELL_VALUE: Cell = { value: "empty" };
 
 export interface GameState {
   board: Array<Array<Cell>>;
@@ -89,110 +91,18 @@ export function cellHasStone(
   }
 }
 
-export function generateNewBoard(): GameState {
+export function generateNewBoard(size: number): GameState {
+  const newBoard = Array(size)
+    .fill({})
+    .map(() =>
+      Array(size)
+        .fill({})
+        .map(() => deepCloneObject(DEFAULT_CELL_VALUE))
+    );
+
   return {
     turn: "white",
-    board: [
-      [
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-      ],
-      [
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-      ],
-      [
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-      ],
-      [
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-      ],
-      [
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-      ],
-      [
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-      ],
-      [
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-      ],
-      [
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-      ],
-      [
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-        { value: "empty" },
-      ],
-    ],
+    board: newBoard
   };
 }
 
