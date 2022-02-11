@@ -1,11 +1,11 @@
 import * as blessed from "blessed";
 import {
   Cell,
-  doesCellHaveStone,
+  cellHasStone,
   GameState,
-  someoneWon,
+  gameIsFinished,
   updateGameState,
-  whoHasWon,
+  getWinner,
 } from "./gameState";
 import { UTF16_CODE_OF_LETTER_A } from "./utils";
 
@@ -34,7 +34,149 @@ export function renderBoardAndLoop(
   gameState: GameState,
   screen: blessed.Widgets.Screen
 ) {
-  const boardLayout = blessed.box({
+  const boardLayout = createBoardOuterLayout(gameState);
+
+  // For each column
+  gameState.board[0].forEach((_, x) => {
+    // Create col header label
+    createColumnHeaderLabel(boardLayout, x);
+    // Create top edge
+    createBoardTopEdge(boardLayout, x);
+    // Create bottom edge
+    createBoardBottomEdge(boardLayout, gameState, x);
+  });
+
+  // For each row
+  gameState.board.forEach((row, y) => {
+    // Create row header label
+    createRowHeaderLabel(boardLayout, y);
+    // Create text element for each cell in a row
+    row.forEach((_, x) => {
+      boardLayout.append(createCell(gameState, screen, x, y));
+    });
+    // Create left edge
+    createBoardLeftEdge(boardLayout, y);
+    // Create right edge
+    createBoardRightEdge(boardLayout, y, gameState);
+  });
+
+  // Add game title label
+  boardLayout.append(createGameTitleLabel());
+
+  // Add player turn label
+  boardLayout.append(createCurrentPlayerMsg(gameState));
+
+  // Add msg to tell if so has won
+  if (gameIsFinished(gameState)) {
+    boardLayout.append(createWinMsg(gameState));
+    boardLayout.append(createHelpMsg(gameState));
+  }
+
+  screen.append(boardLayout);
+  screen.render();
+}
+
+function createGameTitleLabel() {
+  return blessed.text({
+    top: 0,
+    left: TEXT_LEFT_OFFSET,
+    content: "The Game of Hex",
+    tags: true,
+  });
+}
+
+function createBoardRightEdge(boardLayout: blessed.Widgets.BoxElement, y: number, gameState: GameState) {
+  boardLayout.append(
+    blessed.text({
+      top: (y + 2) * CELL_HEIGHT,
+      left: (2 + gameState.board.length) * CELL_WIDTH + ((y + 1) * CELL_WIDTH) / 2,
+      content: " \\",
+      tags: true,
+      style: {
+        fg: "black",
+        bg: "gray",
+      },
+    })
+  );
+}
+
+function createBoardLeftEdge(boardLayout: blessed.Widgets.BoxElement, y: number) {
+  boardLayout.append(
+    blessed.text({
+      top: (y + 2) * CELL_HEIGHT,
+      left: CELL_WIDTH + (y * CELL_WIDTH) / 2,
+      content: " \\",
+      tags: true,
+      style: {
+        fg: "black",
+        bg: "gray",
+      },
+    })
+  );
+}
+
+function createRowHeaderLabel(boardLayout: blessed.Widgets.BoxElement, y: number) {
+  boardLayout.append(
+    blessed.text({
+      top: (y + 2) * CELL_HEIGHT,
+      left: (y * CELL_WIDTH) / 2,
+      content: getRowLabelDisplayContent(y),
+      tags: true,
+      style: {
+        fg: "black",
+        bg: "gray",
+      },
+    })
+  );
+}
+
+function createBoardBottomEdge(boardLayout: blessed.Widgets.BoxElement, gameState: GameState, x: number) {
+  boardLayout.append(
+    blessed.text({
+      top: (gameState.board.length + 2) * CELL_HEIGHT,
+      left: (x + 2) * CELL_WIDTH + (gameState.board.length + 1) * CELL_WIDTH / 2,
+      content: " -",
+      tags: true,
+      style: {
+        fg: "white",
+        bg: "gray",
+      },
+    })
+  );
+}
+
+function createBoardTopEdge(boardLayout: blessed.Widgets.BoxElement, x: number) {
+  boardLayout.append(
+    blessed.text({
+      top: CELL_HEIGHT,
+      left: (x + 2) * CELL_WIDTH,
+      content: " -",
+      tags: true,
+      style: {
+        fg: "white",
+        bg: "gray",
+      },
+    })
+  );
+}
+
+function createColumnHeaderLabel(boardLayout: blessed.Widgets.BoxElement, x: number) {
+  boardLayout.append(
+    blessed.text({
+      top: 0,
+      left: (x + 2) * CELL_WIDTH,
+      content: getColLabelDisplayContent(x),
+      tags: true,
+      style: {
+        fg: "black",
+        bg: "gray",
+      },
+    })
+  );
+}
+
+function createBoardOuterLayout(gameState: GameState) {
+  return blessed.box({
     top: "center",
     left: "center",
     width: CELL_WIDTH * (gameState.board.length + 3) * 1.5 + PADDING_WIDTH,
@@ -50,120 +192,9 @@ export function renderBoardAndLoop(
       bg: "gray",
     },
   });
-
-  gameState.board[0].forEach((_, x) => {
-    // Create col header label
-    boardLayout.append(
-      blessed.text({
-        top: 0,
-        left: (x + 2) * CELL_WIDTH,
-        content: getColNameDisplayContent(x),
-        tags: true,
-        style: {
-          fg: "black",
-          bg: "gray",
-        },
-      })
-    );
-
-    // Create top edge
-    boardLayout.append(
-      blessed.text({
-        top: CELL_HEIGHT,
-        left: (x + 2) * CELL_WIDTH,
-        content: " -",
-        tags: true,
-        style: {
-          fg: "white",
-          bg: "gray",
-        },
-      })
-    );
-    // Create bottom edge
-    boardLayout.append(
-      blessed.text({
-        top: (gameState.board.length + 2) * CELL_HEIGHT,
-        left: (x + 2) * CELL_WIDTH + (gameState.board.length + 1) * CELL_WIDTH / 2,
-        content: " -",
-        tags: true,
-        style: {
-          fg: "white",
-          bg: "gray",
-        },
-      })
-    );
-  });
-
-  gameState.board.forEach((line, y) => {
-    // Create line header label
-    boardLayout.append(
-      blessed.text({
-        top: (y + 2) * CELL_HEIGHT,
-        left: (y * CELL_WIDTH) / 2,
-        content: getRowNameDisplayContent(y),
-        tags: true,
-        style: {
-          fg: "black",
-          bg: "gray",
-        },
-      })
-    );
-    // Create line cells
-    line.forEach((_, x) => {
-      boardLayout.append(createBoxForCell(gameState, screen, x, y));
-    });
-
-    // Create left edge
-    boardLayout.append(
-      blessed.text({
-        top: (y + 2) * CELL_HEIGHT,
-        left: CELL_WIDTH + (y * CELL_WIDTH) / 2,
-        content: " \\",
-        tags: true,
-        style: {
-          fg: "black",
-          bg: "gray",
-        },
-      })
-    );
-    // Create right edge
-    boardLayout.append(
-      blessed.text({
-        top: (y + 2) * CELL_HEIGHT,
-        left: (2 + gameState.board.length) * CELL_WIDTH + ((y + 1) * CELL_WIDTH) / 2,
-        content: " \\",
-        tags: true,
-        style: {
-          fg: "black",
-          bg: "gray",
-        },
-      })
-    );
-  });
-
-  const text = blessed.text({
-    top: 0,
-    left: TEXT_LEFT_OFFSET,
-    content: "The Game of Hex",
-    tags: true,
-  });
-  boardLayout.append(text);
-
-  // Add player turn label
-  boardLayout.append(createBoxForPlayerTurn(gameState));
-
-  // Add msg to tell if so has won
-  if (someoneWon(gameState)) {
-    boardLayout.append(createWinMsg(gameState));
-    boardLayout.append(createHelpMsg(gameState));
-  }
-
-  screen.append(boardLayout);
-
-  screen.render();
 }
 
-function createBoxForPlayerTurn(
+function createCurrentPlayerMsg(
   gameState: GameState
 ): blessed.Widgets.TextElement {
   return blessed.text({
@@ -175,7 +206,7 @@ function createBoxForPlayerTurn(
 }
 
 function createWinMsg(gameState: GameState): blessed.Widgets.TextElement {
-  const winner = whoHasWon(gameState);
+  const winner = getWinner(gameState);
   return blessed.text({
     top: CELL_HEIGHT * (gameState.board.length - 1),
     left: TEXT_LEFT_OFFSET,
@@ -183,6 +214,7 @@ function createWinMsg(gameState: GameState): blessed.Widgets.TextElement {
     tags: true,
   });
 }
+
 function createHelpMsg(gameState: GameState): blessed.Widgets.TextElement {
   return blessed.text({
     top: CELL_HEIGHT * gameState.board.length,
@@ -195,12 +227,13 @@ function createHelpMsg(gameState: GameState): blessed.Widgets.TextElement {
   });
 }
 
-function createBoxForCell(
+function createCell(
   gameState: GameState,
   screen: blessed.Widgets.Screen,
   x: number,
   y: number
 ): blessed.Widgets.TextElement {
+  // Create cell text element
   const cellBox = blessed.text({
     top: (y + 2) * CELL_HEIGHT,
     left: (x + 2) * CELL_WIDTH + (y * CELL_WIDTH) / 2,
@@ -210,11 +243,13 @@ function createBoxForCell(
       fg: getCellDisplayColor(gameState.board[y][x]),
       bg: "gray",
       hover: {
-        fg: (!doesCellHaveStone(gameState, { x, y }) && !someoneWon(gameState)) ? HOVER_FG_COLOR : getCellDisplayColor(gameState.board[y][x])
+        // Add hover effect only if cell is playable
+        fg: (!cellHasStone(gameState, { x, y }) && !gameIsFinished(gameState)) ? HOVER_FG_COLOR : getCellDisplayColor(gameState.board[y][x])
       }
     },
   });
-  if (!doesCellHaveStone(gameState, { x, y }) && !someoneWon(gameState)) {
+  // If cell is playable, add "on-click" event to it
+  if (!cellHasStone(gameState, { x, y }) && !gameIsFinished(gameState)) {
     cellBox.on("click", () => {
       gameState = updateGameState(gameState, { x, y });
       renderBoardAndLoop(gameState, screen);
@@ -234,11 +269,11 @@ function getCellDisplayColor(cell: Cell): string {
   return cell.value == "black" ? "black" : "white";
 }
 
-function getRowNameDisplayContent(rowNumber: number): string {
+function getRowLabelDisplayContent(rowNumber: number): string {
   return RENDERED_SPACE + String(rowNumber + 1);
 }
 
-function getColNameDisplayContent(colNumber: number): string {
+function getColLabelDisplayContent(colNumber: number): string {
   return (
     RENDERED_SPACE + String.fromCharCode(colNumber + UTF16_CODE_OF_LETTER_A)
   );

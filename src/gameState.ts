@@ -13,7 +13,7 @@ export interface Cell {
 
 export type StoneColor = "black" | "white";
 
-export function whoHasWon(gameState: GameState): StoneColor {
+export function getWinner(gameState: GameState): StoneColor {
   let stoneColor: StoneColor = "black";
   if (playerHasWon(gameState, stoneColor)) {
     return stoneColor;
@@ -25,8 +25,8 @@ export function whoHasWon(gameState: GameState): StoneColor {
   return null;
 }
 
-export function someoneWon(gameState: GameState): boolean {
-  return !!whoHasWon(gameState);
+export function gameIsFinished(gameState: GameState): boolean {
+  return !!getWinner(gameState);
 }
 
 export function playerHasWon(
@@ -55,7 +55,7 @@ export function doesCellExistAndHaveStone(
 ): boolean {
   return (
     doesCellExist(gameState, cell) &&
-    doesCellHaveStone(gameState, cell, stoneColor)
+    cellHasStone(gameState, cell, stoneColor)
   );
 }
 
@@ -77,7 +77,7 @@ export function doesCellExist(
  * If a `stoneColor` is defined, this function will return true only if the cell
  * has a stone on it and this stone is of the given color.
  */
-export function doesCellHaveStone(
+export function cellHasStone(
   gameState: GameState,
   cell: Coordinates,
   stoneColor?: StoneColor
@@ -203,7 +203,7 @@ export function updateGameState(
   if (!doesCellExist(previousState, nextMove)) {
     throw new Error("Given coordinates are outside the scope of the board.");
   }
-  if (doesCellHaveStone(previousState, nextMove)) {
+  if (cellHasStone(previousState, nextMove)) {
     throw new Error("A stone is already set in the selected cell.");
   }
   const newTurn: StoneColor = previousState.turn == "white" ? "black" : "white";
