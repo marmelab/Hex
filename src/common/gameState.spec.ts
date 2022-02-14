@@ -5,30 +5,7 @@ import {
   initNewGameState,
   updateGameState,
 } from './gameState';
-
-function parseGameStateFromMultilineString(gameState: string): GameState {
-  return {
-    turn: 'white',
-    board: gameState
-      .split(/\r?\n/)
-      .filter((line) => line.replace(/ /g, '').length > 0)
-      .map((line) =>
-        line
-          .replace(/ /g, '')
-          .split('')
-          .map((cell) => {
-            switch (cell) {
-              case '⬢':
-                return { value: 'black' };
-              case 'W':
-                return { value: 'white' };
-              default:
-                return { value: 'empty' };
-            }
-          }),
-      ),
-  };
-}
+import { parseGameStateFromMultilineString } from './utils';
 
 describe('check whether player has won the game', () => {
   it('should say WIN for white with a 3x3 board with a vertical path', () => {
