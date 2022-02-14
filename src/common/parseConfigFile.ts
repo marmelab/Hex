@@ -46,7 +46,14 @@ function getGameStateTurn(board: Cell[][]): StoneColor {
 }
 
 function countStonesByColor(board: Cell[][], color: StoneColor): number {
-  return board.reduce((prevCount, currentRow) => prevCount + currentRow.filter((cell) => cell.value === color).reduce((prev, _) => prev + 1, 0), 0);
+  return board.reduce(
+    (prevCount, currentRow) =>
+      prevCount +
+      currentRow
+        .filter((cell) => cell.value === color)
+        .reduce((prev, _) => prev + 1, 0),
+    0
+  );
 }
 
 function loadFile(filePath: string): string {

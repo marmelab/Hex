@@ -75,11 +75,16 @@ function createGameTitleLabel() {
   });
 }
 
-function createBoardRightEdge(boardLayout: blessed.Widgets.BoxElement, y: number, gameState: GameState) {
+function createBoardRightEdge(
+  boardLayout: blessed.Widgets.BoxElement,
+  y: number,
+  gameState: GameState
+) {
   boardLayout.append(
     blessed.text({
       top: (y + 2) * CELL_HEIGHT,
-      left: (2 + gameState.board.length) * CELL_WIDTH + ((y + 1) * CELL_WIDTH) / 2,
+      left:
+        (2 + gameState.board.length) * CELL_WIDTH + ((y + 1) * CELL_WIDTH) / 2,
       content: " \\",
       tags: true,
       style: {
@@ -90,7 +95,10 @@ function createBoardRightEdge(boardLayout: blessed.Widgets.BoxElement, y: number
   );
 }
 
-function createBoardLeftEdge(boardLayout: blessed.Widgets.BoxElement, y: number) {
+function createBoardLeftEdge(
+  boardLayout: blessed.Widgets.BoxElement,
+  y: number
+) {
   boardLayout.append(
     blessed.text({
       top: (y + 2) * CELL_HEIGHT,
@@ -105,7 +113,10 @@ function createBoardLeftEdge(boardLayout: blessed.Widgets.BoxElement, y: number)
   );
 }
 
-function createRowHeaderLabel(boardLayout: blessed.Widgets.BoxElement, y: number) {
+function createRowHeaderLabel(
+  boardLayout: blessed.Widgets.BoxElement,
+  y: number
+) {
   boardLayout.append(
     blessed.text({
       top: (y + 2) * CELL_HEIGHT,
@@ -120,11 +131,16 @@ function createRowHeaderLabel(boardLayout: blessed.Widgets.BoxElement, y: number
   );
 }
 
-function createBoardBottomEdge(boardLayout: blessed.Widgets.BoxElement, gameState: GameState, x: number) {
+function createBoardBottomEdge(
+  boardLayout: blessed.Widgets.BoxElement,
+  gameState: GameState,
+  x: number
+) {
   boardLayout.append(
     blessed.text({
       top: (gameState.board.length + 2) * CELL_HEIGHT,
-      left: (x + 2) * CELL_WIDTH + (gameState.board.length + 1) * CELL_WIDTH / 2,
+      left:
+        (x + 2) * CELL_WIDTH + ((gameState.board.length + 1) * CELL_WIDTH) / 2,
       content: " -",
       tags: true,
       style: {
@@ -135,7 +151,10 @@ function createBoardBottomEdge(boardLayout: blessed.Widgets.BoxElement, gameStat
   );
 }
 
-function createBoardTopEdge(boardLayout: blessed.Widgets.BoxElement, x: number) {
+function createBoardTopEdge(
+  boardLayout: blessed.Widgets.BoxElement,
+  x: number
+) {
   boardLayout.append(
     blessed.text({
       top: CELL_HEIGHT,
@@ -150,7 +169,10 @@ function createBoardTopEdge(boardLayout: blessed.Widgets.BoxElement, x: number) 
   );
 }
 
-function createColumnHeaderLabel(boardLayout: blessed.Widgets.BoxElement, x: number) {
+function createColumnHeaderLabel(
+  boardLayout: blessed.Widgets.BoxElement,
+  x: number
+) {
   boardLayout.append(
     blessed.text({
       top: 0,
@@ -234,8 +256,11 @@ function createCell(
       bg: "gray",
       hover: {
         // Add hover effect only if cell is playable
-        fg: (!cellHasStone(gameState, { x, y }) && !gameIsFinished(gameState)) ? HOVER_FG_COLOR : getCellDisplayColor(gameState.board[y][x])
-      }
+        fg:
+          !cellHasStone(gameState, { x, y }) && !gameIsFinished(gameState)
+            ? HOVER_FG_COLOR
+            : getCellDisplayColor(gameState.board[y][x]),
+      },
     },
   });
   // If cell is playable, add "on-click" event to it

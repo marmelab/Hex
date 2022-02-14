@@ -184,7 +184,7 @@ describe("Init a new board from scratch", () => {
 
     expect(generatedBoard).toEqual({
       turn: "white",
-      board: []
+      board: [],
     });
   });
 });

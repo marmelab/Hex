@@ -57,8 +57,7 @@ export function doesCellExistAndHaveStone(
   stoneColor: StoneColor
 ): boolean {
   return (
-    doesCellExist(gameState, cell) &&
-    cellHasStone(gameState, cell, stoneColor)
+    doesCellExist(gameState, cell) && cellHasStone(gameState, cell, stoneColor)
   );
 }
 
@@ -103,7 +102,7 @@ export function initNewGameState(size: number): GameState {
 
   return {
     turn: NEW_GAME_STARTING_STONE_COLOR,
-    board: newBoard
+    board: newBoard,
   };
 }
 
