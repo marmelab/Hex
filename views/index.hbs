@@ -9,7 +9,7 @@
 <body>
   <div id="board">
     {{#each gameState.board}}
-    <div>
+    <div style="margin-left:{{@index}}0px;">
       {{#each this}}
       <span>{{this.value}}</span>
       {{/each}}
