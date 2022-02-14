@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { parseGameStateFromMultilineString } from './common/utils';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -15,8 +16,14 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+    it('should return the current game state from the file"', () => {
+      expect(appController.getBoardStateFromFile().gameState).toEqual(
+        parseGameStateFromMultilineString(`
+        ⬢ ⬡ ⬢
+         ⬡ ⬡ ⬡
+          ⬡ ⬡ ⬡
+                `),
+      );
     });
   });
 });
