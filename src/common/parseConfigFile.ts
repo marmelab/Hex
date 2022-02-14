@@ -1,5 +1,5 @@
-import * as fs from "fs";
-import { Cell, GameState, StoneColor } from "./gameState";
+import * as fs from 'fs';
+import { Cell, GameState, StoneColor } from './gameState';
 
 const BLACK_STONE_VALUE = 1;
 const WHITE_STONE_VALUE = 2;
@@ -11,7 +11,7 @@ export function parseGameStateFromFile(filePath: string): GameState {
 
 export function parseConfigFile(
   fileContent: string,
-  filePath: string
+  filePath: string,
 ): GameState {
   let data;
   try {
@@ -36,12 +36,12 @@ export function parseConfigFile(
 }
 
 function getGameStateTurn(board: Cell[][]): StoneColor {
-  const whiteStonesCount = countStonesByColor(board, "white");
-  const blackStonesCount = countStonesByColor(board, "black");
+  const whiteStonesCount = countStonesByColor(board, 'white');
+  const blackStonesCount = countStonesByColor(board, 'black');
   if (whiteStonesCount > blackStonesCount) {
-    return "black";
+    return 'black';
   } else {
-    return "white";
+    return 'white';
   }
 }
 
@@ -52,13 +52,13 @@ function countStonesByColor(board: Cell[][], color: StoneColor): number {
       currentRow
         .filter((cell) => cell.value === color)
         .reduce((prev, _) => prev + 1, 0),
-    0
+    0,
   );
 }
 
 function loadFile(filePath: string): string {
   try {
-    return fs.readFileSync(filePath, "utf-8");
+    return fs.readFileSync(filePath, 'utf-8');
   } catch (error) {
     console.error(error);
     throw Error(`Unable to read config file ${filePath}`);
@@ -71,7 +71,7 @@ function parseRow(row: any, rowsCount: number, filePath: string): Array<Cell> {
   }
   if (row.length !== rowsCount) {
     throw Error(
-      `Malformed config file ${filePath}: all rows should contain ${rowsCount} cells`
+      `Malformed config file ${filePath}: all rows should contain ${rowsCount} cells`,
     );
   }
   let parsedRow: Array<Cell> = [];
@@ -85,13 +85,13 @@ function parseCell(cell: any): Cell {
   let parsedCell: Cell;
   switch (cell.value) {
     case null:
-      parsedCell = { value: "empty" };
+      parsedCell = { value: 'empty' };
       break;
     case BLACK_STONE_VALUE:
-      parsedCell = { value: "black" };
+      parsedCell = { value: 'black' };
       break;
     case WHITE_STONE_VALUE:
-      parsedCell = { value: "white" };
+      parsedCell = { value: 'white' };
       break;
     default:
       throw Error(`Cannot parse config file: Invalid value: ${cell.value}`);

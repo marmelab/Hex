@@ -1,18 +1,18 @@
-import { program } from "commander";
-import { parseGameStateFromFile } from "../common/parseConfigFile";
-import { initScreen } from "../common/gui";
-import { renderBoard } from "../common/gui";
-import { initNewGameState } from "../common/gameState";
-import { exit } from "process";
+import { program } from 'commander';
+import { parseGameStateFromFile } from '../common/parseConfigFile';
+import { initScreen } from '../common/gui';
+import { renderBoard } from '../common/gui';
+import { initNewGameState } from '../common/gameState';
+import { exit } from 'process';
 
 const DEFAULT_BOARD_SIZE = 19;
 
 program
   .option(
-    "-f, --file <filePath>",
-    "define the config file to use as default board"
+    '-f, --file <filePath>',
+    'define the config file to use as default board',
   )
-  .option("-s, --size <Size>", "define the size of the board(square)");
+  .option('-s, --size <Size>', 'define the size of the board(square)');
 
 program.parse();
 
@@ -22,7 +22,7 @@ const boardSize = params.size || undefined;
 
 if (filePath && boardSize) {
   console.error(
-    "You can't defined a board size AND a config at the same time. Please restart the game with only one of those."
+    "You can't defined a board size AND a config at the same time. Please restart the game with only one of those.",
   );
   exit();
 }
@@ -32,12 +32,12 @@ if (filePath) {
   console.debug(`Using config file: ${filePath}`);
   gameState = parseGameStateFromFile(filePath);
 } else {
-  console.log("No config file was provided. Initializing board from scratch..");
+  console.log('No config file was provided. Initializing board from scratch..');
   const userBoardSizeOrDefault = isNaN(boardSize)
     ? DEFAULT_BOARD_SIZE
     : parseInt(boardSize);
   if (userBoardSizeOrDefault < 2) {
-    console.error("Board size need to be >= 2. Please restart the game.");
+    console.error('Board size need to be >= 2. Please restart the game.');
     exit();
   }
   gameState = initNewGameState(userBoardSizeOrDefault);

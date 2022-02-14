@@ -1,9 +1,9 @@
-import { createGraphFromGameState, HexBoardGraph } from "./graph";
-import { doesPathExist } from "./pathfinding";
-import { Coordinates, deepCloneObject } from "./utils";
+import { createGraphFromGameState, HexBoardGraph } from './graph';
+import { doesPathExist } from './pathfinding';
+import { Coordinates, deepCloneObject } from './utils';
 
-const DEFAULT_CELL_VALUE: Cell = { value: "empty" };
-const NEW_GAME_STARTING_STONE_COLOR = "white";
+const DEFAULT_CELL_VALUE: Cell = { value: 'empty' };
+const NEW_GAME_STARTING_STONE_COLOR = 'white';
 
 export interface GameState {
   board: Array<Array<Cell>>;
@@ -11,17 +11,17 @@ export interface GameState {
 }
 
 export interface Cell {
-  value: "empty" | "black" | "white";
+  value: 'empty' | 'black' | 'white';
 }
 
-export type StoneColor = "black" | "white";
+export type StoneColor = 'black' | 'white';
 
 export function getWinner(gameState: GameState): StoneColor {
-  let stoneColor: StoneColor = "black";
+  let stoneColor: StoneColor = 'black';
   if (playerHasWon(gameState, stoneColor)) {
     return stoneColor;
   }
-  stoneColor = "white";
+  stoneColor = 'white';
   if (playerHasWon(gameState, stoneColor)) {
     return stoneColor;
   }
@@ -34,7 +34,7 @@ export function gameIsFinished(gameState: GameState): boolean {
 
 export function playerHasWon(
   gameState: GameState,
-  stoneColor: StoneColor
+  stoneColor: StoneColor,
 ): boolean {
   const hexBoardGraph = createGraphFromGameState(gameState, stoneColor);
   return doesPathExistForPlayer(hexBoardGraph, stoneColor);
@@ -42,19 +42,19 @@ export function playerHasWon(
 
 function doesPathExistForPlayer(
   hexBoardGraph: HexBoardGraph,
-  stoneColor: StoneColor
+  stoneColor: StoneColor,
 ): boolean {
-  if (stoneColor == "black") {
-    return doesPathExist(hexBoardGraph, "black-start", "black-end");
+  if (stoneColor == 'black') {
+    return doesPathExist(hexBoardGraph, 'black-start', 'black-end');
   } else {
-    return doesPathExist(hexBoardGraph, "white-start", "white-end");
+    return doesPathExist(hexBoardGraph, 'white-start', 'white-end');
   }
 }
 
 export function doesCellExistAndHaveStone(
   gameState: GameState,
   cell: Coordinates,
-  stoneColor: StoneColor
+  stoneColor: StoneColor,
 ): boolean {
   return (
     doesCellExist(gameState, cell) && cellHasStone(gameState, cell, stoneColor)
@@ -63,7 +63,7 @@ export function doesCellExistAndHaveStone(
 
 export function doesCellExist(
   gameState: GameState,
-  cell: Coordinates
+  cell: Coordinates,
 ): boolean {
   if (cell.y < 0 || cell.y >= gameState.board.length) {
     return false;
@@ -82,12 +82,12 @@ export function doesCellExist(
 export function cellHasStone(
   gameState: GameState,
   cell: Coordinates,
-  stoneColor?: StoneColor
+  stoneColor?: StoneColor,
 ): boolean {
   if (stoneColor) {
     return gameState.board[cell.y][cell.x].value == stoneColor;
   } else {
-    return gameState.board[cell.y][cell.x].value !== "empty";
+    return gameState.board[cell.y][cell.x].value !== 'empty';
   }
 }
 
@@ -97,7 +97,7 @@ export function initNewGameState(size: number): GameState {
     .map(() =>
       Array(size)
         .fill({})
-        .map(() => deepCloneObject(DEFAULT_CELL_VALUE))
+        .map(() => deepCloneObject(DEFAULT_CELL_VALUE)),
     );
 
   return {
@@ -108,15 +108,15 @@ export function initNewGameState(size: number): GameState {
 
 export function updateGameState(
   previousState: GameState,
-  nextMove: Coordinates
+  nextMove: Coordinates,
 ): GameState {
   if (!doesCellExist(previousState, nextMove)) {
-    throw new Error("Given coordinates are outside the scope of the board.");
+    throw new Error('Given coordinates are outside the scope of the board.');
   }
   if (cellHasStone(previousState, nextMove)) {
-    throw new Error("A stone is already set in the selected cell.");
+    throw new Error('A stone is already set in the selected cell.');
   }
-  const newTurn: StoneColor = previousState.turn == "white" ? "black" : "white";
+  const newTurn: StoneColor = previousState.turn == 'white' ? 'black' : 'white';
   const newGameState = { board: previousState.board, turn: newTurn };
   newGameState.board[nextMove.y][nextMove.x].value = previousState.turn;
   return newGameState;
