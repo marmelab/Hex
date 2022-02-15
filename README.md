@@ -1,3 +1,40 @@
+# Hex Web
+
+## Requirements
+- Nest js
+
+## Installation
+
+```bash
+$ yarn
+```
+
+## Running the app
+
+```bash
+# development
+$ yarn start
+
+# watch mode
+$ yarn start:dev
+
+# production mode
+$ yarn start:prod
+```
+
+## Test
+
+```bash
+# unit tests
+$ yarn test
+
+# e2e tests
+$ yarn test:e2e
+
+# test coverage
+$ yarn test:cov
+```
+
 # Hex Console
 
 Play the game of Hex (or Con-Tac-Tix) on the console ([game presentation](<https://en.wikipedia.org/wiki/Hex_(board_game)>), [rules](https://www.hasbro.com/common/instruct/Con-Tac-Tix.PDF)).
@@ -16,17 +53,17 @@ yarn
 
 #### From scratch
 ```sh
-yarn start
+yarn start:cli
 ```
 
 #### From scratch with a specific board size
 ```sh
-yarn start -s 9
+yarn start:cli -s 9
 ```
 
 #### From a config file
 ```sh
-yarn start -f config.json
+yarn start:cli -f config.json
 ```
 
 With config.json at the root of the project.
@@ -56,13 +93,13 @@ Example of content :
 
 ```sh
 ## Re-run the script on change
-yarn dev
+yarn dev:cli
 
 ## typecheck && compile
 yarn build
 
 ## format
-yarn prettier --write .
+yarn format
 
 ## test
 yarn test
