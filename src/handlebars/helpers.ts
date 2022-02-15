@@ -8,3 +8,7 @@ export function registerHandlebarsHelpers() {
         return options.inverse(this);
     });
 }
+
+export function unregisterHandlebarsHelpers() {
+    handlebars.unregisterHelper('ifCond');
+}
