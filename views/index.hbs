@@ -4,17 +4,26 @@
 <head>
   <meta charset="utf-8" />
   <title>Hex</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 
 <body>
   <div id="board">
-    {{#each gameState.board}}
-    <div style="margin-left:{{@index}}0px;">
-      {{#each this}}
-      <span>{{this.value}}</span>
-      {{/each}}
-    </div>
-    {{/each}}
+    <div class="main" style="--nr: {{gameState.board.length}}">
+      <div id="left-edge"></div>
+      <div id="right-edge"></div>
+      <div id="top-edge"></div>
+      <div id="bottom-edge"></div>
+      <div class="container">
+        <i></i>
+        {{#each gameState.board}}
+        {{#each this}}
+        <div style="background: {{#ifCond this.value 'empty'}}#eea{{else}}{{this.value}}{{/ifCond}}">
+        </div>
+        {{/each}}
+        {{/each}}
+        </div>
+      </div>
   </div>
 </body>
 

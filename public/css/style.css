@@ -1,0 +1,83 @@
+/* Great source: https://css-tricks.com/hexagons-and-beyond-flexible-responsive-grid-patterns-sans-media-queries/ */
+
+#board {
+    display: grid;
+    place-self: center;
+    justify-content: center;
+    margin: 20px;
+    padding: 20px;
+    background: #333;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    /* size  */
+    --s: 30px;
+    /* margin */
+    --m: 3px;
+    /* height equivalent to 2 overlapping hexagons, used to move every second row */
+    --f: calc(1.732 * var(--s) + 4 * var(--m) - 1px);
+}
+
+.container {
+    /*disable white space between inline block element */
+    font-size: 0;
+    width: calc((var(--nr) + (var(--nr)) / 2)*(var(--s) + 2*var(--m)));
+    padding-bottom: calc(var(--s) * 0.2885 * 2);
+    padding-top: calc(var(--s) * 0.2885 * 2);
+}
+
+.container div {
+    width: var(--s);
+    margin: var(--m);
+    height: calc(var(--s)*1.1547);
+    display: inline-block;
+    font-size: initial;
+    clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
+    margin-bottom: calc(var(--m) - var(--s)*0.2885);
+}
+
+.container::before,
+.container i {
+    content: "";
+    width: calc((var(--s) + 2*var(--m))*((var(--nr))/2));
+    float: left;
+    height: calc((var(--f)*(var(--nr))/2) + var(--s)*0.2885);
+    shape-outside: linear-gradient(to top right, #000 50%, #0000 0);
+}
+
+.container i {
+    float: right;
+    shape-outside: linear-gradient(to bottom left, #000 calc(50% - 1*var(--s)), #0000 0);
+}
+
+#top-edge, #bottom-edge, #left-edge, #right-edge {
+    position: absolute;
+    width: calc((var(--s) + 2*var(--m))*(var(--nr)));
+    height: calc(var(--s)*0.2885*2);
+    background: white;
+    clip-path: polygon(2% 0%, 98% 0%, 100% 50%, 98% 100%, 2% 100%, 0% 50%);
+}
+
+#top-edge {
+    transform: translate(calc(var(--s) / 2), calc(0px - 2*var(--m)));
+}
+
+#bottom-edge {
+    transform: translate(calc((var(--s) + 2*var(--m))*((var(--nr) - 1)/2) + var(--s) / 1.5), calc(var(--f)*var(--nr)/2 + var(--s)/1.5 + var(--s) * 0.2885 * 2)) rotate(180deg);
+}
+
+#left-edge, #right-edge {
+    background: black;
+    transform-origin: left;
+}
+
+#left-edge {
+    transform: scaleY(-1) rotate(300deg) translate(calc(0px - 2*var(--m) + var(--s) / 2), calc(0px - var(--s)*0.2885*2.5));
+}
+
+#right-edge {
+    transform-origin: right;
+    transform: scaleY(-1) rotate(120deg) translate(calc(0px - 2*var(--m) - var(--s) / 1.5), calc(0px + var(--s)*0.2885*2 - var(--s) / 0.9));
+}
