@@ -19,10 +19,10 @@ describe('AppController', () => {
     it('should return the current game state from the file"', () => {
       expect(appController.getBoardStateFromFile().gameState).toEqual(
         parseGameStateFromMultilineString(`
-        ⬢ ⬡ ⬢
-         ⬡ ⬡ ⬡
-          ⬡ ⬡ ⬡
-                `),
+⬢ ⬡ ⬢
+ ⬡ ⬡ ⬡
+  ⬡ ⬡ ⬡
+`),
       );
     });
   });
