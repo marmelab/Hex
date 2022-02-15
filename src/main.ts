@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import { join } from 'path';
-import * as hbs from 'hbs';
+import { handlebars } from 'hbs';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -13,8 +13,8 @@ async function bootstrap() {
   await app.listen(3000);
 }
 
-function registerHandlebarsHelpers() {
-  hbs.handlebars.registerHelper('ifCond', function (v1, v2, options) {
+export function registerHandlebarsHelpers() {
+  handlebars.registerHelper('ifCond', function (v1, v2, options) {
     if (v1 === v2) {
       return options.fn(this);
     }

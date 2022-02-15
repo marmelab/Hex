@@ -8,22 +8,22 @@
 </head>
 
 <body>
-  <div id="board">
-    <div class="main" style="--nr: {{gameState.board.length}}">
-      <div id="left-edge"></div>
-      <div id="right-edge"></div>
-      <div id="top-edge"></div>
-      <div id="bottom-edge"></div>
-      <div class="container">
+  <div class="gameboard">
+    <div class="hex-board-frame" style="--rows: {{gameState.board.length}}">
+      <div class="left-edge"></div>
+      <div class="right-edge"></div>
+      <div class="top-edge"></div>
+      <div class="bottom-edge"></div>
+      <div class="hex-board-container">
         <i></i>
         {{#each gameState.board}}
-        {{#each this}}
-        <div style="background: {{#ifCond this.value 'empty'}}#eea{{else}}{{this.value}}{{/ifCond}}">
-        </div>
+          {{#each this}}
+            <div style="background: {{#ifCond this.value 'empty'}}#eea{{else}}{{this.value}}{{/ifCond}}">
+            </div>
+          {{/each}}
         {{/each}}
-        {{/each}}
-        </div>
       </div>
+    </div>
   </div>
 </body>
 
