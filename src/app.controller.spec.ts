@@ -20,7 +20,7 @@ describe('AppController', () => {
       expect(appController.getBoardStateFromFile().gameState).toEqual(
         parseGameStateFromMultilineString(`
 ⬢ ⬡ ⬢
- ⬡ ⬡ ⬡
+ ⬡ W ⬡
   ⬡ ⬡ ⬡
 `),
       );
