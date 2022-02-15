@@ -11,22 +11,23 @@
 
 .hex-board-frame {
     display: flex;
-    flex-direction: column;
     /* width of one hexagon  */
     --hexwidth: 30px;
     /* margin around hexagons */
     --hexmargin: 3px;
     /* condensed height equivalent to the height of 2 overlapping hexagons (used to move every second row) */
     --hexcondheight: calc(1.732 * var(--hexwidth) + 4 * var(--hexmargin) - 1px);
+    /* additional height of one hexagon compared to its width (to have nice round hexagons)  */
+    --hexaddheight: calc(var(--hexwidth) * 0.2885);
     /* last variable `--rows` holds the number of rows and is injected by the template */
 }
 
 .hex-board-container {
     /*disable white space between inline block element */
     font-size: 0;
-    width: calc((var(--rows) + (var(--rows)) / 2)*(var(--hexwidth) + 2*var(--hexmargin)));
-    padding-bottom: calc(var(--hexwidth) * 0.2885 * 2);
-    padding-top: calc(var(--hexwidth) * 0.2885 * 2);
+    width: calc((var(--rows) * 1.5)*(var(--hexwidth) + 2*var(--hexmargin)));
+    padding-bottom: calc(var(--hexaddheight) * 2);
+    padding-top: calc(var(--hexaddheight) * 2);
 }
 
 .hex-board-container div {
@@ -34,9 +35,8 @@
     margin: var(--hexmargin);
     height: calc(var(--hexwidth)*1.1547);
     display: inline-block;
-    font-size: initial;
     clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
-    margin-bottom: calc(var(--hexmargin) - var(--hexwidth)*0.2885);
+    margin-bottom: calc(var(--hexmargin) - var(--hexaddheight));
 }
 
 .hex-board-container::before,
@@ -44,7 +44,7 @@
     content: "";
     width: calc((var(--hexwidth) + 2*var(--hexmargin))*((var(--rows))/2));
     float: left;
-    height: calc((var(--hexcondheight)*(var(--rows))/2) + var(--hexwidth)*0.2885);
+    height: calc((var(--hexcondheight)*(var(--rows))/2) + var(--hexaddheight));
     shape-outside: linear-gradient(to top right, #000 50%, #0000 0);
 }
 
@@ -56,27 +56,28 @@
 .top-edge, .bottom-edge, .left-edge, .right-edge {
     position: absolute;
     width: calc((var(--hexwidth) + 2*var(--hexmargin))*(var(--rows)));
-    height: calc(var(--hexwidth)*0.2885*2);
-    background: white;
+    height: calc(var(--hexaddheight)*2);
     clip-path: polygon(2% 0%, 98% 0%, 100% 50%, 98% 100%, 2% 100%, 0% 50%);
 }
 
 .top-edge {
+    background: white;
     transform: translate(calc(var(--hexwidth) / 2), calc(0px - 2*var(--hexmargin)));
 }
 
 .bottom-edge {
-    transform: translate(calc((var(--hexwidth) + 2*var(--hexmargin))*((var(--rows) - 1)/2) + var(--hexwidth) / 1.5), calc(var(--hexcondheight)*var(--rows)/2 + var(--hexwidth)/1.5 + var(--hexwidth) * 0.2885 * 2)) rotate(180deg);
+    background: white;
+    transform: translate(calc((var(--hexwidth) + 2*var(--hexmargin))*((var(--rows) - 1)/2) + var(--hexwidth) / 1.5), calc(var(--hexcondheight)*var(--rows)/2 + var(--hexwidth)/1.5 + var(--hexaddheight) * 2));
 }
 
 .left-edge {
     background: black;
     transform-origin: left;
-    transform: scaleY(-1) rotate(300deg) translate(calc(0px - 2*var(--hexmargin) + var(--hexwidth) / 2), calc(0px - var(--hexwidth)*0.2885*2.5));
+    transform: rotate(60deg) translate(calc(0px - 2*var(--hexmargin) + var(--hexwidth) / 2), calc(var(--hexaddheight)*2.5));
 }
 
 .right-edge {
     background: black;
     transform-origin: right;
-    transform: scaleY(-1) rotate(120deg) translate(calc(0px - 2*var(--hexmargin) - var(--hexwidth) / 1.5), calc(0px + var(--hexwidth)*0.2885*2 - var(--hexwidth) / 0.9));
+    transform: rotate(240deg) translate(calc(0px - 2*var(--hexmargin) - var(--hexwidth) / 1.5), calc(0px - var(--hexaddheight)*2 + var(--hexwidth) / 0.9));
 }
