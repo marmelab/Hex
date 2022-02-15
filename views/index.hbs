@@ -17,14 +17,23 @@
       <div class="hex-board-container">
         <i></i>
         {{#each gameState.board}}
-          {{#each this}}
-            <div style="background: {{#ifCond this.value 'empty'}}#eea{{else}}{{this.value}}{{/ifCond}}">
-            </div>
-          {{/each}}
+        {{#each this}}
+        <div style="background: {{#ifCond this.value 'empty'}}#eea{{else}}{{this.value}}{{/ifCond}}">
+        </div>
+        {{/each}}
         {{/each}}
       </div>
     </div>
   </div>
 </body>
+<style>
+  span[data-color="empty"] {
+    cursor: pointer;
+  }
+
+  span[data-color="empty"]:hover {
+    background-color: yellow;
+  }
+</style>
 
 </html>
