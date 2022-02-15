@@ -10,7 +10,8 @@ async function bootstrap() {
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   registerHandlebarsHelpers();
   app.setViewEngine('hbs');
-  await app.listen(3000);
+  const port = process.env.PORT || 3000;
+  await app.listen(port);
 }
 
 bootstrap();
