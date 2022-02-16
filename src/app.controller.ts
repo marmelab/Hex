@@ -12,14 +12,14 @@ export class AppController {
     @Query('y') y?: number,
   ): { gameState: GameState } {
     const gameState = this.appService.getBoardStateFromFile();
-    if (x && y) {
-      const updatedGameState = this.appService.updateGameState(gameState, {
-        x,
-        y,
-      });
-      return { gameState: updatedGameState };
-    }
-    return { gameState };
+    return x && y
+      ? {
+          gameState: this.appService.updateGameState(gameState, {
+            x,
+            y,
+          }),
+        }
+      : { gameState };
   }
 
   @Get()
@@ -32,13 +32,13 @@ export class AppController {
     const gameState = playerGameState
       ? (parseObjectFromEncodedQuerystring(playerGameState) as GameState)
       : this.appService.initNewGameState(11);
-    if (x && y) {
-      const updatedGameState = this.appService.updateGameState(gameState, {
-        x,
-        y,
-      });
-      return { gameState: updatedGameState };
-    }
-    return { gameState };
+    return x && y
+      ? {
+          gameState: this.appService.updateGameState(gameState, {
+            x,
+            y,
+          }),
+        }
+      : { gameState };
   }
 }
