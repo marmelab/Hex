@@ -8,21 +8,18 @@ const configPathFromDistDir = '../gameStateFile.json';
 
 @Injectable()
 export class AppService {
-  getBoardStateFromFile(): { gameState: GameState } {
+  getBoardStateFromFile(): GameState {
     const gameState = parseGameStateFromFile(
       join(__dirname, configPathFromDistDir),
     );
-    return { gameState };
+    return gameState;
   }
 
-  updateGameState(
-    gameState: GameState,
-    coordinates: Coordinates,
-  ): { gameState: GameState } {
+  updateGameState(gameState: GameState, coordinates: Coordinates): GameState {
     try {
       updateGameState(gameState, coordinates);
     } finally {
-      return { gameState };
+      return gameState;
     }
   }
 }
