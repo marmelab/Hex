@@ -5,7 +5,7 @@ import { parse } from 'qs';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) { }
   @Get('file')
   @Render('index')
   getBoardStateFromFile(
@@ -31,7 +31,7 @@ export class AppController {
   ): { gameState: GameState } {
     let gameState = playerGameState
       ? (parse(playerGameState) as unknown as GameState)
-      : this.appService.initNewGameState();
+      : this.appService.initNewGameState(11);
     if (x && y) {
       gameState = this.appService.updateGameState(gameState, {
         x,
