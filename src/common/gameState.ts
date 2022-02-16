@@ -118,7 +118,10 @@ export function updateGameState(
     throw new Error('A stone is already set in the selected cell.');
   }
   const newTurn: StoneColor = previousState.turn == 'white' ? 'black' : 'white';
-  const newGameState = { board: previousState.board, turn: newTurn };
+  const newGameState = {
+    board: deepCloneObject(previousState.board),
+    turn: newTurn,
+  };
   newGameState.board[nextMove.y][nextMove.x].value = previousState.turn;
   return newGameState;
 }
