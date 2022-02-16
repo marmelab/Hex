@@ -13,6 +13,7 @@
   <form method="get" action="/">
     <input type="hidden" name="x" value="{{@index}}" />
     <input type="hidden" name="y" value="{{@../index}}" />
+    <input type="hidden" name="gameState" value="{{encodeObjectAsQueryString ../../gameState}}" />
     <input type="submit" id="form-{{@../index}}-{{@index}}" style="display:none;" />
   </form>
   {{/each}}
