@@ -1,11 +1,11 @@
 import { handlebars } from 'hbs';
-import { stringify } from 'qs';
+import { encodeObjectForQueryString } from '../common/utils';
 
 export function registerHandlebarsHelpers() {
   handlebars.registerHelper(
     'encodeObjectAsQueryString',
     function (objectToEncode: Object): string {
-      return stringify(objectToEncode);
+      return encodeObjectForQueryString(objectToEncode);
     },
   );
 }

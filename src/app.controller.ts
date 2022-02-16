@@ -1,11 +1,10 @@
 import { Controller, Get, Render, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { GameState } from './common/gameState';
-import { parse } from 'qs';
-
+import { ParseObjectFromEncodedQuerystring } from './common/utils';
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) { }
+  constructor(private readonly appService: AppService) {}
   @Get('file')
   @Render('index')
   getBoardStateFromFile(
@@ -30,7 +29,7 @@ export class AppController {
     @Query('y') y?: number,
   ): { gameState: GameState } {
     let gameState = playerGameState
-      ? (parse(playerGameState) as unknown as GameState)
+      ? (parseObjectFromEncodedQuerystring(playerGameState) as GameState)
       : this.appService.initNewGameState(11);
     if (x && y) {
       gameState = this.appService.updateGameState(gameState, {

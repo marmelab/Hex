@@ -10,6 +10,14 @@ export function deepCloneObject(objectToClone) {
   return JSON.parse(JSON.stringify(objectToClone));
 }
 
+export function encodeObjectForQueryString(objectToEncode): string {
+  return encodeURI(JSON.stringify(objectToEncode));
+}
+
+export function parseObjectFromEncodedQuerystring(stringToParse): Object {
+  return JSON.parse(decodeURI(stringToParse));
+}
+
 export function parseGameStateFromMultilineString(
   gameState: string,
 ): GameState {

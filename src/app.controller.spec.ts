@@ -1,11 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { parseGameStateFromMultilineString } from './common/utils';
-import { stringify } from 'qs';
+import {
+  parseGameStateFromMultilineString,
+  encodeObjectForQueryString,
+} from './common/utils';
 
 function getEncodedGameStateFromMultilineString(gameState: string): string {
-  return stringify(parseGameStateFromMultilineString(gameState));
+  return encodeObjectForQueryString(
+    parseGameStateFromMultilineString(gameState),
+  );
 }
 
 describe('AppController', () => {
