@@ -29,9 +29,9 @@ describe('AppController (e2e)', () => {
     await app.close();
   });
 
-  it(`/GET (root) should render the board as stored in the config file`, () => {
+  it(`/GET (file) should render the board as stored in the config file`, () => {
     return request(app.getHttpServer())
-      .get('/')
+      .get('/file')
       .expect(200)
       .expect(/<div class="cell" data-color="empty">/)
       .expect(/<div class="cell" data-color="black">/)
