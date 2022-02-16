@@ -56,7 +56,7 @@ describe('AppController', () => {
 
   describe('root', () => {
     it('should return an empty board of 11x11"', () => {
-      expect(appController.getBoard().gameState).toEqual(
+      expect(appController.getBoard().gameState.board).toEqual(
         parseGameStateFromMultilineString(`
 ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
  ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
@@ -69,7 +69,7 @@ describe('AppController', () => {
         ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
          ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
           ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
-       `),
+       `).board,
       );
     });
   });
@@ -78,7 +78,7 @@ describe('AppController', () => {
       appController.getBoard(
         getEncodedGameStateFromMultilineString(`
         ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
-         ⬡ W ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
+         ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
           ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
            ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
             ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
@@ -91,7 +91,7 @@ describe('AppController', () => {
               `),
         1,
         1,
-      ).gameState,
+      ).gameState.board,
     ).toEqual(
       parseGameStateFromMultilineString(`
 ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
@@ -105,7 +105,7 @@ describe('AppController', () => {
         ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
          ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
           ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
-`),
+`).board,
     );
   });
 });
