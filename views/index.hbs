@@ -8,17 +8,6 @@
 </head>
 
 <body>
-  {{#each gameState.board}}
-  {{#each this}}
-  <form method="get" action="/">
-    <input type="hidden" name="x" value="{{@index}}" />
-    <input type="hidden" name="y" value="{{@../index}}" />
-    <input type="hidden" name="gameState" value="{{encodeObjectAsQueryString ../../gameState}}" />
-    <input type="submit" id="form-{{@../index}}-{{@index}}" style="display:none;" />
-  </form>
-  {{/each}}
-  {{/each}}
-
   <div class="gameboard">
     <div class="hex-board-frame" style="--rows: {{gameState.board.length}}">
       <div class="left-edge"></div>
@@ -29,10 +18,16 @@
         <i></i>
         {{#each gameState.board}}
         {{#each this}}
-        <label for="form-{{@../index}}-{{@index}}" tabindex="0">
-          <div class="cell" data-color="{{this.value}}">
-          </div>
-        </label>
+        <form method="get" action="/">
+          <input type="hidden" name="x" value="{{@index}}" />
+          <input type="hidden" name="y" value="{{@../index}}" />
+          <input type="hidden" name="gameState" value="{{encodeObjectAsQueryString ../../gameState}}" />
+          <input type="submit" id="form-{{@../index}}-{{@index}}" style="display:none;" />
+          <label for="form-{{@../index}}-{{@index}}" tabindex="0">
+            <div class="cell" data-color="{{this.value}}">
+            </div>
+          </label>
+        </form>
         {{/each}}
         {{/each}}
       </div>

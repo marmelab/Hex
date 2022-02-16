@@ -1,5 +1,9 @@
 /* Great source: https://css-tricks.com/hexagons-and-beyond-flexible-responsive-grid-patterns-sans-media-queries/ */
 
+form {
+    display:inline-block;
+}
+
 .gameboard {
     display: grid;
     place-self: center;
