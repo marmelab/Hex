@@ -4,27 +4,16 @@
 <head>
   <meta charset="utf-8" />
   <title>Hex</title>
-  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
 </head>
 
 <body>
-  <div class="gameboard">
-    <div class="hex-board-frame" style="--rows: {{gameState.board.length}}">
-      <div class="left-edge"></div>
-      <div class="right-edge"></div>
-      <div class="top-edge"></div>
-      <div class="bottom-edge"></div>
-      <div class="hex-board-container">
-        <i></i>
-        {{#each gameState.board}}
-          {{#each this}}
-            <div style="background: {{#ifCond this.value 'empty'}}#eea{{else}}{{this.value}}{{/ifCond}}">
-            </div>
-          {{/each}}
-        {{/each}}
-      </div>
-    </div>
-  </div>
+    <h1>Start a new game</h1>
+    <form action="/createNewGame" method="post">
+      <label for="size">Board size:</label><br>
+      <input type="number" id="size" name="size" value="19"><br>
+      <input type="submit" value="Submit">
+    </form>
 </body>
 
 </html>

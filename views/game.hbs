@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Hex</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+</head>
+
+<body>
+  <div class="gameboard">
+    <div class="hex-board-frame" style="--rows: {{state.board.length}}">
+      <div class="left-edge"></div>
+      <div class="right-edge"></div>
+      <div class="top-edge"></div>
+      <div class="bottom-edge"></div>
+      <div class="hex-board-container">
+        <i></i>
+        {{#each state.board}}
+        {{#each this}}
+        <div style="background: {{#ifCond this.value 'empty'}}#eea{{else}}{{this.value}}{{/ifCond}}">
+        </div>
+        {{/each}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

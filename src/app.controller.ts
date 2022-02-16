@@ -1,6 +1,6 @@
-import { Controller, Get, Param, Query, Redirect, Render } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Redirect, Render } from '@nestjs/common';
 import { AppService } from './app.service';
-import { GameState } from './common/gameState';
+import { Game } from './entities/game.entity';
 
 @Controller()
 export class AppController {
@@ -8,20 +8,20 @@ export class AppController {
 
   @Get()
   @Render('index')
-  getBoardStateFromFile(): { gameState: GameState } {
-    return this.appService.getBoardStateFromFile();
+  getHomePage() {
+    return "";
   }
 
-  @Get('createNewGame')
+  @Post('createNewGame')
   @Redirect('/')
-  async createNewGame(@Query('size') size: number) {
-    const newGameId = await this.appService.createNewGame(size);
+  async createNewGame(@Body() gameParams: { size: number }) {
+    const newGameId = await this.appService.createNewGame(gameParams.size);
     return { url: `/game/${newGameId}` };
   }
 
   @Get('game/:id')
-  async getGame(@Param('id') id: number): Promise<GameState> {
-    const game = await this.appService.findGameById(id);
-    return game.state;
+  @Render('game')
+  async getGame(@Param('id') id: number): Promise<Game> {
+    return await this.appService.findGameById(id);
   }
 }
