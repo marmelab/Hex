@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ "$NODE_ENV" == "production" ] ; then
-  yarn start
+  yarn start:prod
 else
-  yarn start:dev
+  yarn start
 fi
