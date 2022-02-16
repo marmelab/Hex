@@ -18,8 +18,7 @@
         <i></i>
         {{#each gameState.board}}
         {{#each this}}
-        <div class="cell" data-color="{{this.value}}"
-          style="background: {{#ifCond this.value 'empty'}}#eea{{else}}{{this.value}}{{/ifCond}}">
+        <div class="cell" data-color="{{this.value}}">
         </div>
         {{/each}}
         {{/each}}
@@ -29,11 +28,20 @@
 </body>
 <style>
   .cell[data-color="empty"] {
+    background: #eea;
     cursor: pointer;
   }
 
+  .cell[data-color="black"] {
+    background: black;
+  }
+
+  .cell[data-color="white"] {
+    background: white;
+  }
+
   .cell[data-color="empty"]:hover {
-    background: red !important;
+    background: red;
   }
 </style>
 
