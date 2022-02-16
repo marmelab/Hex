@@ -4,13 +4,13 @@ import { GameState } from './common/gameState';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) { }
 
   @Get()
   @Render('index')
   getBoardStateFromFile(
-    @Query('x') x: number,
-    @Query('y') y: number,
+    @Query('x') x?: number,
+    @Query('y') y?: number,
   ): { gameState: GameState } {
     const getBoardStateFromFile = this.appService.getBoardStateFromFile();
     if (x && y) {
