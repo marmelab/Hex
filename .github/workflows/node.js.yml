@@ -24,4 +24,6 @@ jobs:
     - name: Install
       run: yarn
     - name: Test
-      run: npm test
+      run: |
+        yarn test
+        yarn test:e2e
