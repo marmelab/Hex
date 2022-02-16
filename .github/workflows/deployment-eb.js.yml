@@ -23,5 +23,5 @@ jobs:
         application_name: Hex
         environment_name: Hex-env
         version_label: ver-${{ github.sha }}
-        region: us-west-2
+        region: us-east-1
         deployment_package: deploy.zip
