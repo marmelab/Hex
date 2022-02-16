@@ -8,6 +8,16 @@
 </head>
 
 <body>
+  {{#each gameState.board}}
+  {{#each this}}
+  <form method="get" action="/">
+    <input type="hidden" name="x" value="{{@index}}" />
+    <input type="hidden" name="y" value="{{@../index}}" />
+    <input type="submit" id="form-{{@../index}}-{{@index}}" style="display:none;" />
+  </form>
+  {{/each}}
+  {{/each}}
+
   <div class="gameboard">
     <div class="hex-board-frame" style="--rows: {{gameState.board.length}}">
       <div class="left-edge"></div>
@@ -18,8 +28,10 @@
         <i></i>
         {{#each gameState.board}}
         {{#each this}}
-        <div class="cell" data-color="{{this.value}}">
-        </div>
+        <label for="form-{{@../index}}-{{@index}}" tabindex="0">
+          <div class="cell" data-color="{{this.value}}">
+          </div>
+        </label>
         {{/each}}
         {{/each}}
       </div>
