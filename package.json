@@ -5,6 +5,9 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
+  "engines": {
+    "node": "^12"
+  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
@@ -20,7 +23,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "start:cli": "ts-node src/cli/index.ts",
-    "dev:cli": "nodemon --quiet --watch 'src/**/*.ts' --exec 'ts-node' src/cli/index.ts"
+    "dev:cli": "nodemon --quiet --watch 'src/**/*.ts' --exec 'ts-node' src/cli/index.ts",
+    "deploy": "npm ci && npm run build && npm run start:prod"
   },
   "dependencies": {
     "@babel/core": "^7.14.6",
