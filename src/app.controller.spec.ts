@@ -15,7 +15,7 @@ describe('AppController', () => {
     appController = app.get<AppController>(AppController);
   });
 
-  describe('root', () => {
+  describe('file', () => {
     it('should return the current game state from the file"', () => {
       expect(appController.getBoardStateFromFile().gameState).toEqual(
         parseGameStateFromMultilineString(`

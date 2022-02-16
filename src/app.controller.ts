@@ -6,20 +6,19 @@ import { GameState } from './common/gameState';
 export class AppController {
   constructor(private readonly appService: AppService) { }
 
-  @Get()
+  @Get('file')
   @Render('index')
   getBoardStateFromFile(
     @Query('x') x?: number,
     @Query('y') y?: number,
   ): { gameState: GameState } {
-    const getBoardStateFromFile = this.appService.getBoardStateFromFile();
+    let gameState = this.appService.getBoardStateFromFile();
     if (x && y) {
-      return this.appService.updateGameState(getBoardStateFromFile.gameState, {
+      gameState = this.appService.updateGameState(gameState, {
         x,
         y,
       });
-    } else {
-      return getBoardStateFromFile;
     }
+    return { gameState };
   }
 }
