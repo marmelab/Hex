@@ -23,7 +23,22 @@ export class AppService {
     return { gameState };
   }
 
-  findGameById(id: string): Promise<Game> {
+  findGameById(id: number): Promise<Game> {
     return this.gamesRepository.findOne(id);
+  }
+
+  async createNewGame(size: number): Promise<number> {
+    if (!size) {
+      size = 5;
+    } else {
+      size = +size;
+    }
+    const game = await this.gamesRepository.save(this.gamesRepository.create({
+      state: {
+        turn: "white",
+        board: new Array(size).fill(new Array(size).fill({ value: "empty" }))
+      }
+    }));
+    return game.id;
   }
 }
