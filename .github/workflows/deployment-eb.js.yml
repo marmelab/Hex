@@ -7,6 +7,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: Staging AWS
     steps:
 
     - name: Checkout source code
