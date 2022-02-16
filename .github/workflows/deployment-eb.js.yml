@@ -1,8 +1,8 @@
-name: Deploy aws
+name: Deploy on aws EB
 on:
   push:
     branches:
-    - aws
+    - main
 
 jobs:
   build:
