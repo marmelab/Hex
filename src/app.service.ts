@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { parseGameStateFromFile } from './common/parseConfigFile';
 import { join } from 'path';
-import { GameState } from './common/gameState';
+import { GameState, initNewGameState } from './common/gameState';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Game } from './entities/game.entity';
 
 const configPathFromDistDir = '../gameStateFile.json';
+const DEFAULT_BOARD_SIZE = 19;
 
 @Injectable()
 export class AppService {
@@ -29,15 +30,12 @@ export class AppService {
 
   async createNewGame(size: number): Promise<number> {
     if (!size) {
-      size = 5;
+      size = DEFAULT_BOARD_SIZE;
     } else {
       size = +size;
     }
     const game = await this.gamesRepository.save(this.gamesRepository.create({
-      state: {
-        turn: "white",
-        board: new Array(size).fill(new Array(size).fill({ value: "empty" }))
-      }
+      state: initNewGameState(size)
     }));
     return game.id;
   }

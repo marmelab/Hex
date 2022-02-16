@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, Render } from '@nestjs/common';
+import { Controller, Get, Param, Query, Redirect, Render } from '@nestjs/common';
 import { AppService } from './app.service';
 import { GameState } from './common/gameState';
 
@@ -13,8 +13,10 @@ export class AppController {
   }
 
   @Get('createNewGame')
-  async createNewGame(@Query('size') size: number): Promise<{ gameId: number; }> {
-    return { gameId: await this.appService.createNewGame(size) };
+  @Redirect('/')
+  async createNewGame(@Query('size') size: number) {
+    const newGameId = await this.appService.createNewGame(size);
+    return { url: `/game/${newGameId}` };
   }
 
   @Get('game/:id')
