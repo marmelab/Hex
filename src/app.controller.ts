@@ -1,7 +1,7 @@
 import { Controller, Get, Render, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { GameState } from './common/gameState';
-import { ParseObjectFromEncodedQuerystring } from './common/utils';
+import { parseObjectFromEncodedQuerystring } from './common/utils';
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
@@ -11,12 +11,13 @@ export class AppController {
     @Query('x') x?: number,
     @Query('y') y?: number,
   ): { gameState: GameState } {
-    let gameState = this.appService.getBoardStateFromFile();
+    const gameState = this.appService.getBoardStateFromFile();
     if (x && y) {
-      gameState = this.appService.updateGameState(gameState, {
+      const updatedGameState = this.appService.updateGameState(gameState, {
         x,
         y,
       });
+      return { gameState: updatedGameState };
     }
     return { gameState };
   }
@@ -28,14 +29,15 @@ export class AppController {
     @Query('x') x?: number,
     @Query('y') y?: number,
   ): { gameState: GameState } {
-    let gameState = playerGameState
+    const gameState = playerGameState
       ? (parseObjectFromEncodedQuerystring(playerGameState) as GameState)
       : this.appService.initNewGameState(11);
     if (x && y) {
-      gameState = this.appService.updateGameState(gameState, {
+      const updatedGameState = this.appService.updateGameState(gameState, {
         x,
         y,
       });
+      return { gameState: updatedGameState };
     }
     return { gameState };
   }

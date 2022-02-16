@@ -22,8 +22,9 @@ export class AppService {
 
   updateGameState(gameState: GameState, coordinates: Coordinates): GameState {
     try {
-      updateGameState(gameState, coordinates);
-    } finally {
+      const updatedGameState = updateGameState(gameState, coordinates);
+      return updatedGameState;
+    } catch {
       return gameState;
     }
   }
