@@ -2,6 +2,7 @@ import { createGraphFromGameState, HexBoardGraph } from './graph';
 import { doesPathExist } from './pathfinding';
 import { Coordinates, deepCloneObject } from './utils';
 
+export const DEFAULT_BOARD_SIZE = 19;
 const DEFAULT_CELL_VALUE: Cell = { value: 'empty' };
 const NEW_GAME_STARTING_STONE_COLOR = 'white';
 
