@@ -1,7 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { parseGameStateFromFile } from './common/parseConfigFile';
 import { join } from 'path';
-import { GameState, updateGameState } from './common/gameState';
+import {
+  GameState,
+  updateGameState,
+  initNewGameState,
+  DEFAULT_BOARD_SIZE,
+} from './common/gameState';
 import { Coordinates } from './common/utils';
 
 const configPathFromDistDir = '../gameStateFile.json';
@@ -21,5 +26,9 @@ export class AppService {
     } finally {
       return gameState;
     }
+  }
+
+  initNewGameState(size?: number): GameState {
+    return initNewGameState(size || DEFAULT_BOARD_SIZE);
   }
 }
