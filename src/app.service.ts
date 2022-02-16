@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { parseGameStateFromFile } from './common/parseConfigFile';
 import { join } from 'path';
-import { GameState } from './common/gameState';
+import { GameState, updateGameState } from './common/gameState';
+import { Coordinates } from './common/utils';
 
 const configPathFromDistDir = '../gameStateFile.json';
 
@@ -12,5 +13,16 @@ export class AppService {
       join(__dirname, configPathFromDistDir),
     );
     return { gameState };
+  }
+
+  updateGameState(
+    gameState: GameState,
+    coordinates: Coordinates,
+  ): { gameState: GameState } {
+    try {
+      updateGameState(gameState, coordinates);
+    } finally {
+      return { gameState };
+    }
   }
 }

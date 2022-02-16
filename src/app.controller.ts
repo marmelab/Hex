@@ -1,4 +1,4 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, Render, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { GameState } from './common/gameState';
 
@@ -8,7 +8,18 @@ export class AppController {
 
   @Get()
   @Render('index')
-  getBoardStateFromFile(): { gameState: GameState } {
-    return this.appService.getBoardStateFromFile();
+  getBoardStateFromFile(
+    @Query('x') x: number,
+    @Query('y') y: number,
+  ): { gameState: GameState } {
+    const getBoardStateFromFile = this.appService.getBoardStateFromFile();
+    if (x && y) {
+      return this.appService.updateGameState(getBoardStateFromFile.gameState, {
+        x,
+        y,
+      });
+    } else {
+      return getBoardStateFromFile;
+    }
   }
 }
