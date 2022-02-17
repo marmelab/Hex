@@ -8,23 +8,6 @@ import { parseObjectFromEncodedQuerystring } from './common/utils';
 export class AppController {
   constructor(private readonly appService: AppService) { }
 
-  @Get('file')
-  @Render('game')
-  getBoardStateFromFile(
-    @Query('x') x?: number,
-    @Query('y') y?: number,
-  ): { gameState: GameState } {
-    const gameState = this.appService.getBoardStateFromFile();
-    return x && y
-      ? {
-        gameState: this.appService.updateGameState(gameState, {
-          x,
-          y,
-        }),
-      }
-      : { gameState };
-  }
-
   @Get()
   @Render('index')
   getHomePage() {
@@ -40,36 +23,31 @@ export class AppController {
 
   @Get('game/:id')
   @Render('game')
-  async getGame(@Param('id') id: number): Promise<Game> {
-    return await this.appService.findGameById(id);
+  async getGame(
+    @Param('id') id: number,
+  ): Promise<Game> {
+    let game = await this.appService.findGameById(id);
+    return game;
+  }
+
+  @Post('game/:id')
+  @Render('game')
+  async postGame(
+    @Param('id') id: number,
+    @Body() gameParams: { x?: number, y?: number }
+  ): Promise<Game> {
+    let game = await this.appService.findGameById(id);
+    if (gameParams.x && gameParams.y) {
+      game = await this.appService.updateGameState(game, { x: gameParams.x, y: gameParams.y });
+    }
+    return game;
   }
 
   @Get('gameFromConfigFile')
-  @Render('game')
-  getGameFromFile(): Game {
-    return {
-      id: null,
-      player1: null,
-      player2: null,
-      state: this.appService.getBoardStateFromFile()
-    };
+  @Redirect('/')
+  async getGameFromFile() {
+    const newGameId = await this.appService.createNewGameFromFile();
+    return { url: `/game/${newGameId}` };
   }
 
-  getBoard(
-    @Query('gameState') playerGameState?: string,
-    @Query('x') x?: number,
-    @Query('y') y?: number,
-  ): { gameState: GameState } {
-    const gameState = playerGameState
-      ? (parseObjectFromEncodedQuerystring(playerGameState) as GameState)
-      : this.appService.initNewGameState(11);
-    return x && y
-      ? {
-        gameState: this.appService.updateGameState(gameState, {
-          x,
-          y,
-        }),
-      }
-      : { gameState };
-  }
 }

@@ -10,7 +10,7 @@ import {
   initNewGameState,
   DEFAULT_BOARD_SIZE,
 } from './common/gameState';
-import { Coordinates } from './common/utils';
+import { Coordinates, deepCloneObject } from './common/utils';
 
 const configPathFromDistDir = '../gameStateFile.json';
 
@@ -29,12 +29,15 @@ export class AppService {
     return gameState;
   }
 
-  updateGameState(gameState: GameState, coordinates: Coordinates): GameState {
-    return updateGameState(gameState, coordinates);
+  async updateGameState(game: Game, coordinates: Coordinates): Promise<Game> {
+    const updatedGame: Game = deepCloneObject(game);
+    updatedGame.state = updateGameState(game.state, coordinates);
+    await this.gamesRepository.save(updatedGame);
+    return updatedGame;
   }
 
-  initNewGameState(size?: number): GameState {
-    return initNewGameState(size || DEFAULT_BOARD_SIZE);
+  initNewGameState(): GameState {
+    return initNewGameState(DEFAULT_BOARD_SIZE);
   }
 
   findGameById(id: number): Promise<Game> {
@@ -50,6 +53,14 @@ export class AppService {
     const game = await this.gamesRepository.save(this.gamesRepository.create({
       state: initNewGameState(size)
     }));
+    return game.id;
+  }
+
+  async createNewGameFromFile(): Promise<number> {
+    let game = this.gamesRepository.create({
+      state: this.getBoardStateFromFile()
+    });
+    game = await this.gamesRepository.save(game);
     return game.id;
   }
 }
