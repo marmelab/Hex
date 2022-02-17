@@ -1,6 +1,6 @@
 import { Controller, Get, Render, Query } from '@nestjs/common';
 import { AppService } from './app.service';
-import { GameState } from './common/gameState';
+import { GameState, getWinner, StoneColor } from './common/gameState';
 import { parseObjectFromEncodedQuerystring } from './common/utils';
 @Controller()
 export class AppController {
@@ -15,16 +15,12 @@ export class AppController {
   getBoardStateFromFile(
     @Query('x') x?: number,
     @Query('y') y?: number,
-  ): { gameState: GameState } {
+  ): { gameState: GameState; winner: StoneColor } {
     const gameState = this.appService.getBoardStateFromFile();
-    return x && y
-      ? {
-          gameState: this.appService.updateGameState(gameState, {
-            x,
-            y,
-          }),
-        }
-      : { gameState };
+    const nextGameState =
+      x && y ? this.appService.updateGameState(gameState, { x, y }) : gameState;
+    const hasAWinner = getWinner(nextGameState);
+    return { gameState: nextGameState, winner: hasAWinner };
   }
 
   @Get('game')
@@ -33,17 +29,13 @@ export class AppController {
     @Query('gameState') playerGameState?: string,
     @Query('x') x?: number,
     @Query('y') y?: number,
-  ): { gameState: GameState } {
+  ): { gameState: GameState; winner: StoneColor } {
     const gameState = playerGameState
       ? (parseObjectFromEncodedQuerystring(playerGameState) as GameState)
       : this.appService.initNewGameState(11);
-    return x && y
-      ? {
-          gameState: this.appService.updateGameState(gameState, {
-            x,
-            y,
-          }),
-        }
-      : { gameState };
+    const nextGameState =
+      x && y ? this.appService.updateGameState(gameState, { x, y }) : gameState;
+    const hasAWinner = getWinner(nextGameState);
+    return { gameState: nextGameState, winner: hasAWinner };
   }
 }
