@@ -53,12 +53,12 @@ export function createGameEntityFromGameState(gameState: GameState): Game {
     id: null,
     player1: null,
     player2: null,
-    state: gameState
-  }
+    state: gameState,
+  };
 }
 
-export function parseGameFromMultilineString(
-  gameState: string,
-): Game {
-  return createGameEntityFromGameState(parseGameStateFromMultilineString(gameState));
+export function parseGameFromMultilineString(gameState: string): Game {
+  return createGameEntityFromGameState(
+    parseGameStateFromMultilineString(gameState),
+  );
 }

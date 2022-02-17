@@ -14,29 +14,28 @@ const mockRepository = {
   findOne: (id: number): Promise<Game> => {
     return new Promise((resolve, reject) => {
       resolve(mockedGame);
-    })
+    });
   },
   save: (game: Game): Game => {
     return game;
   },
   create: (game: Game): Game => {
     return game;
-  }
+  },
 };
 
 describe('AppService', () => {
   let appService: AppService;
 
   beforeEach(async () => {
-
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
       providers: [
         AppService,
         {
           provide: getRepositoryToken(Game),
-          useValue: mockRepository
-        }
+          useValue: mockRepository,
+        },
       ],
     }).compile();
 
@@ -54,11 +53,16 @@ describe('AppService', () => {
       );
     });
     it('should throw an error if trying to set a stone in a already filled cell"', async () => {
-      await expect(appService.updateGameState(parseGameFromMultilineString(`
+      await expect(
+        appService.updateGameState(
+          parseGameFromMultilineString(`
       ⬢ ⬡ ⬢
        ⬡ W ⬡
         ⬡ ⬡ ⬡
-      `), { x: 1, y: 1 })).rejects.toThrowError();
+      `),
+          { x: 1, y: 1 },
+        ),
+      ).rejects.toThrowError();
     });
   });
   it('should return the current game state from the file with still a black stone in [0,0]"', async () => {
@@ -67,8 +71,10 @@ describe('AppService', () => {
      ⬡ W ⬡
       ⬡ ⬡ ⬡
     `);
-    game.state.turn = "black";
-    expect((await appService.updateGameState(game, { x: 0, y: 0 })).state).toEqual(
+    game.state.turn = 'black';
+    expect(
+      (await appService.updateGameState(game, { x: 0, y: 0 })).state,
+    ).toEqual(
       parseGameStateFromMultilineString(`
 ⬢ ⬡ ⬢
  ⬡ W ⬡
@@ -98,8 +104,12 @@ describe('AppService', () => {
   });
   it('should return a board of 11x11 with a white stone in [1,1]"', async () => {
     expect(
-      (await appService.updateGameState(await appService.createNewGame(11),
-        { x: 1, y: 1 })).state.board,
+      (
+        await appService.updateGameState(await appService.createNewGame(11), {
+          x: 1,
+          y: 1,
+        })
+      ).state.board,
     ).toEqual(
       parseGameStateFromMultilineString(`
 ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡

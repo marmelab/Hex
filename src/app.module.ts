@@ -13,7 +13,7 @@ import { getConnectionOptions } from 'typeorm';
           autoLoadEntities: true,
         }),
     }),
-    TypeOrmModule.forFeature([Game])
+    TypeOrmModule.forFeature([Game]),
   ],
   controllers: [AppController],
   providers: [AppService],

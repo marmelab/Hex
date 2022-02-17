@@ -17,14 +17,14 @@ const mockRepository = {
   findOne: (id: number): Promise<Game> => {
     return new Promise((resolve, reject) => {
       resolve(mockedGame);
-    })
+    });
   },
   save: (game: Game): Game => {
     return game;
   },
   create: (game: Game): Game => {
     return game;
-  }
+  },
 };
 
 describe('AppController (e2e)', () => {
@@ -37,8 +37,8 @@ describe('AppController (e2e)', () => {
         AppService,
         {
           provide: getRepositoryToken(Game),
-          useValue: mockRepository
-        }
+          useValue: mockRepository,
+        },
       ],
     }).compile();
 
@@ -56,9 +56,6 @@ describe('AppController (e2e)', () => {
   });
 
   it(`GET /gameFromConfigFile should redirect to a new game url`, () => {
-    return request(app.getHttpServer())
-      .get('/gameFromConfigFile')
-      .expect(302);
+    return request(app.getHttpServer()).get('/gameFromConfigFile').expect(302);
   });
 });
-

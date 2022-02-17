@@ -16,11 +16,10 @@ const configPathFromDistDir = '../gameStateFile.json';
 
 @Injectable()
 export class AppService {
-
   constructor(
     @InjectRepository(Game)
     private gamesRepository: Repository<Game>,
-  ) { }
+  ) {}
 
   getBoardStateFromFile(): GameState {
     const gameState = parseGameStateFromFile(
@@ -50,15 +49,17 @@ export class AppService {
     } else {
       size = +size;
     }
-    const game = await this.gamesRepository.save(this.gamesRepository.create({
-      state: initNewGameState(size)
-    }));
+    const game = await this.gamesRepository.save(
+      this.gamesRepository.create({
+        state: initNewGameState(size),
+      }),
+    );
     return game;
   }
 
   async createNewGameFromFile(): Promise<Game> {
     let game = this.gamesRepository.create({
-      state: this.getBoardStateFromFile()
+      state: this.getBoardStateFromFile(),
     });
     game = await this.gamesRepository.save(game);
     return game;

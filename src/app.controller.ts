@@ -1,15 +1,24 @@
-import { Body, Controller, Get, Param, Post, Query, Redirect, Render } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  Redirect,
+  Render,
+} from '@nestjs/common';
 import { AppService } from './app.service';
 import { Game } from './entities/game.entity';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) { }
+  constructor(private readonly appService: AppService) {}
 
   @Get()
   @Render('index')
   getHomePage() {
-    return "";
+    return '';
   }
 
   @Post('createNewGame')
@@ -21,9 +30,7 @@ export class AppController {
 
   @Get('game/:id')
   @Render('game')
-  async getGame(
-    @Param('id') id: number,
-  ): Promise<Game> {
+  async getGame(@Param('id') id: number): Promise<Game> {
     let game = await this.appService.findGameById(id);
     return game;
   }
@@ -32,11 +39,14 @@ export class AppController {
   @Render('game')
   async postGame(
     @Param('id') id: number,
-    @Body() gameParams: { x?: number, y?: number }
+    @Body() gameParams: { x?: number; y?: number },
   ): Promise<Game> {
     let game = await this.appService.findGameById(id);
     if (gameParams.x && gameParams.y) {
-      game = await this.appService.updateGameState(game, { x: gameParams.x, y: gameParams.y });
+      game = await this.appService.updateGameState(game, {
+        x: gameParams.x,
+        y: gameParams.y,
+      });
     }
     return game;
   }
@@ -47,5 +57,4 @@ export class AppController {
     const newGameId = (await this.appService.createNewGameFromFile()).id;
     return { url: `/game/${newGameId}` };
   }
-
 }
