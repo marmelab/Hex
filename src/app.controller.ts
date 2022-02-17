@@ -24,4 +24,15 @@ export class AppController {
   async getGame(@Param('id') id: number): Promise<Game> {
     return await this.appService.findGameById(id);
   }
+
+  @Get('gameFromConfigFile')
+  @Render('game')
+  getGameFromFile(): Game {
+    return {
+      id: null,
+      player1: null,
+      player2: null,
+      state: this.appService.getBoardStateFromFile().gameState
+    };
+  }
 }
