@@ -4,30 +4,30 @@
 <head>
   <meta charset="utf-8" />
   <title>Hex</title>
-  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <link rel="stylesheet" type="text/css" href="/css/game.css" />
 </head>
 
 <body>
-  {{#areEqual gameState.winner null}}
+  {{#areEqual state.winner null}}
   <div class="gameboard">
     <div class="box-current-player">
       <p>Current player :</p>
-      <p class="current-player" data-player="{{gameState.turn}}">{{gameState.turn}}</p>
+      <p class="current-player" data-player="{{state.turn}}">{{state.turn}}</p>
     </div>
-    <div class=" hex-board-frame" style="--rows: {{gameState.board.length}}">
+    <div class=" hex-board-frame" style="--rows: {{state.board.length}}">
       <div class="left-edge"></div>
       <div class="right-edge"></div>
       <div class="top-edge"></div>
       <div class="bottom-edge"></div>
       <div class="hex-board-container">
         <i></i>
-        {{#each gameState.board}}
+        {{#each state.board}}
         {{#each this}}
         {{#areEqual this.value 'empty'}}
-        <form method="get" action="/game">
+        <form method="post" action="/game/{{../../id}}">
           <input type="hidden" name="x" value="{{@index}}" />
           <input type="hidden" name="y" value="{{@../index}}" />
-          <input type="hidden" name="gameState" value="{{encodeObjectAsQueryString ../../gameState}}" />
           <input type="submit" id="form-{{@../index}}-{{@index}}" style="display:none;" />
           <label for="form-{{@../index}}-{{@index}}" tabindex="0">
             <div class="cell" data-color="{{this.value}}">
@@ -38,6 +38,7 @@
         <div class="cell" data-color="{{this.value}}">
         </div>
         {{/areEqual}}
+
         {{/each}}
         {{/each}}
       </div>
@@ -45,7 +46,7 @@
   </div>
   {{else}}
   <div class="box-winner">
-    <p>The winner is : {{gameState.winner}}</p>
+    <p>The winner is : {{state.winner}}</p>
     <form action="/" method="get">
       <input type="submit" value="Return to home page">
     </form>

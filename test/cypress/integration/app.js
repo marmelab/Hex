@@ -4,20 +4,20 @@ describe('Home page', () => {
   })
 
   it('Start a new game', () => {
-    cy.get('input').click();
-    cy.location('pathname').should('eq', '/game');
-    cy.get('.cell').should('have.length', 121);
+    cy.get('[data-cy=submit]').click();
+    cy.location('pathname').should('contains', '/game');
+    cy.get('.cell').should('have.length', 361);
   })
-
 })
 
 describe('Hex game', () => {
   beforeEach(() => {
-    cy.visit('/game');
+    cy.visit('/');
+    cy.get('[data-cy=submit]').click();
   })
 
   it('Display a grid of 11*11 cells', () => {
-    cy.get('.cell').should('have.length', 121);
+    cy.get('.cell').should('have.length', 361);
   })
 
   it('Add a white stone on first cell', () => {
@@ -47,12 +47,15 @@ describe('Hex game', () => {
     cy.get('.cell').eq(1).click();
     cy.get('.cell').eq(1).invoke('attr', 'data-color').should('eq', 'black');
   })
-
   it('End the game when their is a winner and allow to go back home', () => {
-    cy.visit('/game?x=1&y=10&gameState=%257B%2522board%2522%3A%255B%255B%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522white%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%255D%2C%255B%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522black%2522%257D%2C%257B%2522value%2522%3A%2522white%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%255D%2C%255B%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522black%2522%257D%2C%257B%2522value%2522%3A%2522white%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%255D%2C%255B%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522black%2522%257D%2C%257B%2522value%2522%3A%2522white%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%255D%2C%255B%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522black%2522%257D%2C%257B%2522value%2522%3A%2522white%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%255D%2C%255B%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522black%2522%257D%2C%257B%2522value%2522%3A%2522white%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%255D%2C%255B%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522black%2522%257D%2C%257B%2522value%2522%3A%2522white%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%255D%2C%255B%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522black%2522%257D%2C%257B%2522value%2522%3A%2522white%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%255D%2C%255B%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522black%2522%257D%2C%257B%2522value%2522%3A%2522white%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%255D%2C%255B%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522black%2522%257D%2C%257B%2522value%2522%3A%2522white%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%255D%2C%255B%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%2C%257B%2522value%2522%3A%2522empty%2522%257D%255D%255D%2C%2522turn%2522%3A%2522black%2522%257D');
-    cy.get('.cell').eq(112).click();
+    cy.visit('/');
+    cy.get('[data-cy=size]').clear().type("2");
+    cy.get('[data-cy=submit]').click();
+    cy.get('.cell').eq(0).click();
+    cy.get('.cell').eq(1).click();
+    cy.get('.cell').eq(2).click();
     cy.get('.box-winner > p').contains('white');
     cy.get('input').click();
     cy.location('pathname').should('eq', '/');
   })
-})
+});

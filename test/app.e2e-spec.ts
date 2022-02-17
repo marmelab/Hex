@@ -1,19 +1,45 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import request from 'supertest';
-import { AppModule } from './../src/app.module';
 import { join } from 'path';
+import { Game } from '../src/entities/game.entity';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { AppController } from '../src/app.controller';
+import { AppService } from '../src/app.service';
 import {
   registerHandlebarsHelpers,
   unregisterHandlebarsHelpers,
 } from '../src/handlebars/helpers';
+
+let mockedGame: Game;
+
+const mockRepository = {
+  findOne: (id: number): Promise<Game> => {
+    return new Promise((resolve, reject) => {
+      resolve(mockedGame);
+    });
+  },
+  save: (game: Game): Game => {
+    return game;
+  },
+  create: (game: Game): Game => {
+    return game;
+  },
+};
 
 describe('AppController (e2e)', () => {
   let app: NestExpressApplication;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
+      controllers: [AppController],
+      providers: [
+        AppService,
+        {
+          provide: getRepositoryToken(Game),
+          useValue: mockRepository,
+        },
+      ],
     }).compile();
 
     app = moduleFixture.createNestApplication();
@@ -29,12 +55,7 @@ describe('AppController (e2e)', () => {
     await app.close();
   });
 
-  it(`/GET (file) should render the board as stored in the config file`, () => {
-    return request(app.getHttpServer())
-      .get('/file')
-      .expect(200)
-      .expect(/<div class="cell" data-color="empty">/)
-      .expect(/<div class="cell" data-color="black">/)
-      .expect(/<div class="cell" data-color="white">/);
+  it(`GET /gameFromConfigFile should redirect to a new game url`, () => {
+    return request(app.getHttpServer()).get('/gameFromConfigFile').expect(302);
   });
 });

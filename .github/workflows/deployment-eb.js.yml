@@ -21,8 +21,8 @@ jobs:
       with:
         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        application_name: Hex
-        environment_name: Hex-env
+        application_name: "Hex docker"
+        environment_name: Hexdocker-env
         version_label: ver-${{ github.sha }}
         region: us-east-1
         deployment_package: deploy.zip

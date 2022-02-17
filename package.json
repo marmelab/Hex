@@ -24,6 +24,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "start:cli": "ts-node src/cli/index.ts",
     "dev:cli": "nodemon --quiet --watch 'src/**/*.ts' --exec 'ts-node' src/cli/index.ts",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "deploy": "npm ci && npm run build && npm run start:prod",
     "cypress:open": "cypress open --project test"
   },
@@ -33,6 +34,7 @@
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/typeorm": "^8.0.3",
     "@types/blessed": "^0.1.17",
     "babel-jest": "^27.0.6",
     "blessed": "^0.1.81",
@@ -40,9 +42,11 @@
     "hbs": "^4.2.0",
     "jkstra": "^0.1.1",
     "nodemon": "^2.0.15",
+    "pg": "^8.7.3",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "typeorm": "^0.2.41"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.14.5",
