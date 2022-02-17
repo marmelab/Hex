@@ -1,6 +1,6 @@
 describe('Hex game', () => {
   beforeEach(() => {
-    cy.visit('/');
+    cy.visit('/game');
   })
 
   it('Display a grid of 11*11 cells', () => {
