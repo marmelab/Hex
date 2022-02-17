@@ -26,7 +26,7 @@ services:
     image: postgres:10.4
     ports:
       - "5432:5432"
-    volumes: 
+    volumes:
       - db-data:/var/lib/postgresql/data
     restart: always
     environment:
@@ -49,6 +49,18 @@ services:
     depends_on:
       - postgres
 
+  nginx:
+    container_name: nginx
+    image: nginx
+    build:
+      context: .
+      dockerfile: ./Dockerfile.nginx
+    ports:
+      - 80:80
+    depends_on:
+      - nestjs
+    restart: always
+
 volumes:
-    db-data:
-    pgadmin-data:
+  db-data:
+  pgadmin-data:
