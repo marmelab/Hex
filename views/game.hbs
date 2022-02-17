@@ -9,6 +9,7 @@
 </head>
 
 <body>
+  {{#areEqual gameState.winner null}}
   <div class="gameboard">
     <div class="box-current-player">
       <p>Current player :</p>
@@ -43,6 +44,14 @@
       </div>
     </div>
   </div>
+  {{else}}
+  <div class="box-winner">
+    <p>The winner is : {{state.winner}}</p>
+    <form action="/" method="get">
+      <input type="submit" value="Return to home page">
+    </form>
+  </div>
+  {{/areEqual}}
 </body>
 
 </html>

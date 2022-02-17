@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { Cell, GameState, StoneColor } from './gameState';
+import { Cell, GameState, getWinner, StoneColor } from './gameState';
 
 const BLACK_STONE_VALUE = 1;
 const WHITE_STONE_VALUE = 2;
@@ -31,7 +31,9 @@ export function parseConfigFile(
   const gameState: GameState = {
     turn: getGameStateTurn(board),
     board: board,
+    winner: null,
   };
+  gameState.winner = getWinner(gameState);
   return gameState;
 }
 
