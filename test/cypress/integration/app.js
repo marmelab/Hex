@@ -1,3 +1,15 @@
+describe('Home page', () => {
+  beforeEach(() => {
+    cy.visit('/');
+  })
+
+  it('Start a new game', () => {
+    cy.get('input').click();
+    cy.get('.cell').should('have.length', 121);
+  })
+
+})
+
 describe('Hex game', () => {
   beforeEach(() => {
     cy.visit('/game');
