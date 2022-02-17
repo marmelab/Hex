@@ -14,8 +14,8 @@ jobs:
         with:
           node-version: '12.x'
 
-      - name: Start a postgres db
-        run: docker-compose up -d postgres
+      - name: Start all services
+        run: docker-compose up -d
 
       - name: Cypress run
         uses: cypress-io/github-action@v2
