@@ -37,4 +37,13 @@ describe('Hex game', () => {
     cy.get('.cell').eq(1).click();
     cy.get('.cell').eq(1).invoke('attr', 'data-color').should('eq', 'black');
   })
+
+  it('Display the correct current player', () => {
+    cy.get('.current-player').contains('white');
+    cy.get('.cell').first().click();
+    cy.get('.current-player').contains('black');
+    cy.get('.cell').first().invoke('attr', 'data-color').should('eq', 'white');
+    cy.get('.cell').eq(1).click();
+    cy.get('.cell').eq(1).invoke('attr', 'data-color').should('eq', 'black');
+  })
 })
