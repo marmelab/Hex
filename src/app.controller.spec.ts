@@ -34,14 +34,11 @@ describe('AppController', () => {
 `),
       );
     });
-    it('should return the current game state from the file + a white stone in [1,1]"', () => {
-      expect(appController.getBoardStateFromFile(1, 1).gameState).toEqual(
-        parseGameStateFromMultilineString(`
-⬢ ⬡ ⬢
- ⬡ W ⬡
-  ⬡ ⬡ ⬡
-`),
-      );
+    it('should throw an error if trying to set a stone in a already filled cell"', () => {
+      const getBoagetBoardStateFromFileCall = () => {
+        appController.getBoardStateFromFile(1, 1);
+      };
+      expect(getBoagetBoardStateFromFileCall).toThrowError();
     });
   });
   it('should return the current game state from the file with still a black stone in [0,0]"', () => {
