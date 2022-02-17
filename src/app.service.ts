@@ -21,12 +21,7 @@ export class AppService {
   }
 
   updateGameState(gameState: GameState, coordinates: Coordinates): GameState {
-    try {
-      const updatedGameState = updateGameState(gameState, coordinates);
-      return updatedGameState;
-    } catch {
-      return gameState;
-    }
+    return updateGameState(gameState, coordinates);
   }
 
   initNewGameState(size?: number): GameState {
