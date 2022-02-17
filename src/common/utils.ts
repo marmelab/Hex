@@ -1,3 +1,4 @@
+import { Game } from 'src/entities/game.entity';
 import { GameState, getWinner } from './gameState';
 export interface Coordinates {
   x: number;
@@ -45,4 +46,19 @@ export function parseGameStateFromMultilineString(
   } as GameState;
   parsedGameState.winner = getWinner(parsedGameState);
   return parsedGameState;
+}
+
+export function createGameEntityFromGameState(gameState: GameState): Game {
+  return {
+    id: null,
+    player1: null,
+    player2: null,
+    state: gameState
+  }
+}
+
+export function parseGameFromMultilineString(
+  gameState: string,
+): Game {
+  return createGameEntityFromGameState(parseGameStateFromMultilineString(gameState));
 }

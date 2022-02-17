@@ -5,20 +5,29 @@ import { AppService } from './app.service';
 import { Game } from './entities/game.entity';
 import {
   parseGameStateFromMultilineString,
-  encodeObjectForQueryString,
+  parseGameFromMultilineString,
 } from './common/utils';
 
-function getEncodedGameStateFromMultilineString(gameState: string): string {
-  return encodeObjectForQueryString(
-    parseGameStateFromMultilineString(gameState),
-  );
-}
+let mockedGame: Game;
 
-describe('AppController', () => {
-  let appController: AppController;
+const mockRepository = {
+  findOne: (id: number): Promise<Game> => {
+    return new Promise((resolve, reject) => {
+      resolve(mockedGame);
+    })
+  },
+  save: (game: Game): Game => {
+    return game;
+  },
+  create: (game: Game): Game => {
+    return game;
+  }
+};
+
+describe('AppService', () => {
+  let appService: AppService;
 
   beforeEach(async () => {
-    const mockRepository = () => { }; // TODO: complete mock if we need to mock repository functions
 
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
@@ -31,12 +40,12 @@ describe('AppController', () => {
       ],
     }).compile();
 
-    appController = app.get<AppController>(AppController);
+    appService = app.get<AppService>(AppService);
   });
 
   describe('file', () => {
     it('should return the current game state from the file"', () => {
-      expect(appController.getGameFromFile().state).toEqual(
+      expect(appService.getBoardStateFromFile()).toEqual(
         parseGameStateFromMultilineString(`
 ⬢ ⬡ ⬢
  ⬡ W ⬡
@@ -44,15 +53,22 @@ describe('AppController', () => {
 `),
       );
     });
-    it('should throw an error if trying to set a stone in a already filled cell"', () => {
-      const getBoagetBoardStateFromFileCall = () => {
-        appController.getBoardStateFromFile(1, 1);
-      };
-      expect(getBoagetBoardStateFromFileCall).toThrowError();
+    it('should throw an error if trying to set a stone in a already filled cell"', async () => {
+      await expect(appService.updateGameState(parseGameFromMultilineString(`
+      ⬢ ⬡ ⬢
+       ⬡ W ⬡
+        ⬡ ⬡ ⬡
+      `), { x: 1, y: 1 })).rejects.toThrowError();
     });
   });
-  it('should return the current game state from the file with still a black stone in [0,0]"', () => {
-    expect(appController.getBoardStateFromFile(0, 0).gameState).toEqual(
+  it('should return the current game state from the file with still a black stone in [0,0]"', async () => {
+    const game = parseGameFromMultilineString(`
+    ⬡ ⬡ ⬢
+     ⬡ W ⬡
+      ⬡ ⬡ ⬡
+    `);
+    game.state.turn = "black";
+    expect((await appService.updateGameState(game, { x: 0, y: 0 })).state).toEqual(
       parseGameStateFromMultilineString(`
 ⬢ ⬡ ⬢
  ⬡ W ⬡
@@ -62,8 +78,8 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return an empty board of 11x11"', () => {
-      expect(appController.getBoard().gameState.board).toEqual(
+    it('should return an empty board of 11x11"', async () => {
+      expect((await appService.createNewGame(11)).state.board).toEqual(
         parseGameStateFromMultilineString(`
 ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
  ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
@@ -80,25 +96,10 @@ describe('AppController', () => {
       );
     });
   });
-  it('should return a board of 11x11 with a white stone in [1,1]"', () => {
+  it('should return a board of 11x11 with a white stone in [1,1]"', async () => {
     expect(
-      appController.getBoard(
-        getEncodedGameStateFromMultilineString(`
-        ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
-         ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
-          ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
-           ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
-            ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
-             ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
-              ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
-               ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
-                ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
-                 ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
-                  ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
-              `),
-        1,
-        1,
-      ).gameState.board,
+      (await appService.updateGameState(await appService.createNewGame(11),
+        { x: 1, y: 1 })).state.board,
     ).toEqual(
       parseGameStateFromMultilineString(`
 ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡

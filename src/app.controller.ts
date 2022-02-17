@@ -15,7 +15,7 @@ export class AppController {
   @Post('createNewGame')
   @Redirect('/')
   async createNewGame(@Body() gameParams: { size: number }) {
-    const newGameId = await this.appService.createNewGame(gameParams.size);
+    const newGameId = (await this.appService.createNewGame(gameParams.size)).id;
     return { url: `/game/${newGameId}` };
   }
 
@@ -44,7 +44,7 @@ export class AppController {
   @Get('gameFromConfigFile')
   @Redirect('/')
   async getGameFromFile() {
-    const newGameId = await this.appService.createNewGameFromFile();
+    const newGameId = (await this.appService.createNewGameFromFile()).id;
     return { url: `/game/${newGameId}` };
   }
 

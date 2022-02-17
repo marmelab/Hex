@@ -44,7 +44,7 @@ export class AppService {
     return this.gamesRepository.findOne(id);
   }
 
-  async createNewGame(size: number): Promise<number> {
+  async createNewGame(size: number): Promise<Game> {
     if (!size) {
       size = DEFAULT_BOARD_SIZE;
     } else {
@@ -53,14 +53,14 @@ export class AppService {
     const game = await this.gamesRepository.save(this.gamesRepository.create({
       state: initNewGameState(size)
     }));
-    return game.id;
+    return game;
   }
 
-  async createNewGameFromFile(): Promise<number> {
+  async createNewGameFromFile(): Promise<Game> {
     let game = this.gamesRepository.create({
       state: this.getBoardStateFromFile()
     });
     game = await this.gamesRepository.save(game);
-    return game.id;
+    return game;
   }
 }
