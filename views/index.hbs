@@ -18,6 +18,7 @@
         <i></i>
         {{#each gameState.board}}
         {{#each this}}
+        {{#areEqual this.value 'empty'}}
         <form method="get" action="/">
           <input type="hidden" name="x" value="{{@index}}" />
           <input type="hidden" name="y" value="{{@../index}}" />
@@ -28,6 +29,11 @@
             </div>
           </label>
         </form>
+        {{else}}
+        <div class="cell" data-color="{{this.value}}">
+        </div>
+        {{/areEqual}}">
+
         {{/each}}
         {{/each}}
       </div>
