@@ -11,10 +11,24 @@ import {
   unregisterHandlebarsHelpers,
 } from '../src/handlebars/helpers';
 
+let mockedGame: Game;
+
+const mockRepository = {
+  findOne: (id: number): Promise<Game> => {
+    return new Promise((resolve, reject) => {
+      resolve(mockedGame);
+    })
+  },
+  save: (game: Game): Game => {
+    return game;
+  },
+  create: (game: Game): Game => {
+    return game;
+  }
+};
+
 describe('AppController (e2e)', () => {
   let app: NestExpressApplication;
-
-  const mockRepository = () => { }; // TODO: complete mock if we need to mock repository functions
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -41,13 +55,10 @@ describe('AppController (e2e)', () => {
     await app.close();
   });
 
-  it(`GET /gameFromConfigFile should render the board as stored in the config file`, () => {
+  it(`GET /gameFromConfigFile should redirect to a new game url`, () => {
     return request(app.getHttpServer())
       .get('/gameFromConfigFile')
-      .expect(200)
-      .expect(/<div class="cell" data-color="empty">/)
-      .expect(/<div class="cell" data-color="black">/)
-      .expect(/<div class="cell" data-color="white">/);
+      .expect(302);
   });
 });
 
