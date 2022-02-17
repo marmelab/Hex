@@ -5,29 +5,25 @@ import { AppModule } from './../src/app.module';
 import { join } from 'path';
 import { registerHandlebarsHelpers, unregisterHandlebarsHelpers } from '../src/handlebars/helpers';
 import { Game } from '../src/entities/game.entity';
-import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { getRepositoryToken, TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { User } from '../src/entities/user.entity';
-
-const createTestConfiguration = (
-  entities
-): TypeOrmModuleOptions => ({
-  type: 'sqlite',
-  database: ':memory:',
-  entities,
-  dropSchema: true,
-  synchronize: true,
-  logging: false,
-});
+import { AppController } from '../src/app.controller';
+import { AppService } from '../src/app.service';
 
 describe('AppController (e2e)', () => {
   let app: NestExpressApplication;
 
+  const mockRepository = () => { }; // TODO: complete mock if we need to mock repository functions
+
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [
-        AppModule,
-        TypeOrmModule.forRoot(createTestConfiguration([User, Game])),
-        TypeOrmModule.forFeature([User, Game]),
+      controllers: [AppController],
+      providers: [
+        AppService,
+        {
+          provide: getRepositoryToken(Game),
+          useValue: mockRepository
+        }
       ],
     }).compile();
 
