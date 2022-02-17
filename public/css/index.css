@@ -1,0 +1,8 @@
+body {
+    padding: 20px;
+    text-align: center;
+}
+
+form label, form input {
+    margin: 10px;
+}
