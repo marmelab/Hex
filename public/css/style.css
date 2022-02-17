@@ -1,9 +1,5 @@
 /* Great source: https://css-tricks.com/hexagons-and-beyond-flexible-responsive-grid-patterns-sans-media-queries/ */
 
-form {
-    display:inline-block;
-}
-
 .gameboard {
     display: grid;
     place-self: center;
@@ -41,6 +37,10 @@ form {
     display: inline-block;
     clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
     margin-bottom: calc(var(--hexmargin) - var(--hexaddheight));
+}
+
+.hex-board-container form {
+    display:inline-block;
 }
 
 .hex-board-container::before,
