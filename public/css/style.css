@@ -9,6 +9,27 @@
     background: #333;
 }
 
+.box-current-player{
+    margin-bottom: 50px;
+}
+
+.box-current-player > * {
+    display:inline;
+}
+
+.current-player {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+p[data-player="black"] {
+    color:black;
+}
+
+p[data-player="white"] {
+    color:white;
+}
+
 .hex-board-frame {
     display: flex;
     /* width of one hexagon  */

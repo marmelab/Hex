@@ -5,8 +5,13 @@ import { parseObjectFromEncodedQuerystring } from './common/utils';
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
-  @Get('file')
+
+  @Get()
   @Render('index')
+  getHomePage() {}
+
+  @Get('file')
+  @Render('game')
   getBoardStateFromFile(
     @Query('x') x?: number,
     @Query('y') y?: number,
@@ -22,8 +27,8 @@ export class AppController {
       : { gameState };
   }
 
-  @Get()
-  @Render('index')
+  @Get('game')
+  @Render('game')
   getBoard(
     @Query('gameState') playerGameState?: string,
     @Query('x') x?: number,
