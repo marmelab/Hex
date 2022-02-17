@@ -9,7 +9,7 @@ export class AppController {
   constructor(private readonly appService: AppService) { }
 
   @Get('file')
-  @Render('index')
+  @Render('game')
   getBoardStateFromFile(
     @Query('x') x?: number,
     @Query('y') y?: number,
