@@ -14,12 +14,10 @@ jobs:
         with:
           node-version: '12.x'
 
-      - name: Start a postgres db
-        run: docker-compose up -d postgres
+      - name: Start all services
+        run: docker-compose up -d
 
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          build: yarn build
-          start: yarn start
-          project: ./test 
+          project: ./test
