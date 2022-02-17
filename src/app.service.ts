@@ -1,13 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { parseGameStateFromFile } from './common/parseConfigFile';
 import { join } from 'path';
-import { GameState, initNewGameState } from './common/gameState';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Game } from './entities/game.entity';
+import {
+  GameState,
+  updateGameState,
+  initNewGameState,
+  DEFAULT_BOARD_SIZE,
+} from './common/gameState';
+import { Coordinates } from './common/utils';
 
 const configPathFromDistDir = '../gameStateFile.json';
-const DEFAULT_BOARD_SIZE = 19;
 
 @Injectable()
 export class AppService {
@@ -17,11 +22,19 @@ export class AppService {
     private gamesRepository: Repository<Game>,
   ) { }
 
-  getBoardStateFromFile(): { gameState: GameState } {
+  getBoardStateFromFile(): GameState {
     const gameState = parseGameStateFromFile(
       join(__dirname, configPathFromDistDir),
     );
-    return { gameState };
+    return gameState;
+  }
+
+  updateGameState(gameState: GameState, coordinates: Coordinates): GameState {
+    return updateGameState(gameState, coordinates);
+  }
+
+  initNewGameState(size?: number): GameState {
+    return initNewGameState(size || DEFAULT_BOARD_SIZE);
   }
 
   findGameById(id: number): Promise<Game> {

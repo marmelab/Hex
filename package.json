@@ -25,7 +25,8 @@
     "start:cli": "ts-node src/cli/index.ts",
     "dev:cli": "nodemon --quiet --watch 'src/**/*.ts' --exec 'ts-node' src/cli/index.ts",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "deploy": "npm ci && npm run build && npm run start:prod"
+    "deploy": "npm ci && npm run build && npm run start:prod",
+    "cypress:open": "cypress open --project test"
   },
   "dependencies": {
     "@babel/core": "^7.14.6",
@@ -58,6 +59,7 @@
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
+    "cypress": "^9.5.0",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.4",

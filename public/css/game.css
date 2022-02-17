@@ -39,6 +39,10 @@
     margin-bottom: calc(var(--hexmargin) - var(--hexaddheight));
 }
 
+.hex-board-container form {
+    display: inline-block;
+}
+
 .hex-board-container::before,
 .hex-board-container i {
     content: "";
@@ -80,4 +84,21 @@
     background: black;
     transform-origin: right;
     transform: rotate(240deg) translate(calc(0px - 2*var(--hexmargin) - var(--hexwidth) / 1.5), calc(0px - var(--hexaddheight)*2 + var(--hexwidth) / 0.9));
+}
+
+.cell[data-color="empty"] {
+    background: #eea;
+    cursor: pointer;
+}
+
+.cell[data-color="black"] {
+    background: black;
+}
+
+.cell[data-color="white"] {
+    background: white;
+}
+
+.cell[data-color="empty"]:hover {
+    background: red;
 }

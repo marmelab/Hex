@@ -2,10 +2,8 @@ import { program } from 'commander';
 import { parseGameStateFromFile } from '../common/parseConfigFile';
 import { initScreen } from '../common/gui';
 import { renderBoard } from '../common/gui';
-import { initNewGameState } from '../common/gameState';
+import { initNewGameState, DEFAULT_BOARD_SIZE } from '../common/gameState';
 import { exit } from 'process';
-
-const DEFAULT_BOARD_SIZE = 19;
 
 program
   .option(

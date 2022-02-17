@@ -10,17 +10,31 @@
 
 <body>
   <div class="gameboard">
-    <div class="hex-board-frame" style="--rows: {{state.board.length}}">
+    <div class="hex-board-frame" style="--rows: {{gameState.board.length}}">
       <div class="left-edge"></div>
       <div class="right-edge"></div>
       <div class="top-edge"></div>
       <div class="bottom-edge"></div>
       <div class="hex-board-container">
         <i></i>
-        {{#each state.board}}
+        {{#each gameState.board}}
         {{#each this}}
-        <div style="background: {{#ifCond this.value 'empty'}}#eea{{else}}{{this.value}}{{/ifCond}}">
-        </div>
+        {{#areEqual this.value 'empty'}}
+        <form method="get" action="/">
+          <input type="hidden" name="x" value="{{@index}}" />
+          <input type="hidden" name="y" value="{{@../index}}" />
+          <input type="hidden" name="gameState" value="{{encodeObjectAsQueryString ../../gameState}}" />
+          <input type="submit" id="form-{{@../index}}-{{@index}}" style="display:none;" />
+          <label for="form-{{@../index}}-{{@index}}" tabindex="0">
+            <div class="cell" data-color="{{this.value}}">
+            </div>
+          </label>
+          </form>
+          {{else}}
+          <div class="cell" data-color="{{this.value}}">
+          </div>
+          {{/areEqual}}">
+
         {{/each}}
         {{/each}}
       </div>
