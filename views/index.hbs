@@ -9,7 +9,11 @@
 
 <body>
   <div class="gameboard">
-    <div class="hex-board-frame" style="--rows: {{gameState.board.length}}">
+    <div class="box-current-player">
+      <p>Current player :</p>
+      <p class="current-player" data-player="{{gameState.turn}}">{{gameState.turn}}</p>
+    </div>
+    <div class=" hex-board-frame" style="--rows: {{gameState.board.length}}">
       <div class="left-edge"></div>
       <div class="right-edge"></div>
       <div class="top-edge"></div>
