@@ -1,12 +1,5 @@
 import * as blessed from 'blessed';
-import {
-  Cell,
-  cellHasStone,
-  GameState,
-  gameIsFinished,
-  updateGameState,
-  getWinner,
-} from './gameState';
+import { Cell, cellHasStone, GameState, updateGameState } from './gameState';
 import { UTF16_CODE_OF_LETTER_A } from './utils';
 
 const CELL_WIDTH = 2;
@@ -57,7 +50,7 @@ export function renderBoard(
   boardLayout.append(createCurrentPlayerMsg(gameState));
 
   // Add msg to tell if so has won
-  if (gameIsFinished(gameState)) {
+  if (gameState.winner) {
     boardLayout.append(createWinMsg(gameState));
     boardLayout.append(createHelpMsg(gameState));
   }
@@ -218,7 +211,7 @@ function createCurrentPlayerMsg(
 }
 
 function createWinMsg(gameState: GameState): blessed.Widgets.TextElement {
-  const winner = getWinner(gameState);
+  const winner = gameState.winner;
   return blessed.text({
     top: CELL_HEIGHT * (gameState.board.length - 1),
     left: TEXT_LEFT_OFFSET,
@@ -257,14 +250,14 @@ function createCell(
       hover: {
         // Add hover effect only if cell is playable
         fg:
-          !cellHasStone(gameState, { x, y }) && !gameIsFinished(gameState)
+          !cellHasStone(gameState, { x, y }) && !gameState.winner
             ? HOVER_FG_COLOR
             : getCellDisplayColor(gameState.board[y][x]),
       },
     },
   });
   // If cell is playable, add "on-click" event to it
-  if (!cellHasStone(gameState, { x, y }) && !gameIsFinished(gameState)) {
+  if (!cellHasStone(gameState, { x, y }) && !gameState.winner) {
     cellBox.on('click', () => {
       gameState = updateGameState(gameState, { x, y });
       renderBoard(gameState, screen);
