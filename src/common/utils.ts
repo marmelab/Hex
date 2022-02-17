@@ -1,4 +1,4 @@
-import { GameState } from './gameState';
+import { GameState, getWinner } from './gameState';
 export interface Coordinates {
   x: number;
   y: number;
@@ -21,8 +21,9 @@ export function parseObjectFromEncodedQuerystring(stringToParse): Object {
 export function parseGameStateFromMultilineString(
   gameState: string,
 ): GameState {
-  return {
+  const parsedGameState = {
     turn: 'white',
+    winner: null,
     board: gameState
       .split(/\r?\n/)
       .filter((line) => line.replace(/ /g, '').length > 0)
@@ -41,5 +42,7 @@ export function parseGameStateFromMultilineString(
             }
           }),
       ),
-  };
+  } as GameState;
+  parsedGameState.winner = getWinner(parsedGameState);
+  return parsedGameState;
 }

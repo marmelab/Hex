@@ -16,6 +16,7 @@ describe('load game state from a config file content', () => {
     // then
     const expected: GameState = {
       turn: 'white',
+      winner: null,
       board: [
         [{ value: 'black' }, { value: 'empty' }, { value: 'black' }],
         [{ value: 'empty' }, { value: 'empty' }, { value: 'empty' }],
@@ -77,6 +78,7 @@ describe('load game state from a config file content', () => {
     // then
     const expected: GameState = {
       turn: 'white',
+      winner: null,
       board: [],
     };
     expect(ouput).toStrictEqual(expected);
@@ -95,6 +97,7 @@ describe('load game state from a config file content', () => {
     // then
     const expected: GameState = {
       turn: 'white',
+      winner: null,
       board: [
         [{ value: 'black' }, { value: 'empty' }, { value: 'black' }],
         [{ value: 'empty' }, { value: 'black' }, { value: 'empty' }],
@@ -117,6 +120,7 @@ describe('load game state from a config file content', () => {
     // then
     const expected: GameState = {
       turn: 'black',
+      winner: null,
       board: [
         [{ value: 'black' }, { value: 'empty' }, { value: 'black' }],
         [{ value: 'empty' }, { value: 'white' }, { value: 'empty' }],

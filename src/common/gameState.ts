@@ -9,6 +9,7 @@ const NEW_GAME_STARTING_STONE_COLOR = 'white';
 export interface GameState {
   board: Array<Array<Cell>>;
   turn: StoneColor;
+  winner: StoneColor | null;
 }
 
 export interface Cell {
@@ -27,10 +28,6 @@ export function getWinner(gameState: GameState): StoneColor {
     return stoneColor;
   }
   return null;
-}
-
-export function gameIsFinished(gameState: GameState): boolean {
-  return !!getWinner(gameState);
 }
 
 export function playerHasWon(
@@ -104,6 +101,7 @@ export function initNewGameState(size: number): GameState {
   return {
     turn: NEW_GAME_STARTING_STONE_COLOR,
     board: newBoard,
+    winner: null,
   };
 }
 
@@ -121,7 +119,9 @@ export function updateGameState(
   const newGameState = {
     board: deepCloneObject(previousState.board),
     turn: newTurn,
+    winner: null,
   };
   newGameState.board[nextMove.y][nextMove.x].value = previousState.turn;
+  newGameState.winner = getWinner(newGameState);
   return newGameState;
 }

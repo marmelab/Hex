@@ -128,6 +128,7 @@ describe('Init a new board from scratch', () => {
 
     expect(generatedBoard).toEqual({
       turn: 'white',
+      winner: null,
       board: [
         [
           { value: 'empty' },
@@ -161,6 +162,7 @@ describe('Init a new board from scratch', () => {
 
     expect(generatedBoard).toEqual({
       turn: 'white',
+      winner: null,
       board: [],
     });
   });
@@ -170,6 +172,7 @@ describe('Update game state based on a user action', () => {
   it('Should throw an error if board is empty', () => {
     const emptyGameState: GameState = {
       turn: 'white',
+      winner: null,
       board: [],
     };
     const coordinates = { x: 1, y: 1 };
@@ -183,6 +186,7 @@ describe('Update game state based on a user action', () => {
   it("Should throw an error if coordinates isn't in board", () => {
     const gamestate: GameState = {
       turn: 'white',
+      winner: null,
       board: [[{ value: 'empty' }, { value: 'empty' }]],
     };
     const outsideBoardCoordinates = { x: 999, y: 999 };
@@ -196,6 +200,7 @@ describe('Update game state based on a user action', () => {
   it('Should throw an error if the cell already have a stone', () => {
     const gamestate: GameState = {
       turn: 'white',
+      winner: null,
       board: [[{ value: 'black' }]],
     };
     const coordinatesWithAStoneOnCell = { x: 0, y: 0 };
@@ -209,6 +214,7 @@ describe('Update game state based on a user action', () => {
   it('Should get a board with a black stone in the up left cell', () => {
     const gamestate: GameState = {
       turn: 'black',
+      winner: null,
       board: [
         [{ value: 'empty' }, { value: 'empty' }, { value: 'black' }],
         [{ value: 'black' }, { value: 'empty' }, { value: 'empty' }],
@@ -221,6 +227,7 @@ describe('Update game state based on a user action', () => {
 
     expect(updatedGameState).toEqual({
       turn: 'white',
+      winner: null,
       board: [
         [{ value: 'black' }, { value: 'empty' }, { value: 'black' }],
         [{ value: 'black' }, { value: 'empty' }, { value: 'empty' }],
@@ -231,6 +238,7 @@ describe('Update game state based on a user action', () => {
   it('Should get a board with a white stone in the bottom right cell', () => {
     const gamestate: GameState = {
       turn: 'white',
+      winner: null,
       board: [
         [{ value: 'empty' }, { value: 'empty' }, { value: 'black' }],
         [{ value: 'black' }, { value: 'empty' }, { value: 'empty' }],
@@ -243,6 +251,7 @@ describe('Update game state based on a user action', () => {
 
     expect(updatedGameState).toEqual({
       turn: 'black',
+      winner: null,
       board: [
         [{ value: 'empty' }, { value: 'empty' }, { value: 'black' }],
         [{ value: 'black' }, { value: 'empty' }, { value: 'empty' }],
