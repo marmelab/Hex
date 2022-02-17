@@ -129,4 +129,48 @@ describe('load game state from a config file content', () => {
     };
     expect(ouput).toStrictEqual(expected);
   });
+  it('should give a winner when loading a board already ended', () => {
+    // given
+    const input = `[
+      [{ "value": 1 }, { "value": 1 }, { "value": 1 }],
+      [{ "value": 1 }, { "value": 2 }, { "value": null }],
+      [{ "value": 2 }, { "value": null }, { "value": 2 }]
+    ]`;
+    const filePath = 'configfile.json';
+    // when
+    const ouput = parseConfigFile(input, filePath);
+    // then
+    const expected: GameState = {
+      turn: 'white',
+      winner: 'black',
+      board: [
+        [{ value: 'black' }, { value: 'black' }, { value: 'black' }],
+        [{ value: 'black' }, { value: 'white' }, { value: 'empty' }],
+        [{ value: 'white' }, { value: 'empty' }, { value: 'white' }],
+      ],
+    };
+    expect(ouput).toStrictEqual(expected);
+  });
+  it('should not give a winner when loading a board without winner', () => {
+    // given
+    const input = `[
+      [{ "value": 1 }, { "value": 1 }, { "value": null }],
+      [{ "value": 1 }, { "value": 2 }, { "value": 1 }],
+      [{ "value": 2 }, { "value": null }, { "value": 2 }]
+    ]`;
+    const filePath = 'configfile.json';
+    // when
+    const ouput = parseConfigFile(input, filePath);
+    // then
+    const expected: GameState = {
+      turn: 'white',
+      winner: null,
+      board: [
+        [{ value: 'black' }, { value: 'black' }, { value: 'empty' }],
+        [{ value: 'black' }, { value: 'white' }, { value: 'black' }],
+        [{ value: 'white' }, { value: 'empty' }, { value: 'white' }],
+      ],
+    };
+    expect(ouput).toStrictEqual(expected);
+  });
 });

@@ -259,4 +259,52 @@ describe('Update game state based on a user action', () => {
       ],
     });
   });
+  it('Should give a winner if a player make a winning move', () => {
+    const gamestate: GameState = {
+      turn: 'white',
+      winner: null,
+      board: [
+        [{ value: 'white' }, { value: 'empty' }, { value: 'black' }],
+        [{ value: 'white' }, { value: 'empty' }, { value: 'empty' }],
+        [{ value: 'empty' }, { value: 'empty' }, { value: 'empty' }],
+      ],
+    };
+    const winningCoords = { x: 0, y: 2 };
+
+    const updatedGameState = updateGameState(gamestate, winningCoords);
+
+    expect(updatedGameState).toEqual({
+      turn: 'black',
+      winner: 'white',
+      board: [
+        [{ value: 'white' }, { value: 'empty' }, { value: 'black' }],
+        [{ value: 'white' }, { value: 'empty' }, { value: 'empty' }],
+        [{ value: 'white' }, { value: 'empty' }, { value: 'empty' }],
+      ],
+    });
+  });
+  it('Should not give a winner if a player make a winning move', () => {
+    const gamestate: GameState = {
+      turn: 'white',
+      winner: null,
+      board: [
+        [{ value: 'white' }, { value: 'empty' }, { value: 'black' }],
+        [{ value: 'empty' }, { value: 'white' }, { value: 'empty' }],
+        [{ value: 'empty' }, { value: 'empty' }, { value: 'empty' }],
+      ],
+    };
+    const winningCoords = { x: 0, y: 2 };
+
+    const updatedGameState = updateGameState(gamestate, winningCoords);
+
+    expect(updatedGameState).toEqual({
+      turn: 'black',
+      winner: null,
+      board: [
+        [{ value: 'white' }, { value: 'empty' }, { value: 'black' }],
+        [{ value: 'empty' }, { value: 'white' }, { value: 'empty' }],
+        [{ value: 'white' }, { value: 'empty' }, { value: 'empty' }],
+      ],
+    });
+  });
 });
