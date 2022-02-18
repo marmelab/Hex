@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Game } from './entities/game.entity';
 import { getConnectionOptions } from 'typeorm';
+import { User } from './entities/user.entity';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { getConnectionOptions } from 'typeorm';
           autoLoadEntities: true,
         }),
     }),
-    TypeOrmModule.forFeature([Game]),
+    TypeOrmModule.forFeature([Game, User]),
   ],
   controllers: [AppController],
   providers: [AppService],

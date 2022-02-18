@@ -9,7 +9,17 @@ export function registerHandlebarsHelpers() {
     },
   );
   handlebars.registerHelper('areEqual', function (value1, value2, options) {
+    if (typeof options.fn === "undefined") {
+      return value1 === value2;
+    }
     if (value1 === value2) {
+      return options.fn(this);
+    }
+    return options.inverse(this);
+  });
+  handlebars.registerHelper('cellCanBePlayed', function (cellValue, readyToPlay, currentPlayerTurnToPlay, options) {
+    console.debug(`helper 'cellCanBePlayed': cellValue=${cellValue}, readyToPlay=${readyToPlay}, currentPlayerTurnToPlay=${currentPlayerTurnToPlay}`);
+    if (cellValue === "empty" && readyToPlay && currentPlayerTurnToPlay) {
       return options.fn(this);
     }
     return options.inverse(this);
@@ -19,4 +29,5 @@ export function registerHandlebarsHelpers() {
 export function unregisterHandlebarsHelpers() {
   handlebars.unregisterHelper('encodeObjectAsQueryString');
   handlebars.unregisterHelper('areEqual');
+  handlebars.unregisterHelper('cellCanBePlayed');
 }

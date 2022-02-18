@@ -3,6 +3,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import { join } from 'path';
 import { registerHandlebarsHelpers } from './handlebars/helpers';
+import session from 'express-session';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -10,6 +11,13 @@ async function bootstrap() {
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('hbs');
   registerHandlebarsHelpers();
+  app.use(
+    session({
+      secret: 'my-secret',
+      resave: false,
+      saveUninitialized: true,
+    }),
+  );
   const port = process.env.PORT || 3000;
   await app.listen(port);
 }

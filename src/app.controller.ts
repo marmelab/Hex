@@ -4,12 +4,12 @@ import {
   Get,
   Param,
   Post,
-  Query,
   Redirect,
   Render,
+  Req,
 } from '@nestjs/common';
-import { AppService } from './app.service';
-import { Game } from './entities/game.entity';
+import { AppService, GameAndStatus } from './app.service';
+import { Request } from 'express';
 
 @Controller()
 export class AppController {
@@ -23,16 +23,24 @@ export class AppController {
 
   @Post('createNewGame')
   @Redirect('/')
-  async createNewGame(@Body() gameParams: { size: number }) {
-    const newGameId = (await this.appService.createNewGame(gameParams.size)).id;
+  async createNewGame(@Body() gameParams: { size: number }, @Req() req: Request) {
+    const newGameId = (await this.appService.createNewGame(gameParams.size, req.sessionID)).id;
     return { url: `/game/${newGameId}` };
+  }
+
+  @Get('game/:id/join')
+  @Redirect('/')
+  async joinGame(@Param('id') id: number, @Req() req: Request) {
+    const gameId = (await this.appService.joinGame(id, req.sessionID)).id;
+    return { url: `/game/${gameId}` };
   }
 
   @Get('game/:id')
   @Render('game')
-  async getGame(@Param('id') id: number): Promise<Game> {
-    let game = await this.appService.findGameById(id);
-    return game;
+  async getGame(@Param('id') id: number, @Req() req: Request): Promise<GameAndStatus> {
+    console.debug(`req.sessionID=${req.sessionID}`);
+    const game = await this.appService.findGameById(id);
+    return this.appService.getGameAndStatus(game, req.sessionID);
   }
 
   @Post('game/:id')
@@ -40,7 +48,8 @@ export class AppController {
   async postGame(
     @Param('id') id: number,
     @Body() gameParams: { x?: number; y?: number },
-  ): Promise<Game> {
+    @Req() req: Request
+  ): Promise<GameAndStatus> {
     let game = await this.appService.findGameById(id);
     if (gameParams.x && gameParams.y) {
       game = await this.appService.updateGameState(game, {
@@ -48,13 +57,13 @@ export class AppController {
         y: gameParams.y,
       });
     }
-    return game;
+    return this.appService.getGameAndStatus(game, req.sessionID);
   }
 
   @Get('gameFromConfigFile')
   @Redirect('/')
-  async getGameFromFile() {
-    const newGameId = (await this.appService.createNewGameFromFile()).id;
+  async getGameFromFile(@Req() req: Request) {
+    const newGameId = (await this.appService.createNewGameFromFile(req.sessionID)).id;
     return { url: `/game/${newGameId}` };
   }
 }

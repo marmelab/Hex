@@ -9,23 +9,41 @@
 </head>
 
 <body>
-  {{#areEqual state.winner null}}
+  {{#areEqual game.state.winner null}}
   <div class="gameboard">
     <div class="box-current-player">
-      <p>Current player :</p>
-      <p class="current-player" data-player="{{state.turn}}">{{state.turn}}</p>
+      {{#areEqual readyToPlay true}}
+      <p>
+        Current player:
+        <span class="current-player" data-player="{{game.state.turn}}">{{game.state.turn}}</span>
+      </p>
+      {{#areEqual currentPlayerTurnToPlay false}}
+      <p>Waiting for other player to make their move...</p>
+      {{/areEqual}}
+      {{else}}
+      <p>Awaiting player 2...</p>
+      <p>
+        Send <a href="/game/{{game.id}}/join">this link</a> for second player to join
+      </p>
+      {{/areEqual}}
+      <p>
+        Player 1 (white): {{game.player1.username}}
+      </p>
+      <p>
+        Player 2 (black): {{game.player2.username}}
+      </p>
     </div>
-    <div class=" hex-board-frame" style="--rows: {{state.board.length}}">
+    <div class=" hex-board-frame" style="--rows: {{game.state.board.length}}">
       <div class="left-edge"></div>
       <div class="right-edge"></div>
       <div class="top-edge"></div>
       <div class="bottom-edge"></div>
       <div class="hex-board-container">
         <i></i>
-        {{#each state.board}}
+        {{#each game.state.board}}
         {{#each this}}
-        {{#areEqual this.value 'empty'}}
-        <form method="post" action="/game/{{../../id}}">
+        {{#cellCanBePlayed this.value ../../readyToPlay ../../currentPlayerTurnToPlay }}
+        <form method="post" action="/game/{{../../game.id}}">
           <input type="hidden" name="x" value="{{@index}}" />
           <input type="hidden" name="y" value="{{@../index}}" />
           <input type="submit" id="form-{{@../index}}-{{@index}}" style="display:none;" />
@@ -37,7 +55,7 @@
         {{else}}
         <div class="cell" data-color="{{this.value}}">
         </div>
-        {{/areEqual}}
+        {{/cellCanBePlayed}}
 
         {{/each}}
         {{/each}}
@@ -46,7 +64,7 @@
   </div>
   {{else}}
   <div class="box-winner">
-    <p>The winner is : {{state.winner}}</p>
+    <p>The winner is : {{game.state.winner}}</p>
     <form action="/" method="get">
       <input type="submit" value="Return to home page">
     </form>

@@ -10,11 +10,12 @@
 }
 
 .box-current-player {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
+    color: #eea;
 }
 
-.box-current-player>* {
-    display: inline;
+.box-current-player p {
+    margin: 5px 0;
 }
 
 .current-player {
@@ -22,11 +23,11 @@
     font-weight: bold;
 }
 
-p[data-player="black"] {
+span[data-player="black"] {
     color: black;
 }
 
-p[data-player="white"] {
+span[data-player="white"] {
     color: white;
 }
 
