@@ -1,16 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Game } from './entities/game.entity';
+import { User } from './entities/user.entity';
 import {
   parseGameStateFromMultilineString,
   parseGameFromMultilineString,
 } from './common/utils';
 
 let mockedGame: Game;
+let mockedUser: User;
 
-const mockRepository = {
+const mockGamesRepository = {
   findOne: (id: number): Promise<Game> => {
     return new Promise((resolve, reject) => {
       resolve(mockedGame);
@@ -24,17 +25,34 @@ const mockRepository = {
   },
 };
 
+const mockUsersRepository = {
+  findOne: (id: number): Promise<User> => {
+    return new Promise((resolve, reject) => {
+      resolve(mockedUser);
+    });
+  },
+  save: (user: User): User => {
+    return user;
+  },
+  create: (user: User): User => {
+    return user;
+  },
+};
+
 describe('AppService', () => {
   let appService: AppService;
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
-      controllers: [AppController],
       providers: [
         AppService,
         {
           provide: getRepositoryToken(Game),
-          useValue: mockRepository,
+          useValue: mockGamesRepository,
+        },
+        {
+          provide: getRepositoryToken(User),
+          useValue: mockUsersRepository,
         },
       ],
     }).compile();
@@ -85,7 +103,7 @@ describe('AppService', () => {
 
   describe('root', () => {
     it('should return an empty board of 11x11"', async () => {
-      expect((await appService.createNewGame(11)).state.board).toEqual(
+      expect((await appService.createNewGame(11, "sessionID")).state.board).toEqual(
         parseGameStateFromMultilineString(`
 ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
  ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
@@ -105,7 +123,7 @@ describe('AppService', () => {
   it('should return a board of 11x11 with a white stone in [1,1]"', async () => {
     expect(
       (
-        await appService.updateGameState(await appService.createNewGame(11), {
+        await appService.updateGameState(await appService.createNewGame(11, "sessionID"), {
           x: 1,
           y: 1,
         })

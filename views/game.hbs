@@ -2,7 +2,8 @@
 <html>
 
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" {{#needToWaitForOpponent readyToPlay currentPlayerTurnToPlay}}http-equiv="refresh" content="5"
+    {{/needToWaitForOpponent}} />
   <title>Hex</title>
   <link rel="stylesheet" type="text/css" href="/css/style.css" />
   <link rel="stylesheet" type="text/css" href="/css/game.css" />
@@ -11,27 +12,47 @@
 <body>
   <div class="gameboard">
     <div class="box-header">
-      {{#areEqual state.winner null}}
-      <p>Current player :</p>
-      <p class="current-player" data-player="{{state.turn}}">{{state.turn}}</p>
+      {{#areEqual game.state.winner null}}
+
+      {{#areEqual readyToPlay true}}
+      <p>
+        Current player:
+        <span class="current-player" data-player="{{game.state.turn}}">{{game.state.turn}}</span>
+      </p>
+      {{#areEqual currentPlayerTurnToPlay false}}
+      <p>Waiting for other player to make their move...</p>
+      {{/areEqual}}
       {{else}}
-      <p data-cy="winner">The winner is : {{state.winner}}</p>
+      <p>Awaiting player 2...</p>
+      <p>
+        Send <a href="/game/{{game.id}}/join">this link</a> for second player to join
+      </p>
+      {{/areEqual}}
+      <p>
+        Player 1 (white): {{game.player1.username}}
+      </p>
+      <p>
+        Player 2 (black): {{game.player2.username}}
+      </p>
+
+      {{else}}
+      <p data-cy="winner">The winner is : {{game.state.winner}}</p>
       <form action="/" method="get">
         <input type="submit" value="Return to home page" data-cy="backHomePage">
       </form>
       {{/areEqual}}
     </div>
-    <div class=" hex-board-frame" style="--rows: {{state.board.length}}">
+    <div class=" hex-board-frame" style="--rows: {{game.state.board.length}}">
       <div class="left-edge"></div>
       <div class="right-edge"></div>
       <div class="top-edge"></div>
       <div class="bottom-edge"></div>
       <div class="hex-board-container">
         <i></i>
-        {{#each state.board}}
+        {{#each game.state.board}}
         {{#each this}}
-        {{#areEqual this.value 'empty'}}
-        <form method="post" action="/game/{{../../id}}">
+        {{#cellCanBePlayed this.value @root.readyToPlay @root.currentPlayerTurnToPlay game.state.winner }}
+        <form method="post" action="/game/{{@root.game.id}}">
           <input type="hidden" name="x" value="{{@index}}" />
           <input type="hidden" name="y" value="{{@../index}}" />
           <input type="submit" id="form-{{@../index}}-{{@index}}" style="display:none;" />
@@ -42,9 +63,9 @@
         </form>
         {{else}}
         <div class="cell" data-color="{{this.value}}"
-          data-winningCell="{{isCellInWinningPath @root.state.winningPath @index @../index}}">
+          data-winningCell="{{isCellInWinningPath @root.game.state.winningPath @index @../index}}">
         </div>
-        {{/areEqual}}
+        {{/cellCanBePlayed}}
 
         {{/each}}
         {{/each}}

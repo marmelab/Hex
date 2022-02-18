@@ -11,6 +11,13 @@ import {
   DEFAULT_BOARD_SIZE,
 } from './common/gameState';
 import { Coordinates, deepCloneObject } from './common/utils';
+import { User } from './entities/user.entity';
+
+export interface GameAndStatus {
+  game: Game,
+  readyToPlay: boolean,
+  currentPlayerTurnToPlay: boolean
+}
 
 const configPathFromDistDir = '../gameStateFile.json';
 
@@ -19,6 +26,8 @@ export class AppService {
   constructor(
     @InjectRepository(Game)
     private gamesRepository: Repository<Game>,
+    @InjectRepository(User)
+    private usersRepository: Repository<User>,
   ) {}
 
   getBoardStateFromFile(): GameState {
@@ -43,25 +52,61 @@ export class AppService {
     return this.gamesRepository.findOne(id);
   }
 
-  async createNewGame(size: number): Promise<Game> {
+  async createNewGame(size: number, player1SessionId: string): Promise<Game> {
     if (!size) {
       size = DEFAULT_BOARD_SIZE;
     } else {
       size = +size;
     }
-    const game = await this.gamesRepository.save(
-      this.gamesRepository.create({
-        state: initNewGameState(size),
-      }),
-    );
-    return game;
+    const player1 = this.usersRepository.create({
+      lastSessionId: player1SessionId,
+      username: player1SessionId
+    });
+    const game = this.gamesRepository.create({
+      state: initNewGameState(size),
+      player1: await this.usersRepository.save(player1),
+    });
+    return await this.gamesRepository.save(game);
   }
 
-  async createNewGameFromFile(): Promise<Game> {
-    let game = this.gamesRepository.create({
-      state: this.getBoardStateFromFile(),
+  async createNewGameFromFile(player1SessionId: string): Promise<Game> {
+    const player1 = this.usersRepository.create({
+      lastSessionId: player1SessionId,
+      username: player1SessionId
     });
-    game = await this.gamesRepository.save(game);
-    return game;
+    const game = this.gamesRepository.create({
+      state: this.getBoardStateFromFile(),
+      player1: await this.usersRepository.save(player1),
+    });
+    return await this.gamesRepository.save(game);
+  }
+
+  async joinGame(gameId: number, player2SessionId: string): Promise<Game> {
+    const game = await this.gamesRepository.findOne(gameId);
+    if (!game.player2) {
+      if (player2SessionId !== game.player1.lastSessionId) {
+        const player2 = this.usersRepository.create({
+          lastSessionId: player2SessionId,
+          username: player2SessionId
+        });
+        game.player2 = await this.usersRepository.save(player2);
+        return await this.gamesRepository.save(game);
+      } else {
+        throw Error(`Player2 (sessionId: ${player2SessionId}) cannot be the same as player1 (sessionId: ${game.player1.lastSessionId})`);
+      }
+    } else {
+      throw Error(`Game ${gameId} already has a player2 (username: ${game.player2.username})`);
+    }
+  }
+
+  getGameAndStatus(game: Game, playerSessionId: string): GameAndStatus {
+    const gameAndStatus: GameAndStatus = {
+      game: game,
+      readyToPlay: !!(game.player1 && game.player2),
+      currentPlayerTurnToPlay:
+        (game.state.turn === "white" && playerSessionId === game.player1.lastSessionId) ||
+        (game.state.turn === "black" && playerSessionId === game.player2.lastSessionId)
+    };
+    return gameAndStatus;
   }
 }
