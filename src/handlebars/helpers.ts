@@ -23,9 +23,7 @@ export function registerHandlebarsHelpers() {
     ) {
       return (
         winningPath &&
-        winningPath.filter(
-          (cell) => cell.x == cellXCoord && cell.y == cellYCoord,
-        ).length == 1
+        winningPath.some((cell) => cell.x == cellXCoord && cell.y == cellYCoord)
       );
     },
   );

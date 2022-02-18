@@ -12,7 +12,7 @@ export function doesPathExist(
     hexBoardGraph.vertexMap.get(startNodeId),
     hexBoardGraph.vertexMap.get(endNodeId),
   );
-  if (!!shortestPath) {
+  if (shortestPath) {
     const shortestPathWithoutStartNode = shortestPath.slice(1);
     return {
       hasWon: true,

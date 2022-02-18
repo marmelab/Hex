@@ -6,22 +6,19 @@
   justify-content: center;
 }
 
-.box-current-player {
-  margin-top: 50px;
-  margin-bottom: 50px;
+.box-header {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  min-height:50px;
 }
 
-.box-current-player > * {
+.box-header  > p {
   display: inline;
 }
 
 .current-player {
   text-transform: uppercase;
   font-weight: bold;
-}
-
-.box-winner {
-  margin-bottom: 20px;
 }
 
 p[data-player='black'] {
