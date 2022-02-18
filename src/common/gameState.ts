@@ -10,6 +10,7 @@ export interface GameState {
   board: Array<Array<Cell>>;
   turn: StoneColor;
   winner: StoneColor | null;
+  winningPath: Coordinates[] | null;
 }
 
 export interface Cell {
@@ -18,35 +19,34 @@ export interface Cell {
 
 export type StoneColor = 'black' | 'white';
 
-export function getWinner(gameState: GameState): StoneColor {
-  let stoneColor: StoneColor = 'black';
-  if (playerHasWon(gameState, stoneColor)) {
-    return stoneColor;
+const BLACK_NODE_START = 'black-start';
+const BLACK_NODE_END = 'black-end';
+const WHITE_NODE_START = 'white-start';
+const WHITE_NODE_END = 'white-end';
+
+export function getWinner(gameState: GameState): {
+  winner: StoneColor;
+  winningPath: Coordinates[];
+} {
+  const blackPlayerResult = playerHasWon(gameState, 'black');
+  if (blackPlayerResult.hasWon) {
+    return { winner: 'black', winningPath: blackPlayerResult.winningPath };
   }
-  stoneColor = 'white';
-  if (playerHasWon(gameState, stoneColor)) {
-    return stoneColor;
+  const whitePlayerResult = playerHasWon(gameState, 'white');
+  if (whitePlayerResult.hasWon) {
+    return { winner: 'white', winningPath: whitePlayerResult.winningPath };
   }
-  return null;
+  return { winner: null, winningPath: null };
 }
 
 export function playerHasWon(
   gameState: GameState,
   stoneColor: StoneColor,
-): boolean {
+): { hasWon: boolean; winningPath: Coordinates[] } {
   const hexBoardGraph = createGraphFromGameState(gameState, stoneColor);
-  return doesPathExistForPlayer(hexBoardGraph, stoneColor);
-}
-
-function doesPathExistForPlayer(
-  hexBoardGraph: HexBoardGraph,
-  stoneColor: StoneColor,
-): boolean {
-  if (stoneColor == 'black') {
-    return doesPathExist(hexBoardGraph, 'black-start', 'black-end');
-  } else {
-    return doesPathExist(hexBoardGraph, 'white-start', 'white-end');
-  }
+  return stoneColor == 'black'
+    ? doesPathExist(hexBoardGraph, BLACK_NODE_START, BLACK_NODE_END)
+    : doesPathExist(hexBoardGraph, WHITE_NODE_START, WHITE_NODE_END);
 }
 
 export function doesCellExistAndHaveStone(
@@ -102,6 +102,7 @@ export function initNewGameState(size: number): GameState {
     turn: NEW_GAME_STARTING_STONE_COLOR,
     board: newBoard,
     winner: null,
+    winningPath: null,
   };
 }
 
@@ -120,8 +121,11 @@ export function updateGameState(
     board: deepCloneObject(previousState.board),
     turn: newTurn,
     winner: null,
+    winningPath: null,
   };
   newGameState.board[nextMove.y][nextMove.x].value = previousState.turn;
-  newGameState.winner = getWinner(newGameState);
+  const getWinnerDataIfExist = getWinner(newGameState);
+  newGameState.winner = getWinnerDataIfExist.winner;
+  newGameState.winningPath = getWinnerDataIfExist.winningPath;
   return newGameState;
 }

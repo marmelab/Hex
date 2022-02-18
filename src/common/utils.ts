@@ -44,7 +44,9 @@ export function parseGameStateFromMultilineString(
           }),
       ),
   } as GameState;
-  parsedGameState.winner = getWinner(parsedGameState);
+  const getWinnerDataIfExist = getWinner(parsedGameState);
+  parsedGameState.winner = getWinnerDataIfExist.winner;
+  parsedGameState.winningPath = getWinnerDataIfExist.winningPath;
   return parsedGameState;
 }
 

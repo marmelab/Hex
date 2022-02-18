@@ -18,7 +18,7 @@ describe('check whether player has won the game', () => {
     // when
     const ouputWhite = playerHasWon(input, 'white');
     // then
-    expect(ouputWhite).toStrictEqual(true);
+    expect(ouputWhite.hasWon).toStrictEqual(true);
   });
 
   it('should say WIN for black with a 3x3 board with an horizontal path', () => {
@@ -31,7 +31,7 @@ describe('check whether player has won the game', () => {
     // when
     const ouputBlack = playerHasWon(input, 'black');
     // then
-    expect(ouputBlack).toStrictEqual(true);
+    expect(ouputBlack.hasWon).toStrictEqual(true);
   });
 
   it('should NOT say WIN for black nor white with a 3x3 board with a first diagonal', () => {
@@ -45,7 +45,7 @@ describe('check whether player has won the game', () => {
     const outputBlack = playerHasWon(input, 'black');
     const outputWhite = playerHasWon(input, 'white');
     // then
-    expect(outputBlack && outputWhite).toStrictEqual(false);
+    expect(outputBlack.hasWon && outputWhite.hasWon).toStrictEqual(false);
   });
 
   it('should say WIN for white with a 3x3 board with an anti diagonal', () => {
@@ -58,7 +58,7 @@ describe('check whether player has won the game', () => {
     // when
     const outputWhite = playerHasWon(input, 'white');
     // then
-    expect(outputWhite).toStrictEqual(true);
+    expect(outputWhite.hasWon).toStrictEqual(true);
   });
 
   it('should NOT say WIN for black nor white with a 3x3 board with an incomplete vertical path', () => {
@@ -72,7 +72,7 @@ describe('check whether player has won the game', () => {
     const outputBlack = playerHasWon(input, 'black');
     const outputWhite = playerHasWon(input, 'white');
     // then
-    expect(outputBlack && outputWhite).toStrictEqual(false);
+    expect(outputBlack.hasWon && outputWhite.hasWon).toStrictEqual(false);
   });
 
   it('should say WIN for white with this 5x5 board with a continuous line', () => {
@@ -87,7 +87,7 @@ describe('check whether player has won the game', () => {
     // when
     const outputWhite = playerHasWon(input, 'white');
     // then
-    expect(outputWhite).toStrictEqual(true);
+    expect(outputWhite.hasWon).toStrictEqual(true);
   });
 
   it('should NOT say WIN for black nor white with this 5x5 board with a non continuous line', () => {
@@ -103,7 +103,7 @@ describe('check whether player has won the game', () => {
     const outputBlack = playerHasWon(input, 'black');
     const outputWhite = playerHasWon(input, 'white');
     // then
-    expect(outputBlack && outputWhite).toStrictEqual(false);
+    expect(outputBlack.hasWon && outputWhite.hasWon).toStrictEqual(false);
   });
 
   it('should say WIN for black with this 5x5 board with a Z', () => {
@@ -118,7 +118,7 @@ describe('check whether player has won the game', () => {
     // when
     const outputBlack = playerHasWon(input, 'black');
     // then
-    expect(outputBlack).toStrictEqual(true);
+    expect(outputBlack.hasWon).toStrictEqual(true);
   });
 });
 
@@ -129,6 +129,7 @@ describe('Init a new board from scratch', () => {
     expect(generatedBoard).toEqual({
       turn: 'white',
       winner: null,
+      winningPath: null,
       board: [
         [
           { value: 'empty' },
@@ -163,6 +164,7 @@ describe('Init a new board from scratch', () => {
     expect(generatedBoard).toEqual({
       turn: 'white',
       winner: null,
+      winningPath: null,
       board: [],
     });
   });
@@ -173,6 +175,7 @@ describe('Update game state based on a user action', () => {
     const emptyGameState: GameState = {
       turn: 'white',
       winner: null,
+      winningPath: null,
       board: [],
     };
     const coordinates = { x: 1, y: 1 };
@@ -187,6 +190,7 @@ describe('Update game state based on a user action', () => {
     const gamestate: GameState = {
       turn: 'white',
       winner: null,
+      winningPath: null,
       board: [[{ value: 'empty' }, { value: 'empty' }]],
     };
     const outsideBoardCoordinates = { x: 999, y: 999 };
@@ -201,6 +205,7 @@ describe('Update game state based on a user action', () => {
     const gamestate: GameState = {
       turn: 'white',
       winner: null,
+      winningPath: null,
       board: [[{ value: 'black' }]],
     };
     const coordinatesWithAStoneOnCell = { x: 0, y: 0 };
@@ -215,6 +220,7 @@ describe('Update game state based on a user action', () => {
     const gamestate: GameState = {
       turn: 'black',
       winner: null,
+      winningPath: null,
       board: [
         [{ value: 'empty' }, { value: 'empty' }, { value: 'black' }],
         [{ value: 'black' }, { value: 'empty' }, { value: 'empty' }],
@@ -228,6 +234,7 @@ describe('Update game state based on a user action', () => {
     expect(updatedGameState).toEqual({
       turn: 'white',
       winner: null,
+      winningPath: null,
       board: [
         [{ value: 'black' }, { value: 'empty' }, { value: 'black' }],
         [{ value: 'black' }, { value: 'empty' }, { value: 'empty' }],
@@ -239,6 +246,7 @@ describe('Update game state based on a user action', () => {
     const gamestate: GameState = {
       turn: 'white',
       winner: null,
+      winningPath: null,
       board: [
         [{ value: 'empty' }, { value: 'empty' }, { value: 'black' }],
         [{ value: 'black' }, { value: 'empty' }, { value: 'empty' }],
@@ -252,6 +260,7 @@ describe('Update game state based on a user action', () => {
     expect(updatedGameState).toEqual({
       turn: 'black',
       winner: null,
+      winningPath: null,
       board: [
         [{ value: 'empty' }, { value: 'empty' }, { value: 'black' }],
         [{ value: 'black' }, { value: 'empty' }, { value: 'empty' }],
@@ -263,6 +272,7 @@ describe('Update game state based on a user action', () => {
     const gamestate: GameState = {
       turn: 'white',
       winner: null,
+      winningPath: null,
       board: [
         [{ value: 'white' }, { value: 'empty' }, { value: 'black' }],
         [{ value: 'white' }, { value: 'empty' }, { value: 'empty' }],
@@ -276,6 +286,11 @@ describe('Update game state based on a user action', () => {
     expect(updatedGameState).toEqual({
       turn: 'black',
       winner: 'white',
+      winningPath: [
+        { x: 0, y: 0 },
+        { x: 0, y: 1 },
+        { x: 0, y: 2 },
+      ],
       board: [
         [{ value: 'white' }, { value: 'empty' }, { value: 'black' }],
         [{ value: 'white' }, { value: 'empty' }, { value: 'empty' }],
@@ -287,6 +302,7 @@ describe('Update game state based on a user action', () => {
     const gamestate: GameState = {
       turn: 'white',
       winner: null,
+      winningPath: null,
       board: [
         [{ value: 'white' }, { value: 'empty' }, { value: 'black' }],
         [{ value: 'empty' }, { value: 'white' }, { value: 'empty' }],
@@ -300,6 +316,7 @@ describe('Update game state based on a user action', () => {
     expect(updatedGameState).toEqual({
       turn: 'black',
       winner: null,
+      winningPath: null,
       board: [
         [{ value: 'white' }, { value: 'empty' }, { value: 'black' }],
         [{ value: 'empty' }, { value: 'white' }, { value: 'empty' }],

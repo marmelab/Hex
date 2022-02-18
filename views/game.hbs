@@ -9,11 +9,17 @@
 </head>
 
 <body>
-  {{#areEqual state.winner null}}
   <div class="gameboard">
-    <div class="box-current-player">
+    <div class="box-header">
+      {{#areEqual state.winner null}}
       <p>Current player :</p>
       <p class="current-player" data-player="{{state.turn}}">{{state.turn}}</p>
+      {{else}}
+      <p data-cy="winner">The winner is : {{state.winner}}</p>
+      <form action="/" method="get">
+        <input type="submit" value="Return to home page" data-cy="backHomePage">
+      </form>
+      {{/areEqual}}
     </div>
     <div class=" hex-board-frame" style="--rows: {{state.board.length}}">
       <div class="left-edge"></div>
@@ -35,7 +41,8 @@
           </label>
         </form>
         {{else}}
-        <div class="cell" data-color="{{this.value}}">
+        <div class="cell" data-color="{{this.value}}"
+          data-winningCell="{{isCellInWinningPath @root.state.winningPath @index @../index}}">
         </div>
         {{/areEqual}}
 
@@ -44,14 +51,6 @@
       </div>
     </div>
   </div>
-  {{else}}
-  <div class="box-winner">
-    <p>The winner is : {{state.winner}}</p>
-    <form action="/" method="get">
-      <input type="submit" value="Return to home page">
-    </form>
-  </div>
-  {{/areEqual}}
 </body>
 
 </html>
