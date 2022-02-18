@@ -20,6 +20,10 @@
   font-weight: bold;
 }
 
+.box-winner {
+  margin-bottom: 20px;
+}
+
 p[data-player='black'] {
   color: black;
 }
@@ -149,4 +153,8 @@ p[data-player='white'] {
 
 .cell[data-color='empty']:hover {
   background: red;
+}
+
+.cell[data-winningCell='true'] {
+  background-color: green!important;
 }
