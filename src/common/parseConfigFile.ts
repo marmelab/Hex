@@ -33,7 +33,7 @@ export function parseConfigFile(
     board: board,
     winner: null,
   };
-  gameState.winner = getWinner(gameState);
+  gameState.winner = getWinner(gameState).winner;
   return gameState;
 }
 

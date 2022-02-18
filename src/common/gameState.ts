@@ -23,26 +23,29 @@ const BLACK_NODE_END = 'black-end';
 const WHITE_NODE_START = 'white-start';
 const WHITE_NODE_END = 'white-end';
 
-export function getWinner(gameState: GameState): StoneColor {
-  let stoneColor: StoneColor = 'black';
-  if (playerHasWon(gameState, stoneColor)) {
-    return stoneColor;
+export function getWinner(gameState: GameState): {
+  winner: StoneColor;
+  winningPath: Coordinates[];
+} {
+  const blackPlayerResult = playerHasWon(gameState, 'black');
+  if (blackPlayerResult.hasWon) {
+    return { winner: 'black', winningPath: blackPlayerResult.winningPath };
   }
-  stoneColor = 'white';
-  if (playerHasWon(gameState, stoneColor)) {
-    return stoneColor;
+  const whitePlayerResult = playerHasWon(gameState, 'white');
+  if (whitePlayerResult.hasWon) {
+    return { winner: 'white', winningPath: whitePlayerResult.winningPath };
   }
-  return null;
+  return { winner: null, winningPath: null };
 }
 
 export function playerHasWon(
   gameState: GameState,
   stoneColor: StoneColor,
-): boolean {
+): { hasWon: boolean; winningPath: Coordinates[] } {
   const hexBoardGraph = createGraphFromGameState(gameState, stoneColor);
   return stoneColor == 'black'
-    ? doesPathExist(hexBoardGraph, BLACK_NODE_START, BLACK_NODE_END).hasWon
-    : doesPathExist(hexBoardGraph, WHITE_NODE_START, WHITE_NODE_END).hasWon;
+    ? doesPathExist(hexBoardGraph, BLACK_NODE_START, BLACK_NODE_END)
+    : doesPathExist(hexBoardGraph, WHITE_NODE_START, WHITE_NODE_END);
 }
 
 export function doesCellExistAndHaveStone(
@@ -118,6 +121,6 @@ export function updateGameState(
     winner: null,
   };
   newGameState.board[nextMove.y][nextMove.x].value = previousState.turn;
-  newGameState.winner = getWinner(newGameState);
+  newGameState.winner = getWinner(newGameState).winner;
   return newGameState;
 }

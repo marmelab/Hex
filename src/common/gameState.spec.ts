@@ -18,7 +18,7 @@ describe('check whether player has won the game', () => {
     // when
     const ouputWhite = playerHasWon(input, 'white');
     // then
-    expect(ouputWhite).toStrictEqual(true);
+    expect(ouputWhite.hasWon).toStrictEqual(true);
   });
 
   it('should say WIN for black with a 3x3 board with an horizontal path', () => {
@@ -31,7 +31,7 @@ describe('check whether player has won the game', () => {
     // when
     const ouputBlack = playerHasWon(input, 'black');
     // then
-    expect(ouputBlack).toStrictEqual(true);
+    expect(ouputBlack.hasWon).toStrictEqual(true);
   });
 
   it('should NOT say WIN for black nor white with a 3x3 board with a first diagonal', () => {
@@ -45,7 +45,7 @@ describe('check whether player has won the game', () => {
     const outputBlack = playerHasWon(input, 'black');
     const outputWhite = playerHasWon(input, 'white');
     // then
-    expect(outputBlack && outputWhite).toStrictEqual(false);
+    expect(outputBlack.hasWon && outputWhite.hasWon).toStrictEqual(false);
   });
 
   it('should say WIN for white with a 3x3 board with an anti diagonal', () => {
@@ -58,7 +58,7 @@ describe('check whether player has won the game', () => {
     // when
     const outputWhite = playerHasWon(input, 'white');
     // then
-    expect(outputWhite).toStrictEqual(true);
+    expect(outputWhite.hasWon).toStrictEqual(true);
   });
 
   it('should NOT say WIN for black nor white with a 3x3 board with an incomplete vertical path', () => {
@@ -72,7 +72,7 @@ describe('check whether player has won the game', () => {
     const outputBlack = playerHasWon(input, 'black');
     const outputWhite = playerHasWon(input, 'white');
     // then
-    expect(outputBlack && outputWhite).toStrictEqual(false);
+    expect(outputBlack.hasWon && outputWhite.hasWon).toStrictEqual(false);
   });
 
   it('should say WIN for white with this 5x5 board with a continuous line', () => {
@@ -87,7 +87,7 @@ describe('check whether player has won the game', () => {
     // when
     const outputWhite = playerHasWon(input, 'white');
     // then
-    expect(outputWhite).toStrictEqual(true);
+    expect(outputWhite.hasWon).toStrictEqual(true);
   });
 
   it('should NOT say WIN for black nor white with this 5x5 board with a non continuous line', () => {
@@ -103,7 +103,7 @@ describe('check whether player has won the game', () => {
     const outputBlack = playerHasWon(input, 'black');
     const outputWhite = playerHasWon(input, 'white');
     // then
-    expect(outputBlack && outputWhite).toStrictEqual(false);
+    expect(outputBlack.hasWon && outputWhite.hasWon).toStrictEqual(false);
   });
 
   it('should say WIN for black with this 5x5 board with a Z', () => {
@@ -118,7 +118,7 @@ describe('check whether player has won the game', () => {
     // when
     const outputBlack = playerHasWon(input, 'black');
     // then
-    expect(outputBlack).toStrictEqual(true);
+    expect(outputBlack.hasWon).toStrictEqual(true);
   });
 });
 
