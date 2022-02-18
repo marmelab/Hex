@@ -10,6 +10,7 @@ export interface GameState {
   board: Array<Array<Cell>>;
   turn: StoneColor;
   winner: StoneColor | null;
+  winningPath: Coordinates[] | null;
 }
 
 export interface Cell {
@@ -101,6 +102,7 @@ export function initNewGameState(size: number): GameState {
     turn: NEW_GAME_STARTING_STONE_COLOR,
     board: newBoard,
     winner: null,
+    winningPath: null,
   };
 }
 
@@ -119,8 +121,11 @@ export function updateGameState(
     board: deepCloneObject(previousState.board),
     turn: newTurn,
     winner: null,
+    winningPath: null,
   };
   newGameState.board[nextMove.y][nextMove.x].value = previousState.turn;
-  newGameState.winner = getWinner(newGameState).winner;
+  const getWinnerDataIfExist = getWinner(newGameState);
+  newGameState.winner = getWinnerDataIfExist.winner;
+  newGameState.winningPath = getWinnerDataIfExist.winningPath;
   return newGameState;
 }

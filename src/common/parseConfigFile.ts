@@ -32,8 +32,11 @@ export function parseConfigFile(
     turn: getGameStateTurn(board),
     board: board,
     winner: null,
+    winningPath: null,
   };
-  gameState.winner = getWinner(gameState).winner;
+  const getWinnerDataIfExist = getWinner(gameState);
+  gameState.winner = getWinnerDataIfExist.winner;
+  gameState.winningPath = getWinnerDataIfExist.winningPath;
   return gameState;
 }
 
