@@ -54,8 +54,8 @@ describe('Hex game', () => {
     cy.get('.cell').eq(0).click();
     cy.get('.cell').eq(1).click();
     cy.get('.cell').eq(2).click();
-    cy.get('.box-winner > p').contains('white');
-    cy.get('input').click();
+    cy.get('[data-cy=winner').contains('white');
+    cy.get('[data-cy=backHomePage]').click();
     cy.location('pathname').should('eq', '/');
   })
 });

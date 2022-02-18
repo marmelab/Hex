@@ -17,6 +17,7 @@ describe('load game state from a config file content', () => {
     const expected: GameState = {
       turn: 'white',
       winner: null,
+      winningPath: null,
       board: [
         [{ value: 'black' }, { value: 'empty' }, { value: 'black' }],
         [{ value: 'empty' }, { value: 'empty' }, { value: 'empty' }],
@@ -79,6 +80,7 @@ describe('load game state from a config file content', () => {
     const expected: GameState = {
       turn: 'white',
       winner: null,
+      winningPath: null,
       board: [],
     };
     expect(ouput).toStrictEqual(expected);
@@ -98,6 +100,7 @@ describe('load game state from a config file content', () => {
     const expected: GameState = {
       turn: 'white',
       winner: null,
+      winningPath: null,
       board: [
         [{ value: 'black' }, { value: 'empty' }, { value: 'black' }],
         [{ value: 'empty' }, { value: 'black' }, { value: 'empty' }],
@@ -121,6 +124,7 @@ describe('load game state from a config file content', () => {
     const expected: GameState = {
       turn: 'black',
       winner: null,
+      winningPath: null,
       board: [
         [{ value: 'black' }, { value: 'empty' }, { value: 'black' }],
         [{ value: 'empty' }, { value: 'white' }, { value: 'empty' }],
@@ -143,6 +147,11 @@ describe('load game state from a config file content', () => {
     const expected: GameState = {
       turn: 'white',
       winner: 'black',
+      winningPath: [
+        { x: 0, y: 1 },
+        { x: 1, y: 0 },
+        { x: 2, y: 0 },
+      ],
       board: [
         [{ value: 'black' }, { value: 'black' }, { value: 'black' }],
         [{ value: 'black' }, { value: 'white' }, { value: 'empty' }],
@@ -165,6 +174,7 @@ describe('load game state from a config file content', () => {
     const expected: GameState = {
       turn: 'white',
       winner: null,
+      winningPath: null,
       board: [
         [{ value: 'black' }, { value: 'black' }, { value: 'empty' }],
         [{ value: 'black' }, { value: 'white' }, { value: 'black' }],

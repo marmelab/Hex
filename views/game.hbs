@@ -10,9 +10,10 @@
 </head>
 
 <body>
-  {{#areEqual game.state.winner null}}
   <div class="gameboard">
-    <div class="box-current-player">
+    <div class="box-header">
+      {{#areEqual game.state.winner null}}
+
       {{#areEqual readyToPlay true}}
       <p>
         Current player:
@@ -33,6 +34,13 @@
       <p>
         Player 2 (black): {{game.player2.username}}
       </p>
+
+      {{else}}
+      <p data-cy="winner">The winner is : {{game.state.winner}}</p>
+      <form action="/" method="get">
+        <input type="submit" value="Return to home page" data-cy="backHomePage">
+      </form>
+      {{/areEqual}}
     </div>
     <div class=" hex-board-frame" style="--rows: {{game.state.board.length}}">
       <div class="left-edge"></div>
@@ -43,8 +51,8 @@
         <i></i>
         {{#each game.state.board}}
         {{#each this}}
-        {{#cellCanBePlayed this.value @root.readyToPlay @root.currentPlayerTurnToPlay }}
-        <form method="post" action="/game/{{../../game.id}}">
+        {{#cellCanBePlayed this.value @root.readyToPlay @root.currentPlayerTurnToPlay game.state.winner }}
+        <form method="post" action="/game/{{@root.game.id}}">
           <input type="hidden" name="x" value="{{@index}}" />
           <input type="hidden" name="y" value="{{@../index}}" />
           <input type="submit" id="form-{{@../index}}-{{@index}}" style="display:none;" />
@@ -54,7 +62,8 @@
           </label>
         </form>
         {{else}}
-        <div class="cell" data-color="{{this.value}}">
+        <div class="cell" data-color="{{this.value}}"
+          data-winningCell="{{isCellInWinningPath @root.game.state.winningPath @index @../index}}">
         </div>
         {{/cellCanBePlayed}}
 
@@ -63,14 +72,6 @@
       </div>
     </div>
   </div>
-  {{else}}
-  <div class="box-winner">
-    <p>The winner is : {{game.state.winner}}</p>
-    <form action="/" method="get">
-      <input type="submit" value="Return to home page">
-    </form>
-  </div>
-  {{/areEqual}}
 </body>
 
 </html>
