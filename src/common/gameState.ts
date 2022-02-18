@@ -41,8 +41,8 @@ export function playerHasWon(
 ): boolean {
   const hexBoardGraph = createGraphFromGameState(gameState, stoneColor);
   return stoneColor == 'black'
-    ? doesPathExist(hexBoardGraph, BLACK_NODE_START, BLACK_NODE_END)
-    : doesPathExist(hexBoardGraph, WHITE_NODE_START, WHITE_NODE_END);
+    ? doesPathExist(hexBoardGraph, BLACK_NODE_START, BLACK_NODE_END).hasWon
+    : doesPathExist(hexBoardGraph, WHITE_NODE_START, WHITE_NODE_END).hasWon;
 }
 
 export function doesCellExistAndHaveStone(
