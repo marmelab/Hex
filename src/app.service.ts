@@ -82,13 +82,13 @@ export class AppService {
   }
 
   async joinGame(gameId: number, player2SessionId: string): Promise<Game> {
-    const player2 = this.usersRepository.create({
-      lastSessionId: player2SessionId,
-      username: player2SessionId
-    });
     const game = await this.gamesRepository.findOne(gameId);
     if (!game.player2) {
       if (player2SessionId !== game.player1.lastSessionId) {
+        const player2 = this.usersRepository.create({
+          lastSessionId: player2SessionId,
+          username: player2SessionId
+        });
         game.player2 = await this.usersRepository.save(player2);
         return await this.gamesRepository.save(game);
       } else {

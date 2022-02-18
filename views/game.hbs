@@ -2,8 +2,8 @@
 <html>
 
 <head>
-  <meta charset="utf-8" {{#falseOrFalse readyToPlay currentPlayerTurnToPlay}}http-equiv="refresh" content="5"
-    {{/falseOrFalse}} />
+  <meta charset="utf-8" {{#needToWaitForOpponent readyToPlay currentPlayerTurnToPlay}}http-equiv="refresh" content="5"
+    {{/needToWaitForOpponent}} />
   <title>Hex</title>
   <link rel="stylesheet" type="text/css" href="/css/style.css" />
   <link rel="stylesheet" type="text/css" href="/css/game.css" />
@@ -43,7 +43,7 @@
         <i></i>
         {{#each game.state.board}}
         {{#each this}}
-        {{#cellCanBePlayed this.value ../../readyToPlay ../../currentPlayerTurnToPlay }}
+        {{#cellCanBePlayed this.value @root.readyToPlay @root.currentPlayerTurnToPlay }}
         <form method="post" action="/game/{{../../game.id}}">
           <input type="hidden" name="x" value="{{@index}}" />
           <input type="hidden" name="y" value="{{@../index}}" />

@@ -31,8 +31,8 @@ export class AppController {
   @Get('game/:id/join')
   @Redirect('/')
   async joinGame(@Param('id') id: number, @Req() req: Request) {
-    const gameId = (await this.appService.joinGame(id, req.sessionID)).id;
-    return { url: `/game/${gameId}` };
+    await this.appService.joinGame(id, req.sessionID);
+    return { url: `/game/${id}` };
   }
 
   @Get('game/:id')
