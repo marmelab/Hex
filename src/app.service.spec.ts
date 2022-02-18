@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Game } from './entities/game.entity';
 import { User } from './entities/user.entity';
@@ -45,7 +44,6 @@ describe('AppService', () => {
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
-      controllers: [AppController],
       providers: [
         AppService,
         {
