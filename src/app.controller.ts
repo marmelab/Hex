@@ -38,7 +38,6 @@ export class AppController {
   @Get('game/:id')
   @Render('game')
   async getGame(@Param('id') id: number, @Req() req: Request): Promise<GameAndStatus> {
-    console.debug(`req.sessionID=${req.sessionID}`);
     const game = await this.appService.findGameById(id);
     return this.appService.getGameAndStatus(game, req.sessionID);
   }

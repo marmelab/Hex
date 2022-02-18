@@ -2,7 +2,8 @@
 <html>
 
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" {{#falseOrFalse readyToPlay currentPlayerTurnToPlay}}http-equiv="refresh" content="5"
+    {{/falseOrFalse}} />
   <title>Hex</title>
   <link rel="stylesheet" type="text/css" href="/css/style.css" />
   <link rel="stylesheet" type="text/css" href="/css/game.css" />

@@ -107,7 +107,6 @@ export class AppService {
         (game.state.turn === "white" && playerSessionId === game.player1.lastSessionId) ||
         (game.state.turn === "black" && playerSessionId === game.player2.lastSessionId)
     };
-    console.debug(`readyToPlay=${gameAndStatus.readyToPlay}, currentPlayerTurnToPlay=${gameAndStatus.currentPlayerTurnToPlay}`);
     return gameAndStatus;
   }
 }

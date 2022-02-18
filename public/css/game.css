@@ -14,6 +14,10 @@
     color: #eea;
 }
 
+.box-current-player a {
+    color: #aea;
+}
+
 .box-current-player p {
     margin: 5px 0;
 }
