@@ -18,6 +18,11 @@ export interface Cell {
 
 export type StoneColor = 'black' | 'white';
 
+const BLACK_NODE_START = 'black-start';
+const BLACK_NODE_END = 'black-end';
+const WHITE_NODE_START = 'white-start';
+const WHITE_NODE_END = 'white-end';
+
 export function getWinner(gameState: GameState): StoneColor {
   let stoneColor: StoneColor = 'black';
   if (playerHasWon(gameState, stoneColor)) {
