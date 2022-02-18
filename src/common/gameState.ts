@@ -40,18 +40,9 @@ export function playerHasWon(
   stoneColor: StoneColor,
 ): boolean {
   const hexBoardGraph = createGraphFromGameState(gameState, stoneColor);
-  return doesPathExistForPlayer(hexBoardGraph, stoneColor);
-}
-
-function doesPathExistForPlayer(
-  hexBoardGraph: HexBoardGraph,
-  stoneColor: StoneColor,
-): boolean {
-  if (stoneColor == 'black') {
-    return doesPathExist(hexBoardGraph, 'black-start', 'black-end');
-  } else {
-    return doesPathExist(hexBoardGraph, 'white-start', 'white-end');
-  }
+  return stoneColor == 'black'
+    ? doesPathExist(hexBoardGraph, BLACK_NODE_START, BLACK_NODE_END)
+    : doesPathExist(hexBoardGraph, WHITE_NODE_START, WHITE_NODE_END);
 }
 
 export function doesCellExistAndHaveStone(
