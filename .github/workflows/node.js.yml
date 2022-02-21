@@ -25,6 +25,7 @@ jobs:
       working-directory: ./web-app
       run: yarn
     - name: Test
+      working-directory: ./web-app
       run: |
         yarn test
         yarn test:e2e
