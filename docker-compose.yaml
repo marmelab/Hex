@@ -4,25 +4,25 @@ services:
   nestjs:
     container_name: nestjs
     build:
-      context: ../
-      dockerfile: ./deployment/Dockerfile
+      context: ./web-app/
+      dockerfile: ./Dockerfile
     depends_on:
       - postgres
     env_file:
-      - .env.dev
+      - ./web-app/.env.dev
     environment:
       - WAIT_HOSTS=postgres:5432
     ports:
       - 3000:3000
     volumes:
-      - ../:/usr/app/
+      - ./web-app/:/usr/app/
 
   postgres:
     container_name: postgres
     image: postgres:10.4
     restart: always
     env_file:
-      - .env.db.dev
+      - ./.docker/db/.env.db.dev
     ports:
       - 5432:5432
 
@@ -31,7 +31,7 @@ services:
     image: dpage/pgadmin4:4.18
     restart: always
     env_file:
-      - .env.pgadmin.dev
+      - ./.docker/pgadmin/.env.dev.pgadmin
     ports:
       - 8080:80
     depends_on:

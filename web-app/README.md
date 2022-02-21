@@ -32,7 +32,7 @@ Edit database connection params in `ormconfig.json` file.
 ### With Docker Compose
 
 ```bash
-$ docker-compose -f deployment/docker-compose.yaml up -d
+$ docker-compose up -d
 
 # Or if you want to use the prod env
 $ docker-compose -f deployment/docker-compose.prod.yaml up -d
@@ -40,7 +40,7 @@ $ docker-compose -f deployment/docker-compose.prod.yaml up -d
 
 #### Environment variables
 
-You may edit the following environment variables in `deployment/.env.dev` or `deployment/.env.prod`:
+You may edit the following environment variables in `.env.dev` or `.env.prod`:
 
 | Variable           | Default value | Description                |
 | :----------------- | :------------ | :------------------------- |
