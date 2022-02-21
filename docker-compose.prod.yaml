@@ -2,27 +2,16 @@ version: "3"
 services:
 
   nestjs:
-    container_name: nestjs
     build:
-      context: ./web-app/
       dockerfile: ./Dockerfile.prod
-    depends_on:
-      - postgres
     env_file:
       - ./web-app/.env.prod
-    environment:
-      - WAIT_HOSTS=postgres:5432
     expose:
       - 3000
 
   postgres:
-    container_name: postgres
-    image: postgres:10.4
-    ports:
-      - 5432:5432
     volumes:
       - db-data-prod:/var/lib/postgresql/data
-    restart: always
     env_file:
       - ./.docker/db/.env.db.prod
 
