@@ -1,0 +1,18 @@
+version: "3"
+services:
+
+  nestjs:
+    container_name: nestjs
+    build:
+      context: ./web-app/
+    depends_on:
+      - postgres
+    environment:
+      - WAIT_HOSTS=postgres:5432
+
+  postgres:
+    container_name: postgres
+    image: postgres:10.4
+    restart: always
+    ports:
+      - 5432:5432

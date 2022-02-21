@@ -22,8 +22,10 @@ jobs:
       with:
         node-version: '12.x'
     - name: Install
+      working-directory: ./web-app
       run: yarn
     - name: Test
+      working-directory: ./web-app
       run: |
         yarn test
         yarn test:e2e
