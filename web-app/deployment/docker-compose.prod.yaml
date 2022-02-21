@@ -1,0 +1,42 @@
+version: "3"
+services:
+
+  nestjs:
+    container_name: nestjs
+    build:
+      context: ../
+      dockerfile: ./deployment/Dockerfile.prod
+    depends_on:
+      - postgres
+    env_file:
+      - .env.prod
+    environment:
+      - WAIT_HOSTS=postgres:5432
+    expose:
+      - 3000
+
+  postgres:
+    container_name: postgres
+    image: postgres:10.4
+    ports:
+      - 5432:5432
+    volumes:
+      - db-data-prod:/var/lib/postgresql/data
+    restart: always
+    env_file:
+      - .env.prod
+
+  nginx:
+    container_name: nginx
+    image: nginx
+    build:
+      context: .
+      dockerfile: ./Dockerfile.nginx
+    ports:
+      - 80:80
+    depends_on:
+      - nestjs
+    restart: always
+
+volumes:
+  db-data-prod:

@@ -32,21 +32,23 @@ Edit database connection params in `ormconfig.json` file.
 ### With Docker Compose
 
 ```bash
-$ docker-compose up -d
+$ docker-compose -f deployment/docker-compose.yaml up -d
+
+# Or if you want to use the prod env
+$ docker-compose -f deployment/docker-compose.prod.yaml up -d
 ```
 
 #### Environment variables
 
-You may edit the following environment variables in `docker-compose.yaml`:
+You may edit the following environment variables in `deployment/.env.dev` or `deployment/.env.prod`:
 
-| Variable | Default value     | Description                |
-| :------- | :---------------- | :------------------------- |
-| `TYPEORM_HOST` | `postgres` | Postgres server hostname |
-| `TYPEORM_PORT` | `5432` | Postgres server port |
-| `TYPEORM_USERNAME` | `postgres` | Postgres database username |
-| `TYPEORM_PASSWORD` | `postgres` | Postgres database password |
-| `TYPEORM_DATABASE` | `test` | Postgres database name |
-| `NODE_ENV` | `development` | Environment type: `development` runs `yarn start` while `production` runs `yarn start:prod` |
+| Variable           | Default value | Description                |
+| :----------------- | :------------ | :------------------------- |
+| `TYPEORM_HOST`     | `postgres`    | Postgres server hostname   |
+| `TYPEORM_PORT`     | `5432`        | Postgres server port       |
+| `TYPEORM_USERNAME` | `postgres`    | Postgres database username |
+| `TYPEORM_PASSWORD` | `postgres`    | Postgres database password |
+| `TYPEORM_DATABASE` | `test`        | Postgres database name     |
 
 ## Test
 
