@@ -16,7 +16,7 @@ export default function PlayableCell({ svgPoints, strokeColor, cellValue, onCell
       points={svgPoints}
       stroke={strokeColor}
       fill={getStoneColor(cellValue)}
-      onClick={() => onCellPress()}
-      onPress={() => onCellPress()}
+      onClick={onCellPress}
+      onPress={onCellPress}
     />)
 }

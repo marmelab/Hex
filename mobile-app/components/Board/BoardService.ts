@@ -46,7 +46,7 @@ function isCellAtTopLeftOrBottomRight(col: number, row: number, boardSizeWithBor
 function getCellType(col: number, row: number, boardSizeWithBorder: number): RenderedCellType {
   return row === 0 || row === boardSizeWithBorder - 1 ?
     "player2Border" :
-    col === 0 && row != boardSizeWithBorder - 1 || col === boardSizeWithBorder - 1 && row != 0 ?
+    col === 0 && row !== boardSizeWithBorder - 1 || col === boardSizeWithBorder - 1 && row !== 0 ?
       "player1Border" :
       "playable";
 }
