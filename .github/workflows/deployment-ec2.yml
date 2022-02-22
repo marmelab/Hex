@@ -6,27 +6,27 @@ on:
 
 jobs:
   deploy:
-  runs-on: ubuntu-latest
-  
-  steps:
-    - uses: actions/checkout@v2 
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2 
 
-    - name: Deploy in EC2
-      env:
-          PRIVATE_KEY: ${{ secrets.AWS_EC2_PRIVATE_KEY  }}
-          HOSTNAME : ${{ secrets.AWS_EC2_PUBLIC_IP  }}
-          USER_NAME : ${{ secrets.AWS_EC2_USERNAME  }}
-          BRANCH_NAME: feature-aws-ecs # TODO: change to main
+      - name: Deploy in EC2
+        env:
+            PRIVATE_KEY: ${{ secrets.AWS_EC2_PRIVATE_KEY  }}
+            HOSTNAME : ${{ secrets.AWS_EC2_PUBLIC_IP  }}
+            USER_NAME : ${{ secrets.AWS_EC2_USERNAME  }}
+            BRANCH_NAME: feature-aws-ecs # TODO: change to main
+            
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
           
-      run: |
-        echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-        ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
-        
-          #Now we have got the access of EC2 and we will start the deploy .
-          cd /home/ubuntu/Hex &&
-          git checkout ${BRANCH_NAME} &&
-          git fetch --all &&
-          git reset --hard origin/${BRANCH_NAME} &&
-          git pull origin ${BRANCH_NAME} &&
-          sudo docker-compose -f docker-compose.yaml up -d --build 
-        '
+            #Now we have got the access of EC2 and we will start the deploy .
+            cd /home/ubuntu/Hex &&
+            git checkout ${BRANCH_NAME} &&
+            git fetch --all &&
+            git reset --hard origin/${BRANCH_NAME} &&
+            git pull origin ${BRANCH_NAME} &&
+            sudo docker-compose -f docker-compose.yaml up -d --build 
+          '
