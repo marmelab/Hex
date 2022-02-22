@@ -3,11 +3,13 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import Board from './components/Board';
 
+const DEFAULT_BOARD_SIZE = 9;
+
 export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <Board />
+      <Board boardSize={DEFAULT_BOARD_SIZE} />
     </View>
   );
 }

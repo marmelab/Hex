@@ -1,19 +1,23 @@
 import * as React from 'react';
-import Svg, { Polygon } from 'react-native-svg';
+import Svg from 'react-native-svg';
+import Cell from './Cell';
 
 const DEFAULT_HEXA_COLOR = "black";
 const PLAYER_1_HEXA_COLOR = "blue";
 const PLAYER_2_HEXA_COLOR = "red";
 const HEXA_STROKE_COLOR = "white";
-const DEFAULT_BOARD_SIZE = 9;
 const HEXA_SIZE = 20;
 
-export default function HexBoard() {
+interface BoardData {
+  boardSize: number;
+}
+
+export default function Board(props: BoardData) {
   return (
     <Svg width="100%" height="100%">
       {
-        generateBoard(DEFAULT_BOARD_SIZE).map((hexaToDraw) => (
-          <Polygon points={hexaToDraw.points} stroke={HEXA_STROKE_COLOR} fill={hexaToDraw.color} />
+        generateBoard(props.boardSize).map((hexaToDraw) => (
+          <Cell svgPoints={hexaToDraw.points} strokeColor={HEXA_STROKE_COLOR} fillColor={hexaToDraw.color} />
         ))
       }
     </Svg >
