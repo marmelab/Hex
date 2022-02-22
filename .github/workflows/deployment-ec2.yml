@@ -2,7 +2,7 @@ name: Deploy on aws EC2
 on:
   push:
     branches:
-    - feature-aws-ecs # TODO: change to main
+    - main
 
 jobs:
   deploy:
