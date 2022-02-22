@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { GameService } from './game.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { AppService } from './app.service';
-import { Game } from './entities/game.entity';
-import { User } from './entities/user.entity';
+import { Game } from './game.entity';
+import { User } from '../user/user.entity';
 import {
   parseGameStateFromMultilineString,
   parseGameFromMultilineString,
-} from './common/utils';
+} from '../common/utils';
 
 let mockedGame: Game;
 let mockedUser: User;
@@ -39,13 +39,13 @@ const mockUsersRepository = {
   },
 };
 
-describe('AppService', () => {
-  let appService: AppService;
+describe('GameService', () => {
+  let gameService: GameService;
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       providers: [
-        AppService,
+        GameService,
         {
           provide: getRepositoryToken(Game),
           useValue: mockGamesRepository,
@@ -57,12 +57,12 @@ describe('AppService', () => {
       ],
     }).compile();
 
-    appService = app.get<AppService>(AppService);
+    gameService = app.get<GameService>(GameService);
   });
 
   describe('file', () => {
     it('should return the current game state from the file"', () => {
-      expect(appService.getBoardStateFromFile()).toEqual(
+      expect(gameService.getBoardStateFromFile()).toEqual(
         parseGameStateFromMultilineString(`
 ⬢ ⬡ ⬢
  ⬡ W ⬡
@@ -72,7 +72,7 @@ describe('AppService', () => {
     });
     it('should throw an error if trying to set a stone in a already filled cell"', async () => {
       await expect(
-        appService.updateGameState(
+        gameService.updateGameState(
           parseGameFromMultilineString(`
       ⬢ ⬡ ⬢
        ⬡ W ⬡
@@ -91,7 +91,7 @@ describe('AppService', () => {
     `);
     game.state.turn = 'black';
     expect(
-      (await appService.updateGameState(game, { x: 0, y: 0 })).state,
+      (await gameService.updateGameState(game, { x: 0, y: 0 })).state,
     ).toEqual(
       parseGameStateFromMultilineString(`
 ⬢ ⬡ ⬢
@@ -103,7 +103,7 @@ describe('AppService', () => {
 
   describe('root', () => {
     it('should return an empty board of 11x11"', async () => {
-      expect((await appService.createNewGame(11, "sessionID")).state.board).toEqual(
+      expect((await gameService.createNewGame(11, "sessionID")).state.board).toEqual(
         parseGameStateFromMultilineString(`
 ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
  ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
@@ -123,7 +123,7 @@ describe('AppService', () => {
   it('should return a board of 11x11 with a white stone in [1,1]"', async () => {
     expect(
       (
-        await appService.updateGameState(await appService.createNewGame(11, "sessionID"), {
+        await gameService.updateGameState(await gameService.createNewGame(11, "sessionID"), {
           x: 1,
           y: 1,
         })

@@ -25,7 +25,7 @@
       {{else}}
       <p>Awaiting player 2...</p>
       <p>
-        Send <a href="/game/{{game.id}}/join">this link</a> for second player to join
+        Send <a href="/games/{{game.id}}/join">this link</a> for second player to join
       </p>
       {{/areEqual}}
       <p>
@@ -52,7 +52,7 @@
         {{#each game.state.board}}
         {{#each this}}
         {{#cellCanBePlayed this.value @root.readyToPlay @root.currentPlayerTurnToPlay game.state.winner }}
-        <form method="post" action="/game/{{@root.game.id}}">
+        <form method="post" action="/games/{{@root.game.id}}">
           <input type="hidden" name="x" value="{{@index}}" />
           <input type="hidden" name="y" value="{{@../index}}" />
           <input type="submit" id="form-{{@../index}}-{{@index}}" style="display:none;" />
