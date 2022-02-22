@@ -8,6 +8,7 @@ import { CellType } from "../utils";
 const CELL_STROKE_COLOR = "white";
 const CELL_SIZE = 20;
 const DISTANCE_BETWEEN_HEXAGONE_PARALLEL_SIDES = Math.sqrt(3);
+const HEXAGONE_OFFSET = DISTANCE_BETWEEN_HEXAGONE_PARALLEL_SIDES * CELL_SIZE / 2;
 
 interface BoardProps {
   gameState: GameState;
@@ -51,13 +52,12 @@ function onCellPress(coordinates: { x: number, y: number }) {
 function generateBoardCells(gameState: GameState): { withoutBorderCoordinates: { x: number, y: number }, svgPointsToDraw: string, cellType: CellType }[] {
   const cells = [];
   const sizeWithBorder = gameState.board.length + 2;
-  const offset = (DISTANCE_BETWEEN_HEXAGONE_PARALLEL_SIDES * CELL_SIZE) / 2;
   for (let col = 0; col < sizeWithBorder; col += 1) {
     for (let row = 0; row < sizeWithBorder; row += 1) {
       if (!isCellAtTopLeftOrBottomRight(col, row, sizeWithBorder)) {
-        const rowShifter = offset * row;
-        const svgX = offset * (1 + col) * 2 + rowShifter;
-        const svgY = offset * (1 + row) * DISTANCE_BETWEEN_HEXAGONE_PARALLEL_SIDES;
+        const rowShifter = HEXAGONE_OFFSET * row;
+        const svgX = HEXAGONE_OFFSET * (1 + col) * 2 + rowShifter;
+        const svgY = HEXAGONE_OFFSET * (1 + row) * DISTANCE_BETWEEN_HEXAGONE_PARALLEL_SIDES;
         cells.push({
           withoutBorderCoordinates: { x: col - 1, y: row - 1 },
           svgPointsToDraw: getSvgPoints(svgX, svgY),
