@@ -1,0 +1,27 @@
+version: "3"
+services:
+
+  nestjs:
+    build:
+      dockerfile: ./Dockerfile.dev
+    env_file:
+      - ./web-app/.env.dev
+    ports:
+      - 3000:3000
+    volumes:
+      - ./web-app/:/usr/app/
+
+  postgres:
+    env_file:
+      - ./.docker/db/.env.db.dev
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:4.18
+    restart: always
+    env_file:
+      - ./.docker/pgadmin/.env.dev.pgadmin
+    ports:
+      - 8080:80
+    depends_on:
+      - postgres
