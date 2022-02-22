@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { GameModule } from './game/game.module';
-import { UserModule } from './user/user.module';
-import { GamesModule } from './localplay/games/games.module';
+import { GameModule } from './games/games.module';
+import { UserModule } from './users/users.module';
+import { GamesModule } from './localplay/games/localplay.games.module';
 
 @Module({
   imports: [

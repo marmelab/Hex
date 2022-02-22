@@ -9,7 +9,7 @@ import {
     Render,
     Req,
 } from '@nestjs/common';
-import { GameService, GameAndStatus } from './game.service';
+import { GameService, GameAndStatus } from './games.service';
 import { Request } from 'express';
 import { Game } from './game.entity';
 

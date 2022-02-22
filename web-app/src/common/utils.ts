@@ -1,4 +1,4 @@
-import { Game } from 'src/game/game.entity';
+import { Game } from 'src/games/game.entity';
 import { GameState, getWinner } from './gameState';
 export interface Coordinates {
   x: number;

@@ -11,7 +11,7 @@ import {
     DEFAULT_BOARD_SIZE,
 } from '../common/gameState';
 import { Coordinates, deepCloneObject } from '../common/utils';
-import { User } from '../user/user.entity';
+import { User } from '../users/user.entity';
 
 export interface GameAndStatus {
     game: Game,

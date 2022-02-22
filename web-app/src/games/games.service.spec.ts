@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GameService } from './game.service';
+import { GameService } from './games.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Game } from './game.entity';
-import { User } from '../user/user.entity';
+import { User } from '../users/user.entity';
 import {
   parseGameStateFromMultilineString,
   parseGameFromMultilineString,
