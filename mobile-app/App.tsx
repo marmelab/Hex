@@ -1,9 +1,10 @@
 import * as React from 'react';
+import { View, ScrollView, Text, Button } from 'react-native';
+import Board from './components/Board/Board';
+import { GameState } from '../web-app/src/common/gameState';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet, View, ScrollView, Text } from 'react-native';
-import Board from './components/Board/Board';
-import { GameState } from './utils';
+
 
 
 
@@ -42,6 +43,8 @@ function HomeScreen(props: { navigation: any }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text style={{ fontSize: 32 }}>Hex Game</Text>
+      <Button title='Play local' onPress={() => props.navigation.navigate('Game')}>
+      </Button>
     </View>
   );
 }
