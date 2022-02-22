@@ -19,15 +19,9 @@ jobs:
             USER_NAME : ${{ secrets.AWS_EC2_USERNAME  }}
             
         run: |
-          echo "HOSTNAME=$HOSTNAME"
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          rsync --delete -r -e "ssh -o StrictHostKeyChecking=no -i private_key" ./ ${USER_NAME}@${HOSTNAME}:~/Hex
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
-          
-            #Now we have got the access of EC2 and we will start the deploy .
-            cd /home/ubuntu/Hex &&
-            git checkout ${GITHUB_REF_NAME} &&
-            git fetch --all &&
-            git reset --hard origin/${GITHUB_REF_NAME} &&
-            git pull origin ${GITHUB_REF_NAME} &&
+            cd ~/Hex &&
             sudo docker-compose -f docker-compose.yaml up -d --build 
           '
