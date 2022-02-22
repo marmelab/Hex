@@ -2,37 +2,34 @@ import * as React from 'react';
 import Svg from 'react-native-svg';
 import PlayableCell from './PlayableCell';
 import BorderCell from './BorderCell';
+import { GameState } from '../../web-app/src/common/gameState';
+import { CellType } from "../utils";
 
 const CELL_STROKE_COLOR = "white";
 const CELL_SIZE = 20;
 const DISTANCE_BETWEEN_HEXAGONE_PARALLEL_SIDES = Math.sqrt(3);
-const DEFAULT_CELL_COLOR = "black";
-const PLAYER_1_CELL_COLOR = "blue";
-const PLAYER_2_CELL_COLOR = "red";
-
-type CellType = "player1Border" | "player2Border" | "playable";
 
 interface BoardData {
-  boardSize: number;
+  gameState: GameState;
 }
 
 export default function Board(props: BoardData) {
   return (
     <Svg width="100%" height="100%">
       {
-        generateBoardCells(props.boardSize).map((cell) => (
-          cell.typeCell == "playable" ?
+        generateBoardCells(props.gameState).map((cell) => (
+          cell.cellType == "playable" ?
             <PlayableCell
               svgPoints={cell.svgPointsToDraw}
               strokeColor={CELL_STROKE_COLOR}
-              cellColor={DEFAULT_CELL_COLOR}
+              cellValue={props.gameState.board[cell.withoutBorderCoordinates.y][cell.withoutBorderCoordinates.x]}
               onCellPress={() => onCellPress(cell.withoutBorderCoordinates)}
             />
             :
             <BorderCell
               svgPoints={cell.svgPointsToDraw}
               strokeColor={CELL_STROKE_COLOR}
-              playerBorderColor={cell.typeCell == "player1Border" ? PLAYER_1_CELL_COLOR : PLAYER_2_CELL_COLOR}
+              playerBorder={cell.cellType}
             />
         ))
       }
@@ -44,9 +41,9 @@ function onCellPress(coordinates: { x: number, y: number }) {
   alert(`x:${coordinates.x} y:${coordinates.y}`)
 }
 
-function generateBoardCells(size: number): { withoutBorderCoordinates: { x: number, y: number }, svgPointsToDraw: string, typeCell: CellType }[] {
+function generateBoardCells(gameState: GameState): { withoutBorderCoordinates: { x: number, y: number }, svgPointsToDraw: string, cellType: CellType }[] {
   const cells = [];
-  const sizeWithBorder = size + 2;
+  const sizeWithBorder = gameState.board.length + 2;
   const offset = (DISTANCE_BETWEEN_HEXAGONE_PARALLEL_SIDES * CELL_SIZE) / 2;
   for (let col = 0; col < sizeWithBorder; col += 1) {
     for (let row = 0; row < sizeWithBorder; row += 1) {
@@ -57,7 +54,7 @@ function generateBoardCells(size: number): { withoutBorderCoordinates: { x: numb
         cells.push({
           withoutBorderCoordinates: { x: col - 1, y: row - 1 },
           svgPointsToDraw: getSvgPoints(svgX, svgY),
-          typeCell: getCellType(col, row, sizeWithBorder)
+          cellType: getCellType(col, row, sizeWithBorder)
         });
       }
     }
