@@ -5,7 +5,7 @@ import BorderCell from './BorderCell';
 import { GameState } from '../../web-app/src/common/gameState';
 import { CellType } from "../utils";
 
-const CELL_STROKE_COLOR = "white";
+const CELL_STROKE_COLOR = "grey";
 const CELL_SIZE = 20;
 const DISTANCE_BETWEEN_HEXAGONE_PARALLEL_SIDES = Math.sqrt(3);
 const HEXAGONE_OFFSET = DISTANCE_BETWEEN_HEXAGONE_PARALLEL_SIDES * CELL_SIZE / 2;

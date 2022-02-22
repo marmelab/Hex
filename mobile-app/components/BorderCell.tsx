@@ -9,7 +9,6 @@ interface BorderCellProps {
   playerBorder: CellType;
 }
 
-
 export default function BorderCell({ svgPoints, strokeColor, playerBorder }: BorderCellProps) {
   return (
     <Polygon points={svgPoints} stroke={strokeColor} fill={getBorderColor(playerBorder)} />
