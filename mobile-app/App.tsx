@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import Board from './components/Board';
 import { GameState } from '../web-app/src/common/gameState';
 
@@ -24,8 +23,9 @@ const gamestate: GameState = {
 export default function App() {
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
-      <Board gameState={gamestate} />
+      <ScrollView horizontal>
+        <Board gameState={gamestate} />
+      </ScrollView>
     </View>
   );
 }
