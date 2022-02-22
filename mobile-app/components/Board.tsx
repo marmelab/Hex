@@ -5,9 +5,10 @@ import BorderCell from './BorderCell';
 
 const CELL_STROKE_COLOR = "white";
 const CELL_SIZE = 20;
-export const DEFAULT_CELL_COLOR = "black";
-export const PLAYER_1_CELL_COLOR = "blue";
-export const PLAYER_2_CELL_COLOR = "red";
+const DISTANCE_BETWEEN_HEXAGONE_PARALLEL_SIDES = Math.sqrt(3);
+const DEFAULT_CELL_COLOR = "black";
+const PLAYER_1_CELL_COLOR = "blue";
+const PLAYER_2_CELL_COLOR = "red";
 
 type CellType = "player1Border" | "player2Border" | "playable";
 
@@ -46,13 +47,13 @@ function onCellPress(coordinates: { x: number, y: number }) {
 function generateBoardCells(size: number): { withoutBorderCoordinates: { x: number, y: number }, svgPointsToDraw: string, typeCell: CellType }[] {
   const cells = [];
   const sizeWithBorder = size + 2;
-  const offset = (Math.sqrt(3) * CELL_SIZE) / 2;
+  const offset = (DISTANCE_BETWEEN_HEXAGONE_PARALLEL_SIDES * CELL_SIZE) / 2;
   for (let col = 0; col < sizeWithBorder; col += 1) {
     for (let row = 0; row < sizeWithBorder; row += 1) {
       if (!isCellAtTopLeftOrBottomRight(col, row, sizeWithBorder)) {
         const rowShifter = offset * row;
         const svgX = offset * (1 + col) * 2 + rowShifter;
-        const svgY = offset * (1 + row) * Math.sqrt(3);
+        const svgY = offset * (1 + row) * DISTANCE_BETWEEN_HEXAGONE_PARALLEL_SIDES;
         cells.push({
           withoutBorderCoordinates: { x: col - 1, y: row - 1 },
           svgPointsToDraw: getSvgPoints(svgX, svgY),
