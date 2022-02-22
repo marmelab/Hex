@@ -9,30 +9,30 @@ const CELL_STROKE_COLOR = "white";
 const CELL_SIZE = 20;
 const DISTANCE_BETWEEN_HEXAGONE_PARALLEL_SIDES = Math.sqrt(3);
 
-interface BoardData {
+interface BoardProps {
   gameState: GameState;
 }
 
-export default function Board({ gameState }: BoardData) {
+export default function Board({ gameState }: BoardProps) {
   const svgSize = getApproximateSvgSize(gameState.board.length);
   return (
     <Svg width={svgSize} height={svgSize}>
       {
-        generateBoardCells(gameState).map((cell, index) => (
-          cell.cellType === "playable" ?
+        generateBoardCells(gameState).map(({ withoutBorderCoordinates, svgPointsToDraw, cellType }, index) => (
+          cellType === "playable" ?
             <PlayableCell
               key={index}
-              svgPoints={cell.svgPointsToDraw}
+              svgPoints={svgPointsToDraw}
               strokeColor={CELL_STROKE_COLOR}
-              cellValue={gameState.board[cell.withoutBorderCoordinates.y][cell.withoutBorderCoordinates.x]}
-              onCellPress={() => onCellPress(cell.withoutBorderCoordinates)}
+              cellValue={gameState.board[withoutBorderCoordinates.y][withoutBorderCoordinates.x]}
+              onCellPress={() => onCellPress(withoutBorderCoordinates)}
             />
             :
             <BorderCell
               key={index}
-              svgPoints={cell.svgPointsToDraw}
+              svgPoints={svgPointsToDraw}
               strokeColor={CELL_STROKE_COLOR}
-              playerBorder={cell.cellType}
+              playerBorder={cellType}
             />
         ))
       }

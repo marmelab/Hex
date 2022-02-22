@@ -3,14 +3,14 @@ import { Polygon } from 'react-native-svg';
 import { PLAYER_1_CELL_COLOR, PLAYER_2_CELL_COLOR } from "../utils";
 import { CellType } from "../utils";
 
-interface BorderCellData {
+interface BorderCellProps {
   svgPoints: string;
   strokeColor: string;
   playerBorder: CellType;
 }
 
 
-export default function BorderCell({ svgPoints, strokeColor, playerBorder }: BorderCellData) {
+export default function BorderCell({ svgPoints, strokeColor, playerBorder }: BorderCellProps) {
   return (
     <Polygon points={svgPoints} stroke={strokeColor} fill={getBorderColor(playerBorder)} />
   )
