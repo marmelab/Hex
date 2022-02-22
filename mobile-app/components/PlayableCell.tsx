@@ -17,6 +17,7 @@ export default function PlayableCell(props: PlayableCellData) {
       stroke={props.strokeColor}
       fill={getPawnColor(props.cellValue)}
       onClick={() => props.onCellPress()}
+      onPress={() => props.onCellPress()}
     />)
 }
 
