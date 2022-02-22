@@ -10,9 +10,9 @@ interface BorderCellData {
 }
 
 
-export default function BorderCell(props: BorderCellData) {
+export default function BorderCell({ svgPoints, strokeColor, playerBorder }: BorderCellData) {
   return (
-    <Polygon points={props.svgPoints} stroke={props.strokeColor} fill={getBorderColor(props.playerBorder)} />
+    <Polygon points={svgPoints} stroke={strokeColor} fill={getBorderColor(playerBorder)} />
   )
 }
 
