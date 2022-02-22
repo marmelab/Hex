@@ -28,7 +28,7 @@ export class AppService {
     private gamesRepository: Repository<Game>,
     @InjectRepository(User)
     private usersRepository: Repository<User>,
-  ) { }
+  ) {}
 
   getBoardStateFromFile(): GameState {
     const gameState = parseGameStateFromFile(

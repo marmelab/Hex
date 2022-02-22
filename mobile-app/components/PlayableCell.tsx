@@ -15,12 +15,12 @@ export default function PlayableCell({ svgPoints, strokeColor, cellValue, onCell
     <Polygon
       points={svgPoints}
       stroke={strokeColor}
-      fill={getPawnColor(cellValue)}
+      fill={getStoneColor(cellValue)}
       onClick={() => onCellPress()}
       onPress={() => onCellPress()}
     />)
 }
 
-function getPawnColor(cellValue: Cell) {
+function getStoneColor(cellValue: Cell) {
   return cellValue.value === "white" ? PLAYER_1_CELL_COLOR : cellValue.value === "black" ? PLAYER_2_CELL_COLOR : DEFAULT_CELL_COLOR;
 }

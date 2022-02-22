@@ -2,13 +2,12 @@ import * as React from 'react';
 import Svg from 'react-native-svg';
 import PlayableCell from './PlayableCell';
 import BorderCell from './BorderCell';
-import { GameState } from '../../web-app/src/common/gameState';
-import { CellType } from "../utils";
+import { RenderedCellType, GameState, Coordinates } from "../utils";
 
 const CELL_STROKE_COLOR = "grey";
 const CELL_SIZE = 20;
-const DISTANCE_BETWEEN_HEXAGONE_PARALLEL_SIDES = Math.sqrt(3);
-const HEXAGONE_OFFSET = DISTANCE_BETWEEN_HEXAGONE_PARALLEL_SIDES * CELL_SIZE / 2;
+const DISTANCE_BETWEEN_HEXAGON_PARALLEL_SIDES = Math.sqrt(3);
+const HEXAGON_OFFSET = DISTANCE_BETWEEN_HEXAGON_PARALLEL_SIDES * CELL_SIZE / 2;
 
 interface BoardProps {
   gameState: GameState;
@@ -45,19 +44,19 @@ function getApproximateSvgSize(boardSize: number) {
   return boardSize * CELL_SIZE * 3;
 }
 
-function onCellPress(coordinates: { x: number, y: number }) {
+function onCellPress(coordinates: Coordinates) {
   alert(`x:${coordinates.x} y:${coordinates.y}`)
 }
 
-function generateBoardCells(gameState: GameState): { withoutBorderCoordinates: { x: number, y: number }, svgPointsToDraw: string, type: CellType }[] {
+function generateBoardCells(gameState: GameState): { withoutBorderCoordinates: Coordinates, svgPointsToDraw: string, type: RenderedCellType }[] {
   const cells = [];
   const sizeWithBorder = gameState.board.length + 2;
   for (let col = 0; col < sizeWithBorder; col += 1) {
     for (let row = 0; row < sizeWithBorder; row += 1) {
       if (!isCellAtTopLeftOrBottomRight(col, row, sizeWithBorder)) {
-        const rowShifter = HEXAGONE_OFFSET * row;
-        const svgX = HEXAGONE_OFFSET * (1 + col) * 2 + rowShifter;
-        const svgY = HEXAGONE_OFFSET * (1 + row) * DISTANCE_BETWEEN_HEXAGONE_PARALLEL_SIDES;
+        const rowShifter = HEXAGON_OFFSET * row;
+        const svgX = HEXAGON_OFFSET * (1 + col) * 2 + rowShifter;
+        const svgY = HEXAGON_OFFSET * (1 + row) * DISTANCE_BETWEEN_HEXAGON_PARALLEL_SIDES;
         cells.push({
           withoutBorderCoordinates: { x: col - 1, y: row - 1 },
           svgPointsToDraw: getSvgPoints(svgX, svgY),
@@ -83,7 +82,7 @@ function isCellAtTopLeftOrBottomRight(col: number, row: number, boardSizeWithBor
   return (col === 0 && row === 0 || col === boardSizeWithBorder - 1 && row === boardSizeWithBorder - 1);
 }
 
-function getCellType(col: number, row: number, boardSizeWithBorder: number): CellType {
+function getCellType(col: number, row: number, boardSizeWithBorder: number): RenderedCellType {
   return row === 0 || row === boardSizeWithBorder - 1 ?
     "player2Border" :
     col === 0 && row != boardSizeWithBorder - 1 || col === boardSizeWithBorder - 1 && row != 0 ?

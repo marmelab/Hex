@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import Board from './components/Board';
-import { GameState } from '../web-app/src/common/gameState';
+import { GameState } from './utils';
 
 const gamestate: GameState = {
   turn: 'white',
