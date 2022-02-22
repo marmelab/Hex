@@ -14,8 +14,9 @@ interface BoardData {
 }
 
 export default function Board(props: BoardData) {
+  const svgSize = getApproximateSvgSize(props.gameState.board.length);
   return (
-    <Svg width={getApproximateSvgSize(props.gameState.board.length)} height={getApproximateSvgSize(props.gameState.board.length)}>
+    <Svg width={svgSize} height={svgSize}>
       {
         generateBoardCells(props.gameState).map((cell, index) => (
           cell.cellType == "playable" ?
