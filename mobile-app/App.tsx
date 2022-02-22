@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
-import Board from './components/Board';
+import Board from './components/Board/Board';
 import { GameState } from './utils';
 
 const gamestate: GameState = {

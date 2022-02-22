@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Polygon } from 'react-native-svg';
-import { PLAYER_1_CELL_COLOR, PLAYER_2_CELL_COLOR } from "../utils";
-import { RenderedCellType } from "../utils";
+import { RenderedCellType } from "../../utils";
+import { getBorderColor } from './BorderCellService';
 
 interface BorderCellProps {
   svgPoints: string;
@@ -13,8 +13,4 @@ export default function BorderCell({ svgPoints, strokeColor, playerBorder }: Bor
   return (
     <Polygon points={svgPoints} stroke={strokeColor} fill={getBorderColor(playerBorder)} />
   )
-}
-
-function getBorderColor(cellType: RenderedCellType) {
-  return cellType === "player1Border" ? PLAYER_1_CELL_COLOR : PLAYER_2_CELL_COLOR;
 }

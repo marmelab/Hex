@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Polygon } from 'react-native-svg';
-import type { Cell } from '../../web-app/src/common/gameState';
-import { DEFAULT_CELL_COLOR, PLAYER_1_CELL_COLOR, PLAYER_2_CELL_COLOR } from "../utils";
+import type { Cell } from '../../../web-app/src/common/gameState';
+import { getStoneColor } from './PlayableCellService';
 
 interface PlayableCellProps {
   svgPoints: string;
@@ -19,8 +19,4 @@ export default function PlayableCell({ svgPoints, strokeColor, cellValue, onCell
       onClick={() => onCellPress()}
       onPress={() => onCellPress()}
     />)
-}
-
-function getStoneColor(cellValue: Cell) {
-  return cellValue.value === "white" ? PLAYER_1_CELL_COLOR : cellValue.value === "black" ? PLAYER_2_CELL_COLOR : DEFAULT_CELL_COLOR;
 }
