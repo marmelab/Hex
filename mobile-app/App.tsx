@@ -1,7 +1,11 @@
 import * as React from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StyleSheet, View, ScrollView, Text } from 'react-native';
 import Board from './components/Board/Board';
 import { GameState } from './utils';
+
+
 
 const gamestate: GameState = {
   turn: 'white',
@@ -20,21 +24,34 @@ const gamestate: GameState = {
   ],
 }
 
+const Stack = createNativeStackNavigator();
+
+
 export default function App() {
   return (
-    <View style={styles.container}>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Game" component={GameScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+function HomeScreen(props: { navigation: any }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text style={{ fontSize: 32 }}>Hex Game</Text>
+    </View>
+  );
+}
+
+function GameScreen() {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <ScrollView horizontal>
         <Board gameState={gamestate} />
       </ScrollView>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#0A000A',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
