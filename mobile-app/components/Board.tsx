@@ -15,9 +15,9 @@ interface BoardData {
 
 export default function Board(props: BoardData) {
   return (
-    <Svg width="100%" height="100%">
+    <Svg width={getApproximateSvgSize(props.gameState.board.length)} height={getApproximateSvgSize(props.gameState.board.length)}>
       {
-        generateBoardCells(props.gameState).map((cell) => (
+        generateBoardCells(props.gameState).map((cell, index) => (
           cell.cellType == "playable" ?
             <PlayableCell
               key={index}
@@ -37,6 +37,10 @@ export default function Board(props: BoardData) {
       }
     </Svg >
   );
+}
+
+function getApproximateSvgSize(boardSize: number) {
+  return boardSize * CELL_SIZE * 3;
 }
 
 function onCellPress(coordinates: { x: number, y: number }) {
