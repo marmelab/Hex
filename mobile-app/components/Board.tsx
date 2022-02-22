@@ -19,8 +19,8 @@ export default function Board({ gameState }: BoardProps) {
   return (
     <Svg width={svgSize} height={svgSize}>
       {
-        generateBoardCells(gameState).map(({ withoutBorderCoordinates, svgPointsToDraw, cellType }, index) => (
-          cellType === "playable" ?
+        generateBoardCells(gameState).map(({ withoutBorderCoordinates, svgPointsToDraw, type }, index) => (
+          type === "playable" ?
             <PlayableCell
               key={index}
               svgPoints={svgPointsToDraw}
@@ -33,7 +33,7 @@ export default function Board({ gameState }: BoardProps) {
               key={index}
               svgPoints={svgPointsToDraw}
               strokeColor={CELL_STROKE_COLOR}
-              playerBorder={cellType}
+              playerBorder={type}
             />
         ))
       }
@@ -49,7 +49,7 @@ function onCellPress(coordinates: { x: number, y: number }) {
   alert(`x:${coordinates.x} y:${coordinates.y}`)
 }
 
-function generateBoardCells(gameState: GameState): { withoutBorderCoordinates: { x: number, y: number }, svgPointsToDraw: string, cellType: CellType }[] {
+function generateBoardCells(gameState: GameState): { withoutBorderCoordinates: { x: number, y: number }, svgPointsToDraw: string, type: CellType }[] {
   const cells = [];
   const sizeWithBorder = gameState.board.length + 2;
   for (let col = 0; col < sizeWithBorder; col += 1) {
@@ -61,7 +61,7 @@ function generateBoardCells(gameState: GameState): { withoutBorderCoordinates: {
         cells.push({
           withoutBorderCoordinates: { x: col - 1, y: row - 1 },
           svgPointsToDraw: getSvgPoints(svgX, svgY),
-          cellType: getCellType(col, row, sizeWithBorder)
+          type: getCellType(col, row, sizeWithBorder)
         });
       }
     }
