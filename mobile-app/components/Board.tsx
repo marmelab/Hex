@@ -19,7 +19,7 @@ export default function Board(props: BoardData) {
     <Svg width={svgSize} height={svgSize}>
       {
         generateBoardCells(props.gameState).map((cell, index) => (
-          cell.cellType == "playable" ?
+          cell.cellType === "playable" ?
             <PlayableCell
               key={index}
               svgPoints={cell.svgPointsToDraw}
@@ -80,13 +80,13 @@ function getSvgPoints(x: any, y: any): string {
 }
 
 function isCellAtTopLeftOrBottomRight(col: number, row: number, boardSizeWithBorder: number) {
-  return (col == 0 && row == 0 || col == boardSizeWithBorder - 1 && row == boardSizeWithBorder - 1);
+  return (col === 0 && row === 0 || col === boardSizeWithBorder - 1 && row === boardSizeWithBorder - 1);
 }
 
 function getCellType(col: number, row: number, boardSizeWithBorder: number): CellType {
-  return row == 0 || row == boardSizeWithBorder - 1 ?
+  return row === 0 || row === boardSizeWithBorder - 1 ?
     "player2Border" :
-    col == 0 && row != boardSizeWithBorder - 1 || col == boardSizeWithBorder - 1 && row != 0 ?
+    col === 0 && row != boardSizeWithBorder - 1 || col === boardSizeWithBorder - 1 && row != 0 ?
       "player1Border" :
       "playable";
 }
