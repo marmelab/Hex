@@ -13,18 +13,18 @@ interface BoardData {
   gameState: GameState;
 }
 
-export default function Board(props: BoardData) {
-  const svgSize = getApproximateSvgSize(props.gameState.board.length);
+export default function Board({ gameState }: BoardData) {
+  const svgSize = getApproximateSvgSize(gameState.board.length);
   return (
     <Svg width={svgSize} height={svgSize}>
       {
-        generateBoardCells(props.gameState).map((cell, index) => (
+        generateBoardCells(gameState).map((cell, index) => (
           cell.cellType === "playable" ?
             <PlayableCell
               key={index}
               svgPoints={cell.svgPointsToDraw}
               strokeColor={CELL_STROKE_COLOR}
-              cellValue={props.gameState.board[cell.withoutBorderCoordinates.y][cell.withoutBorderCoordinates.x]}
+              cellValue={gameState.board[cell.withoutBorderCoordinates.y][cell.withoutBorderCoordinates.x]}
               onCellPress={() => onCellPress(cell.withoutBorderCoordinates)}
             />
             :

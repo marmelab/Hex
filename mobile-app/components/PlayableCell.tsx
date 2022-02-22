@@ -10,14 +10,14 @@ interface PlayableCellData {
   onCellPress: () => void;
 }
 
-export default function PlayableCell(props: PlayableCellData) {
+export default function PlayableCell({ svgPoints, strokeColor, cellValue, onCellPress }: PlayableCellData) {
   return (
     <Polygon
-      points={props.svgPoints}
-      stroke={props.strokeColor}
-      fill={getPawnColor(props.cellValue)}
-      onClick={() => props.onCellPress()}
-      onPress={() => props.onCellPress()}
+      points={svgPoints}
+      stroke={strokeColor}
+      fill={getPawnColor(cellValue)}
+      onClick={() => onCellPress()}
+      onPress={() => onCellPress()}
     />)
 }
 
