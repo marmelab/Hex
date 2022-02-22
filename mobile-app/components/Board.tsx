@@ -20,6 +20,7 @@ export default function Board(props: BoardData) {
         generateBoardCells(props.gameState).map((cell) => (
           cell.cellType == "playable" ?
             <PlayableCell
+              key={index}
               svgPoints={cell.svgPointsToDraw}
               strokeColor={CELL_STROKE_COLOR}
               cellValue={props.gameState.board[cell.withoutBorderCoordinates.y][cell.withoutBorderCoordinates.x]}
@@ -27,6 +28,7 @@ export default function Board(props: BoardData) {
             />
             :
             <BorderCell
+              key={index}
               svgPoints={cell.svgPointsToDraw}
               strokeColor={CELL_STROKE_COLOR}
               playerBorder={cell.cellType}
