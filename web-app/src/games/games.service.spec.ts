@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GameService } from './games.service';
+import { GamesService } from './games.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Game } from './game.entity';
 import { User } from '../users/user.entity';
@@ -40,12 +40,12 @@ const mockUsersRepository = {
 };
 
 describe('GameService', () => {
-  let gameService: GameService;
+  let gameService: GamesService;
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       providers: [
-        GameService,
+        GamesService,
         {
           provide: getRepositoryToken(Game),
           useValue: mockGamesRepository,
@@ -57,7 +57,7 @@ describe('GameService', () => {
       ],
     }).compile();
 
-    gameService = app.get<GameService>(GameService);
+    gameService = app.get<GamesService>(GamesService);
   });
 
   describe('file', () => {

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { GameController } from './games.controller';
-import { GameService } from './games.service';
+import { GamesController } from './games.controller';
+import { GamesService } from './games.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Game } from './game.entity';
 import { getConnectionOptions } from 'typeorm';
@@ -16,7 +16,7 @@ import { User } from '../users/user.entity';
     }),
     TypeOrmModule.forFeature([Game, User]),
   ],
-  controllers: [GameController],
-  providers: [GameService]
+  controllers: [GamesController],
+  providers: [GamesService]
 })
-export class GameModule { }
+export class GamesModule { }

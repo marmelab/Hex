@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { GameModule } from './games/games.module';
-import { UserModule } from './users/users.module';
-import { GamesModule } from './localplay/games/localplay.games.module';
+import { GamesModule } from './games/games.module';
+import { UsersModule } from './users/users.module';
+import { LocalplayGamesModule } from './localplay/games/localplay.games.module';
 
 @Module({
   imports: [
-    GameModule,
-    UserModule,
+    GamesModule,
+    UsersModule,
     GamesModule,
   ],
   controllers: [AppController],

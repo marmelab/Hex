@@ -22,7 +22,7 @@ export interface GameAndStatus {
 const configPathFromDistDir = '../../gameStateFile.json';
 
 @Injectable()
-export class GameService {
+export class GamesService {
 
     constructor(
         @InjectRepository(Game)

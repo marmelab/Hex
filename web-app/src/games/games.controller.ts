@@ -9,14 +9,14 @@ import {
     Render,
     Req,
 } from '@nestjs/common';
-import { GameService, GameAndStatus } from './games.service';
+import { GamesService, GameAndStatus } from './games.service';
 import { Request } from 'express';
 import { Game } from './game.entity';
 
 @Controller('games')
-export class GameController {
+export class GamesController {
 
-    constructor(private readonly gameService: GameService) { }
+    constructor(private readonly gameService: GamesService) { }
 
     @Post('')
     @Redirect('/')
