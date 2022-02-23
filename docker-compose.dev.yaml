@@ -9,7 +9,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./web-app/:/usr/app/
+      - ./web-app/:/usr/web-app/
 
   postgres:
     env_file:
