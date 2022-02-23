@@ -2,7 +2,7 @@ FROM node:12-alpine As development
 
 ENV NODE_ENV=development
 
-WORKDIR /usr/app
+WORKDIR /usr/web-app
 
 COPY package.json yarn.lock ./
 
@@ -18,11 +18,11 @@ ENV TYPEORM_ENTITIES=dist/**/*.entity.js
 ENV TYPEORM_SYNCHRONIZE=true
 ENV NODE_ENV=production
 
-WORKDIR /usr/app
+WORKDIR /usr/web-app
 
 COPY . .
 
-COPY --from=development /usr/app/dist ./dist
+COPY --from=development /usr/web-app/dist ./dist
 
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.2.1/wait /wait
 RUN chmod +x /wait
