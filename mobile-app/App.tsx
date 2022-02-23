@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, ScrollView, Text, Button, TextInput } from 'react-native';
-import Board from './components/Board/Board';
+import Board from './src/components/Board/Board';
 import { GameState } from '../web-app/src/common/gameState';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';

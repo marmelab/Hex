@@ -1,5 +1,5 @@
 import expect from 'expect';
-import { GameState } from '../../utils';
+import { GameState } from '../../../utils';
 import { generateBoardCells } from "./BoardService";
 
 describe('Generate board cells', () => {

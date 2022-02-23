@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Polygon } from 'react-native-svg';
-import type { Cell } from '../../../web-app/src/common/gameState';
+import type { Cell } from '../../../../web-app/src/common/gameState';
 import { getStoneColor } from './PlayableCellService';
 
 interface PlayableCellProps {
