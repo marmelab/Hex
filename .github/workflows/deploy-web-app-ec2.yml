@@ -1,0 +1,27 @@
+name: Deploy on aws EC2
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: Staging AWS
+    
+    steps:
+      - uses: actions/checkout@v2 
+
+      - name: Deploy in EC2
+        env:
+            PRIVATE_KEY: ${{ secrets.AWS_EC2_PRIVATE_KEY  }}
+            HOSTNAME : ${{ secrets.AWS_EC2_PUBLIC_IP  }}
+            USER_NAME : ${{ secrets.AWS_EC2_USERNAME  }}
+            
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          rsync --delete -r -e "ssh -o StrictHostKeyChecking=no -i private_key" --exclude="mobile-app/*" ./ ${USER_NAME}@${HOSTNAME}:~/Hex
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+            cd ~/Hex &&
+            sudo docker-compose -f docker-compose.base.yaml -f docker-compose.prod.yaml up -d --build 
+          '
