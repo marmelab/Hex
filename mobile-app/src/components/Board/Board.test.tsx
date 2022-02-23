@@ -1,11 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-
+import { GameState } from '../../../utils';
 import Board from './Board';
 
 describe('Board', () => {
   it('Does not throw any error', () => {
-    const gamestate = {
+    const gamestate: GameState = {
       turn: 'white',
       winner: null,
       winningPath: null,
@@ -21,10 +21,10 @@ describe('Board', () => {
         [{ value: 'empty' }, { value: 'empty' }, { value: 'empty' }, { value: 'empty' }, { value: 'empty' }, { value: 'empty' }, { value: 'empty' }, { value: 'empty' }, { value: 'empty' }],
       ],
     }
-    expect(() => renderer.create(<Board gameState={ gamestate } />)).not.toThrowError();
+    expect(() => renderer.create(<Board gameState={gamestate} />)).not.toThrowError();
   });
   it('Render a board with the correct nb of cells', () => {
-    const gamestate = {
+    const gamestate: GameState = {
       turn: 'white',
       winner: null,
       winningPath: null,
@@ -35,7 +35,7 @@ describe('Board', () => {
       ],
     }
 
-    const board = renderer.create(<Board gameState={ gamestate } />).toJSON();
+    const board = renderer.create(<Board gameState={gamestate} />).toJSON();
 
     expect(board.children[0].children.length).toBe(23);
   });
