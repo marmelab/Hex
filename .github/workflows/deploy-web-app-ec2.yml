@@ -1,4 +1,4 @@
-name: Deploy on aws EC2
+name: Web app EC2 deployment
 on:
   push:
     branches:
@@ -20,7 +20,7 @@ jobs:
             
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          rsync --delete -r -e "ssh -o StrictHostKeyChecking=no -i private_key" --exclude="mobile-app/*" ./ ${USER_NAME}@${HOSTNAME}:~/Hex
+          rsync --delete -r -e "ssh -o StrictHostKeyChecking=no -i private_key" --exclude="mobile-app/*" --filter=':- web-app/.gitignore' ./ ${USER_NAME}@${HOSTNAME}:~/Hex
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
             cd ~/Hex &&
             sudo docker-compose -f docker-compose.base.yaml -f docker-compose.prod.yaml up -d --build 
