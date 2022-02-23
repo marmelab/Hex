@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, ScrollView, Text, Button } from 'react-native';
+import { View, ScrollView, Text, Button, TextInput } from 'react-native';
 import Board from './components/Board/Board';
 import { GameState } from '../web-app/src/common/gameState';
 import { NavigationContainer } from '@react-navigation/native';
@@ -27,13 +27,12 @@ const gamestate: GameState = {
 
 const Stack = createNativeStackNavigator();
 
-
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Game" component={GameScreen} />
+        <Stack.Screen name="Local" component={LocalScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -43,13 +42,29 @@ function HomeScreen(props: { navigation: any }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text style={{ fontSize: 32 }}>Hex Game</Text>
-      <Button title='Play local' onPress={() => props.navigation.navigate('Game')}>
+      <Button title='Create local game' onPress={() => props.navigation.navigate('Local')}>
       </Button>
-    </View>
+      <Text>Or</Text>
+      <Button title='Create online game' onPress={() => { }}>
+      </Button>
+      <Text>Or</Text>
+      <TextInput
+        style={{
+          height: 40,
+          margin: 12,
+          borderWidth: 1,
+          padding: 10,
+        }}
+        placeholder="Game identifier"
+        keyboardType="numeric">
+      </TextInput>
+      <Button title='Join game' onPress={() => { }}>
+      </Button>
+    </View >
   );
 }
 
-function GameScreen() {
+function LocalScreen() {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <ScrollView horizontal>
