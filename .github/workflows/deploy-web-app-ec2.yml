@@ -2,7 +2,7 @@ name: Web app EC2 deployment
 on:
   push:
     branches:
-    - feature-hook-mobile-app-to-api # TODO change me back to 'main'
+    - feature-improve-ec2-deploy # TODO change me back to 'main'
 
 jobs:
   deploy:
