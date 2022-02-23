@@ -4,9 +4,9 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Game } from './game.entity';
 import { User } from '../users/user.entity';
 import {
-  parseGameStateFromMultilineString,
-  parseGameFromMultilineString,
+  parseGameStateFromMultilineString
 } from '../common/utils';
+import { GameState } from 'src/common/gameState';
 
 let mockedGame: Game;
 let mockedUser: User;
@@ -38,6 +38,21 @@ const mockUsersRepository = {
     return user;
   },
 };
+
+function createGameEntityFromGameState(gameState: GameState): Game {
+  return {
+    id: null,
+    player1: null,
+    player2: null,
+    state: gameState,
+  };
+}
+
+function parseGameFromMultilineString(gameState: string): Game {
+  return createGameEntityFromGameState(
+    parseGameStateFromMultilineString(gameState),
+  );
+}
 
 describe('GameService', () => {
   let gameService: GamesService;

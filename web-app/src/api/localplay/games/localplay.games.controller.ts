@@ -1,8 +1,8 @@
 import { Body, Controller, Post, Put } from '@nestjs/common';
-import { GameState, initNewGameState, updateGameState } from '../../common/gameState';
-import { Coordinates } from '../../common/utils';
+import { GameState, initNewGameState, updateGameState } from '../../../common/gameState';
+import { Coordinates } from '../../../common/utils';
 
-@Controller('localplay/games')
+@Controller('api/localplay/games')
 export class LocalplayGamesController {
 
     @Post('')
