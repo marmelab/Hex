@@ -3,16 +3,17 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { LocalScreen } from './src/screens/LocalScreen';
 import { HomeScreen } from './src/screens/HomeScreen';
+import type { RootStackParamList } from './src/screens/navigationTypes';
 
-const Stack = createNativeStackNavigator();
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Local" component={LocalScreen} />
-      </Stack.Navigator>
+      <RootStack.Navigator initialRouteName="Home">
+        <RootStack.Screen name="Home" component={HomeScreen} />
+        <RootStack.Screen name="Local" component={LocalScreen} />
+      </RootStack.Navigator>
     </NavigationContainer>
   );
 }

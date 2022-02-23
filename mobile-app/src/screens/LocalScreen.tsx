@@ -2,6 +2,7 @@ import * as React from 'react';
 import { View, ScrollView } from 'react-native';
 import Board from '../components/Board/Board';
 import { GameState } from "../../utils";
+import type { LocalScreenProps } from './navigationTypes';
 
 const gameState: GameState = {
   turn: 'white',
@@ -20,7 +21,7 @@ const gameState: GameState = {
   ],
 }
 
-export function LocalScreen() {
+export function LocalScreen({ navigation }: LocalScreenProps) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <ScrollView horizontal>

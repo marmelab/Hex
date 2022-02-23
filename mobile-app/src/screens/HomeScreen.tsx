@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { View, Text, Button, TextInput } from 'react-native';
+import { HomeScreenProps } from './navigationTypes';
 
-export function HomeScreen(props: { navigation: any }) {
+export function HomeScreen({ navigation }: HomeScreenProps) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text style={{ fontSize: 32 }}>Hex Game</Text>
-      <Button title='Create local game' onPress={() => props.navigation.navigate('Local')}>
+      <Button title='Create local game' onPress={() => navigation.navigate('Local')}>
       </Button>
       <Text>Or</Text>
       <Button title='Create online game' onPress={() => { }}>
