@@ -10,13 +10,16 @@
 
 <body>
   <h1>Start a new Hex game</h1>
-  <form action="/createNewGame" method="post">
+  <form action="/games" method="post">
     <label for="size">Board size:</label><br>
     <input type="number" id="size" name="size" value="19" data-cy="size"><br>
     <input type="submit" value="Submit" data-cy="submit">
   </form>
   <p>OR</p>
-  <a href="/gameFromConfigFile">Start a new game from a config file</a>
+  <form action="/games" method="post">
+    <input type="hidden" name="fromFile" value="true" />
+    <input type="submit" value="Start a new game from a config file">
+  </form>
 </body>
 
 </html>

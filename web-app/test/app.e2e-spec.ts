@@ -2,11 +2,11 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import request from 'supertest';
 import { join } from 'path';
-import { Game } from '../src/entities/game.entity';
-import { User } from '../src/entities/user.entity';
+import { Game } from '../src/games/game.entity';
+import { User } from '../src/users/user.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { AppController } from '../src/app.controller';
-import { AppService } from '../src/app.service';
+import { GamesController } from '../src/games/games.controller';
+import { GamesService } from '../src/games/games.service';
 import {
   registerHandlebarsHelpers,
   unregisterHandlebarsHelpers,
@@ -49,9 +49,9 @@ describe('AppController (e2e)', () => {
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      controllers: [AppController],
+      controllers: [GamesController],
       providers: [
-        AppService,
+        GamesService,
         {
           provide: getRepositoryToken(Game),
           useValue: mockGamesRepository,
@@ -83,7 +83,7 @@ describe('AppController (e2e)', () => {
     await app.close();
   });
 
-  it(`GET /gameFromConfigFile should redirect to a new game url`, () => {
-    return request(app.getHttpServer()).get('/gameFromConfigFile').expect(302);
+  it(`POST /games with fromFile equals true should redirect to a new game url`, () => {
+    return request(app.getHttpServer()).post('/games').send({ fromFile: true }).expect(302);
   });
 });
