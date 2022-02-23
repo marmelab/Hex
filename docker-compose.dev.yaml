@@ -25,3 +25,16 @@ services:
       - 8080:80
     depends_on:
       - postgres
+
+  expo:
+    container_name: expo
+    build:
+      context: ./mobile-app/
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - 19000:19000
+      - 19006:19006
+      - 19001:19001
+      - 19002:19002
+    volumes:
+      - ./mobile-app/:/usr/mobile-app/
