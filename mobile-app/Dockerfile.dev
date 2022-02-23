@@ -1,0 +1,6 @@
+FROM node:12-alpine
+
+RUN mkdir -p /usr/mobile-app
+WORKDIR /usr/mobile-app
+
+CMD yarn && yarn web
