@@ -3,7 +3,7 @@ import Svg from 'react-native-svg';
 import PlayableCell from '../PlayableCell/PlayableCell';
 import BorderCell from '../BorderCell/BorderCell';
 import { GameState, Coordinates } from "../../../utils";
-import { getApproximateSvgSize, generateBoardCells, CELL_STROKE_COLOR } from "./BoardService";
+import { getApproximateSvgSize, generateBoardCells, CELL_STROKE_COLOR } from "./boardService";
 
 interface BoardProps {
   gameState: GameState;

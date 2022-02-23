@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Polygon } from 'react-native-svg';
 import { RenderedCellType } from "../../../utils";
-import { getBorderColor } from './BorderCellService';
+import { getBorderColor } from './borderCellService';
 
 interface BorderCellProps {
   svgPoints: string;
