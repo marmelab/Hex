@@ -1,0 +1,1920 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render board game correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#0A000A",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <RCTScrollView
+    horizontal={true}
+  >
+    <View>
+      <RNSVGSvgView
+        bbHeight={540}
+        bbWidth={540}
+        focusable={false}
+        height={540}
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            Object {
+              "flex": 0,
+              "height": 540,
+              "width": 540,
+            },
+          ]
+        }
+        width={540}
+      >
+        <RNSVGGroup>
+          <RNSVGPath
+            d="M51.96152422706631 80 69.28203230275508 70 69.28203230275508 50 51.96152422706631 39.99999999999999 34.64101615137754 49.999999999999986 34.64101615137753 69.99999999999997 51.96152422706629 80z"
+            fill={4278891263}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M69.28203230275508 109.99999999999999 86.60254037844385 99.99999999999999 86.60254037844386 79.99999999999999 69.28203230275508 69.99999999999999 51.96152422706631 79.99999999999997 51.961524227066306 99.99999999999997 69.28203230275506 109.99999999999999z"
+            fill={4278891263}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M86.60254037844385 140 103.92304845413261 130 103.92304845413263 109.99999999999999 86.60254037844385 99.99999999999999 69.28203230275508 109.99999999999997 69.28203230275507 129.99999999999997 86.60254037844382 140z"
+            fill={4278891263}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M103.92304845413263 169.99999999999997 121.2435565298214 159.99999999999997 121.2435565298214 139.99999999999997 103.92304845413263 129.99999999999997 86.60254037844385 139.99999999999997 86.60254037844385 159.99999999999994 103.9230484541326 169.99999999999997z"
+            fill={4278891263}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M121.24355652982139 199.99999999999997 138.56406460551017 189.99999999999997 138.56406460551017 169.99999999999997 121.24355652982139 159.99999999999997 103.92304845413261 169.99999999999997 103.92304845413261 189.99999999999994 121.24355652982136 199.99999999999997z"
+            fill={4278891263}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M138.56406460551017 229.99999999999997 155.88457268119893 219.99999999999997 155.88457268119893 199.99999999999997 138.56406460551017 189.99999999999997 121.2435565298214 199.99999999999997 121.24355652982139 219.99999999999994 138.56406460551014 229.99999999999997z"
+            fill={4278891263}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M155.88457268119896 260 173.20508075688772 249.99999999999997 173.20508075688772 229.99999999999997 155.88457268119896 219.99999999999997 138.5640646055102 229.99999999999997 138.56406460551017 249.99999999999994 155.88457268119893 260z"
+            fill={4278891263}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M173.2050807568877 289.99999999999994 190.52558883257646 279.99999999999994 190.52558883257646 259.99999999999994 173.2050807568877 249.99999999999994 155.88457268119893 259.99999999999994 155.8845726811989 279.99999999999994 173.20508075688767 289.99999999999994z"
+            fill={4278891263}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M190.5255888325765 319.99999999999994 207.84609690826525 309.99999999999994 207.84609690826525 289.99999999999994 190.5255888325765 279.99999999999994 173.20508075688772 289.99999999999994 173.2050807568877 309.99999999999994 190.52558883257646 319.99999999999994z"
+            fill={4278891263}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M207.84609690826522 349.99999999999994 225.166604983954 339.99999999999994 225.166604983954 319.99999999999994 207.84609690826522 309.99999999999994 190.52558883257646 319.99999999999994 190.52558883257643 339.99999999999994 207.8460969082652 349.99999999999994z"
+            fill={4294907700}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M69.28203230275508 50 86.60254037844385 40 86.60254037844386 20 69.28203230275508 9.999999999999996 51.96152422706631 19.999999999999986 51.961524227066306 39.999999999999986 69.28203230275506 50z"
+            fill={4294907700}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M86.60254037844385 80 103.92304845413261 70 103.92304845413263 50 86.60254037844385 39.99999999999999 69.28203230275508 49.999999999999986 69.28203230275507 69.99999999999997 86.60254037844382 80z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M103.92304845413263 109.99999999999999 121.2435565298214 99.99999999999999 121.2435565298214 79.99999999999999 103.92304845413263 69.99999999999999 86.60254037844385 79.99999999999997 86.60254037844385 99.99999999999997 103.9230484541326 109.99999999999999z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M121.2435565298214 140 138.56406460551017 130 138.56406460551017 109.99999999999999 121.2435565298214 99.99999999999999 103.92304845413264 109.99999999999997 103.92304845413263 129.99999999999997 121.24355652982138 140z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M138.56406460551017 169.99999999999997 155.88457268119893 159.99999999999997 155.88457268119893 139.99999999999997 138.56406460551017 129.99999999999997 121.2435565298214 139.99999999999997 121.24355652982139 159.99999999999994 138.56406460551014 169.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M155.88457268119893 199.99999999999997 173.2050807568877 189.99999999999997 173.2050807568877 169.99999999999997 155.88457268119893 159.99999999999997 138.56406460551017 169.99999999999997 138.56406460551014 189.99999999999994 155.8845726811989 199.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M173.2050807568877 229.99999999999997 190.52558883257646 219.99999999999997 190.52558883257646 199.99999999999997 173.2050807568877 189.99999999999997 155.88457268119893 199.99999999999997 155.8845726811989 219.99999999999994 173.20508075688767 229.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M190.5255888325765 260 207.84609690826525 249.99999999999997 207.84609690826525 229.99999999999997 190.5255888325765 219.99999999999997 173.20508075688772 229.99999999999997 173.2050807568877 249.99999999999994 190.52558883257646 260z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M207.84609690826525 289.99999999999994 225.16660498395402 279.99999999999994 225.16660498395402 259.99999999999994 207.84609690826525 249.99999999999994 190.5255888325765 259.99999999999994 190.52558883257646 279.99999999999994 207.84609690826522 289.99999999999994z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M225.16660498395402 319.99999999999994 242.48711305964278 309.99999999999994 242.48711305964278 289.99999999999994 225.16660498395402 279.99999999999994 207.84609690826525 289.99999999999994 207.84609690826522 309.99999999999994 225.166604983954 319.99999999999994z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M242.48711305964278 349.99999999999994 259.80762113533154 339.99999999999994 259.80762113533154 319.99999999999994 242.48711305964278 309.99999999999994 225.16660498395402 319.99999999999994 225.166604983954 339.99999999999994 242.48711305964275 349.99999999999994z"
+            fill={4294907700}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M103.92304845413263 50 121.2435565298214 40 121.2435565298214 20 103.92304845413263 9.999999999999996 86.60254037844385 19.999999999999986 86.60254037844385 39.999999999999986 103.9230484541326 50z"
+            fill={4294907700}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M121.2435565298214 80 138.56406460551017 70 138.56406460551017 50 121.2435565298214 39.99999999999999 103.92304845413264 49.999999999999986 103.92304845413263 69.99999999999997 121.24355652982138 80z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M138.56406460551017 109.99999999999999 155.88457268119893 99.99999999999999 155.88457268119893 79.99999999999999 138.56406460551017 69.99999999999999 121.2435565298214 79.99999999999997 121.24355652982139 99.99999999999997 138.56406460551014 109.99999999999999z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M155.88457268119893 140 173.2050807568877 130 173.2050807568877 109.99999999999999 155.88457268119893 99.99999999999999 138.56406460551017 109.99999999999997 138.56406460551014 129.99999999999997 155.8845726811989 140z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M173.2050807568877 169.99999999999997 190.52558883257646 159.99999999999997 190.52558883257646 139.99999999999997 173.2050807568877 129.99999999999997 155.88457268119893 139.99999999999997 155.8845726811989 159.99999999999994 173.20508075688767 169.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M190.5255888325765 199.99999999999997 207.84609690826525 189.99999999999997 207.84609690826525 169.99999999999997 190.5255888325765 159.99999999999997 173.20508075688772 169.99999999999997 173.2050807568877 189.99999999999994 190.52558883257646 199.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M207.84609690826525 229.99999999999997 225.16660498395402 219.99999999999997 225.16660498395402 199.99999999999997 207.84609690826525 189.99999999999997 190.5255888325765 199.99999999999997 190.52558883257646 219.99999999999994 207.84609690826522 229.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M225.16660498395402 260 242.48711305964278 249.99999999999997 242.48711305964278 229.99999999999997 225.16660498395402 219.99999999999997 207.84609690826525 229.99999999999997 207.84609690826522 249.99999999999994 225.166604983954 260z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M242.4871130596428 289.99999999999994 259.8076211353316 279.99999999999994 259.8076211353316 259.99999999999994 242.4871130596428 249.99999999999994 225.16660498395404 259.99999999999994 225.16660498395402 279.99999999999994 242.48711305964278 289.99999999999994z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M259.80762113533154 319.99999999999994 277.12812921102034 309.99999999999994 277.12812921102034 289.99999999999994 259.80762113533154 279.99999999999994 242.48711305964278 289.99999999999994 242.48711305964275 309.99999999999994 259.80762113533154 319.99999999999994z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M277.12812921102034 349.99999999999994 294.44863728670913 339.99999999999994 294.44863728670913 319.99999999999994 277.12812921102034 309.99999999999994 259.80762113533154 319.99999999999994 259.80762113533154 339.99999999999994 277.12812921102034 349.99999999999994z"
+            fill={4294907700}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M138.56406460551017 50 155.88457268119893 40 155.88457268119893 20 138.56406460551017 9.999999999999996 121.2435565298214 19.999999999999986 121.24355652982139 39.999999999999986 138.56406460551014 50z"
+            fill={4294907700}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M155.88457268119893 80 173.2050807568877 70 173.2050807568877 50 155.88457268119893 39.99999999999999 138.56406460551017 49.999999999999986 138.56406460551014 69.99999999999997 155.8845726811989 80z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M173.2050807568877 109.99999999999999 190.52558883257646 99.99999999999999 190.52558883257646 79.99999999999999 173.2050807568877 69.99999999999999 155.88457268119893 79.99999999999997 155.8845726811989 99.99999999999997 173.20508075688767 109.99999999999999z"
+            fill={4278891263}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M190.5255888325765 140 207.84609690826525 130 207.84609690826525 109.99999999999999 190.5255888325765 99.99999999999999 173.20508075688772 109.99999999999997 173.2050807568877 129.99999999999997 190.52558883257646 140z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M207.84609690826525 169.99999999999997 225.16660498395402 159.99999999999997 225.16660498395402 139.99999999999997 207.84609690826525 129.99999999999997 190.5255888325765 139.99999999999997 190.52558883257646 159.99999999999994 207.84609690826522 169.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M225.16660498395402 199.99999999999997 242.48711305964278 189.99999999999997 242.48711305964278 169.99999999999997 225.16660498395402 159.99999999999997 207.84609690826525 169.99999999999997 207.84609690826522 189.99999999999994 225.166604983954 199.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M242.4871130596428 229.99999999999997 259.8076211353316 219.99999999999997 259.8076211353316 199.99999999999997 242.4871130596428 189.99999999999997 225.16660498395404 199.99999999999997 225.16660498395402 219.99999999999994 242.48711305964278 229.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M259.8076211353316 260 277.1281292110204 249.99999999999997 277.1281292110204 229.99999999999997 259.8076211353316 219.99999999999997 242.48711305964284 229.99999999999997 242.4871130596428 249.99999999999994 259.8076211353316 260z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M277.12812921102034 289.99999999999994 294.44863728670913 279.99999999999994 294.44863728670913 259.99999999999994 277.12812921102034 249.99999999999994 259.80762113533154 259.99999999999994 259.80762113533154 279.99999999999994 277.12812921102034 289.99999999999994z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M294.4486372867091 319.99999999999994 311.76914536239786 309.99999999999994 311.76914536239786 289.99999999999994 294.4486372867091 279.99999999999994 277.1281292110203 289.99999999999994 277.1281292110203 309.99999999999994 294.4486372867091 319.99999999999994z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M311.76914536239786 349.99999999999994 329.08965343808666 339.99999999999994 329.08965343808666 319.99999999999994 311.76914536239786 309.99999999999994 294.4486372867091 319.99999999999994 294.4486372867091 339.99999999999994 311.76914536239786 349.99999999999994z"
+            fill={4294907700}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M173.2050807568877 50 190.52558883257646 40 190.52558883257646 20 173.2050807568877 9.999999999999996 155.88457268119893 19.999999999999986 155.8845726811989 39.999999999999986 173.20508075688767 50z"
+            fill={4294907700}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M190.52558883257646 80 207.84609690826522 70 207.84609690826522 50 190.52558883257646 39.99999999999999 173.2050807568877 49.999999999999986 173.20508075688767 69.99999999999997 190.52558883257643 80z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M207.84609690826522 109.99999999999999 225.166604983954 99.99999999999999 225.166604983954 79.99999999999999 207.84609690826522 69.99999999999999 190.52558883257646 79.99999999999997 190.52558883257643 99.99999999999997 207.8460969082652 109.99999999999999z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M225.16660498395402 140 242.48711305964278 130 242.48711305964278 109.99999999999999 225.16660498395402 99.99999999999999 207.84609690826525 109.99999999999997 207.84609690826522 129.99999999999997 225.166604983954 140z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M242.48711305964278 169.99999999999997 259.80762113533154 159.99999999999997 259.80762113533154 139.99999999999997 242.48711305964278 129.99999999999997 225.16660498395402 139.99999999999997 225.166604983954 159.99999999999994 242.48711305964275 169.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M259.80762113533154 199.99999999999997 277.12812921102034 189.99999999999997 277.12812921102034 169.99999999999997 259.80762113533154 159.99999999999997 242.48711305964278 169.99999999999997 242.48711305964275 189.99999999999994 259.80762113533154 199.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M277.12812921102034 229.99999999999997 294.44863728670913 219.99999999999997 294.44863728670913 199.99999999999997 277.12812921102034 189.99999999999997 259.80762113533154 199.99999999999997 259.80762113533154 219.99999999999994 277.12812921102034 229.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M294.4486372867091 260 311.76914536239786 249.99999999999997 311.76914536239786 229.99999999999997 294.4486372867091 219.99999999999997 277.1281292110203 229.99999999999997 277.1281292110203 249.99999999999994 294.4486372867091 260z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M311.76914536239786 289.99999999999994 329.08965343808666 279.99999999999994 329.08965343808666 259.99999999999994 311.76914536239786 249.99999999999994 294.4486372867091 259.99999999999994 294.4486372867091 279.99999999999994 311.76914536239786 289.99999999999994z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M329.08965343808666 319.99999999999994 346.41016151377545 309.99999999999994 346.41016151377545 289.99999999999994 329.08965343808666 279.99999999999994 311.76914536239786 289.99999999999994 311.76914536239786 309.99999999999994 329.08965343808666 319.99999999999994z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M346.4101615137754 349.99999999999994 363.7306695894642 339.99999999999994 363.7306695894642 319.99999999999994 346.4101615137754 309.99999999999994 329.0896534380866 319.99999999999994 329.0896534380866 339.99999999999994 346.4101615137754 349.99999999999994z"
+            fill={4294907700}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M207.84609690826525 50 225.16660498395402 40 225.16660498395402 20 207.84609690826525 9.999999999999996 190.5255888325765 19.999999999999986 190.52558883257646 39.999999999999986 207.84609690826522 50z"
+            fill={4294907700}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M225.16660498395402 80 242.48711305964278 70 242.48711305964278 50 225.16660498395402 39.99999999999999 207.84609690826525 49.999999999999986 207.84609690826522 69.99999999999997 225.166604983954 80z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M242.4871130596428 109.99999999999999 259.8076211353316 99.99999999999999 259.8076211353316 79.99999999999999 242.4871130596428 69.99999999999999 225.16660498395404 79.99999999999997 225.16660498395402 99.99999999999997 242.48711305964278 109.99999999999999z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M259.80762113533154 140 277.12812921102034 130 277.12812921102034 109.99999999999999 259.80762113533154 99.99999999999999 242.48711305964278 109.99999999999997 242.48711305964275 129.99999999999997 259.80762113533154 140z"
+            fill={4294907700}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M277.12812921102034 169.99999999999997 294.44863728670913 159.99999999999997 294.44863728670913 139.99999999999997 277.12812921102034 129.99999999999997 259.80762113533154 139.99999999999997 259.80762113533154 159.99999999999994 277.12812921102034 169.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M294.4486372867091 199.99999999999997 311.76914536239786 189.99999999999997 311.76914536239786 169.99999999999997 294.4486372867091 159.99999999999997 277.1281292110203 169.99999999999997 277.1281292110203 189.99999999999994 294.4486372867091 199.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M311.76914536239786 229.99999999999997 329.08965343808666 219.99999999999997 329.08965343808666 199.99999999999997 311.76914536239786 189.99999999999997 294.4486372867091 199.99999999999997 294.4486372867091 219.99999999999994 311.76914536239786 229.99999999999997z"
+            fill={4294907700}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M329.08965343808666 260 346.41016151377545 249.99999999999997 346.41016151377545 229.99999999999997 329.08965343808666 219.99999999999997 311.76914536239786 229.99999999999997 311.76914536239786 249.99999999999994 329.08965343808666 260z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M346.4101615137754 289.99999999999994 363.7306695894642 279.99999999999994 363.7306695894642 259.99999999999994 346.4101615137754 249.99999999999994 329.0896534380866 259.99999999999994 329.0896534380866 279.99999999999994 346.4101615137754 289.99999999999994z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M363.7306695894642 319.99999999999994 381.051177665153 309.99999999999994 381.051177665153 289.99999999999994 363.7306695894642 279.99999999999994 346.4101615137754 289.99999999999994 346.4101615137754 309.99999999999994 363.7306695894642 319.99999999999994z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M381.051177665153 349.99999999999994 398.37168574084177 339.99999999999994 398.37168574084177 319.99999999999994 381.051177665153 309.99999999999994 363.7306695894642 319.99999999999994 363.7306695894642 339.99999999999994 381.051177665153 349.99999999999994z"
+            fill={4294907700}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M242.4871130596428 50 259.8076211353316 40 259.8076211353316 20 242.4871130596428 9.999999999999996 225.16660498395404 19.999999999999986 225.16660498395402 39.999999999999986 242.48711305964278 50z"
+            fill={4294907700}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M259.8076211353316 80 277.1281292110204 70 277.1281292110204 50 259.8076211353316 39.99999999999999 242.48711305964284 49.999999999999986 242.4871130596428 69.99999999999997 259.8076211353316 80z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M277.12812921102034 109.99999999999999 294.44863728670913 99.99999999999999 294.44863728670913 79.99999999999999 277.12812921102034 69.99999999999999 259.80762113533154 79.99999999999997 259.80762113533154 99.99999999999997 277.12812921102034 109.99999999999999z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M294.44863728670913 140 311.7691453623979 130 311.7691453623979 109.99999999999999 294.44863728670913 99.99999999999999 277.12812921102034 109.99999999999997 277.12812921102034 129.99999999999997 294.44863728670913 140z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M311.7691453623979 169.99999999999997 329.0896534380867 159.99999999999997 329.0896534380867 139.99999999999997 311.7691453623979 129.99999999999997 294.44863728670913 139.99999999999997 294.44863728670913 159.99999999999994 311.7691453623979 169.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M329.08965343808666 199.99999999999997 346.41016151377545 189.99999999999997 346.41016151377545 169.99999999999997 329.08965343808666 159.99999999999997 311.76914536239786 169.99999999999997 311.76914536239786 189.99999999999994 329.08965343808666 199.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M346.41016151377545 229.99999999999997 363.73066958946424 219.99999999999997 363.73066958946424 199.99999999999997 346.41016151377545 189.99999999999997 329.08965343808666 199.99999999999997 329.08965343808666 219.99999999999994 346.41016151377545 229.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M363.73066958946424 260 381.05117766515303 249.99999999999997 381.05117766515303 229.99999999999997 363.73066958946424 219.99999999999997 346.41016151377545 229.99999999999997 346.41016151377545 249.99999999999994 363.73066958946424 260z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M381.051177665153 289.99999999999994 398.37168574084177 279.99999999999994 398.37168574084177 259.99999999999994 381.051177665153 249.99999999999994 363.7306695894642 259.99999999999994 363.7306695894642 279.99999999999994 381.051177665153 289.99999999999994z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M398.3716857408417 319.99999999999994 415.6921938165305 309.99999999999994 415.6921938165305 289.99999999999994 398.3716857408417 279.99999999999994 381.0511776651529 289.99999999999994 381.0511776651529 309.99999999999994 398.3716857408417 319.99999999999994z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M415.6921938165305 349.99999999999994 433.0127018922193 339.99999999999994 433.0127018922193 319.99999999999994 415.6921938165305 309.99999999999994 398.3716857408417 319.99999999999994 398.3716857408417 339.99999999999994 415.6921938165305 349.99999999999994z"
+            fill={4294907700}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M277.12812921102034 50 294.44863728670913 40 294.44863728670913 20 277.12812921102034 9.999999999999996 259.80762113533154 19.999999999999986 259.80762113533154 39.999999999999986 277.12812921102034 50z"
+            fill={4294907700}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M294.44863728670913 80 311.7691453623979 70 311.7691453623979 50 294.44863728670913 39.99999999999999 277.12812921102034 49.999999999999986 277.12812921102034 69.99999999999997 294.44863728670913 80z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M311.76914536239786 109.99999999999999 329.08965343808666 99.99999999999999 329.08965343808666 79.99999999999999 311.76914536239786 69.99999999999999 294.4486372867091 79.99999999999997 294.4486372867091 99.99999999999997 311.76914536239786 109.99999999999999z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M329.08965343808666 140 346.41016151377545 130 346.41016151377545 109.99999999999999 329.08965343808666 99.99999999999999 311.76914536239786 109.99999999999997 311.76914536239786 129.99999999999997 329.08965343808666 140z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M346.4101615137754 169.99999999999997 363.7306695894642 159.99999999999997 363.7306695894642 139.99999999999997 346.4101615137754 129.99999999999997 329.0896534380866 139.99999999999997 329.0896534380866 159.99999999999994 346.4101615137754 169.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M363.7306695894642 199.99999999999997 381.051177665153 189.99999999999997 381.051177665153 169.99999999999997 363.7306695894642 159.99999999999997 346.4101615137754 169.99999999999997 346.4101615137754 189.99999999999994 363.7306695894642 199.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M381.051177665153 229.99999999999997 398.37168574084177 219.99999999999997 398.37168574084177 199.99999999999997 381.051177665153 189.99999999999997 363.7306695894642 199.99999999999997 363.7306695894642 219.99999999999994 381.051177665153 229.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M398.3716857408417 260 415.6921938165305 249.99999999999997 415.6921938165305 229.99999999999997 398.3716857408417 219.99999999999997 381.0511776651529 229.99999999999997 381.0511776651529 249.99999999999994 398.3716857408417 260z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M415.6921938165305 289.99999999999994 433.0127018922193 279.99999999999994 433.0127018922193 259.99999999999994 415.6921938165305 249.99999999999994 398.3716857408417 259.99999999999994 398.3716857408417 279.99999999999994 415.6921938165305 289.99999999999994z"
+            fill={4278891263}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M433.0127018922193 319.99999999999994 450.3332099679081 309.99999999999994 450.3332099679081 289.99999999999994 433.0127018922193 279.99999999999994 415.6921938165305 289.99999999999994 415.6921938165305 309.99999999999994 433.0127018922193 319.99999999999994z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M450.33320996790803 349.99999999999994 467.6537180435968 339.99999999999994 467.6537180435968 319.99999999999994 450.33320996790803 309.99999999999994 433.01270189221924 319.99999999999994 433.01270189221924 339.99999999999994 450.33320996790803 349.99999999999994z"
+            fill={4294907700}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M311.76914536239786 50 329.08965343808666 40 329.08965343808666 20 311.76914536239786 9.999999999999996 294.4486372867091 19.999999999999986 294.4486372867091 39.999999999999986 311.76914536239786 50z"
+            fill={4294907700}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M329.08965343808666 80 346.41016151377545 70 346.41016151377545 50 329.08965343808666 39.99999999999999 311.76914536239786 49.999999999999986 311.76914536239786 69.99999999999997 329.08965343808666 80z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M346.4101615137754 109.99999999999999 363.7306695894642 99.99999999999999 363.7306695894642 79.99999999999999 346.4101615137754 69.99999999999999 329.0896534380866 79.99999999999997 329.0896534380866 99.99999999999997 346.4101615137754 109.99999999999999z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M363.7306695894642 140 381.051177665153 130 381.051177665153 109.99999999999999 363.7306695894642 99.99999999999999 346.4101615137754 109.99999999999997 346.4101615137754 129.99999999999997 363.7306695894642 140z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M381.051177665153 169.99999999999997 398.37168574084177 159.99999999999997 398.37168574084177 139.99999999999997 381.051177665153 129.99999999999997 363.7306695894642 139.99999999999997 363.7306695894642 159.99999999999994 381.051177665153 169.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M398.3716857408417 199.99999999999997 415.6921938165305 189.99999999999997 415.6921938165305 169.99999999999997 398.3716857408417 159.99999999999997 381.0511776651529 169.99999999999997 381.0511776651529 189.99999999999994 398.3716857408417 199.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M415.6921938165305 229.99999999999997 433.0127018922193 219.99999999999997 433.0127018922193 199.99999999999997 415.6921938165305 189.99999999999997 398.3716857408417 199.99999999999997 398.3716857408417 219.99999999999994 415.6921938165305 229.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M433.0127018922193 260 450.3332099679081 249.99999999999997 450.3332099679081 229.99999999999997 433.0127018922193 219.99999999999997 415.6921938165305 229.99999999999997 415.6921938165305 249.99999999999994 433.0127018922193 260z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M450.33320996790803 289.99999999999994 467.6537180435968 279.99999999999994 467.6537180435968 259.99999999999994 450.33320996790803 249.99999999999994 433.01270189221924 259.99999999999994 433.01270189221924 279.99999999999994 450.33320996790803 289.99999999999994z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M467.65371804359677 319.99999999999994 484.97422611928556 309.99999999999994 484.97422611928556 289.99999999999994 467.65371804359677 279.99999999999994 450.333209967908 289.99999999999994 450.333209967908 309.99999999999994 467.65371804359677 319.99999999999994z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M484.97422611928556 349.99999999999994 502.29473419497435 339.99999999999994 502.29473419497435 319.99999999999994 484.97422611928556 309.99999999999994 467.65371804359677 319.99999999999994 467.65371804359677 339.99999999999994 484.97422611928556 349.99999999999994z"
+            fill={4294907700}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M346.4101615137754 50 363.7306695894642 40 363.7306695894642 20 346.4101615137754 9.999999999999996 329.0896534380866 19.999999999999986 329.0896534380866 39.999999999999986 346.4101615137754 50z"
+            fill={4294907700}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M363.7306695894642 80 381.051177665153 70 381.051177665153 50 363.7306695894642 39.99999999999999 346.4101615137754 49.999999999999986 346.4101615137754 69.99999999999997 363.7306695894642 80z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M381.0511776651529 109.99999999999999 398.3716857408417 99.99999999999999 398.3716857408417 79.99999999999999 381.0511776651529 69.99999999999999 363.7306695894641 79.99999999999997 363.7306695894641 99.99999999999997 381.0511776651529 109.99999999999999z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M398.3716857408417 140 415.6921938165305 130 415.6921938165305 109.99999999999999 398.3716857408417 99.99999999999999 381.0511776651529 109.99999999999997 381.0511776651529 129.99999999999997 398.3716857408417 140z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M415.69219381653045 169.99999999999997 433.01270189221924 159.99999999999997 433.01270189221924 139.99999999999997 415.69219381653045 129.99999999999997 398.37168574084166 139.99999999999997 398.37168574084166 159.99999999999994 415.69219381653045 169.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M433.01270189221924 199.99999999999997 450.33320996790803 189.99999999999997 450.33320996790803 169.99999999999997 433.01270189221924 159.99999999999997 415.69219381653045 169.99999999999997 415.69219381653045 189.99999999999994 433.01270189221924 199.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M450.33320996790803 229.99999999999997 467.6537180435968 219.99999999999997 467.6537180435968 199.99999999999997 450.33320996790803 189.99999999999997 433.01270189221924 199.99999999999997 433.01270189221924 219.99999999999994 450.33320996790803 229.99999999999997z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M467.65371804359677 260 484.97422611928556 249.99999999999997 484.97422611928556 229.99999999999997 467.65371804359677 219.99999999999997 450.333209967908 229.99999999999997 450.333209967908 249.99999999999994 467.65371804359677 260z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M484.97422611928556 289.99999999999994 502.29473419497435 279.99999999999994 502.29473419497435 259.99999999999994 484.97422611928556 249.99999999999994 467.65371804359677 259.99999999999994 467.65371804359677 279.99999999999994 484.97422611928556 289.99999999999994z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M502.29473419497435 319.99999999999994 519.6152422706631 309.99999999999994 519.6152422706631 289.99999999999994 502.29473419497435 279.99999999999994 484.97422611928556 289.99999999999994 484.97422611928556 309.99999999999994 502.29473419497435 319.99999999999994z"
+            fill={4278190080}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            responsible={true}
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M519.6152422706631 349.99999999999994 536.9357503463518 339.99999999999994 536.9357503463518 319.99999999999994 519.6152422706631 309.99999999999994 502.2947341949743 319.99999999999994 502.2947341949743 339.99999999999994 519.6152422706631 349.99999999999994z"
+            fill={4294907700}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M381.051177665153 50 398.37168574084177 40 398.37168574084177 20 381.051177665153 9.999999999999996 363.7306695894642 19.999999999999986 363.7306695894642 39.999999999999986 381.051177665153 50z"
+            fill={4294907700}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M398.37168574084177 80 415.69219381653056 70 415.69219381653056 50 398.37168574084177 39.99999999999999 381.051177665153 49.999999999999986 381.051177665153 69.99999999999997 398.37168574084177 80z"
+            fill={4278891263}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M415.6921938165305 109.99999999999999 433.0127018922193 99.99999999999999 433.0127018922193 79.99999999999999 415.6921938165305 69.99999999999999 398.3716857408417 79.99999999999997 398.3716857408417 99.99999999999997 415.6921938165305 109.99999999999999z"
+            fill={4278891263}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M433.0127018922193 140 450.3332099679081 130 450.3332099679081 109.99999999999999 433.0127018922193 99.99999999999999 415.6921938165305 109.99999999999997 415.6921938165305 129.99999999999997 433.0127018922193 140z"
+            fill={4278891263}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M450.33320996790803 169.99999999999997 467.6537180435968 159.99999999999997 467.6537180435968 139.99999999999997 450.33320996790803 129.99999999999997 433.01270189221924 139.99999999999997 433.01270189221924 159.99999999999994 450.33320996790803 169.99999999999997z"
+            fill={4278891263}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M467.6537180435968 199.99999999999997 484.9742261192856 189.99999999999997 484.9742261192856 169.99999999999997 467.6537180435968 159.99999999999997 450.33320996790803 169.99999999999997 450.33320996790803 189.99999999999994 467.6537180435968 199.99999999999997z"
+            fill={4278891263}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M484.9742261192856 229.99999999999997 502.2947341949744 219.99999999999997 502.2947341949744 199.99999999999997 484.9742261192856 189.99999999999997 467.6537180435968 199.99999999999997 467.6537180435968 219.99999999999994 484.9742261192856 229.99999999999997z"
+            fill={4278891263}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M502.29473419497435 260 519.6152422706631 249.99999999999997 519.6152422706631 229.99999999999997 502.29473419497435 219.99999999999997 484.97422611928556 229.99999999999997 484.97422611928556 249.99999999999994 502.29473419497435 260z"
+            fill={4278891263}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M519.6152422706632 289.99999999999994 536.9357503463519 279.99999999999994 536.9357503463519 259.99999999999994 519.6152422706632 249.99999999999994 502.2947341949744 259.99999999999994 502.2947341949744 279.99999999999994 519.6152422706632 289.99999999999994z"
+            fill={4278891263}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+          <RNSVGPath
+            d="M536.9357503463519 319.99999999999994 554.2562584220407 309.99999999999994 554.2562584220407 289.99999999999994 536.9357503463519 279.99999999999994 519.6152422706632 289.99999999999994 519.6152422706632 309.99999999999994 536.9357503463519 319.99999999999994z"
+            fill={4278891263}
+            propList={
+              Array [
+                "fill",
+                "stroke",
+              ]
+            }
+            stroke={4286611584}
+          />
+        </RNSVGGroup>
+      </RNSVGSvgView>
+    </View>
+  </RCTScrollView>
+</View>
+`;
