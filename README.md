@@ -11,8 +11,8 @@ This repo consists of 2 main parts:
 ### With Docker Compose
 
 ```bash
-$ docker-compose -f docker-compose.base.yaml -f docker-compose.dev.yaml up -d
+$ docker-compose -f docker-compose.base.yaml -f docker-compose.dev.yaml up -d --build
 
 # Or if you want to use the prod env
-$ docker-compose -f docker-compose.base.yaml -f docker-compose.prod.yaml up -d
+$ docker-compose -f docker-compose.base.yaml -f docker-compose.prod.yaml up -d --build
 ```

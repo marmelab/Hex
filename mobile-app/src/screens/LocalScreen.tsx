@@ -3,7 +3,7 @@ import { View, ScrollView } from 'react-native';
 import Board from '../components/Board/Board';
 import { GameState } from "../../utils";
 import type { LocalScreenProps } from './navigationTypes';
-import { initNewGameState } from '../api-client/LocalplayService';
+import { initNewGameState } from '../api-client/localplayService';
 
 const gameStateInitialValue: GameState = {
   board: [],
@@ -16,17 +16,13 @@ export function LocalScreen({ navigation }: LocalScreenProps) {
   const [gameState, setGameState] = React.useState<GameState>(gameStateInitialValue);
 
   React.useEffect(() => {
-    initNewGameState(9).then((data) => setGameState(data));
+    initNewGameState(9).then(setGameState);
   }, []);
-
-  const setGameStateWrapper = (gameState: GameState) => {
-    setGameState(gameState);
-  };
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <ScrollView horizontal>
-        <Board gameState={gameState} setGameState={setGameStateWrapper} />
+        <Board gameState={gameState} setGameState={setGameState} />
       </ScrollView>
     </View>
   );

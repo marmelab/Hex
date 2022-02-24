@@ -28,3 +28,22 @@ $ expo start --web
 # rendered on android(emulator needed https://docs.expo.dev/workflow/android-studio-emulator/)
 $ expo start --android
 ```
+
+## Building the app
+
+### Prerequisite
+
+Install the [expo-cli](https://docs.expo.dev/classic/building-standalone-apps/#1-install-expo-cli) (`yarn global add expo-cli`).
+
+### Android build
+
+You can package this app into an APK with the following command
+
+```
+$ expo build:android -t apk
+```
+
+### iOS build
+
+TODO
+
