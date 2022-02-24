@@ -18,9 +18,7 @@ async function bootstrap() {
       saveUninitialized: true,
     }),
   );
-  app.enableCors({
-    origin: 'http://localhost:19006/'
-  });
+  app.enableCors();
   const port = process.env.PORT || 3000;
   await app.listen(port);
 }
