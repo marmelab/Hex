@@ -6,3 +6,6 @@ init:
 
 start:
 	docker-compose -f docker-compose.base.yaml -f docker-compose.dev.yaml up -d --build
+
+stop:
+	docker-compose -f docker-compose.base.yaml -f docker-compose.dev.yaml down --v
