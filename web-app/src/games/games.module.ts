@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Game } from './game.entity';
 import { getConnectionOptions } from 'typeorm';
 import { User } from '../users/user.entity';
+import { ApiGamesController } from './api.games.controller';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { User } from '../users/user.entity';
     }),
     TypeOrmModule.forFeature([Game, User]),
   ],
-  controllers: [GamesController],
+  controllers: [GamesController, ApiGamesController],
   providers: [GamesService]
 })
 export class GamesModule { }
