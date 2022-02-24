@@ -1,9 +1,8 @@
 import {
   Controller,
   Post,
-  Req,
+  Body
 } from '@nestjs/common';
-import { Request } from 'express';
 import { User } from './user.entity';
 import { UsersService } from './users.service';
 
@@ -13,9 +12,8 @@ export class ApiUsersController {
 
   @Post('')
   async create(
-    @Req() req: Request
+    @Body() params: { username: string, password: string }
   ): Promise<User> {
-    const { username, password } = req.body;
-    return this.usersService.create(username, password);
+    return this.usersService.create(params.username, params.password);
   }
 }

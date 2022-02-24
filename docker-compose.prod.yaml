@@ -5,7 +5,7 @@ services:
     build:
       dockerfile: ./Dockerfile.prod
     env_file:
-      - ./web-app/.env.prod
+      - ./web-app/.env
     expose:
       - 3000
 
