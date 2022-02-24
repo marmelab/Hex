@@ -1,42 +1,19 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
-import { initNewGameState } from './api-client/LocalplayService';
-import Board from './components/Board/Board';
-import { GameState } from './utils';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { LocalScreen } from './src/screens/LocalScreen';
+import { HomeScreen } from './src/screens/HomeScreen';
+import type { RootStackParamList } from './src/screens/navigationTypes';
 
-const gameStateInitialValue: GameState = {
-  board: [],
-  turn: "white",
-  winner: null, 
-  winningPath: null
-};
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
-  const [gameState, setGameState] = useState<GameState>(gameStateInitialValue);
-
-  React.useEffect(() => {
-    initNewGameState(9).then((data) => setGameState(data));
-  }, []);
-
-  const setGameStateWrapper = (gameState: GameState) => {
-    setGameState(gameState);
-  };
-
   return (
-    <View style={styles.container}>
-      <ScrollView horizontal>
-        <Board gameState={gameState} setGameState={setGameStateWrapper} />
-      </ScrollView>
-    </View>
+    <NavigationContainer>
+      <RootStack.Navigator initialRouteName="Home">
+        <RootStack.Screen name="Home" component={HomeScreen} />
+        <RootStack.Screen name="Local" component={LocalScreen} />
+      </RootStack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#0A000A',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

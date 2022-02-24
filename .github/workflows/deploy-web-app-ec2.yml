@@ -1,4 +1,4 @@
-name: Deploy on aws EC2
+name: Web app EC2 deployment
 on:
   push:
     branches:
@@ -14,14 +14,18 @@ jobs:
 
       - name: Deploy in EC2
         env:
-            PRIVATE_KEY: ${{ secrets.AWS_EC2_PRIVATE_KEY  }}
-            HOSTNAME : ${{ secrets.AWS_EC2_PUBLIC_IP  }}
-            USER_NAME : ${{ secrets.AWS_EC2_USERNAME  }}
+            PRIVATE_KEY: ${{ secrets.AWS_EC2_PRIVATE_KEY }}
+            HOSTNAME : ${{ secrets.AWS_EC2_PUBLIC_IP }}
+            USERNAME : ${{ secrets.AWS_EC2_USERNAME }}
+            WEBAPP_ENV_VARS: ${{ secrets.WEBAPP_ENV_VARS }}
+            POSTGRES_ENV_VARS: ${{ secrets.POSTGRES_ENV_VARS }}
             
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          rsync --delete -r -e "ssh -o StrictHostKeyChecking=no -i private_key" --exclude="mobile-app/*" ./ ${USER_NAME}@${HOSTNAME}:~/Hex
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+          echo "$WEBAPP_ENV_VARS" > ./web-app/.env.prod
+          echo "$POSTGRES_ENV_VARS" > ./.docker/db/.env.db.prod
+          rsync --delete -r -e "ssh -o StrictHostKeyChecking=no -i private_key" --exclude="mobile-app/*" --filter=':- .dockerignore' ./ ${USERNAME}@${HOSTNAME}:~/Hex
+          ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOSTNAME} '
             cd ~/Hex &&
             sudo docker-compose -f docker-compose.base.yaml -f docker-compose.prod.yaml up -d --build 
           '

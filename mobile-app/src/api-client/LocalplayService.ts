@@ -1,4 +1,4 @@
-import { GameState, Coordinates } from "../utils";
+import { GameState, Coordinates } from "../../utils";
 import { HEX_API_URL } from "@env"
 
 const LOCALPLAY_GAMES_ENDPOINT = "/localplay/games";

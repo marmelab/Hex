@@ -23,6 +23,7 @@ WORKDIR /usr/web-app
 COPY . .
 
 COPY --from=development /usr/web-app/dist ./dist
+COPY --from=development /usr/web-app/node_modules ./node_modules
 
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.2.1/wait /wait
 RUN chmod +x /wait
