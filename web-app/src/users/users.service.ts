@@ -12,15 +12,15 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) { }
 
-  private async hashPassword(password: string) {
-    return await hash(password, 10);
+  private async hashPassword(password: string): Promise<string> {
+    return hash(password, 10);
   }
 
-  async findOne(username: string, password: string): Promise<User | undefined> {
+  async login(username: string, password: string): Promise<User | undefined> {
     const user = await this.usersRepository.findOne({
       where: { username: username }
     });
-    return await compare(password, user.password) ? user : undefined;
+    return compare(password, user.password) ? user : undefined;
   }
 
   async create(username: string, password: string): Promise<User> {
@@ -28,6 +28,6 @@ export class UsersService {
       username: username,
       password: await this.hashPassword(password)
     });
-    return await this.usersRepository.save(user)
+    return this.usersRepository.save(user)
   }
 }

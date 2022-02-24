@@ -3,10 +3,13 @@ import {
   Post,
   Request,
   UseGuards,
-  Get
+  Get,
+  Body
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
+import { UserDataInjectedInRequestAfterAuth } from './auth.service';
+import { LoginData } from 'src/users/api.users.controller';
 
 @Controller('api/auth')
 export class AuthController {
@@ -15,13 +18,17 @@ export class AuthController {
 
   @UseGuards(AuthGuard('local'))
   @Post('/login')
-  async login(@Request() req) {
-    return this.authService.login(req.user);
+  async login(
+    @Body() params: LoginData,
+    @Request() req: { user: UserDataInjectedInRequestAfterAuth }) {
+    return this.authService.getToken(req.user.id, req.user.username);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Get('/test-jwt')
-  async testJwt() {
-    return "You are authorized.";
+  async testJwt(
+    @Request() req: { user: UserDataInjectedInRequestAfterAuth }
+  ) {
+    return `You are authorized ${req.user.username}`;
   }
 }
