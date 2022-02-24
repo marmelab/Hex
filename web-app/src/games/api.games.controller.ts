@@ -46,12 +46,7 @@ export class ApiGamesController {
   ): Promise<GameAndStatus> {
     let game = await this.gamesService.findGameById(id);
     if (game === undefined) throw new NotFoundException();
-    if (params.nextMove.x && params.nextMove.y) {
-      game = await this.gamesService.updateGameState(game, {
-        x: params.nextMove.x,
-        y: params.nextMove.y,
-      });
-    }
+    game = await this.gamesService.updateGameState(game, params.nextMove);
     return this.gamesService.getGameAndStatus(game, req.user["username"]);
   }
 
