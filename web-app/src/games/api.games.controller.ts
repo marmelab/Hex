@@ -6,13 +6,16 @@ import {
   Get,
   Param,
   Req,
+  UseGuards,
   NotFoundException,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { Coordinates } from '../common/utils';
 import { GamesService, GameAndStatus } from './games.service';
 import { Game } from './game.entity';
+import { AuthGuard } from '@nestjs/passport';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('api/games')
 export class ApiGamesController {
   constructor(private readonly gamesService: GamesService) { }
