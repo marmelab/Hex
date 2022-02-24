@@ -12,6 +12,7 @@ import {
   unregisterHandlebarsHelpers,
 } from '../src/handlebars/helpers';
 import session from 'express-session';
+import { UsersService } from '../src/users/users.service';
 
 let mockedGame: Game;
 let mockedUser: User;
@@ -52,6 +53,7 @@ describe('AppController (e2e)', () => {
       controllers: [GamesController],
       providers: [
         GamesService,
+        UsersService,
         {
           provide: getRepositoryToken(Game),
           useValue: mockGamesRepository,
