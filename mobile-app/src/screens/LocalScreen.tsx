@@ -5,15 +5,8 @@ import { GameState } from "../../utils";
 import type { LocalScreenProps } from './navigationTypes';
 import { initNewGameState } from '../api-client/localplayService';
 
-const gameStateInitialValue: GameState = {
-  board: [],
-  turn: "white",
-  winner: null, 
-  winningPath: null
-};
-
 export function LocalScreen({ navigation }: LocalScreenProps) {
-  const [gameState, setGameState] = React.useState<GameState>(gameStateInitialValue);
+  const [gameState, setGameState] = React.useState<GameState | null>(null);
 
   React.useEffect(() => {
     initNewGameState(9).then(setGameState);
@@ -22,7 +15,7 @@ export function LocalScreen({ navigation }: LocalScreenProps) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <ScrollView horizontal>
-        <Board gameState={gameState} setGameState={setGameState} />
+        {gameState && (<Board gameState={gameState} setGameState={setGameState} />)}
       </ScrollView>
     </View>
   );
