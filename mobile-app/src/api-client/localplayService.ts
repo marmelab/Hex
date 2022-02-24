@@ -4,33 +4,28 @@ import { HEX_API_URL } from "@env"
 const LOCALPLAY_GAMES_ENDPOINT = "/localplay/games";
 
 export async function initNewGameState(size?: number): Promise<GameState> {
-  const response = await fetch(`${HEX_API_URL}${LOCALPLAY_GAMES_ENDPOINT}`, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      size,
-    })
+  return await callAPIWithBody(LOCALPLAY_GAMES_ENDPOINT, 'POST', {
+    size,
   });
-  return await response.json();
 }
 
 export async function updateGameState(
   previousGameState: GameState,
   nextMove: Coordinates): Promise<GameState> {
-  const response = await fetch(`${HEX_API_URL}${LOCALPLAY_GAMES_ENDPOINT}`, {
-    method: 'PUT',
+  return await callAPIWithBody(LOCALPLAY_GAMES_ENDPOINT, 'PUT', {
+    previousGameState,
+    nextMove
+  });
+}
+
+async function callAPIWithBody(endpoint: string, method: string, body: any): Promise<any> {
+  const response = await fetch(`${HEX_API_URL}${endpoint}`, {
+    method,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-      previousGameState,
-      nextMove
-    })
+    body: JSON.stringify(body)
   });
-  return await response.json();
+  return response.json();
 }
-
