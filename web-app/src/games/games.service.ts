@@ -11,7 +11,7 @@ import {
     DEFAULT_BOARD_SIZE,
 } from '../common/gameState';
 import { Coordinates, deepCloneObject } from '../common/utils';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from '../users/users.service';
 
 export interface GameAndStatus {
     game: Game,
