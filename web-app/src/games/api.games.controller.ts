@@ -25,7 +25,7 @@ export class ApiGamesController {
     @Body() params: { size?: number },
     @Req() req: Request
   ): Promise<Game> {
-    return await this.gamesService.createNewGame(params.size, req.sessionID);
+    return await this.gamesService.createNewGame(params.size, req.user["username"]);
   }
 
   @Get(':id')
@@ -35,7 +35,7 @@ export class ApiGamesController {
   ): Promise<GameAndStatus> {
     const game = await this.gamesService.findGameById(id);
     if (game === undefined) throw new NotFoundException();
-    return this.gamesService.getGameAndStatus(game, req.sessionID);
+    return this.gamesService.getGameAndStatus(game, req.user["username"]);
   }
 
   @Put(':id')
@@ -52,13 +52,13 @@ export class ApiGamesController {
         y: params.nextMove.y,
       });
     }
-    return this.gamesService.getGameAndStatus(game, req.sessionID);
+    return this.gamesService.getGameAndStatus(game, req.user["username"]);
   }
 
   @Get(':id/join')
   async joinGame(
     @Param('id') id: number,
     @Req() req: Request) {
-    await this.gamesService.joinGame(id, req.sessionID);
+    await this.gamesService.joinGame(id, req.user["username"]);
   }
 }
