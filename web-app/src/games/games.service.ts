@@ -40,8 +40,7 @@ export class GamesService {
     async updateGameState(game: Game, coordinates: Coordinates): Promise<Game> {
         const updatedGame: Game = deepCloneObject(game);
         updatedGame.state = updateGameState(game.state, coordinates);
-        await this.gamesRepository.save(updatedGame);
-        return updatedGame;
+        return this.gamesRepository.save(updatedGame);
     }
 
     initNewGameState(): GameState {
