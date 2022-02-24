@@ -1,4 +1,4 @@
-import { RenderedCellType, GameState, Coordinates } from "../../utils";
+import { RenderedCellType, GameState, Coordinates } from "../../../utils";
 
 export const CELL_STROKE_COLOR = "grey";
 export const CELL_SIZE = 20;

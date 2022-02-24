@@ -1,6 +1,6 @@
 import expect from 'expect';
-import { GameState } from '../../utils';
-import { generateBoardCells } from "./BoardService";
+import { GameState } from '../../../utils';
+import { generateBoardCells } from "./boardService";
 
 describe('Generate board cells', () => {
   it("Should returns a valid number of cells", () => {
