@@ -4,16 +4,12 @@ services:
   nestjs:
     build:
       dockerfile: ./Dockerfile.prod
-    env_file:
-      - ./web-app/.env
     expose:
       - 3000
 
   postgres:
     volumes:
       - db-data-prod:/var/lib/postgresql/data
-    env_file:
-      - ./.docker/db/.env.db.prod
 
   nginx:
     container_name: nginx
