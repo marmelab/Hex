@@ -30,4 +30,14 @@ export class UsersService {
     });
     return this.usersRepository.save(user)
   }
+
+  async getOrCreate(username: string): Promise<User> {
+    const existingUser = await this.usersRepository.findOne({ username: username });
+    return existingUser ? existingUser : await this.usersRepository.save(
+      this.usersRepository.create({
+        lastSessionId: username,
+        username: username,
+        password: username,
+      }));
+  }
 }
