@@ -54,6 +54,8 @@ export class ApiGamesController {
   async joinGame(
     @Param('id') id: number,
     @Req() req: Request) {
+    const game = await this.gamesService.findGameById(id);
+    if (game === undefined) throw new NotFoundException();
     await this.gamesService.joinGame(id, req.user["username"]);
   }
 }
