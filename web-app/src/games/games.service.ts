@@ -61,7 +61,8 @@ export class GamesService {
         }
         const player1 = this.usersRepository.create({
             lastSessionId: player1SessionId,
-            username: player1SessionId
+            username: player1SessionId,
+            password: player1SessionId,
         });
         const game = this.gamesRepository.create({
             state: initNewGameState(size),
@@ -73,7 +74,8 @@ export class GamesService {
     async createNewGameFromFile(player1SessionId: string): Promise<Game> {
         const player1 = this.usersRepository.create({
             lastSessionId: player1SessionId,
-            username: player1SessionId
+            username: player1SessionId,
+            password: player1SessionId
         });
         const game = this.gamesRepository.create({
             state: this.getBoardStateFromFile(),
@@ -88,7 +90,8 @@ export class GamesService {
             if (player2SessionId !== game.player1.lastSessionId) {
                 const player2 = this.usersRepository.create({
                     lastSessionId: player2SessionId,
-                    username: player2SessionId
+                    username: player2SessionId,
+                    password: player2SessionId,
                 });
                 game.player2 = await this.usersRepository.save(player2);
                 return this.gamesRepository.save(game);
