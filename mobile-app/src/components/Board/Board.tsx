@@ -16,26 +16,51 @@ export default function Board({ gameState, onCellPress }: BoardProps) {
 
   const svgSize = getApproximateSvgSize(gameState.board.length);
   return (
-    <Svg width={svgSize} height={svgSize}>
-      {
-        generateBoardCells(gameState).map(({ withoutBorderCoordinates, svgPointsToDraw, type }, index) => (
-          type === "playable" ?
-            <PlayableCell
-              key={index}
-              svgPoints={svgPointsToDraw}
-              strokeColor={CELL_STROKE_COLOR}
-              cellValue={gameState.board[withoutBorderCoordinates.y][withoutBorderCoordinates.x]}
-              onCellPress={() => { onCellPress(withoutBorderCoordinates) }}
-            />
-            :
-            <BorderCell
-              key={index}
-              svgPoints={svgPointsToDraw}
-              strokeColor={CELL_STROKE_COLOR}
-              playerBorder={type}
-            />
-        ))
-      }
-    </Svg >
+    gameState.winner ?
+      <Svg width={svgSize} height={svgSize}>
+        {
+          generateBoardCells(gameState).map(({ withoutBorderCoordinates, svgPointsToDraw, type }, index) => (
+            type === "playable" ?
+              <PlayableCell
+                key={index}
+                svgPoints={svgPointsToDraw}
+                strokeColor={CELL_STROKE_COLOR}
+                cellValue={gameState.board[withoutBorderCoordinates.y][withoutBorderCoordinates.x]}
+                onCellPress={() => { }}
+                isWinningCell={gameState.winningPath && gameState.winningPath.some((cell) => cell.x == withoutBorderCoordinates.x && cell.y == withoutBorderCoordinates.y)}
+              />
+              :
+              <BorderCell
+                key={index}
+                svgPoints={svgPointsToDraw}
+                strokeColor={CELL_STROKE_COLOR}
+                playerBorder={type}
+              />
+          ))
+        }
+      </Svg >
+      :
+      <Svg width={svgSize} height={svgSize}>
+        {
+          generateBoardCells(gameState).map(({ withoutBorderCoordinates, svgPointsToDraw, type }, index) => (
+            type === "playable" ?
+              <PlayableCell
+                key={index}
+                svgPoints={svgPointsToDraw}
+                strokeColor={CELL_STROKE_COLOR}
+                cellValue={gameState.board[withoutBorderCoordinates.y][withoutBorderCoordinates.x]}
+                onCellPress={() => onCellPress(withoutBorderCoordinates)}
+                isWinningCell={false}
+              />
+              :
+              <BorderCell
+                key={index}
+                svgPoints={svgPointsToDraw}
+                strokeColor={CELL_STROKE_COLOR}
+                playerBorder={type}
+              />
+          ))
+        }
+      </Svg >
   );
 }
