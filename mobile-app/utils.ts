@@ -29,6 +29,12 @@ export interface Game {
   state: GameState;
 }
 
+export interface GameAndStatus {
+  game: Game;
+  readyToPlay: boolean;
+  currentPlayerTurnToPlay: boolean;
+}
+
 export interface User {
   id: number;
   username: string;

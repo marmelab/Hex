@@ -1,26 +1,32 @@
 import * as React from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, Text } from 'react-native';
 import Board from '../components/Board/Board';
-import { Game, GameState } from "../../utils";
+import { Coordinates, Game, GameAndStatus, GameState } from "../../utils";
 import type { RemoteScreenProps } from './navigationTypes';
-import { initNewGame } from '../services/hexApiService';
+import { getGame, initNewGame, updateGame } from '../services/hexApiService';
 
-export function RemoteScreen({ navigation }: RemoteScreenProps) {
-  const [gameState, setGameState] = React.useState<Game | null>(null);
+export function RemoteScreen({ navigation, route }: RemoteScreenProps) {
+  const [gameState, setGameState] = React.useState<GameAndStatus | null>(null);
 
   React.useEffect(() => {
-    initNewGame(9).then(setGameState);
+    getGame(route.params.gameId).then(setGameState);
   }, []);
 
-  const updateGameState = (gameState: GameState) => {
-    console.log("called setGameState!");
-  };
+  const onCellPress = (coordinates: Coordinates) => {
+    updateGame(gameState.game, coordinates).then(setGameState);
+  }
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <ScrollView horizontal>
-        {gameState && (<Board gameState={gameState.state} setGameState={updateGameState} />)}
-      </ScrollView>
-    </View>
+
+    gameState && (
+      <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Ready to play: {String(gameState.readyToPlay)}</Text>
+        <Text>Current player turn: {String(gameState.currentPlayerTurnToPlay)}</Text>
+        <ScrollView horizontal>
+          <Board gameState={gameState.game.state} onCellPress={onCellPress} />
+        </ScrollView>
+      </View>
+    )
+
   );
 }

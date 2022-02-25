@@ -8,13 +8,11 @@ import { updateGameState } from '../../services/localplayService';
 
 interface BoardProps {
   gameState: GameState;
-  setGameState: (gameState: GameState) => void;
+  onCellPress: (coordinates: Coordinates) => void;
 }
 
-export default function Board({ gameState, setGameState }: BoardProps) {
-  const onCellPress = (coordinates: Coordinates) => {
-    updateGameState(gameState, coordinates).then(setGameState);
-  }
+export default function Board({ gameState, onCellPress }: BoardProps) {
+
 
   const svgSize = getApproximateSvgSize(gameState.board.length);
   return (
@@ -27,7 +25,7 @@ export default function Board({ gameState, setGameState }: BoardProps) {
               svgPoints={svgPointsToDraw}
               strokeColor={CELL_STROKE_COLOR}
               cellValue={gameState.board[withoutBorderCoordinates.y][withoutBorderCoordinates.x]}
-              onCellPress={() => onCellPress(withoutBorderCoordinates)}
+              onCellPress={() => { onCellPress(withoutBorderCoordinates) }}
             />
             :
             <BorderCell

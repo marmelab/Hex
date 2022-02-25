@@ -1,8 +1,8 @@
 import { HEX_API_URL } from "@env"
-import { Game } from "../../utils";
+import { Coordinates, Game, GameAndStatus } from "../../utils";
 import { getJwt } from "./deviceStorageService";
 
-export async function callAPIWithBody(endpoint: string, method: string, body: any, auth?: boolean): Promise<any> {
+export async function callAPI(endpoint: string, method: string, body?: any, auth?: boolean): Promise<any> {
   const requestBody = JSON.stringify(body);
   console.log(`Call to ${method} ${endpoint} - Request: ${requestBody}`);
   const headers: HeadersInit = {
@@ -12,11 +12,15 @@ export async function callAPIWithBody(endpoint: string, method: string, body: an
   if (auth) {
     headers.Authorization = `Bearer ${await getJwt()}`;
   }
-  const response = await fetch(`${HEX_API_URL}${endpoint}`, {
+  const reqParams: RequestInit = {
     method,
     headers,
     body: requestBody
-  });
+  };
+  if (body) {
+    reqParams.body = requestBody;
+  }
+  const response = await fetch(`${HEX_API_URL}${endpoint}`, reqParams);
   const responseBody = await response.json();
   console.log(`Call to ${method} ${endpoint} - Response: ${JSON.stringify(responseBody)}`);
   if (responseBody.statusCode && responseBody.message) {
@@ -28,7 +32,7 @@ export async function callAPIWithBody(endpoint: string, method: string, body: an
 }
 
 export async function loginAndGetJwt(login: string, password: string): Promise<string> {
-  const response = await callAPIWithBody("/auth/login", "POST", {
+  const response = await callAPI("/auth/login", "POST", {
     username: login,
     password
   });
@@ -36,7 +40,21 @@ export async function loginAndGetJwt(login: string, password: string): Promise<s
 }
 
 export async function initNewGame(size: number): Promise<Game> {
-  return await callAPIWithBody("/games", "POST", {
+  return await callAPI("/games", "POST", {
     size
   }, true);
+}
+
+export async function updateGame(game: Game, coordinates: Coordinates): Promise<GameAndStatus> {
+  return await callAPI(`/games/${game.id}`, "PUT", {
+    nextMove: coordinates
+  }, true);
+}
+
+export async function getGame(gameId: number): Promise<GameAndStatus> {
+  return await callAPI(`/games/${gameId}`, "GET", undefined, true);
+}
+
+export async function joinGame(gameId: number) {
+  await callAPI(`/games/${gameId}/join`, "GET", undefined, true);
 }
