@@ -48,16 +48,11 @@ export class GamesController {
     @Render('game')
     async postGame(
         @Param('id') id: number,
-        @Body() gameParams: { x?: number; y?: number },
+        @Body() gameParams: { x: number; y: number },
         @Req() req: Request
     ): Promise<GameAndStatus> {
         let game = await this.gameService.findGameById(id);
-        if (gameParams.x && gameParams.y) {
-            game = await this.gameService.updateGameState(game, {
-                x: gameParams.x,
-                y: gameParams.y,
-            });
-        }
+        game = await this.gameService.updateGameState(game, gameParams);
         return this.gameService.getGameAndStatus(game, req.sessionID);
     }
 

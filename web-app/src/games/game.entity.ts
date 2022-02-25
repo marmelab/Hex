@@ -1,9 +1,9 @@
 import {
   Entity,
   Column,
-  OneToOne,
   PrimaryGeneratedColumn,
   JoinColumn,
+  ManyToOne,
 } from 'typeorm';
 import { GameState } from '../common/gameState';
 import { User } from '../users/user.entity';
@@ -13,11 +13,11 @@ export class Game {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => User, { eager: true })
+  @ManyToOne(() => User, { eager: true })
   @JoinColumn()
   player1: User;
 
-  @OneToOne(() => User, { eager: true })
+  @ManyToOne(() => User, { eager: true })
   @JoinColumn()
   player2: User;
 

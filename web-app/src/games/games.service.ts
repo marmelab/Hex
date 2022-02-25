@@ -11,7 +11,7 @@ import {
     DEFAULT_BOARD_SIZE,
 } from '../common/gameState';
 import { Coordinates, deepCloneObject } from '../common/utils';
-import { User } from '../users/user.entity';
+import { UsersService } from '../users/users.service';
 
 export interface GameAndStatus {
     game: Game,
@@ -27,8 +27,7 @@ export class GamesService {
     constructor(
         @InjectRepository(Game)
         private gamesRepository: Repository<Game>,
-        @InjectRepository(User)
-        private usersRepository: Repository<User>,
+        private usersService: UsersService,
     ) { }
 
     getBoardStateFromFile(): GameState {
@@ -41,8 +40,7 @@ export class GamesService {
     async updateGameState(game: Game, coordinates: Coordinates): Promise<Game> {
         const updatedGame: Game = deepCloneObject(game);
         updatedGame.state = updateGameState(game.state, coordinates);
-        await this.gamesRepository.save(updatedGame);
-        return updatedGame;
+        return this.gamesRepository.save(updatedGame);
     }
 
     initNewGameState(): GameState {
@@ -53,60 +51,50 @@ export class GamesService {
         return this.gamesRepository.findOne(id);
     }
 
-    async createNewGame(size: number, player1SessionId: string): Promise<Game> {
+    async createNewGame(size: number, player1Username: string): Promise<Game> {
         if (!size) {
             size = DEFAULT_BOARD_SIZE;
         } else {
             size = +size;
         }
-        const player1 = this.usersRepository.create({
-            lastSessionId: player1SessionId,
-            username: player1SessionId
-        });
+        const player1 = await this.usersService.getOrCreate(player1Username);
         const game = this.gamesRepository.create({
             state: initNewGameState(size),
-            player1: await this.usersRepository.save(player1),
+            player1,
         });
         return this.gamesRepository.save(game);
     }
 
-    async createNewGameFromFile(player1SessionId: string): Promise<Game> {
-        const player1 = this.usersRepository.create({
-            lastSessionId: player1SessionId,
-            username: player1SessionId
-        });
+    async createNewGameFromFile(player1Username: string): Promise<Game> {
+        const player1 = await this.usersService.getOrCreate(player1Username);
         const game = this.gamesRepository.create({
             state: this.getBoardStateFromFile(),
-            player1: await this.usersRepository.save(player1),
+            player1,
         });
         return this.gamesRepository.save(game);
     }
 
-    async joinGame(gameId: number, player2SessionId: string): Promise<Game> {
+    async joinGame(gameId: number, player2Username: string): Promise<Game> {
         const game = await this.gamesRepository.findOne(gameId);
         if (!game.player2) {
-            if (player2SessionId !== game.player1.lastSessionId) {
-                const player2 = this.usersRepository.create({
-                    lastSessionId: player2SessionId,
-                    username: player2SessionId
-                });
-                game.player2 = await this.usersRepository.save(player2);
+            if (player2Username !== game.player1.username) {
+                game.player2 = await this.usersService.getOrCreate(player2Username);
                 return this.gamesRepository.save(game);
             } else {
-                throw Error(`Player2 (sessionId: ${player2SessionId}) cannot be the same as player1 (sessionId: ${game.player1.lastSessionId})`);
+                throw Error(`Player2 cannot be the same user than player1`);
             }
         } else {
             throw Error(`Game ${gameId} already has a player2 (username: ${game.player2.username})`);
         }
     }
 
-    getGameAndStatus(game: Game, playerSessionId: string): GameAndStatus {
+    getGameAndStatus(game: Game, playerName: string): GameAndStatus {
         const gameAndStatus: GameAndStatus = {
             game: game,
             readyToPlay: !!(game.player1 && game.player2),
             currentPlayerTurnToPlay:
-                (game.state.turn === "white" && playerSessionId === game.player1.lastSessionId) ||
-                (game.state.turn === "black" && playerSessionId === game.player2.lastSessionId)
+                (game.state.turn === "white" && playerName === game.player1.username) ||
+                (game.state.turn === "black" && playerName === game.player2.username)
         };
         return gameAndStatus;
     }

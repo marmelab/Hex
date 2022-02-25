@@ -7,6 +7,7 @@ import {
   parseGameStateFromMultilineString
 } from '../common/utils';
 import { GameState } from 'src/common/gameState';
+import { UsersService } from '../users/users.service';
 
 let mockedGame: Game;
 let mockedUser: User;
@@ -61,6 +62,7 @@ describe('GameService', () => {
     const app: TestingModule = await Test.createTestingModule({
       providers: [
         GamesService,
+        UsersService,
         {
           provide: getRepositoryToken(Game),
           useValue: mockGamesRepository,
