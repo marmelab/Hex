@@ -6,7 +6,7 @@ import { HomeScreen } from './src/screens/HomeScreen';
 import type { RootStackParamList } from './src/screens/navigationTypes';
 import { AuthState } from './src/services/authService';
 import Login from './src/components/Login/Login';
-import { getJwt, saveJwt } from './src/services/deviceStorageService';
+import { deleteJwt, getJwt, saveJwt } from './src/services/deviceStorageService';
 import { RemoteScreen } from './src/screens/RemoteScreen';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
@@ -26,13 +26,19 @@ export default function App() {
     setAuthState({ jwt });
   }
 
+  const logout = () => {
+    console.log('Called logout!');
+    deleteJwt();
+    setAuthState({ jwt: null });
+  }
+
   return (
     (!authState.jwt) ?
       <Login saveAndSetAuthState={saveAndSetAuthState} />
       : 
       <NavigationContainer>
         <RootStack.Navigator initialRouteName="Home">
-          <RootStack.Screen name="Home" component={HomeScreen} />
+          <RootStack.Screen name="Home" component={HomeScreen} initialParams={{ logout: logout }} />
           <RootStack.Screen name="Local" component={LocalScreen} />
           <RootStack.Screen name="Remote" component={RemoteScreen} />
         </RootStack.Navigator>

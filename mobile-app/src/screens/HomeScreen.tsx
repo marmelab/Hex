@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, Text, Button, TextInput } from 'react-native';
 import { HomeScreenProps } from './navigationTypes';
 
-export function HomeScreen({ navigation }: HomeScreenProps) {
+export function HomeScreen({ navigation, route }: HomeScreenProps) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text style={{ fontSize: 32 }}>Hex Game</Text>
@@ -23,6 +23,9 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
         keyboardType="numeric">
       </TextInput>
       <Button title='Join game' onPress={() => { }}>
+      </Button>
+      <Text></Text>
+      <Button title='Logout' color={'red'} onPress={route.params.logout}>
       </Button>
     </View >
   );
