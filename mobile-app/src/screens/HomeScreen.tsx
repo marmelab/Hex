@@ -25,8 +25,13 @@ export function HomeScreen({ navigation, route }: HomeScreenProps) {
   }
 
   const onJoinOnlineGame = async () => {
-    await joinGame(state.gameId);
-    navigation.navigate('Remote', { gameId: state.gameId });
+    try {
+      await joinGame(state.gameId);
+      navigation.navigate('Remote', { gameId: state.gameId });
+    }
+    catch (err) {
+      alert("Error during joining, please retry.");
+    }
   }
 
   return (
