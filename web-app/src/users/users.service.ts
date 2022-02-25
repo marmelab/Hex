@@ -5,6 +5,11 @@ import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { hash, compare } from 'bcryptjs';
 
+export interface UserWithoutSensitiveData {
+  id: number;
+  username: string;
+}
+
 @Injectable()
 export class UsersService {
   constructor(
@@ -23,12 +28,13 @@ export class UsersService {
     return compare(password, user.password) ? user : undefined;
   }
 
-  async create(username: string, password: string): Promise<User> {
+  async create(username: string, pass: string): Promise<UserWithoutSensitiveData> {
     const user = this.usersRepository.create({
       username: username,
-      password: await this.hashPassword(password)
+      password: await this.hashPassword(pass)
     });
-    return this.usersRepository.save(user)
+    const { password, lastSessionId, ...result } = await this.usersRepository.save(user);
+    return result;
   }
 
   async getOrCreate(username: string): Promise<User> {

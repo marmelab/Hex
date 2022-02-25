@@ -3,8 +3,7 @@ import {
   Post,
   Body
 } from '@nestjs/common';
-import { User } from './user.entity';
-import { UsersService } from './users.service';
+import { UsersService, UserWithoutSensitiveData } from './users.service';
 
 export interface LoginData {
   username: string;
@@ -18,7 +17,7 @@ export class ApiUsersController {
   @Post('')
   async create(
     @Body() params: LoginData
-  ): Promise<User> {
+  ): Promise<UserWithoutSensitiveData> {
     return this.usersService.create(params.username, params.password);
   }
 }
