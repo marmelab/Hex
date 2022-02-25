@@ -16,7 +16,6 @@ export default function App() {
 
   React.useEffect(() => {
     getJwt().then((jwt) => {
-      console.log(`App - Got JWT Token: ${jwt}`);
       setAuthState({ jwt });
     });
   }, []);
@@ -27,7 +26,6 @@ export default function App() {
   }
 
   const logout = () => {
-    console.log('Called logout!');
     deleteJwt();
     setAuthState({ jwt: null });
   }

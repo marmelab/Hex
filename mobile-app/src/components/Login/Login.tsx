@@ -23,7 +23,6 @@ export default function Login({ saveAndSetAuthState }: LoginProps) {
   const onLogin = async () => {
     try {
       const jwt = await loginAndGetJwt(loginState.username, loginState.password);
-      console.log(`Login - Got JWT Token: ${jwt}`);
       saveAndSetAuthState(jwt);
       setLoginState({
         ...loginState,

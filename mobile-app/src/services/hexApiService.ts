@@ -4,7 +4,6 @@ import { getJwt } from "./deviceStorageService";
 
 export async function callAPI(endpoint: string, method: string, body?: any, auth?: boolean): Promise<any> {
   const requestBody = JSON.stringify(body);
-  console.log(`Call to ${method} ${endpoint} - Request: ${requestBody}`);
   const headers: HeadersInit = {
     Accept: 'application/json',
     'Content-Type': 'application/json'
@@ -22,9 +21,7 @@ export async function callAPI(endpoint: string, method: string, body?: any, auth
   }
   const response = await fetch(`${HEX_API_URL}${endpoint}`, reqParams);
   const responseBody = await response.json();
-  console.log(`Call to ${method} ${endpoint} - Response: ${JSON.stringify(responseBody)}`);
   if (responseBody.statusCode && responseBody.message) {
-    // This is probably an error
     console.error(`Call to ${method} ${endpoint} - Recieved ERROR from Hex API: ${responseBody.message}`);
     throw Error(responseBody.message);
   }
