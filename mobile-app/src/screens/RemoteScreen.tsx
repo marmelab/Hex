@@ -17,7 +17,7 @@ export function RemoteScreen({ navigation, route }: RemoteScreenProps) {
   }, []);
 
   const onCellPress = (coordinates: Coordinates) => {
-    updateGame(gameState.game, coordinates).then(setGameState);
+    return gameState.currentPlayerTurnToPlay ? updateGame(gameState.game, coordinates).then(setGameState) : () => { }
   }
 
   return gameState ?
