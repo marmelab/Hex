@@ -60,7 +60,7 @@ export class GamesService {
         const player1 = await this.usersService.getOrCreate(player1Username);
         const game = this.gamesRepository.create({
             state: initNewGameState(size),
-            player1: player1,
+            player1,
         });
         return this.gamesRepository.save(game);
     }
@@ -69,7 +69,7 @@ export class GamesService {
         const player1 = await this.usersService.getOrCreate(player1Username);
         const game = this.gamesRepository.create({
             state: this.getBoardStateFromFile(),
-            player1: player1,
+            player1,
         });
         return this.gamesRepository.save(game);
     }
@@ -78,8 +78,7 @@ export class GamesService {
         const game = await this.gamesRepository.findOne(gameId);
         if (!game.player2) {
             if (player2Username !== game.player1.username) {
-                const player2 = await this.usersService.getOrCreate(player2Username);
-                game.player2 = player2;
+                game.player2 = await this.usersService.getOrCreate(player2Username);
                 return this.gamesRepository.save(game);
             } else {
                 throw Error(`Player2 cannot be the same user than player1`);
