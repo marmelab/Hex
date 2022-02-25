@@ -42,7 +42,7 @@ describe('Generate board cells', () => {
     const generatedBoardCells = generateBoardCells(gameState);
     const firstBorderCell = generatedBoardCells[0];
 
-    expect(firstBorderCell.type).toBe("player1Border");
+    expect(firstBorderCell.type).toBe("player2Border");
   });
   it("Should returns valid data for last border cell", () => {
     const gameState: GameState = {
@@ -62,7 +62,7 @@ describe('Generate board cells', () => {
     const generatedBoardCells = generateBoardCells(gameState);
     const lastBorderCell = generatedBoardCells[61];
 
-    expect(lastBorderCell.type).toBe("player1Border");
+    expect(lastBorderCell.type).toBe("player2Border");
   });
   it("Should returns valid data for first playable cell", () => {
     const gameState: GameState = {

@@ -1,4 +1,4 @@
-import { RenderedCellType, GameState, Coordinates } from "../../../utils";
+import { RenderedCellType, GameState, Coordinates, StoneColor } from "../../../utils";
 
 export const CELL_STROKE_COLOR = "grey";
 export const CELL_SIZE = 20;
@@ -29,6 +29,10 @@ export function generateBoardCells(gameState: GameState): { withoutBorderCoordin
   return cells;
 }
 
+export function mapStoneColorToPlayerName(stoneColor: StoneColor) {
+  return stoneColor === "white" ? "Red" : "Blue";
+}
+
 function getSvgPoints(x: any, y: any): string {
   const points = [];
   for (let theta = 0; theta < Math.PI * 2; theta += Math.PI / 3) {
@@ -45,8 +49,8 @@ function isCellAtTopLeftOrBottomRight(col: number, row: number, boardSizeWithBor
 
 function getCellType(col: number, row: number, boardSizeWithBorder: number): RenderedCellType {
   return row === 0 || row === boardSizeWithBorder - 1 ?
-    "player2Border" :
+    "player1Border" :
     col === 0 && row !== boardSizeWithBorder - 1 || col === boardSizeWithBorder - 1 && row !== 0 ?
-      "player1Border" :
+      "player2Border" :
       "playable";
 }
