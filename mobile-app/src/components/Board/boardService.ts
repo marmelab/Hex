@@ -1,4 +1,4 @@
-import { RenderedCellType, GameState, Coordinates } from "../../../utils";
+import { RenderedCellType, GameState, Coordinates, StoneColor } from "../../../utils";
 
 export const CELL_STROKE_COLOR = "grey";
 export const CELL_SIZE = 20;
@@ -27,6 +27,10 @@ export function generateBoardCells(gameState: GameState): { withoutBorderCoordin
     }
   }
   return cells;
+}
+
+export function mapStoneColorToPlayerName(stoneColor: StoneColor) {
+  return stoneColor === "white" ? "Red" : "Blue";
 }
 
 function getSvgPoints(x: any, y: any): string {
