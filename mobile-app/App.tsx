@@ -7,6 +7,7 @@ import type { RootStackParamList } from './src/screens/navigationTypes';
 import { AuthState } from './src/services/authService';
 import Login from './src/components/Login/Login';
 import { getJwt, saveJwt } from './src/services/deviceStorageService';
+import { RemoteScreen } from './src/screens/RemoteScreen';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -33,6 +34,7 @@ export default function App() {
         <RootStack.Navigator initialRouteName="Home">
           <RootStack.Screen name="Home" component={HomeScreen} />
           <RootStack.Screen name="Local" component={LocalScreen} />
+          <RootStack.Screen name="Remote" component={RemoteScreen} />
         </RootStack.Navigator>
       </NavigationContainer>
   );

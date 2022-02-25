@@ -21,3 +21,15 @@ export interface Cell {
 }
 
 export type StoneColor = 'black' | 'white';
+
+export interface Game {
+  id: number;
+  player1: User;
+  player2: User;
+  state: GameState;
+}
+
+export interface User {
+  id: number;
+  username: string;
+}

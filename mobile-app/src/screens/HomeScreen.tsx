@@ -9,7 +9,7 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
       <Button title='Create local game' onPress={() => navigation.navigate('Local')}>
       </Button>
       <Text>Or</Text>
-      <Button title='Create online game' onPress={() => { }}>
+      <Button title='Create online game' onPress={() => navigation.navigate('Remote')}>
       </Button>
       <Text>Or</Text>
       <TextInput
