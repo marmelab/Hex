@@ -1,5 +1,5 @@
 import { GameState, Coordinates } from "../../utils";
-import { HEX_API_URL } from "@env"
+import { callAPIWithBody } from "./hexApiService";
 
 const LOCALPLAY_GAMES_ENDPOINT = "/localplay/games";
 
@@ -18,14 +18,3 @@ export async function updateGameState(
   });
 }
 
-async function callAPIWithBody(endpoint: string, method: string, body: any): Promise<any> {
-  const response = await fetch(`${HEX_API_URL}${endpoint}`, {
-    method,
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(body)
-  });
-  return response.json();
-}

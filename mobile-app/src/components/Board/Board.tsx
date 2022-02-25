@@ -4,7 +4,7 @@ import PlayableCell from '../PlayableCell/PlayableCell';
 import BorderCell from '../BorderCell/BorderCell';
 import { GameState, Coordinates } from "../../../utils";
 import { getApproximateSvgSize, generateBoardCells, CELL_STROKE_COLOR } from "./boardService";
-import { updateGameState } from '../../api-client/localplayService';
+import { updateGameState } from '../../services/localplayService';
 
 interface BoardProps {
   gameState: GameState;

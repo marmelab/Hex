@@ -4,16 +4,36 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { LocalScreen } from './src/screens/LocalScreen';
 import { HomeScreen } from './src/screens/HomeScreen';
 import type { RootStackParamList } from './src/screens/navigationTypes';
+import { AuthState } from './src/services/authService';
+import Login from './src/components/Login/Login';
+import { getJwt, saveJwt } from './src/services/deviceStorageService';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
+  const [authState, setAuthState] = React.useState<AuthState>({ jwt: null });
+
+  React.useEffect(() => {
+    getJwt().then((jwt) => {
+      console.log(`App - Got JWT Token: ${jwt}`);
+      setAuthState({ jwt });
+    });
+  }, []);
+
+  const saveAndSetAuthState = (jwt: string) => {
+    saveJwt(jwt);
+    setAuthState({ jwt });
+  }
+
   return (
-    <NavigationContainer>
-      <RootStack.Navigator initialRouteName="Home">
-        <RootStack.Screen name="Home" component={HomeScreen} />
-        <RootStack.Screen name="Local" component={LocalScreen} />
-      </RootStack.Navigator>
-    </NavigationContainer>
+    (!authState.jwt) ?
+      <Login saveAndSetAuthState={saveAndSetAuthState} />
+      : 
+      <NavigationContainer>
+        <RootStack.Navigator initialRouteName="Home">
+          <RootStack.Screen name="Home" component={HomeScreen} />
+          <RootStack.Screen name="Local" component={LocalScreen} />
+        </RootStack.Navigator>
+      </NavigationContainer>
   );
 }
