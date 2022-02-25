@@ -5,7 +5,7 @@ import { Coordinates, Game, GameAndStatus, GameState } from "../../utils";
 import type { RemoteScreenProps } from './navigationTypes';
 import { getGame, initNewGame, updateGame } from '../services/hexApiService';
 
-const REFRESH_TIMER = 5000;
+const REFRESH_TIMER = 1000;
 
 export function RemoteScreen({ navigation, route }: RemoteScreenProps) {
   const [gameState, setGameState] = React.useState<GameAndStatus | null>(null);
@@ -17,20 +17,18 @@ export function RemoteScreen({ navigation, route }: RemoteScreenProps) {
   }, []);
 
   const onCellPress = (coordinates: Coordinates) => {
-    updateGame(gameState.game, coordinates).then(setGameState);
+    return gameState.currentPlayerTurnToPlay ? updateGame(gameState.game, coordinates).then(setGameState) : () => { }
   }
 
-  return (
-
-    gameState && (
-      <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Ready to play: {String(gameState.readyToPlay)}</Text>
-        <Text>Current player turn: {String(gameState.currentPlayerTurnToPlay)}</Text>
-        <ScrollView horizontal>
-          <Board gameState={gameState.game.state} onCellPress={onCellPress} />
-        </ScrollView>
-      </View>
-    )
-
-  );
+  return gameState ?
+    gameState.readyToPlay ? <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+      <ScrollView horizontal>
+        <Board gameState={gameState.game.state} onCellPress={onCellPress} />
+      </ScrollView>
+    </View>
+      : <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text style={{ fontSize: 24 }}> Waiting for an opponent..</Text>
+        <Text style={{ fontSize: 18 }}> Use this join code : {route.params.gameId}</Text>
+      </View >
+    : <View />
 }
