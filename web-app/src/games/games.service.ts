@@ -67,7 +67,7 @@ export class GamesService {
             state: initNewGameState(size),
             player1: await this.usersRepository.save(player1),
         });
-        return await this.gamesRepository.save(game);
+        return this.gamesRepository.save(game);
     }
 
     async createNewGameFromFile(player1SessionId: string): Promise<Game> {
@@ -79,7 +79,7 @@ export class GamesService {
             state: this.getBoardStateFromFile(),
             player1: await this.usersRepository.save(player1),
         });
-        return await this.gamesRepository.save(game);
+        return this.gamesRepository.save(game);
     }
 
     async joinGame(gameId: number, player2SessionId: string): Promise<Game> {
@@ -91,7 +91,7 @@ export class GamesService {
                     username: player2SessionId
                 });
                 game.player2 = await this.usersRepository.save(player2);
-                return await this.gamesRepository.save(game);
+                return this.gamesRepository.save(game);
             } else {
                 throw Error(`Player2 (sessionId: ${player2SessionId}) cannot be the same as player1 (sessionId: ${game.player1.lastSessionId})`);
             }

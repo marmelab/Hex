@@ -5,7 +5,7 @@ services:
     build:
       dockerfile: ./Dockerfile.dev
     env_file:
-      - ./web-app/.env.dev
+      - ./web-app/.env
     ports:
       - 3000:3000
     volumes:
