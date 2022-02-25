@@ -37,6 +37,6 @@ describe('Board', () => {
 
     const board = renderer.create(<Board gameState={gamestate} />).toJSON();
 
-    expect(board.children[0].children.length).toBe(23);
+    expect(board.children[1].children[0].children.length).toBe(23);
   });
 });
