@@ -5,11 +5,15 @@ import { Coordinates, Game, GameAndStatus, GameState } from "../../utils";
 import type { RemoteScreenProps } from './navigationTypes';
 import { getGame, initNewGame, updateGame } from '../services/hexApiService';
 
+const REFRESH_TIMER = 5000;
+
 export function RemoteScreen({ navigation, route }: RemoteScreenProps) {
   const [gameState, setGameState] = React.useState<GameAndStatus | null>(null);
 
   React.useEffect(() => {
     getGame(route.params.gameId).then(setGameState);
+    const interval = setInterval(() => getGame(route.params.gameId).then(setGameState), REFRESH_TIMER);
+    return () => { clearInterval(interval) };
   }, []);
 
   const onCellPress = (coordinates: Coordinates) => {
