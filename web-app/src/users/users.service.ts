@@ -46,14 +46,4 @@ export class UsersService {
         password: username,
       }));
   }
-
-  async getOrCreate(username: string): Promise<User> {
-    const existingUser = await this.usersRepository.findOne({ username: username });
-    return existingUser ? existingUser : await this.usersRepository.save(
-      this.usersRepository.create({
-        lastSessionId: username,
-        username: username,
-        password: username,
-      }));
-  }
 }
