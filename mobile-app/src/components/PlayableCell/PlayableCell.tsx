@@ -1,7 +1,11 @@
 import * as React from 'react';
-import { Polygon } from 'react-native-svg';
-import { Coordinates, Cell } from '../../../utils';
-import { getStoneColor } from './playableCellService';
+import { Circle, Polygon } from 'react-native-svg';
+import { Cell, WINNING_CIRCLE_COLOR } from '../../../utils';
+import {
+  getStoneColor,
+  getCenterOfPoints,
+  WINNING_CIRCLE_SIZE,
+} from './playableCellService';
 
 interface PlayableCellProps {
   svgPoints: string;
@@ -18,19 +22,40 @@ export default function PlayableCell({
   onCellPress,
   isWinningCell,
 }: PlayableCellProps) {
-  return cellValue.value === 'empty' ? (
-    <Polygon
-      points={svgPoints}
-      stroke={strokeColor}
-      fill={getStoneColor(cellValue)}
-      onClick={onCellPress}
-      onPress={onCellPress}
-    />
-  ) : (
-    <Polygon
-      points={svgPoints}
-      stroke={strokeColor}
-      fill={getStoneColor(cellValue, isWinningCell)}
-    />
-  );
+  if (isWinningCell) {
+    const hexaCenter = getCenterOfPoints(svgPoints);
+    return (
+      <React.Fragment>
+        <Polygon
+          points={svgPoints}
+          stroke={strokeColor}
+          fill={getStoneColor(cellValue)}
+        />
+        <Circle
+          cx={hexaCenter.x}
+          cy={hexaCenter.y}
+          r={WINNING_CIRCLE_SIZE}
+          fill={WINNING_CIRCLE_COLOR}
+        />
+      </React.Fragment>
+    );
+  } else if (cellValue.value == 'empty') {
+    return (
+      <Polygon
+        points={svgPoints}
+        stroke={strokeColor}
+        fill={getStoneColor(cellValue)}
+        onClick={onCellPress}
+        onPress={onCellPress}
+      />
+    );
+  } else {
+    return (
+      <Polygon
+        points={svgPoints}
+        stroke={strokeColor}
+        fill={getStoneColor(cellValue)}
+      />
+    );
+  }
 }
