@@ -6,9 +6,17 @@ export type RootStackParamList = {
   Remote: { gameId: number };
 };
 
-export type HomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
+export type HomeScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  'Home'
+>;
 
-export type LocalScreenProps = NativeStackScreenProps<RootStackParamList, 'Local'>;
+export type LocalScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  'Local'
+>;
 
-export type RemoteScreenProps = NativeStackScreenProps<RootStackParamList, 'Remote'>;
-
+export type RemoteScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  'Remote'
+>;

@@ -9,39 +9,39 @@ interface HomeScreenState {
 
 export function HomeScreen({ navigation, route }: HomeScreenProps) {
   const [state, setState] = React.useState<HomeScreenState>({
-    gameId: null
+    gameId: null,
   });
 
   const onChangeGameId = (text: string) => {
     setState({
       ...state,
-      gameId: parseInt(text)
+      gameId: parseInt(text),
     });
-  }
+  };
 
   const onCreateOnlineGame = async () => {
     const game = await initNewGame(9);
     navigation.navigate('Remote', { gameId: game.id });
-  }
+  };
 
   const onJoinOnlineGame = async () => {
     try {
       await joinGame(state.gameId);
       navigation.navigate('Remote', { gameId: state.gameId });
+    } catch (err) {
+      alert('Error during joining, please retry.');
     }
-    catch (err) {
-      alert("Error during joining, please retry.");
-    }
-  }
+  };
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text style={{ fontSize: 32 }}>Hex Game</Text>
-      <Button title='Create local game' onPress={() => navigation.navigate('Local')}>
-      </Button>
+      <Button
+        title="Create local game"
+        onPress={() => navigation.navigate('Local')}
+      ></Button>
       <Text>Or</Text>
-      <Button title='Create online game' onPress={onCreateOnlineGame}>
-      </Button>
+      <Button title="Create online game" onPress={onCreateOnlineGame}></Button>
       <Text>Or</Text>
       <TextInput
         style={{
@@ -52,13 +52,15 @@ export function HomeScreen({ navigation, route }: HomeScreenProps) {
         }}
         placeholder="Game identifier"
         keyboardType="numeric"
-        onChangeText={newText => onChangeGameId(newText)}>
-      </TextInput>
-      <Button title='Join game' onPress={onJoinOnlineGame}>
-      </Button>
+        onChangeText={(newText) => onChangeGameId(newText)}
+      ></TextInput>
+      <Button title="Join game" onPress={onJoinOnlineGame}></Button>
       <Text></Text>
-      <Button title='Logout' color={'red'} onPress={route.params.logout}>
-      </Button>
-    </View >
+      <Button
+        title="Logout"
+        color={'red'}
+        onPress={route.params.logout}
+      ></Button>
+    </View>
   );
 }
