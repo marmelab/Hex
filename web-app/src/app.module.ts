@@ -6,12 +6,7 @@ import { LocalGamesModule } from './localgames/localgames.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [
-    GamesModule,
-    UsersModule,
-    LocalGamesModule,
-    AuthModule
-  ],
+  imports: [GamesModule, UsersModule, LocalGamesModule, AuthModule],
   controllers: [AppController],
 })
-export class AppModule { }
+export class AppModule {}

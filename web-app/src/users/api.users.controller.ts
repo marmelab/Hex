@@ -1,8 +1,4 @@
-import {
-  Controller,
-  Post,
-  Body
-} from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { UsersService, UserWithoutSensitiveData } from './users.service';
 
 export interface LoginData {
@@ -12,12 +8,10 @@ export interface LoginData {
 
 @Controller('api/users')
 export class ApiUsersController {
-  constructor(private readonly usersService: UsersService) { }
+  constructor(private readonly usersService: UsersService) {}
 
   @Post('')
-  async create(
-    @Body() params: LoginData
-  ): Promise<UserWithoutSensitiveData> {
+  async create(@Body() params: LoginData): Promise<UserWithoutSensitiveData> {
     return this.usersService.create(params.username, params.password);
   }
 }

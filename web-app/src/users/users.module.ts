@@ -6,11 +6,9 @@ import { User } from '../users/user.entity';
 import { ApiUsersController } from './api.users.controller';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([User]),
-  ],
+  imports: [TypeOrmModule.forFeature([User])],
   providers: [UsersService],
   exports: [UsersService],
   controllers: [ApiUsersController],
 })
-export class UsersModule { }
+export class UsersModule {}
