@@ -25,7 +25,7 @@ export default function PlayableCell({
   if (isWinningCell) {
     const hexaCenter = getCenterOfPoints(svgPoints);
     return (
-      <React.Fragment>
+      <>
         <Polygon
           points={svgPoints}
           stroke={strokeColor}
@@ -37,7 +37,7 @@ export default function PlayableCell({
           r={WINNING_CIRCLE_SIZE}
           fill={WINNING_CIRCLE_COLOR}
         />
-      </React.Fragment>
+      </>
     );
   } else if (cellValue.value == 'empty') {
     return (
