@@ -4,4 +4,4 @@ import { LocalGamesModuleController } from './localgames.controller';
 @Module({
   controllers: [LocalGamesModuleController],
 })
-export class LocalGamesModule { }
+export class LocalGamesModule {}

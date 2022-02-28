@@ -20,6 +20,6 @@ import { UsersModule } from 'src/users/users.module';
     UsersModule,
   ],
   controllers: [GamesController, ApiGamesController],
-  providers: [GamesService]
+  providers: [GamesService],
 })
-export class GamesModule { }
+export class GamesModule {}

@@ -48,4 +48,3 @@ export function parseGameStateFromMultilineString(
   parsedGameState.winningPath = getWinnerDataIfExist.winningPath;
   return parsedGameState;
 }
-

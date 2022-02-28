@@ -15,7 +15,8 @@ export function registerHandlebarsHelpers() {
     }
     return options.inverse(this);
   });
-  handlebars.registerHelper('cellCanBePlayed',
+  handlebars.registerHelper(
+    'cellCanBePlayed',
     /**
      * Determines if user is authorized to click on a cell to place a stone
      * @param cellValue current cell value
@@ -24,17 +25,26 @@ export function registerHandlebarsHelpers() {
      * @param winner data of the current winner (if any), to know if we can still place stones
      * @param options options object provided by hbs
      */
-    function (cellValue: 'empty' | 'black' | 'white',
+    function (
+      cellValue: 'empty' | 'black' | 'white',
       readyToPlay: boolean,
       currentPlayerTurnToPlay: boolean,
       winner: StoneColor | null,
-      options) {
-      if (cellValue === "empty" && readyToPlay && currentPlayerTurnToPlay && (winner == null)) {
+      options,
+    ) {
+      if (
+        cellValue === 'empty' &&
+        readyToPlay &&
+        currentPlayerTurnToPlay &&
+        winner == null
+      ) {
         return options.fn(this);
       }
       return options.inverse(this);
-    });
-  handlebars.registerHelper('needToWaitForOpponent',
+    },
+  );
+  handlebars.registerHelper(
+    'needToWaitForOpponent',
     /**
      * Determines whether we need to wait for the opponent and hence refresh the page
      * @param readyToPlay  boolean to know if the game is ready to be started
@@ -46,7 +56,8 @@ export function registerHandlebarsHelpers() {
         return options.fn(this);
       }
       return options.inverse(this);
-    });
+    },
+  );
   handlebars.registerHelper(
     'isCellInWinningPath',
     function (

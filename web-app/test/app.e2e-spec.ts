@@ -86,6 +86,9 @@ describe('AppController (e2e)', () => {
   });
 
   it(`POST /games with fromFile equals true should redirect to a new game url`, () => {
-    return request(app.getHttpServer()).post('/games').send({ fromFile: true }).expect(302);
+    return request(app.getHttpServer())
+      .post('/games')
+      .send({ fromFile: true })
+      .expect(302);
   });
 });

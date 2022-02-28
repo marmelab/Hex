@@ -3,9 +3,7 @@ import { GamesService } from './games.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Game } from './game.entity';
 import { User } from '../users/user.entity';
-import {
-  parseGameStateFromMultilineString
-} from '../common/utils';
+import { parseGameStateFromMultilineString } from '../common/utils';
 import { GameState } from 'src/common/gameState';
 import { UsersService } from '../users/users.service';
 
@@ -120,7 +118,9 @@ describe('GameService', () => {
 
   describe('root', () => {
     it('should return an empty board of 11x11"', async () => {
-      expect((await gameService.createNewGame(11, "sessionID")).state.board).toEqual(
+      expect(
+        (await gameService.createNewGame(11, 'sessionID')).state.board,
+      ).toEqual(
         parseGameStateFromMultilineString(`
 ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
  ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
@@ -140,10 +140,13 @@ describe('GameService', () => {
   it('should return a board of 11x11 with a white stone in [1,1]"', async () => {
     expect(
       (
-        await gameService.updateGameState(await gameService.createNewGame(11, "sessionID"), {
-          x: 1,
-          y: 1,
-        })
+        await gameService.updateGameState(
+          await gameService.createNewGame(11, 'sessionID'),
+          {
+            x: 1,
+            y: 1,
+          },
+        )
       ).state.board,
     ).toEqual(
       parseGameStateFromMultilineString(`
