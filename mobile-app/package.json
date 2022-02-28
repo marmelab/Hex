@@ -12,7 +12,7 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:update": "jest -u",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\""
+    "format": "prettier --write '{*.{ts,tsx},src/**/*.{ts,tsx}}'"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.16.1",
