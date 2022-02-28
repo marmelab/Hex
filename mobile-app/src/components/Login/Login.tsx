@@ -13,48 +13,52 @@ interface LoginState {
 }
 
 export default function Login({ saveAndSetAuthState }: LoginProps) {
-
   const [loginState, setLoginState] = React.useState<LoginState>({
     username: '',
     password: '',
-    error: null
+    error: null,
   });
 
   const onLogin = async () => {
     try {
-      const jwt = await loginAndGetJwt(loginState.username, loginState.password);
+      const jwt = await loginAndGetJwt(
+        loginState.username,
+        loginState.password,
+      );
       saveAndSetAuthState(jwt);
       setLoginState({
         ...loginState,
-        error: null
+        error: null,
       });
     } catch (e) {
       setLoginState({
         ...loginState,
-        error: String(e)
+        error: String(e),
       });
     }
-  }
+  };
 
   const onChangeUsername = (username: string) => {
     setLoginState({
       ...loginState,
-      username
+      username,
     });
-  }
+  };
 
   const onChangePassword = (password: string) => {
     setLoginState({
       ...loginState,
-      password
+      password,
     });
-  }
+  };
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text style={{ fontSize: 32 }}>Login</Text>
 
-      {loginState.error && <Text style={{ color: 'red' }}>{loginState.error}</Text>}
+      {loginState.error && (
+        <Text style={{ color: 'red' }}>{loginState.error}</Text>
+      )}
 
       <Text>Username</Text>
       <TextInput
@@ -65,8 +69,8 @@ export default function Login({ saveAndSetAuthState }: LoginProps) {
           padding: 10,
         }}
         placeholder="username"
-        onChangeText={newText => onChangeUsername(newText)}>
-      </TextInput>
+        onChangeText={(newText) => onChangeUsername(newText)}
+      ></TextInput>
 
       <Text>Password</Text>
       <TextInput
@@ -78,11 +82,10 @@ export default function Login({ saveAndSetAuthState }: LoginProps) {
         }}
         placeholder="password"
         textContentType="password"
-        onChangeText={newText => onChangePassword(newText)}>
-      </TextInput>
+        onChangeText={(newText) => onChangePassword(newText)}
+      ></TextInput>
 
-      <Button title='Login' onPress={onLogin}>
-      </Button>
-    </View >
+      <Button title="Login" onPress={onLogin}></Button>
+    </View>
   );
 }

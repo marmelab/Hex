@@ -11,21 +11,26 @@ interface PlayableCellProps {
   isWinningCell: boolean;
 }
 
-export default function PlayableCell({ svgPoints, strokeColor, cellValue, onCellPress, isWinningCell }: PlayableCellProps) {
-  return (
-    cellValue.value === "empty" ?
-      <Polygon
-        points={svgPoints}
-        stroke={strokeColor}
-        fill={getStoneColor(cellValue)}
-        onClick={onCellPress}
-        onPress={onCellPress}
-      />
-      :
-      <Polygon
-        points={svgPoints}
-        stroke={strokeColor}
-        fill={getStoneColor(cellValue, isWinningCell)}
-      />
-  )
+export default function PlayableCell({
+  svgPoints,
+  strokeColor,
+  cellValue,
+  onCellPress,
+  isWinningCell,
+}: PlayableCellProps) {
+  return cellValue.value === 'empty' ? (
+    <Polygon
+      points={svgPoints}
+      stroke={strokeColor}
+      fill={getStoneColor(cellValue)}
+      onClick={onCellPress}
+      onPress={onCellPress}
+    />
+  ) : (
+    <Polygon
+      points={svgPoints}
+      stroke={strokeColor}
+      fill={getStoneColor(cellValue, isWinningCell)}
+    />
+  );
 }
