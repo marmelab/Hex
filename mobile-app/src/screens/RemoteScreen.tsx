@@ -45,7 +45,6 @@ export function RemoteScreen({ navigation, route }: RemoteScreenProps) {
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text style={{ fontSize: 24 }}> Waiting for an opponent..</Text>
         <Text style={{ fontSize: 18 }}>
-          {' '}
           Use this join code : {route.params.gameId}
         </Text>
       </View>
