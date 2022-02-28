@@ -1,7 +1,7 @@
 init:
-	@cp ./web-app/.env.dev.dist ./web-app/.env.dev
-	@cp ./.docker/pgadmin/.env.dev.pgadmin.dist ./.docker/pgadmin/.env.dev.pgadmin
-	@cp ./.docker/db/.env.db.dev.dist ./.docker/db/.env.db.dev
+	@cp ./web-app/.env.dist ./web-app/.env
+	@cp ./.docker/pgadmin/.env.pgadmin.dist ./.docker/pgadmin/.env.pgadmin
+	@cp ./.docker/db/.env.db.dist ./.docker/db/.env.db
 	@echo "init complete"
 
 start:
