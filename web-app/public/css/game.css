@@ -43,6 +43,10 @@ span[data-player='white'] {
   );
   /* additional height of one hexagon compared to its width (to have nice round hexagons)  */
   --hexAddHeight: calc(var(--hexWidth) * 0.2885);
+  /* The winning character displayed on cells that are on the winning path */
+  --winningCharacter: '*';
+  /* The font size of the winning character*/
+  --winningCharacterSize: 10px;
   /* last variable `--rows` holds the number of rows and is injected by the template */
 }
 
@@ -139,6 +143,10 @@ span[data-player='white'] {
     );
 }
 
+.cell {
+  position: relative;
+}
+
 .cell[data-color='empty'] {
   background: #eea;
   cursor: pointer;
@@ -156,6 +164,10 @@ span[data-player='white'] {
   background: red;
 }
 
-.cell[data-winningCell='true'] {
-  background-color: green !important;
+.cell[data-winningCell='true']:after {
+  content: var(--winningCharacter);
+  font-size: var(--winningCharacterSize);
+  position: absolute;
+  top: calc(var(--hexWidth) * 1.1 / 2 - var(--winningCharacterSize) / 4);
+  left: calc(var(--hexWidth) / 2 - var(--winningCharacterSize) / 4);
 }
