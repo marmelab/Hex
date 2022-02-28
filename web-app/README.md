@@ -40,7 +40,7 @@ $ docker-compose -f docker-compose.base.yaml -f docker-compose.prod.yaml up -d
 
 #### Environment variables
 
-You may edit the following environment variables in `.env.dev` or `.env.prod`:
+You may edit the following environment variables in `.env`:
 
 | Variable           | Default value | Description                |
 | :----------------- | :------------ | :------------------------- |

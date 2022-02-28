@@ -9,6 +9,8 @@ services:
       - postgres
     environment:
       - WAIT_HOSTS=postgres:5432
+    env_file:
+      - ./web-app/.env
 
   postgres:
     container_name: postgres
@@ -16,3 +18,5 @@ services:
     restart: always
     ports:
       - 5432:5432
+    env_file:
+      - ./.docker/db/.env.db

@@ -23,7 +23,7 @@ jobs:
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           echo "$WEBAPP_ENV_VARS" > ./web-app/.env
-          echo "$POSTGRES_ENV_VARS" > ./.docker/db/.env.db.prod
+          echo "$POSTGRES_ENV_VARS" > ./.docker/db/.env.db
           rsync --delete -r -e "ssh -o StrictHostKeyChecking=no -i private_key" --exclude="mobile-app/*" --filter=':- .dockerignore' ./ ${USERNAME}@${HOSTNAME}:~/Hex
           ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOSTNAME} '
             cd ~/Hex &&
