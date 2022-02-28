@@ -7,23 +7,26 @@ import {
   getApproximateSvgSize,
   generateBoardCells,
   CELL_STROKE_COLOR,
-  mapStoneColorToPlayerName,
 } from './boardService';
-import { updateGameState } from '../../services/localplayService';
 import { View, Text } from 'react-native';
 
 interface BoardProps {
   gameState: GameState;
   onCellPress: (coordinates: Coordinates) => void;
+  getPlayersTurnElt: (gameState: GameState) => JSX.Element;
+  getWinMsgElt: (gameState: GameState) => JSX.Element;
 }
 
-export default function Board({ gameState, onCellPress }: BoardProps) {
+export default function Board({
+  gameState,
+  onCellPress,
+  getPlayersTurnElt,
+  getWinMsgElt,
+}: BoardProps) {
   const svgSize = getApproximateSvgSize(gameState.board.length);
   return gameState.winner ? (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text style={{ fontSize: 32 }}>
-        Player {mapStoneColorToPlayerName(gameState.winner)} has won !
-      </Text>
+      {getWinMsgElt(gameState)}
       <Svg width={svgSize} height={svgSize}>
         {generateBoardCells(gameState).map(
           ({ withoutBorderCoordinates, svgPointsToDraw, type }, index) =>
@@ -60,9 +63,7 @@ export default function Board({ gameState, onCellPress }: BoardProps) {
     </View>
   ) : (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text style={{ fontSize: 32 }}>
-        {mapStoneColorToPlayerName(gameState.turn)}, it's your turn !
-      </Text>
+      {getPlayersTurnElt(gameState)}
       <Svg width={svgSize} height={svgSize}>
         {generateBoardCells(gameState).map(
           ({ withoutBorderCoordinates, svgPointsToDraw, type }, index) =>

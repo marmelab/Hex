@@ -1,9 +1,16 @@
 import * as React from 'react';
 import { View, ScrollView, Text } from 'react-native';
 import Board from '../components/Board/Board';
-import { Coordinates, Game, GameAndStatus, GameState } from '../../utils';
+import {
+  Coordinates,
+  Game,
+  GameAndStatus,
+  GameState,
+  StoneColor,
+} from '../../utils';
 import type { RemoteScreenProps } from './navigationTypes';
 import { getGame, initNewGame, updateGame } from '../services/hexApiService';
+import { mapStoneColorToPlayerName } from '../components/Board/boardService';
 
 const REFRESH_TIMER = 1000;
 
@@ -27,6 +34,38 @@ export function RemoteScreen({ navigation, route }: RemoteScreenProps) {
       : () => {};
   };
 
+  const getPlayersTurnText = (
+    turn: StoneColor,
+    currentPlayerTurnToPlay: boolean,
+  ): String => {
+    if (currentPlayerTurnToPlay) {
+      return `${mapStoneColorToPlayerName(turn)}, it's your turn !`;
+    } else {
+      return `Wait for opponent's move...`;
+    }
+  };
+
+  const getPlayersTurnElt = (state: GameState): JSX.Element => {
+    return (
+      <Text style={{ fontSize: 32 }}>
+        {getPlayersTurnText(state.turn, gameState.currentPlayerTurnToPlay)}
+      </Text>
+    );
+  };
+
+  const getWinMsgElt = (state: GameState): JSX.Element => {
+    if (!gameState.currentPlayerTurnToPlay) {
+      return <Text style={{ fontSize: 32 }}>Congratulations, you won!</Text>;
+    } else {
+      return (
+        <React.Fragment>
+          <Text style={{ fontSize: 24 }}>You lost this game.</Text>
+          <Text style={{ fontSize: 24 }}>Better luck next time!</Text>
+        </React.Fragment>
+      );
+    }
+  };
+
   return gameState ? (
     gameState.readyToPlay ? (
       <View
@@ -38,7 +77,12 @@ export function RemoteScreen({ navigation, route }: RemoteScreenProps) {
         }}
       >
         <ScrollView horizontal>
-          <Board gameState={gameState.game.state} onCellPress={onCellPress} />
+          <Board
+            gameState={gameState.game.state}
+            onCellPress={onCellPress}
+            getPlayersTurnElt={getPlayersTurnElt}
+            getWinMsgElt={getWinMsgElt}
+          />
         </ScrollView>
       </View>
     ) : (
