@@ -7,17 +7,12 @@ import { Game } from './game.entity';
 export type SortOrder = 'ASC' | 'DESC';
 
 export interface GamesSortColumn {
-  column:
-    | 'game.id'
-    | 'game.player1'
-    | 'game.player2'
-    | 'game.createdAt'
-    | 'game.updatedAt';
+  column: 'id' | 'player1' | 'player2' | 'createdAt' | 'updatedAt';
   order: SortOrder;
 }
 
 export interface GamesFilter {
-  column: 'game.id' | 'game.player1' | 'game.player2' | 'status';
+  column: 'id' | 'player1' | 'player2' | 'status';
   value: any;
 }
 
@@ -26,6 +21,10 @@ export interface GamesSearchParams {
   filter?: GamesFilter[];
   skip?: number;
   take?: number;
+}
+
+export interface GamesDeleteParams {
+  filter?: GamesFilter[];
 }
 
 type GameOrderType = {
@@ -45,16 +44,18 @@ export class ApiAdminGamesService {
     return this.gamesRepository.findOne(id);
   }
 
-  findMany(searchParams: GamesSearchParams): Promise<Game[]> {
+  findMany(searchParams?: GamesSearchParams): Promise<Game[]> {
     const findOptions: FindManyOptions<Game> = {};
-    if (searchParams.sort) {
-      findOptions.order = this.convertToFindOptionsOrder(searchParams.sort);
+    if (searchParams) {
+      if (searchParams.sort) {
+        findOptions.order = this.convertToFindOptionsOrder(searchParams.sort);
+      }
+      if (searchParams.filter) {
+        findOptions.where = this.convertToFindOptionsWhere(searchParams.filter);
+      }
+      if (searchParams.skip) findOptions.skip = searchParams.skip;
+      if (searchParams.take) findOptions.take = searchParams.take;
     }
-    if (searchParams.filter) {
-      findOptions.where = this.convertToFindOptionsWhere(searchParams.filter);
-    }
-    findOptions.skip = searchParams.skip;
-    findOptions.take = searchParams.take;
     return this.gamesRepository.find(findOptions);
   }
 
@@ -62,10 +63,10 @@ export class ApiAdminGamesService {
     return this.gamesRepository.delete(id);
   }
 
-  deleteMany(searchParams: GamesSearchParams) {
+  deleteMany(deleteParams?: GamesDeleteParams) {
     let where: GameWhereType = {};
-    if (searchParams.filter) {
-      where = this.convertToFindOptionsWhere(searchParams.filter);
+    if (deleteParams && deleteParams.filter) {
+      where = this.convertToFindOptionsWhere(deleteParams.filter);
     }
     return this.gamesRepository.delete(where);
   }
@@ -74,19 +75,19 @@ export class ApiAdminGamesService {
     const order: GameOrderType = {};
     sort.forEach((s) => {
       switch (s.column) {
-        case 'game.createdAt':
+        case 'createdAt':
           order.createdAt = s.order;
           break;
-        case 'game.updatedAt':
+        case 'updatedAt':
           order.updatedAt = s.order;
           break;
-        case 'game.id':
+        case 'id':
           order.id = s.order;
           break;
-        case 'game.player1':
+        case 'player1':
           order.player1 = s.order;
           break;
-        case 'game.player2':
+        case 'player2':
           order.player2 = s.order;
           break;
       }
@@ -98,13 +99,13 @@ export class ApiAdminGamesService {
     const where: GameWhereType = {};
     filter.forEach((f) => {
       switch (f.column) {
-        case 'game.id':
+        case 'id':
           where.id = f.value;
           break;
-        case 'game.player1':
+        case 'player1':
           where.player1 = f.value;
           break;
-        case 'game.player2':
+        case 'player2':
           where.player2 = f.value;
           break;
         case 'status':
