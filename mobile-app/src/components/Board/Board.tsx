@@ -24,72 +24,78 @@ export default function Board({
   getWinMsgElt,
 }: BoardProps) {
   const svgSize = getApproximateSvgSize(gameState.board.length);
-  return gameState.winner ? (
+  return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <View style={{ height: '100px' }}>{getWinMsgElt(gameState)}</View>
-      <Svg width={svgSize} height={svgSize}>
-        {generateBoardCells(gameState).map(
-          ({ withoutBorderCoordinates, svgPointsToDraw, type }, index) =>
-            type === 'playable' ? (
-              <PlayableCell
-                key={index}
-                svgPoints={svgPointsToDraw}
-                strokeColor={CELL_STROKE_COLOR}
-                cellValue={
-                  gameState.board[withoutBorderCoordinates.y][
-                    withoutBorderCoordinates.x
-                  ]
-                }
-                onCellPress={() => {}}
-                isWinningCell={
-                  gameState.winningPath &&
-                  gameState.winningPath.some(
-                    (cell) =>
-                      cell.x == withoutBorderCoordinates.x &&
-                      cell.y == withoutBorderCoordinates.y,
-                  )
-                }
-              />
-            ) : (
-              <BorderCell
-                key={index}
-                svgPoints={svgPointsToDraw}
-                strokeColor={CELL_STROKE_COLOR}
-                playerBorder={type}
-              />
-            ),
-        )}
-      </Svg>
-    </View>
-  ) : (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <View style={{ height: '100px' }}>{getPlayersTurnElt(gameState)}</View>
-      <Svg width={svgSize} height={svgSize}>
-        {generateBoardCells(gameState).map(
-          ({ withoutBorderCoordinates, svgPointsToDraw, type }, index) =>
-            type === 'playable' ? (
-              <PlayableCell
-                key={index}
-                svgPoints={svgPointsToDraw}
-                strokeColor={CELL_STROKE_COLOR}
-                cellValue={
-                  gameState.board[withoutBorderCoordinates.y][
-                    withoutBorderCoordinates.x
-                  ]
-                }
-                onCellPress={() => onCellPress(withoutBorderCoordinates)}
-                isWinningCell={false}
-              />
-            ) : (
-              <BorderCell
-                key={index}
-                svgPoints={svgPointsToDraw}
-                strokeColor={CELL_STROKE_COLOR}
-                playerBorder={type}
-              />
-            ),
-        )}
-      </Svg>
+      {gameState.winner ? (
+        <>
+          <View style={{ height: '100px' }}>{getWinMsgElt(gameState)}</View>
+          <Svg width={svgSize} height={svgSize}>
+            {generateBoardCells(gameState).map(
+              ({ withoutBorderCoordinates, svgPointsToDraw, type }, index) =>
+                type === 'playable' ? (
+                  <PlayableCell
+                    key={index}
+                    svgPoints={svgPointsToDraw}
+                    strokeColor={CELL_STROKE_COLOR}
+                    cellValue={
+                      gameState.board[withoutBorderCoordinates.y][
+                        withoutBorderCoordinates.x
+                      ]
+                    }
+                    onCellPress={() => {}}
+                    isWinningCell={
+                      gameState.winningPath &&
+                      gameState.winningPath.some(
+                        (cell) =>
+                          cell.x == withoutBorderCoordinates.x &&
+                          cell.y == withoutBorderCoordinates.y,
+                      )
+                    }
+                  />
+                ) : (
+                  <BorderCell
+                    key={index}
+                    svgPoints={svgPointsToDraw}
+                    strokeColor={CELL_STROKE_COLOR}
+                    playerBorder={type}
+                  />
+                ),
+            )}
+          </Svg>
+        </>
+      ) : (
+        <>
+          <View style={{ height: '100px' }}>
+            {getPlayersTurnElt(gameState)}
+          </View>
+          <Svg width={svgSize} height={svgSize}>
+            {generateBoardCells(gameState).map(
+              ({ withoutBorderCoordinates, svgPointsToDraw, type }, index) =>
+                type === 'playable' ? (
+                  <PlayableCell
+                    key={index}
+                    svgPoints={svgPointsToDraw}
+                    strokeColor={CELL_STROKE_COLOR}
+                    cellValue={
+                      gameState.board[withoutBorderCoordinates.y][
+                        withoutBorderCoordinates.x
+                      ]
+                    }
+                    onCellPress={() => onCellPress(withoutBorderCoordinates)}
+                    isWinningCell={false}
+                  />
+                ) : (
+                  <BorderCell
+                    key={index}
+                    svgPoints={svgPointsToDraw}
+                    strokeColor={CELL_STROKE_COLOR}
+                    playerBorder={type}
+                  />
+                ),
+            )}
+          </Svg>
+        </>
+      )}
     </View>
   );
 }
