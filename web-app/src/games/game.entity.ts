@@ -4,6 +4,8 @@ import {
   PrimaryGeneratedColumn,
   JoinColumn,
   ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { GameState } from '../common/gameState';
 import { User } from '../users/user.entity';
@@ -23,4 +25,10 @@ export class Game {
 
   @Column('simple-json')
   state: GameState;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
