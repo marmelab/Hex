@@ -17,6 +17,7 @@ export interface GameAndStatus {
   game: Game;
   readyToPlay: boolean;
   currentPlayerTurnToPlay: boolean;
+  status: 'INITIALIZED' | 'RUNNING' | 'ENDED';
 }
 
 const configPathFromDistDir = '../../gameStateFile.json';
@@ -96,6 +97,11 @@ export class GamesService {
       currentPlayerTurnToPlay:
         (game.state.turn === 'white' && playerName === game.player1.username) ||
         (game.state.turn === 'black' && playerName === game.player2.username),
+      status: game.state.winner
+        ? 'ENDED'
+        : !!(game.player1 && game.player2)
+        ? 'RUNNING'
+        : 'INITIALIZED',
     };
     return gameAndStatus;
   }
