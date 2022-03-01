@@ -22,9 +22,13 @@ jobs:
       - name: Build
         working-directory: ./admin-app
         run: yarn build
-      - name: Deploy on S3
-        uses: reggionick/s3-deploy@v3
+      - name: Deploy to S3
+        uses: jakejarvis/s3-sync-action@master
         with:
-          folder: admin-app/dist
-          bucket: ${{ secrets.S3_BUCKET }}
-          bucket-region: us-east-1
+          args: --delete
+        env:
+          AWS_S3_BUCKET: hex-admin
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-1
+          SOURCE_DIR: "admin-app/dist"
