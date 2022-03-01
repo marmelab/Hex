@@ -1,7 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { GameState } from '../../../utils';
+import { Coordinates, GameState } from '../../../utils';
 import Board from './Board';
+import { Text } from 'react-native';
 
 describe('Board', () => {
   it('Does not throw any error', () => {
@@ -111,10 +112,25 @@ describe('Board', () => {
         ],
       ],
     };
+    const onCellPress = (coordinates: Coordinates) => {};
+    const getPlayersTurnElt = (gameState: GameState): JSX.Element => {
+      return <Text>Dummy Player's Turn Element</Text>;
+    };
+    const getWinMsgElt = (gameState: GameState): JSX.Element => {
+      return <Text>Dummy Win Message Element</Text>;
+    };
     expect(() =>
-      renderer.create(<Board gameState={gamestate} />),
+      renderer.create(
+        <Board
+          gameState={gamestate}
+          onCellPress={onCellPress}
+          getPlayersTurnElt={getPlayersTurnElt}
+          getWinMsgElt={getWinMsgElt}
+        />,
+      ),
     ).not.toThrowError();
   });
+
   it('Render a board with the correct nb of cells', () => {
     const gamestate: GameState = {
       turn: 'white',
@@ -141,8 +157,24 @@ describe('Board', () => {
         ],
       ],
     };
+    const onCellPress = (coordinates: Coordinates) => {};
+    const getPlayersTurnElt = (gameState: GameState): JSX.Element => {
+      return <Text>Dummy Player's Turn Element</Text>;
+    };
+    const getWinMsgElt = (gameState: GameState): JSX.Element => {
+      return <Text>Dummy Win Message Element</Text>;
+    };
 
-    const board = renderer.create(<Board gameState={gamestate} />).toJSON();
+    const board = renderer
+      .create(
+        <Board
+          gameState={gamestate}
+          onCellPress={onCellPress}
+          getPlayersTurnElt={getPlayersTurnElt}
+          getWinMsgElt={getWinMsgElt}
+        />,
+      )
+      .toJSON();
 
     expect(board.children[1].children[0].children.length).toBe(23);
   });
