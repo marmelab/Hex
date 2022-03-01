@@ -1,137 +1,173 @@
 /* Great source: https://css-tricks.com/hexagons-and-beyond-flexible-responsive-grid-patterns-sans-media-queries/ */
 
 .gameboard {
-    display: grid;
-    place-self: center;
-    justify-content: center;
+  display: grid;
+  place-self: center;
+  justify-content: center;
 }
 
 .box-header {
-    margin-top: 25px;
-    margin-bottom: 25px;
-    min-height: 50px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  min-height: 50px;
 }
 
 .box-header p {
-    margin: 5px 0;
+  margin: 5px 0;
 }
 
 .current-player {
-    text-transform: uppercase;
-    font-weight: bold;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 span[data-player='black'] {
-    color: black;
+  color: black;
 }
 
 span[data-player='white'] {
-    color: white;
+  color: white;
 }
 
 .hex-board-frame {
-    display: flex;
-    /* width of one hexagon  */
-    --hexwidth: 30px;
-    /* margin around hexagons */
-    --hexmargin: 3px;
-    /* condensed height equivalent to the height of 2 overlapping hexagons (used to move every second row) */
-    --hexcondheight: calc(1.732 * var(--hexwidth) + 4 * var(--hexmargin) - 1px);
-    /* additional height of one hexagon compared to its width (to have nice round hexagons)  */
-    --hexaddheight: calc(var(--hexwidth) * 0.2885);
-    /* last variable `--rows` holds the number of rows and is injected by the template */
+  display: flex;
+  /* width of one hexagon  */
+  --hexWidth: 30px;
+  /* margin around hexagons */
+  --hexMargin: 3px;
+  /* distance between parallel side of an hexagon of size 1 = sqrt(3)*/
+  --hexDistParallelSides: 1.732;
+  /* condensed height equivalent to the height of 2 overlapping hexagons (used to move every second row) */
+  --hexCondHeight: calc(
+    var(--hexDistParallelSides) * var(--hexWidth) + 4 * var(--hexMargin) - 1px
+  );
+  /* additional height of one hexagon compared to its width (to have nice round hexagons)  */
+  --hexAddHeight: calc(var(--hexWidth) * 0.2885);
+  /* The winning character displayed on cells that are on the winning path */
+  --winningCharacter: '*';
+  /* The font size of the winning character*/
+  --winningCharacterSize: 10px;
+  /* last variable `--rows` holds the number of rows and is injected by the template */
 }
 
 .hex-board-container {
-    /*disable white space between inline block element */
-    font-size: 0;
-    width: calc((var(--rows) * 1.5) * (var(--hexwidth) + 2 * var(--hexmargin)));
-    padding-bottom: calc(var(--hexaddheight) * 2);
-    padding-top: calc(var(--hexaddheight) * 2);
+  /*disable white space between inline block element */
+  font-size: 0;
+  width: calc((var(--rows) * 1.5) * (var(--hexWidth) + 2 * var(--hexMargin)));
+  padding-bottom: calc(var(--hexAddHeight) * 2);
+  padding-top: calc(var(--hexAddHeight) * 2);
 }
 
 .hex-board-container div {
-    width: var(--hexwidth);
-    margin: var(--hexmargin);
-    height: calc(var(--hexwidth) * 1.1547);
-    display: inline-block;
-    clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
-    margin-bottom: calc(var(--hexmargin) - var(--hexaddheight));
+  width: var(--hexWidth);
+  margin: var(--hexMargin);
+  height: calc(var(--hexWidth) * 1.1547);
+  display: inline-block;
+  clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
+  margin-bottom: calc(var(--hexMargin) - var(--hexAddHeight));
 }
 
 .hex-board-container form {
-    display: inline-block;
+  display: inline-block;
 }
 
 .hex-board-container::before,
 .hex-board-container i {
-    content: '';
-    width: calc((var(--hexwidth) + 2 * var(--hexmargin)) * ((var(--rows)) / 2));
-    float: left;
-    height: calc((var(--hexcondheight) * (var(--rows)) / 2) + var(--hexaddheight));
-    shape-outside: linear-gradient(to top right, #000 50%, #0000 0);
+  content: '';
+  width: calc((var(--hexWidth) + 2 * var(--hexMargin)) * ((var(--rows)) / 2));
+  float: left;
+  height: calc(
+    (var(--hexCondHeight) * (var(--rows)) / 2) + var(--hexAddHeight)
+  );
+  shape-outside: linear-gradient(to top right, #000 50%, #0000 0);
 }
 
 .hex-board-container i {
-    float: right;
-    shape-outside: linear-gradient(to bottom left,
-            #000 calc(50% - 1 * var(--hexwidth)),
-            #0000 0);
+  float: right;
+  shape-outside: linear-gradient(
+    to bottom left,
+    #000 calc(50% - 1 * var(--hexWidth)),
+    #0000 0
+  );
 }
 
 .top-edge,
 .bottom-edge,
 .left-edge,
 .right-edge {
-    position: absolute;
-    width: calc((var(--hexwidth) + 2 * var(--hexmargin)) * (var(--rows)));
-    height: calc(var(--hexaddheight) * 2);
-    clip-path: polygon(2% 0%, 98% 0%, 100% 50%, 98% 100%, 2% 100%, 0% 50%);
+  position: absolute;
+  width: calc((var(--hexWidth) + 2 * var(--hexMargin)) * (var(--rows)));
+  height: calc(var(--hexAddHeight) * 2);
+  clip-path: polygon(2% 0%, 98% 0%, 100% 50%, 98% 100%, 2% 100%, 0% 50%);
 }
 
 .top-edge {
-    background: white;
-    transform: translate(calc(var(--hexwidth) / 2),
-            calc(0px - 2 * var(--hexmargin)));
+  background: white;
+  transform: translate(
+    calc(var(--hexWidth) / 2),
+    calc(0px - 2 * var(--hexMargin))
+  );
 }
 
 .bottom-edge {
-    background: white;
-    transform: translate(calc((var(--hexwidth) + 2 * var(--hexmargin)) * ((var(--rows) - 1) / 2) + var(--hexwidth) / 1.5),
-            calc(var(--hexcondheight) * var(--rows) / 2 + var(--hexwidth) / 1.5 + var(--hexaddheight) * 2));
+  background: white;
+  transform: translate(
+    calc(
+      (var(--hexWidth) + 2 * var(--hexMargin)) * ((var(--rows) - 1) / 2) +
+        var(--hexWidth) / 1.5
+    ),
+    calc(
+      var(--hexCondHeight) * var(--rows) / 2 + var(--hexWidth) / 1.5 +
+        var(--hexAddHeight) * 2
+    )
+  );
 }
 
 .left-edge {
-    background: black;
-    transform-origin: left;
-    transform: rotate(60deg) translate(calc(0px - 2 * var(--hexmargin) + var(--hexwidth) / 2),
-            calc(var(--hexaddheight) * 2.5));
+  background: black;
+  transform-origin: left;
+  transform: rotate(60deg)
+    translate(
+      calc(0px - 2 * var(--hexMargin) + var(--hexWidth) / 2),
+      calc(var(--hexAddHeight) * 2.5)
+    );
 }
 
 .right-edge {
-    background: black;
-    transform-origin: right;
-    transform: rotate(240deg) translate(calc(0px - 2 * var(--hexmargin) - var(--hexwidth) / 1.5),
-            calc(0px - var(--hexaddheight) * 2 + var(--hexwidth) / 0.9));
+  background: black;
+  transform-origin: right;
+  transform: rotate(240deg)
+    translate(
+      calc(0px - 2 * var(--hexMargin) - var(--hexWidth) / 1.5),
+      calc(0px - var(--hexAddHeight) * 2 + var(--hexWidth) / 0.9)
+    );
+}
+
+.cell {
+  position: relative;
 }
 
 .cell[data-color='empty'] {
-    background: #eea;
-    cursor: pointer;
+  background: #eea;
+  cursor: pointer;
 }
 
 .cell[data-color='black'] {
-    background: black;
+  background: black;
 }
 
 .cell[data-color='white'] {
-    background: white;
+  background: white;
 }
 
 .cell[data-color='empty']:hover {
-    background: red;
+  background: red;
 }
 
-.cell[data-winningCell='true'] {
-    background-color: green !important;
+.cell[data-winningCell='true']:after {
+  content: var(--winningCharacter);
+  font-size: var(--winningCharacterSize);
+  position: absolute;
+  top: calc(var(--hexWidth) * 1.1 / 2 - var(--winningCharacterSize) / 4);
+  left: calc(var(--hexWidth) / 2 - var(--winningCharacterSize) / 4);
 }
