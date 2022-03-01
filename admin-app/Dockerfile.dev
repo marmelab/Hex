@@ -1,0 +1,6 @@
+FROM node:12-alpine
+
+RUN mkdir -p /usr/admin-app
+WORKDIR /usr/admin-app
+
+CMD yarn && yarn dev
