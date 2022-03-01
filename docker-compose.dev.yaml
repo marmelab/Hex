@@ -1,6 +1,5 @@
 version: "3"
 services:
-
   nestjs:
     build:
       dockerfile: ./Dockerfile.dev
@@ -32,3 +31,13 @@ services:
       - 19002:19002
     volumes:
       - ./mobile-app/:/usr/mobile-app/
+
+  react-admin:
+    container_name: react-admin
+    build:
+      context: ./admin-app/
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - 5000:5000
+    volumes:
+      - ./admin-app/:/usr/admin-app/
