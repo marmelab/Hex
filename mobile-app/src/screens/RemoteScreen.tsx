@@ -34,23 +34,16 @@ export function RemoteScreen({ navigation, route }: RemoteScreenProps) {
       : () => {};
   };
 
-  const getPlayersTurnText = (
-    turn: StoneColor,
-    currentPlayerTurnToPlay: boolean,
-  ): String => {
-    if (currentPlayerTurnToPlay) {
-      return `${mapStoneColorToPlayerName(turn)}, it's your turn !`;
-    } else {
-      return `Wait for opponent's move...`;
-    }
-  };
-
   const getPlayersTurnElt = (state: GameState): JSX.Element => {
-    return (
-      <Text style={{ fontSize: 32 }}>
-        {getPlayersTurnText(state.turn, gameState.currentPlayerTurnToPlay)}
-      </Text>
-    );
+    if (gameState.currentPlayerTurnToPlay) {
+      return (
+        <Text style={{ fontSize: 32 }}>
+          {mapStoneColorToPlayerName(state.turn)}, it's your turn !
+        </Text>
+      );
+    } else {
+      return <Text style={{ fontSize: 24 }}>Wait for opponent's move...</Text>;
+    }
   };
 
   const getWinMsgElt = (state: GameState): JSX.Element => {

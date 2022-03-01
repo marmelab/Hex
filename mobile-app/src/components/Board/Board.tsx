@@ -26,7 +26,7 @@ export default function Board({
   const svgSize = getApproximateSvgSize(gameState.board.length);
   return gameState.winner ? (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      {getWinMsgElt(gameState)}
+      <View style={{ height: '100px' }}>{getWinMsgElt(gameState)}</View>
       <Svg width={svgSize} height={svgSize}>
         {generateBoardCells(gameState).map(
           ({ withoutBorderCoordinates, svgPointsToDraw, type }, index) =>
@@ -63,7 +63,7 @@ export default function Board({
     </View>
   ) : (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      {getPlayersTurnElt(gameState)}
+      <View style={{ height: '100px' }}>{getPlayersTurnElt(gameState)}</View>
       <Svg width={svgSize} height={svgSize}>
         {generateBoardCells(gameState).map(
           ({ withoutBorderCoordinates, svgPointsToDraw, type }, index) =>
