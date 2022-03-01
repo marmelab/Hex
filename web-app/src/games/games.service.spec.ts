@@ -188,8 +188,7 @@ describe('GameService', () => {
   ⬡ ⬡ ⬡
        `),
       );
-      const player1 = createUser(1, 'player1');
-      game.player1 = player1;
+      game.player1 = createUser(1, 'player1');
       const playerName = 'white';
 
       // WHEN
@@ -208,10 +207,8 @@ describe('GameService', () => {
   ⬡ ⬡ ⬡
        `),
       );
-      const player1 = createUser(1, 'player1');
-      const player2 = createUser(2, 'player2');
-      game.player1 = player1;
-      game.player2 = player2;
+      game.player1 = createUser(1, 'player1');
+      game.player2 = createUser(2, 'player2');
       const playerName = 'white';
 
       // WHEN
@@ -230,10 +227,8 @@ describe('GameService', () => {
   ⬡ ⬡ ⬡
        `),
       );
-      const player1 = createUser(1, 'player1');
-      const player2 = createUser(2, 'player2');
-      game.player1 = player1;
-      game.player2 = player2;
+      game.player1 = createUser(1, 'player1');
+      game.player2 = createUser(2, 'player2');
       game.state.winner = 'black';
       const playerName = 'white';
 

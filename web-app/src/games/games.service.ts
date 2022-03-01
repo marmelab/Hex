@@ -91,15 +91,16 @@ export class GamesService {
   }
 
   getGameAndStatus(game: Game, playerName: string): GameAndStatus {
+    const haveTwoPlayersJoinedIn = !!(game.player1 && game.player2);
     const gameAndStatus: GameAndStatus = {
       game: game,
-      readyToPlay: !!(game.player1 && game.player2),
+      readyToPlay: haveTwoPlayersJoinedIn,
       currentPlayerTurnToPlay:
         (game.state.turn === 'white' && playerName === game.player1.username) ||
         (game.state.turn === 'black' && playerName === game.player2.username),
       status: game.state.winner
         ? 'ENDED'
-        : !!(game.player1 && game.player2)
+        : haveTwoPlayersJoinedIn
         ? 'RUNNING'
         : 'INITIALIZED',
     };
