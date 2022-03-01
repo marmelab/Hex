@@ -25,6 +25,6 @@ jobs:
       - name: Deploy on S3
         uses: reggionick/s3-deploy@v3
         with:
-          folder: dir
+          folder: admin-app/dist
           bucket: ${{ secrets.S3_BUCKET }}
           bucket-region: us-east-1
