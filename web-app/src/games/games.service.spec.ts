@@ -46,6 +46,7 @@ function createGameEntityFromGameState(gameState: GameState): Game {
     state: gameState,
     createdAt: null,
     updatedAt: null,
+    status: 'INITIALIZED',
   };
 }
 
@@ -178,7 +179,7 @@ describe('GameService', () => {
     );
   });
 
-  describe('getGameAndStatus', () => {
+  describe('computeStatusFromGame', () => {
     it('should return "INITIALIZED" if there is only one player', () => {
       const game = createGameEntityFromGameState(
         parseGameStateFromMultilineString(`
@@ -188,11 +189,10 @@ describe('GameService', () => {
        `),
       );
       game.player1 = createUser(1, 'player1');
-      const playerName = 'white';
 
-      const gameAndStatus = gameService.getGameAndStatus(game, playerName);
+      const status = gameService.computeStatusFromGame(game);
 
-      expect(gameAndStatus.status).toEqual('INITIALIZED');
+      expect(status).toEqual('INITIALIZED');
     });
 
     it('should return "RUNNING" if there are two players and the game is not won', () => {
@@ -205,11 +205,10 @@ describe('GameService', () => {
       );
       game.player1 = createUser(1, 'player1');
       game.player2 = createUser(2, 'player2');
-      const playerName = 'white';
 
-      const gameAndStatus = gameService.getGameAndStatus(game, playerName);
+      const status = gameService.computeStatusFromGame(game);
 
-      expect(gameAndStatus.status).toEqual('RUNNING');
+      expect(status).toEqual('RUNNING');
     });
 
     it('should return "ENDED" if the game is won', () => {
@@ -223,11 +222,10 @@ describe('GameService', () => {
       game.player1 = createUser(1, 'player1');
       game.player2 = createUser(2, 'player2');
       game.state.winner = 'black';
-      const playerName = 'white';
 
-      const gameAndStatus = gameService.getGameAndStatus(game, playerName);
+      const status = gameService.computeStatusFromGame(game);
 
-      expect(gameAndStatus.status).toEqual('ENDED');
+      expect(status).toEqual('ENDED');
     });
   });
 });

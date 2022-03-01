@@ -31,4 +31,7 @@ export class Game {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @Column()
+  status: 'INITIALIZED' | 'RUNNING' | 'ENDED';
 }

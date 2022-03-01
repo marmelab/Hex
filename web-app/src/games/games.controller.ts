@@ -9,7 +9,7 @@ import {
   Render,
   Req,
 } from '@nestjs/common';
-import { GamesService, GameAndStatus } from './games.service';
+import { GamesService, GameAndDisplayStatus } from './games.service';
 import { Request } from 'express';
 import { Game } from './game.entity';
 
@@ -47,9 +47,9 @@ export class GamesController {
   async getGame(
     @Param('id') id: number,
     @Req() req: Request,
-  ): Promise<GameAndStatus> {
+  ): Promise<GameAndDisplayStatus> {
     const game = await this.gameService.findGameById(id);
-    return this.gameService.getGameAndStatus(game, req.sessionID);
+    return this.gameService.getGameAndDisplayStatus(game, req.sessionID);
   }
 
   @Post(':id')
@@ -58,9 +58,9 @@ export class GamesController {
     @Param('id') id: number,
     @Body() gameParams: { x: number; y: number },
     @Req() req: Request,
-  ): Promise<GameAndStatus> {
+  ): Promise<GameAndDisplayStatus> {
     let game = await this.gameService.findGameById(id);
     game = await this.gameService.updateGameState(game, gameParams);
-    return this.gameService.getGameAndStatus(game, req.sessionID);
+    return this.gameService.getGameAndDisplayStatus(game, req.sessionID);
   }
 }

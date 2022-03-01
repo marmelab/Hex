@@ -11,7 +11,7 @@ import {
   Request,
 } from '@nestjs/common';
 import { Coordinates } from '../common/utils';
-import { GamesService, GameAndStatus } from './games.service';
+import { GamesService, GameAndDisplayStatus } from './games.service';
 import { Game } from './game.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { UserDataInjectedInRequestAfterAuth } from 'src/auth/auth.service';
@@ -36,10 +36,10 @@ export class ApiGamesController {
   async findOne(
     @Param('id') id: number,
     @Request() req: { user: UserDataInjectedInRequestAfterAuth },
-  ): Promise<GameAndStatus> {
+  ): Promise<GameAndDisplayStatus> {
     const game = await this.gamesService.findGameById(id);
     if (game === undefined) throw new NotFoundException();
-    return this.gamesService.getGameAndStatus(game, req.user.username);
+    return this.gamesService.getGameAndDisplayStatus(game, req.user.username);
   }
 
   @Put(':id')
@@ -47,11 +47,11 @@ export class ApiGamesController {
     @Param('id') id: number,
     @Body() params: { nextMove: Coordinates },
     @Request() req: { user: UserDataInjectedInRequestAfterAuth },
-  ): Promise<GameAndStatus> {
+  ): Promise<GameAndDisplayStatus> {
     let game = await this.gamesService.findGameById(id);
     if (game === undefined) throw new NotFoundException();
     game = await this.gamesService.updateGameState(game, params.nextMove);
-    return this.gamesService.getGameAndStatus(game, req.user.username);
+    return this.gamesService.getGameAndDisplayStatus(game, req.user.username);
   }
 
   @Get(':id/join')
