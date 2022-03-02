@@ -14,7 +14,10 @@ import {
   GamesDeleteParams,
   GamesSearchParams,
 } from './api.admin.games.service';
-import { GamesSearchParamsPipe } from './api.admin.games.pipes';
+import {
+  GamesDeleteParamsPipe,
+  GamesSearchParamsPipe,
+} from './api.admin.games.pipes';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('api/admin/games')
@@ -32,7 +35,7 @@ export class ApiAdminGamesController {
   async findMany(
     @Query('s', GamesSearchParamsPipe) searchParams?: GamesSearchParams,
   ): Promise<Game[]> {
-    return await this.gamesService.findMany(searchParams);
+    return this.gamesService.findMany(searchParams);
   }
 
   @Delete(':id')
@@ -41,7 +44,9 @@ export class ApiAdminGamesController {
   }
 
   @Delete('')
-  deleteMany(@Query('d') deleteParams?: GamesDeleteParams) {
+  deleteMany(
+    @Query('d', GamesDeleteParamsPipe) deleteParams?: GamesDeleteParams,
+  ) {
     this.gamesService.deleteMany(deleteParams);
   }
 }
