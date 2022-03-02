@@ -4,20 +4,10 @@ import {
   Param,
   UseGuards,
   NotFoundException,
-  Delete,
-  Query,
 } from '@nestjs/common';
 import { Game } from './game.entity';
 import { AuthGuard } from '@nestjs/passport';
-import {
-  ApiAdminGamesService,
-  GamesDeleteParams,
-  GamesSearchParams,
-} from './api.admin.games.service';
-import {
-  GamesDeleteParamsPipe,
-  GamesSearchParamsPipe,
-} from './api.admin.games.pipes';
+import { ApiAdminGamesService } from './api.admin.games.service';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('api/admin/games')
@@ -32,21 +22,7 @@ export class ApiAdminGamesController {
   }
 
   @Get('')
-  async findMany(
-    @Query('s', GamesSearchParamsPipe) searchParams?: GamesSearchParams,
-  ): Promise<Game[]> {
-    return this.gamesService.findMany(searchParams);
-  }
-
-  @Delete(':id')
-  deleteOne(@Param('id') id: number) {
-    this.gamesService.deleteOne(id);
-  }
-
-  @Delete('')
-  deleteMany(
-    @Query('d', GamesDeleteParamsPipe) deleteParams?: GamesDeleteParams,
-  ) {
-    this.gamesService.deleteMany(deleteParams);
+  async findMany(): Promise<Game[]> {
+    return this.gamesService.findMany();
   }
 }
