@@ -21,7 +21,11 @@ export class AuthController {
     @Body() params: LoginData,
     @Request() req: { user: UserDataInjectedInRequestAfterAuth },
   ) {
-    return this.authService.getToken(req.user.id, req.user.username);
+    return this.authService.getToken(
+      req.user.id,
+      req.user.username,
+      req.user.admin,
+    );
   }
 
   @UseGuards(AuthGuard('jwt'))
