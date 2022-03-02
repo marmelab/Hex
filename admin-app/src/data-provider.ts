@@ -14,34 +14,34 @@ export default {
   },
 
   getOne: (resource: any) => {
-    throw Error();
+    throw Error('This function is not yet implemented');
   },
 
   getMany: (resource: any) => {
-    throw Error();
+    throw Error('This function is not yet implemented');
   },
 
   getManyReference: (resource: any) => {
-    throw Error();
+    throw Error('This function is not yet implemented');
   },
 
   update: (resource: any) => {
-    throw Error();
+    throw Error('This function is not yet implemented');
   },
 
   updateMany: (resource: any) => {
-    throw Error();
+    throw Error('This function is not yet implemented');
   },
 
   create: (resource: any) => {
-    throw Error();
+    throw Error('This function is not yet implemented');
   },
 
   delete: (resource: any) => {
-    throw Error();
+    throw Error('This function is not yet implemented');
   },
 
   deleteMany: (resource: any) => {
-    throw Error();
+    throw Error('This function is not yet implemented');
   },
 };

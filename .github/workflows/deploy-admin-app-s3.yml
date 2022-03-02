@@ -24,7 +24,7 @@ jobs:
         run: yarn build
       - name: Create env file
         working-directory: ./admin-app
-        run: echo "$VITE_HEX_ADMIN_API_URL" > .env
+        run: echo "$ADMIN_ENV_VARS" > .env
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@master
         with:
