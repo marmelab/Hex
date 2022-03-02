@@ -19,12 +19,14 @@ jobs:
       - name: Install
         working-directory: ./admin-app
         run: yarn
+      - name: Create env file
+        working-directory: ./admin-app
+        env:
+          ADMIN_ENV_VARS: ${{ secrets.ADMIN_ENV_VARS }}
+        run: echo "$ADMIN_ENV_VARS" > .env
       - name: Build
         working-directory: ./admin-app
         run: yarn build
-      - name: Create env file
-        working-directory: ./admin-app
-        run: echo "$ADMIN_ENV_VARS" > .env
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@master
         with:
