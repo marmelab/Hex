@@ -4,6 +4,8 @@ import {
   Param,
   UseGuards,
   NotFoundException,
+  Query,
+  Delete,
 } from '@nestjs/common';
 import { Game } from './game.entity';
 import { AuthGuard } from '@nestjs/passport';

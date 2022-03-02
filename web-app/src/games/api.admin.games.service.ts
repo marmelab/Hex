@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindConditions, FindManyOptions, Repository } from 'typeorm';
+import { EntityFieldsNames } from 'typeorm/common/EntityFieldsNames';
 import { Game } from './game.entity';
 
 export type SortOrder = 'ASC' | 'DESC';
