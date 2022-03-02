@@ -11,7 +11,7 @@ export const GameList = (props: GameListProps) => (
       <DateField source="updatedAt" />
       <NumberField source="player1.id" />
       <NumberField source="player2.id" />
-      <NumberField source="status" />
+      <TextField source="status" />
     </Datagrid>
   </List>
 );
