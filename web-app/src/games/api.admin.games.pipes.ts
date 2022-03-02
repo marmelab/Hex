@@ -1,24 +1,10 @@
 import { PipeTransform, Injectable, ArgumentMetadata } from '@nestjs/common';
-import { GamesSearchParams } from './api.admin.games.service';
 
 @Injectable()
-export class GamesSearchParamsPipe
-  implements PipeTransform<any, GamesSearchParams>
-{
-  transform(value: any, _metadata: ArgumentMetadata): GamesSearchParams | null {
+export class JsonPipe<T> implements PipeTransform<any, T> {
+  transform(value: any, _metadata: ArgumentMetadata): T | null {
     if (value) {
-      return JSON.parse(value) as GamesSearchParams;
-    } else {
-      return null;
-    }
-  }
-}
-
-@Injectable()
-export class JsonNumberArrayPipe implements PipeTransform<any, number[]> {
-  transform(value: any, _metadata: ArgumentMetadata): number[] | null {
-    if (value) {
-      return JSON.parse(value) as number[];
+      return JSON.parse(value) as T;
     } else {
       return null;
     }
