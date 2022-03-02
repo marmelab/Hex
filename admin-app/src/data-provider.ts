@@ -1,6 +1,6 @@
 import { fetchUtils } from 'react-admin';
 
-const apiUrl = 'http://localhost:3000/api/admin';
+const apiUrl = import.meta.env.VITE_HEX_ADMIN_API_URL;
 const httpClient = fetchUtils.fetchJson;
 
 export default {
