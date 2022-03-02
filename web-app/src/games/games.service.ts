@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { parseGameStateFromFile } from '../common/parseConfigFile';
 import { join } from 'path';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, ReturningStatementNotSupportedError } from 'typeorm';
 import { Game } from './game.entity';
 import {
   GameState,
@@ -93,14 +93,17 @@ export class GamesService {
     }
   }
 
+  haveTwoPlayersJoinedIn(game: Game): boolean {
+    return !!(game.player1 && game.player2);
+  }
+
   getGameAndDisplayStatus(
     game: Game,
     playerName: string,
   ): GameAndDisplayStatus {
-    const haveTwoPlayersJoinedIn = !!(game.player1 && game.player2);
     const gameAndStatus: GameAndDisplayStatus = {
       game: game,
-      readyToPlay: haveTwoPlayersJoinedIn,
+      readyToPlay: this.haveTwoPlayersJoinedIn(game),
       currentPlayerTurnToPlay:
         (game.state.turn === 'white' && playerName === game.player1.username) ||
         (game.state.turn === 'black' && playerName === game.player2.username),
@@ -111,7 +114,7 @@ export class GamesService {
   computeStatusFromGame(game: Game): 'INITIALIZED' | 'RUNNING' | 'ENDED' {
     return game.state.winner
       ? 'ENDED'
-      : !!(game.player1 && game.player2)
+      : this.haveTwoPlayersJoinedIn(game)
       ? 'RUNNING'
       : 'INITIALIZED';
   }
