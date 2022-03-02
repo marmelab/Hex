@@ -23,8 +23,10 @@ export class UsersService {
   async login(username: string, password: string): Promise<User | undefined> {
     const user = await this.usersRepository.findOne({
       where: { username: username },
+      select: ['id', 'username', 'password'],
     });
-    return compare(password, user.password) ? user : undefined;
+    if (!user) return undefined;
+    return (await compare(password, user.password)) ? user : undefined;
   }
 
   async create(
