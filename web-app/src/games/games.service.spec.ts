@@ -44,6 +44,8 @@ function createGameEntityFromGameState(gameState: GameState): Game {
     player1: null,
     player2: null,
     state: gameState,
+    createdAt: null,
+    updatedAt: null,
   };
 }
 
@@ -51,6 +53,17 @@ function parseGameFromMultilineString(gameState: string): Game {
   return createGameEntityFromGameState(
     parseGameStateFromMultilineString(gameState),
   );
+}
+
+function createUser(userId: number, username: string): User {
+  return {
+    id: userId,
+    username,
+    password: '',
+    lastSessionId: '',
+    createdAt: undefined,
+    updatedAt: undefined,
+  };
 }
 
 describe('GameService', () => {
@@ -163,5 +176,58 @@ describe('GameService', () => {
           ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
 `).board,
     );
+  });
+
+  describe('getGameAndStatus', () => {
+    it('should return "INITIALIZED" if there is only one player', () => {
+      const game = createGameEntityFromGameState(
+        parseGameStateFromMultilineString(`
+⬢ ⬡ ⬢
+ ⬡ W ⬡
+  ⬡ ⬡ ⬡
+       `),
+      );
+      game.player1 = createUser(1, 'player1');
+      const playerName = 'white';
+
+      const gameAndStatus = gameService.getGameAndStatus(game, playerName);
+
+      expect(gameAndStatus.status).toEqual('INITIALIZED');
+    });
+
+    it('should return "RUNNING" if there are two players and the game is not won', () => {
+      const game = createGameEntityFromGameState(
+        parseGameStateFromMultilineString(`
+⬢ ⬡ ⬢
+ ⬡ W ⬡
+  ⬡ ⬡ ⬡
+       `),
+      );
+      game.player1 = createUser(1, 'player1');
+      game.player2 = createUser(2, 'player2');
+      const playerName = 'white';
+
+      const gameAndStatus = gameService.getGameAndStatus(game, playerName);
+
+      expect(gameAndStatus.status).toEqual('RUNNING');
+    });
+
+    it('should return "ENDED" if the game is won', () => {
+      const game = createGameEntityFromGameState(
+        parseGameStateFromMultilineString(`
+⬢ ⬡ ⬢
+ ⬡ W ⬡
+  ⬡ ⬡ ⬡
+       `),
+      );
+      game.player1 = createUser(1, 'player1');
+      game.player2 = createUser(2, 'player2');
+      game.state.winner = 'black';
+      const playerName = 'white';
+
+      const gameAndStatus = gameService.getGameAndStatus(game, playerName);
+
+      expect(gameAndStatus.status).toEqual('ENDED');
+    });
   });
 });
