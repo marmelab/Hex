@@ -180,7 +180,6 @@ describe('GameService', () => {
 
   describe('getGameAndStatus', () => {
     it('should return "INITIALIZED" if there is only one player', () => {
-      // GIVEN
       const game = createGameEntityFromGameState(
         parseGameStateFromMultilineString(`
 ⬢ ⬡ ⬢
@@ -191,15 +190,12 @@ describe('GameService', () => {
       game.player1 = createUser(1, 'player1');
       const playerName = 'white';
 
-      // WHEN
       const gameAndStatus = gameService.getGameAndStatus(game, playerName);
 
-      // THEN
       expect(gameAndStatus.status).toEqual('INITIALIZED');
     });
 
     it('should return "RUNNING" if there are two players and the game is not won', () => {
-      // GIVEN
       const game = createGameEntityFromGameState(
         parseGameStateFromMultilineString(`
 ⬢ ⬡ ⬢
@@ -211,15 +207,12 @@ describe('GameService', () => {
       game.player2 = createUser(2, 'player2');
       const playerName = 'white';
 
-      // WHEN
       const gameAndStatus = gameService.getGameAndStatus(game, playerName);
 
-      // THEN
       expect(gameAndStatus.status).toEqual('RUNNING');
     });
 
     it('should return "ENDED" if the game is won', () => {
-      // GIVEN
       const game = createGameEntityFromGameState(
         parseGameStateFromMultilineString(`
 ⬢ ⬡ ⬢
@@ -232,10 +225,8 @@ describe('GameService', () => {
       game.state.winner = 'black';
       const playerName = 'white';
 
-      // WHEN
       const gameAndStatus = gameService.getGameAndStatus(game, playerName);
 
-      // THEN
       expect(gameAndStatus.status).toEqual('ENDED');
     });
   });
