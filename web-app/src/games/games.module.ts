@@ -7,6 +7,8 @@ import { getConnectionOptions } from 'typeorm';
 import { User } from '../users/user.entity';
 import { ApiGamesController } from './api.games.controller';
 import { UsersModule } from 'src/users/users.module';
+import { ApiAdminGamesService } from './api.admin.games.service';
+import { ApiAdminGamesController } from './api.admin.games.controller';
 
 @Module({
   imports: [
@@ -19,7 +21,7 @@ import { UsersModule } from 'src/users/users.module';
     TypeOrmModule.forFeature([Game, User]),
     UsersModule,
   ],
-  controllers: [GamesController, ApiGamesController],
-  providers: [GamesService],
+  controllers: [GamesController, ApiGamesController, ApiAdminGamesController],
+  providers: [GamesService, ApiAdminGamesService],
 })
 export class GamesModule {}

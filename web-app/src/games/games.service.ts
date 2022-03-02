@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { parseGameStateFromFile } from '../common/parseConfigFile';
 import { join } from 'path';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, ReturningStatementNotSupportedError } from 'typeorm';
 import { Game } from './game.entity';
 import {
   GameState,
@@ -13,11 +13,10 @@ import {
 import { Coordinates, deepCloneObject } from '../common/utils';
 import { UsersService } from '../users/users.service';
 
-export interface GameAndStatus {
+export interface GameAndDisplayStatus {
   game: Game;
   readyToPlay: boolean;
   currentPlayerTurnToPlay: boolean;
-  status: 'INITIALIZED' | 'RUNNING' | 'ENDED';
 }
 
 const configPathFromDistDir = '../../gameStateFile.json';
@@ -40,6 +39,7 @@ export class GamesService {
   async updateGameState(game: Game, coordinates: Coordinates): Promise<Game> {
     const updatedGame: Game = deepCloneObject(game);
     updatedGame.state = updateGameState(game.state, coordinates);
+    updatedGame.status = this.computeStatusFromGame(updatedGame);
     return this.gamesRepository.save(updatedGame);
   }
 
@@ -61,6 +61,7 @@ export class GamesService {
     const game = this.gamesRepository.create({
       state: initNewGameState(size),
       player1,
+      status: 'INITIALIZED',
     });
     return this.gamesRepository.save(game);
   }
@@ -70,6 +71,7 @@ export class GamesService {
     const game = this.gamesRepository.create({
       state: this.getBoardStateFromFile(),
       player1,
+      status: 'INITIALIZED',
     });
     return this.gamesRepository.save(game);
   }
@@ -79,6 +81,7 @@ export class GamesService {
     if (!game.player2) {
       if (player2Username !== game.player1.username) {
         game.player2 = await this.usersService.getOrCreate(player2Username);
+        game.status = this.computeStatusFromGame(game);
         return this.gamesRepository.save(game);
       } else {
         throw Error(`Player2 cannot be the same user than player1`);
@@ -90,20 +93,29 @@ export class GamesService {
     }
   }
 
-  getGameAndStatus(game: Game, playerName: string): GameAndStatus {
-    const haveTwoPlayersJoinedIn = !!(game.player1 && game.player2);
-    const gameAndStatus: GameAndStatus = {
+  haveTwoPlayersJoinedIn(game: Game): boolean {
+    return !!(game.player1 && game.player2);
+  }
+
+  getGameAndDisplayStatus(
+    game: Game,
+    playerName: string,
+  ): GameAndDisplayStatus {
+    const gameAndStatus: GameAndDisplayStatus = {
       game: game,
-      readyToPlay: haveTwoPlayersJoinedIn,
+      readyToPlay: this.haveTwoPlayersJoinedIn(game),
       currentPlayerTurnToPlay:
         (game.state.turn === 'white' && playerName === game.player1.username) ||
         (game.state.turn === 'black' && playerName === game.player2.username),
-      status: game.state.winner
-        ? 'ENDED'
-        : haveTwoPlayersJoinedIn
-        ? 'RUNNING'
-        : 'INITIALIZED',
     };
     return gameAndStatus;
+  }
+
+  computeStatusFromGame(game: Game): 'INITIALIZED' | 'RUNNING' | 'ENDED' {
+    return game.state.winner
+      ? 'ENDED'
+      : this.haveTwoPlayersJoinedIn(game)
+      ? 'RUNNING'
+      : 'INITIALIZED';
   }
 }
