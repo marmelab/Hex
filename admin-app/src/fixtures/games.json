@@ -1,0 +1,145 @@
+[
+  {
+    "id": 1,
+    "state": {
+      "turn": "white",
+      "board": [
+        [
+          {
+            "value": "black"
+          },
+          {
+            "value": "empty"
+          },
+          {
+            "value": "black"
+          }
+        ],
+        [
+          {
+            "value": "empty"
+          },
+          {
+            "value": "white"
+          },
+          {
+            "value": "empty"
+          }
+        ],
+        [
+          {
+            "value": "empty"
+          },
+          {
+            "value": "empty"
+          },
+          {
+            "value": "empty"
+          }
+        ]
+      ],
+      "winner": null,
+      "winningPath": null
+    },
+    "createdAt": "2022-03-03T10:09:02.040Z",
+    "updatedAt": "2022-03-03T12:59:02.040Z",
+    "status": "INITIALIZED",
+    "player1": {
+      "id": 1,
+      "username": "norbert",
+      "createdAt": "2021-09-02T10:50:25.474Z",
+      "updatedAt": "2022-03-02T13:50:25.474Z"
+    },
+    "player2": null
+  },
+  {
+    "id": 2,
+    "state": {
+      "turn": "white",
+      "board": [
+        [
+          {
+            "value": "black"
+          },
+          {
+            "value": "empty"
+          },
+          {
+            "value": "black"
+          }
+        ],
+        [
+          {
+            "value": "empty"
+          },
+          {
+            "value": "white"
+          },
+          {
+            "value": "empty"
+          }
+        ],
+        [
+          {
+            "value": "empty"
+          },
+          {
+            "value": "empty"
+          },
+          {
+            "value": "empty"
+          }
+        ]
+      ],
+      "winner": null,
+      "winningPath": null
+    },
+    "createdAt": "2022-03-01T10:09:02.040Z",
+    "updatedAt": "2022-03-01T12:59:02.040Z",
+    "status": "RUNNING",
+    "player1": {
+      "id": 1,
+      "username": "norbert",
+      "createdAt": "2021-09-02T10:50:25.474Z",
+      "updatedAt": "2022-03-02T13:50:25.474Z"
+    },
+    "player2": {
+      "id": 2,
+      "username": "philippe",
+      "createdAt": "2022-01-01T17:50:25.474Z",
+      "updatedAt": "2022-03-02T14:50:25.474Z"
+    }
+  },
+  {
+    "id": 3,
+    "state": {
+      "board": [
+        [{ "value": "black" }, { "value": "white" }, { "value": "black" }],
+        [{ "value": "black" }, { "value": "white" }, { "value": "empty" }],
+        [{ "value": "empty" }, { "value": "white" }, { "value": "empty" }]
+      ],
+      "turn": "black",
+      "winner": "white",
+      "winningPath": [
+        { "x": 1, "y": 0 },
+        { "x": 1, "y": 1 },
+        { "x": 1, "y": 2 }
+      ]
+    },
+    "createdAt": "2022-03-03T12:59:02.040Z",
+    "updatedAt": "2022-03-03T13:02:20.499Z",
+    "status": "ENDED",
+    "player1": {
+      "id": 1,
+      "username": "norbert",
+      "createdAt": "2021-09-02T10:50:25.474Z",
+      "updatedAt": "2022-03-02T13:50:25.474Z"
+    },
+    "player2": {
+      "id": 2,
+      "username": "philippe",
+      "createdAt": "2022-01-01T17:50:25.474Z",
+      "updatedAt": "2022-03-02T14:50:25.474Z"
+    }
+  }
+]

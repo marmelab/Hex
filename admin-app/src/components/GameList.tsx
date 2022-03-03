@@ -1,10 +1,17 @@
 import * as React from 'react';
-import { List, Datagrid, TextField, DateField, NumberField } from 'react-admin';
+import {
+  List,
+  Datagrid,
+  TextField,
+  DateField,
+  NumberField,
+  SelectInput,
+} from 'react-admin';
 
 interface GameListProps {}
 
 export const GameList = (props: GameListProps) => (
-  <List {...props}>
+  <List filters={gameFilters}>
     <Datagrid rowClick="edit">
       <TextField source="id" />
       <DateField source="createdAt" />
@@ -15,3 +22,14 @@ export const GameList = (props: GameListProps) => (
     </Datagrid>
   </List>
 );
+
+const gameFilters = [
+  <SelectInput
+    source="status"
+    choices={[
+      { id: 'INITIALIZED', name: 'Initialized' },
+      { id: 'RUNNING', name: 'Running' },
+      { id: 'ENDED', name: 'Ended' },
+    ]}
+  />,
+];
