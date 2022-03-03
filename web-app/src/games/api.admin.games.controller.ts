@@ -1,22 +1,28 @@
 import {
   Controller,
-  Get,
-  Param,
-  NotFoundException,
-  Query,
   Delete,
+  Get,
+  NotFoundException,
+  Param,
+  Query,
+  UseGuards,
 } from '@nestjs/common';
-import { Game } from './game.entity';
+import { AuthGuard } from '@nestjs/passport';
+import { Roles } from 'src/auth/roles.decorator';
+import { RolesGuard } from 'src/auth/roles.guard';
+import { SimpleJsonParsePipe } from './api.admin.games.pipes';
 import {
   ApiAdminGamesService,
   GamesSearchParams,
 } from './api.admin.games.service';
-import { SimpleJsonParsePipe } from './api.admin.games.pipes';
+import { Game } from './game.entity';
 
+@UseGuards(AuthGuard('jwt'), RolesGuard)
 @Controller('api/admin/games')
 export class ApiAdminGamesController {
   constructor(private readonly gamesService: ApiAdminGamesService) {}
 
+  @Roles('admin')
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<Game> {
     const game = await this.gamesService.findOne(id);
@@ -24,6 +30,7 @@ export class ApiAdminGamesController {
     return game;
   }
 
+  @Roles('admin')
   @Get()
   async findMany(
     @Query('s', new SimpleJsonParsePipe<GamesSearchParams>())
@@ -32,11 +39,13 @@ export class ApiAdminGamesController {
     return this.gamesService.findMany(searchParams);
   }
 
+  @Roles('admin')
   @Delete(':id')
   deleteOne(@Param('id') id: number) {
     this.gamesService.deleteOne(id);
   }
 
+  @Roles('admin')
   @Delete()
   deleteMany(@Query('ids', new SimpleJsonParsePipe<number[]>()) ids: number[]) {
     this.gamesService.deleteMany(ids);

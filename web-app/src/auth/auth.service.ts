@@ -5,11 +5,13 @@ import { UsersService } from 'src/users/users.service';
 export interface UserDataInjectedInRequestAfterAuth {
   id: number;
   username: string;
+  admin: boolean;
 }
 
 export interface JWTPayload {
   username: string;
   sub: number;
+  admin: boolean;
 }
 
 @Injectable()
@@ -26,7 +28,7 @@ export class AuthService {
     const user = await this.usersService.login(username, pass);
     if (user) {
       const { password, lastSessionId, ...result } = user;
-      return result;
+      return { ...result, admin: user.username === 'admin' };
     }
     return null;
   }
@@ -34,8 +36,9 @@ export class AuthService {
   async getToken(
     userId: number,
     username: string,
+    admin?: boolean,
   ): Promise<{ access_token: string }> {
-    const payload: JWTPayload = { username: username, sub: userId };
+    const payload: JWTPayload = { username: username, sub: userId, admin };
     return {
       access_token: this.jwtService.sign(payload),
     };
