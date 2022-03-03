@@ -72,7 +72,7 @@ const dataProvider: DataProvider = {
     };
     return httpClient(`${adminApiUrl}/${resource}?${stringify(query)}`, {
       method: 'DELETE',
-    }).then(({ json }) => ({ data: json }));
+    }).then(() => ({ data: [] }));
   },
 };
 
