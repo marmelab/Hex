@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { parseGameStateFromFile } from '../common/parseConfigFile';
 import { join } from 'path';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, ReturningStatementNotSupportedError } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Game } from './game.entity';
 import {
   GameState,

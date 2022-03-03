@@ -2,11 +2,16 @@ import {
   Controller,
   Get,
   Param,
-  UseGuards,
   NotFoundException,
+  Query,
+  Delete,
 } from '@nestjs/common';
 import { Game } from './game.entity';
-import { ApiAdminGamesService } from './api.admin.games.service';
+import {
+  ApiAdminGamesService,
+  GamesSearchParams,
+} from './api.admin.games.service';
+import { SimpleJsonParsePipe } from './api.admin.games.pipes';
 
 @Controller('api/admin/games')
 export class ApiAdminGamesController {
@@ -19,8 +24,21 @@ export class ApiAdminGamesController {
     return game;
   }
 
-  @Get('')
-  async findMany(): Promise<Game[]> {
-    return this.gamesService.findMany();
+  @Get()
+  async findMany(
+    @Query('s', new SimpleJsonParsePipe<GamesSearchParams>())
+    searchParams?: GamesSearchParams,
+  ): Promise<{ data: Game[]; total: number }> {
+    return this.gamesService.findMany(searchParams);
+  }
+
+  @Delete(':id')
+  deleteOne(@Param('id') id: number) {
+    this.gamesService.deleteOne(id);
+  }
+
+  @Delete()
+  deleteMany(@Query('ids', new SimpleJsonParsePipe<number[]>()) ids: number[]) {
+    this.gamesService.deleteMany(ids);
   }
 }
