@@ -13,7 +13,7 @@ import {
   ApiAdminGamesService,
   GamesSearchParams,
 } from './api.admin.games.service';
-import { JsonPipe } from './api.admin.games.pipes';
+import { SimpleJsonParsePipe } from './api.admin.games.pipes';
 
 @Controller('api/admin/games')
 export class ApiAdminGamesController {
@@ -28,9 +28,9 @@ export class ApiAdminGamesController {
 
   @Get()
   async findMany(
-    @Query('s', new JsonPipe<GamesSearchParams>())
+    @Query('s', new SimpleJsonParsePipe<GamesSearchParams>())
     searchParams?: GamesSearchParams,
-  ): Promise<Game[]> {
+  ): Promise<{ data: Game[]; total: number }> {
     return this.gamesService.findMany(searchParams);
   }
 
@@ -40,7 +40,7 @@ export class ApiAdminGamesController {
   }
 
   @Delete()
-  deleteMany(@Query('ids', new JsonPipe<number[]>()) ids: number[]) {
+  deleteMany(@Query('ids', new SimpleJsonParsePipe<number[]>()) ids: number[]) {
     this.gamesService.deleteMany(ids);
   }
 }

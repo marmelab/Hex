@@ -40,7 +40,9 @@ export class ApiAdminGamesService {
     return this.gamesRepository.findOne(id);
   }
 
-  findMany(searchParams?: GamesSearchParams): Promise<Game[]> {
+  async findMany(
+    searchParams?: GamesSearchParams,
+  ): Promise<{ data: Game[]; total: number }> {
     const findOptions: FindManyOptions<Game> = {};
     if (searchParams) {
       if (searchParams.sort) {
@@ -52,7 +54,13 @@ export class ApiAdminGamesService {
       if (searchParams.skip) findOptions.skip = searchParams.skip;
       if (searchParams.take) findOptions.take = searchParams.take;
     }
-    return this.gamesRepository.find(findOptions);
+    const [result, total] = await this.gamesRepository.findAndCount(
+      findOptions,
+    );
+    return {
+      data: result,
+      total,
+    };
   }
 
   deleteOne(id: number) {
@@ -60,51 +68,51 @@ export class ApiAdminGamesService {
   }
 
   deleteMany(ids: number[]) {
-    if (!ids) {
+    if (!ids || !ids.length) {
       throw Error('A list of ids must be provided to delete games');
     }
     return this.gamesRepository.delete(ids);
   }
 
-  convertToFindOptionsOrder(sort: GamesSortColumn[]): GameOrderType {
+  convertToFindOptionsOrder(sorts: GamesSortColumn[]): GameOrderType {
     const order: GameOrderType = {};
-    sort.forEach((s) => {
-      switch (s.column) {
+    sorts.forEach((sort) => {
+      switch (sort.column) {
         case 'createdAt':
-          order.createdAt = s.order;
+          order.createdAt = sort.order;
           break;
         case 'updatedAt':
-          order.updatedAt = s.order;
+          order.updatedAt = sort.order;
           break;
         case 'id':
-          order.id = s.order;
+          order.id = sort.order;
           break;
         case 'player1':
-          order.player1 = s.order;
+          order.player1 = sort.order;
           break;
         case 'player2':
-          order.player2 = s.order;
+          order.player2 = sort.order;
           break;
       }
     });
     return order;
   }
 
-  convertToFindOptionsWhere(filter: GamesFilter[]): GameWhereType {
+  convertToFindOptionsWhere(filters: GamesFilter[]): GameWhereType {
     const where: GameWhereType = {};
-    filter.forEach((f) => {
-      switch (f.column) {
+    filters.forEach((filter) => {
+      switch (filter.column) {
         case 'id':
-          where.id = f.value;
+          where.id = filter.value;
           break;
         case 'player1':
-          where.player1 = f.value;
+          where.player1 = filter.value;
           break;
         case 'player2':
-          where.player2 = f.value;
+          where.player2 = filter.value;
           break;
         case 'status':
-          where.status = f.value;
+          where.status = filter.value;
           break;
       }
     });
