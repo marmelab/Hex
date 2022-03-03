@@ -1,6 +1,6 @@
 import { fetchUtils, Options } from 'react-admin';
 
-const apiUrl = `${import.meta.env.VITE_HEX_ADMIN_API_URL}/admin`;
+const adminApiUrl = `${import.meta.env.VITE_HEX_ADMIN_API_URL}/admin`;
 
 const httpClient = (url: string, options: Options = {}) => {
   if (!options.headers) {
@@ -15,10 +15,10 @@ const httpClient = (url: string, options: Options = {}) => {
 
 export default {
   getList: (resource: string) => {
-    const url = `${apiUrl}/${resource}/`;
+    const url = `${adminApiUrl}/${resource}/`;
     return httpClient(url).then(({ json }) => ({
-      data: json,
-      total: json.length,
+      data: json.data,
+      total: json.total,
     }));
   },
 

@@ -4,7 +4,10 @@ const apiUrl = import.meta.env.VITE_HEX_ADMIN_API_URL;
 const httpClient = fetchUtils.fetchJson;
 
 const authProvider: AuthProvider = {
-  login: function (params: any): Promise<any> {
+  login: async function (params: {
+    username: string;
+    password: string;
+  }): Promise<void> {
     const reqParams = {
       method: 'POST',
       body: JSON.stringify({
@@ -12,25 +15,28 @@ const authProvider: AuthProvider = {
         password: params.password,
       }),
     };
-    return httpClient(`${apiUrl}/auth/login`, reqParams).then(({ json }) => {
-      localStorage.setItem('jwt', json.access_token);
-    });
+    const { json } = await httpClient(`${apiUrl}/auth/login`, reqParams);
+    localStorage.setItem('jwt', json.access_token);
   },
-  logout: function (params: any): Promise<string | false | void> {
+
+  logout: function (): Promise<void> {
     localStorage.removeItem('jwt');
     return Promise.resolve();
   },
-  checkAuth: function (params: any): Promise<void> {
+
+  checkAuth: function (): Promise<void> {
     return localStorage.getItem('jwt') ? Promise.resolve() : Promise.reject();
   },
-  checkError: function (error: any): Promise<void> {
+
+  checkError: function (error: { status: number }): Promise<void> {
     if (error.status === 401 || error.status === 403) {
       localStorage.removeItem('jwt');
       return Promise.reject();
     }
     return Promise.resolve();
   },
-  getPermissions: function (params: any): Promise<any> {
+
+  getPermissions: function (): Promise<any> {
     return Promise.resolve();
   },
 };
