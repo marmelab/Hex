@@ -18,8 +18,18 @@ const httpClient = (url: string, options: Options = {}) => {
 };
 
 export default {
-  getList: (resource: string) => {
-    const url = `${adminApiUrl}/${resource}/`;
+  getList: (resource: string, params: any) => {
+    const { filter } = params.filter;
+    const query = {
+      s: {
+        filter: Object.keys(filter).map((key) => ({
+          column: key,
+          value: filter[key],
+        })),
+      },
+    };
+    const url = `${adminApiUrl}/${resource}?${JSON.stringify(query)}`;
+
     return httpClient(url).then(({ json }) => ({
       data: json.data,
       total: json.total,
@@ -58,7 +68,7 @@ export default {
     const query = {
       ids: JSON.stringify(params.ids),
     };
-    return httpClient(`${apiUrl}/${resource}?${stringify(query)}`, {
+    return httpClient(`${adminApiUrl}/${resource}?${stringify(query)}`, {
       method: 'DELETE',
     }).then(({ json }) => ({ data: json }));
   },
