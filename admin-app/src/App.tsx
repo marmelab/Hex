@@ -7,6 +7,8 @@ import dataProvider from './data-provider';
 import fakeDataProvider from 'ra-data-fakerest';
 import games from './fixtures/games.json';
 import users from './fixtures/users.json';
+import GameIcon from '@material-ui/icons/Gamepad';
+import UserIcon from '@material-ui/icons/Group';
 
 const myFakeDataProvider = fakeDataProvider({
   games,
@@ -15,8 +17,8 @@ const myFakeDataProvider = fakeDataProvider({
 
 const App = () => (
   <Admin dataProvider={myFakeDataProvider} authProvider={authProvider}>
-    <Resource name="games" list={GameList} />
-    <Resource name="users" list={UserList} />
+    <Resource name="games" list={GameList} icon={GameIcon} />
+    <Resource name="users" list={UserList} icon={UserIcon} />
   </Admin>
 );
 

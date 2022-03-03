@@ -10,6 +10,8 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
     "prop-types": "^15.8.1",
     "ra-data-fakerest": "^3.19.10",
     "ra-data-json-server": "^4.0.0-beta.1.0",
