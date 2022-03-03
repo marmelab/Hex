@@ -8,7 +8,10 @@ const httpClient = (url: string, options: Options = {}) => {
   }
   const jwt = localStorage.getItem('jwt');
   if (jwt) {
-    options.headers.set('Authorization', `Bearer ${jwt}`);
+    options.headers = new Headers({
+      ...options.headers,
+      Authorization: `Bearer ${jwt}`,
+    });
   }
   return fetchUtils.fetchJson(url, options);
 };
