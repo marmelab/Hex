@@ -1,4 +1,5 @@
 import { fetchUtils, Options } from 'react-admin';
+import { stringify } from 'query-string';
 
 const adminApiUrl = `${import.meta.env.VITE_HEX_ADMIN_API_URL}/admin`;
 
@@ -53,7 +54,12 @@ export default {
     throw Error('This function is not yet implemented');
   },
 
-  deleteMany: (resource: any) => {
-    throw Error('This function is not yet implemented');
+  deleteMany: (resource: string, params: { ids: number[] }) => {
+    const query = {
+      ids: JSON.stringify(params.ids),
+    };
+    return httpClient(`${apiUrl}/${resource}?${stringify(query)}`, {
+      method: 'DELETE',
+    }).then(({ json }) => ({ data: json }));
   },
 };
