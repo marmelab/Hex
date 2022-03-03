@@ -4,7 +4,7 @@ import { List, Datagrid, TextField, DateField, NumberField } from 'react-admin';
 interface GameListProps {}
 
 export const GameList = (props: GameListProps) => (
-  <List {...props}>
+  <List>
     <Datagrid rowClick="edit">
       <TextField source="id" />
       <DateField source="createdAt" />
