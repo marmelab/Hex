@@ -1135,6 +1135,14 @@ babel-preset-jest@^27.5.1:
     babel-plugin-jest-hoist "^27.5.1"
     babel-preset-current-node-syntax "^1.0.0"
 
+babel-runtime@^6.26.0:
+  version "6.26.0"
+  resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
+  integrity sha1-llxwWGaOgrVde/4E/yM3vItWR/4=
+  dependencies:
+    core-js "^2.4.0"
+    regenerator-runtime "^0.11.0"
+
 balanced-match@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
@@ -1335,6 +1343,11 @@ convert-source-map@^1.4.0, convert-source-map@^1.5.0, convert-source-map@^1.6.0,
   integrity sha512-+OQdjP49zViI/6i7nIJpA8rAl4sV/JdPfU9nZs3VqOwGIgizICvuN2ru6fMd+4llL0tar18UYJXfZ/TWtmhUjA==
   dependencies:
     safe-buffer "~5.1.1"
+
+core-js@^2.4.0:
+  version "2.6.12"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
+  integrity sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==
 
 cosmiconfig@^6.0.0:
   version "6.0.0"
@@ -1750,6 +1763,14 @@ expect@^27.5.1:
     jest-get-type "^27.5.1"
     jest-matcher-utils "^27.5.1"
     jest-message-util "^27.5.1"
+
+fakerest@^3.0.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/fakerest/-/fakerest-3.3.0.tgz#81f41d096fd7145825b058ee3d4b9d518f4ed92b"
+  integrity sha512-D1y6a13dh34n738YMztecCX36JRKI5kxPaNVQukXUXvUyK7eANWyB5zczy0SMoMUDXC/ceKfjkgwbc1AYqYYOQ==
+  dependencies:
+    babel-runtime "^6.26.0"
+    lodash "^4.17.21"
 
 fast-json-stable-stringify@2.x, fast-json-stable-stringify@^2.0.0:
   version "2.1.0"
@@ -2695,7 +2716,7 @@ lodash.memoize@4.x:
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
   integrity sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4=
 
-lodash@^4.7.0, lodash@~4.17.5:
+lodash@^4.17.21, lodash@^4.7.0, lodash@~4.17.5:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -3083,13 +3104,12 @@ ra-core@^4.0.0-beta.1.0:
     react-query "^3.32.1"
     reselect "~3.0.0"
 
-ra-data-json-server@^4.0.0-beta.1.0:
-  version "4.0.0-beta.1.0"
-  resolved "https://registry.yarnpkg.com/ra-data-json-server/-/ra-data-json-server-4.0.0-beta.1.0.tgz#c372a3d4972b44eb9df949de68e279bcc815dd18"
-  integrity sha512-+DQyJlyAzbo/QPL3c4Wjwl6aL8rbo+dTAAwabfUHQ050i+lzzQ1HlR7rGsruMWBC/yQOD7GrCz8/OqKAFq8ieQ==
+ra-data-fakerest@^3.19.10:
+  version "3.19.10"
+  resolved "https://registry.yarnpkg.com/ra-data-fakerest/-/ra-data-fakerest-3.19.10.tgz#8c1be9943a9e950275993a1e8b6d52748403ff40"
+  integrity sha512-bYRYvTKJfthayk+ZlMGrO2Wlh9FiPcTbsG3wZ5zgJMfKc+e0H+lvEPc0Fe44QVYQvAexMyvAUSmzSiMOEC+cUQ==
   dependencies:
-    query-string "^7.1.1"
-    ra-core "^4.0.0-beta.1.0"
+    fakerest "^3.0.0"
 
 ra-i18n-polyglot@^4.0.0-beta.1.0:
   version "4.0.0-beta.1.0"
@@ -3227,6 +3247,11 @@ react@^17.0.2:
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
+
+regenerator-runtime@^0.11.0:
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
+  integrity sha512-MguG95oij0fC3QV3URf4V2SDYGJhJnJGqvIIgdECeODCT98wSWDAJ94SSuVpYQUoTcGUIL6L4yNB7j1DFFHSBg==
 
 regenerator-runtime@^0.13.4:
   version "0.13.9"
