@@ -3280,14 +3280,6 @@ ra-data-fakerest@^3.19.10:
   dependencies:
     fakerest "^3.0.0"
 
-ra-data-json-server@^4.0.0-beta.1.0:
-  version "4.0.0-beta.1.0"
-  resolved "https://registry.yarnpkg.com/ra-data-json-server/-/ra-data-json-server-4.0.0-beta.1.0.tgz#c372a3d4972b44eb9df949de68e279bcc815dd18"
-  integrity sha512-+DQyJlyAzbo/QPL3c4Wjwl6aL8rbo+dTAAwabfUHQ050i+lzzQ1HlR7rGsruMWBC/yQOD7GrCz8/OqKAFq8ieQ==
-  dependencies:
-    query-string "^7.1.1"
-    ra-core "^4.0.0-beta.1.0"
-
 ra-i18n-polyglot@^4.0.0-beta.1.0:
   version "4.0.0-beta.1.0"
   resolved "https://registry.yarnpkg.com/ra-i18n-polyglot/-/ra-i18n-polyglot-4.0.0-beta.1.0.tgz#c654e3cd39293240b0330aab381a4c870b54955b"
