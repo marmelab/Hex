@@ -19,15 +19,18 @@ const httpClient = (url: string, options: Options = {}) => {
 
 export default {
   getList: (resource: string, params: any) => {
-    const { filter } = params.filter;
+    console.log(params);
     const query = {
       s: {
-        filter: Object.keys(filter).map((key) => ({
+        skip: (params.pagination.page - 1) * params.pagination.perPage,
+        take: params.pagination.perPage,
+        filter: Object.keys(params.filter).map((key) => ({
           column: key,
-          value: filter[key],
+          value: params.filter[key],
         })),
       },
     };
+    console.log(JSON.stringify(query));
     const url = `${adminApiUrl}/${resource}?${JSON.stringify(query)}`;
 
     return httpClient(url).then(({ json }) => ({
@@ -35,6 +38,22 @@ export default {
       total: json.total,
     }));
   },
+
+  // getList: (resource, params) => {
+  //   const { page, perPage } = params.pagination;
+  //   const { field, order } = params.sort;
+  //   const query = {
+  //     sort: JSON.stringify([field, order]),
+  //     range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
+  //     filter: JSON.stringify(params.filter),
+  //   };
+  //   const url = `${apiUrl}/${resource}?${stringify(query)}`;
+
+  //   return httpClient(url).then(({ headers, json }) => ({
+  //     data: json,
+  //     total: parseInt(headers.get('content-range').split('/').pop(), 10),
+  //   }));
+  // },
 
   getOne: (resource: any) => {
     throw Error('This function is not yet implemented');
