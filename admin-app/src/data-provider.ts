@@ -22,15 +22,17 @@ const dataProvider: DataProvider = {
     const { page, perPage } = params.pagination;
     const { field, order } = params.sort;
     const query = {
-      skip: (page - 1) * perPage,
-      take: perPage,
-      sort: [{ column: field, order: order }],
-      filter: Object.keys(params.filter).map((key) => ({
-        column: key,
-        value: params.filter[key],
-      })),
+      s: JSON.stringify({
+        skip: (page - 1) * perPage,
+        take: perPage,
+        sort: [{ column: field, order: order }],
+        filter: Object.keys(params.filter).map((key) => ({
+          column: key,
+          value: params.filter[key],
+        })),
+      }),
     };
-    const url = `${adminApiUrl}/${resource}?s=${JSON.stringify(query)}`;
+    const url = `${adminApiUrl}/${resource}?${stringify(query)}`;
 
     return httpClient(url).then(({ json }) => ({
       data: json.data,
