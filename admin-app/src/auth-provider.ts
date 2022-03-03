@@ -1,6 +1,6 @@
 import { AuthProvider, fetchUtils } from 'react-admin';
 
-const apiUrl = 'https://d1iqp7uyjrmy2a.cloudfront.net/api'; // FIXME
+const apiUrl = import.meta.env.VITE_HEX_ADMIN_API_URL;
 const httpClient = fetchUtils.fetchJson;
 
 const authProvider: AuthProvider = {

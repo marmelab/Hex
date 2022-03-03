@@ -1,6 +1,6 @@
 import { fetchUtils, Options } from 'react-admin';
 
-const apiUrl = import.meta.env.VITE_HEX_ADMIN_API_URL;
+const apiUrl = `${import.meta.env.VITE_HEX_ADMIN_API_URL}/admin`;
 
 const httpClient = (url: string, options: Options = {}) => {
   if (!options.headers) {
