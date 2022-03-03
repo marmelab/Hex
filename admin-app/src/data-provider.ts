@@ -24,6 +24,7 @@ export default {
       s: {
         skip: (params.pagination.page - 1) * params.pagination.perPage,
         take: params.pagination.perPage,
+        sort: [{ column: params.sort.field, order: params.sort.order }],
         filter: Object.keys(params.filter).map((key) => ({
           column: key,
           value: params.filter[key],
