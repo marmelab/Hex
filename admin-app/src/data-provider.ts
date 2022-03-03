@@ -1,15 +1,24 @@
-import { fetchUtils } from 'react-admin';
+import { fetchUtils, Options } from 'react-admin';
 
-const apiUrl = import.meta.env.VITE_HEX_ADMIN_API_URL;
-const httpClient = fetchUtils.fetchJson;
+const adminApiUrl = `${import.meta.env.VITE_HEX_ADMIN_API_URL}/admin`;
+
+const httpClient = (url: string, options: Options = {}) => {
+  if (!options.headers) {
+    options.headers = new Headers({ Accept: 'application/json' });
+  }
+  const jwt = localStorage.getItem('jwt');
+  if (jwt) {
+    options.headers.set('Authorization', `Bearer ${jwt}`);
+  }
+  return fetchUtils.fetchJson(url, options);
+};
 
 export default {
   getList: (resource: string) => {
-    const url = `${apiUrl}/${resource}/`;
-
+    const url = `${adminApiUrl}/${resource}/`;
     return httpClient(url).then(({ json }) => ({
-      data: json,
-      total: json.length,
+      data: json.data,
+      total: json.total,
     }));
   },
 
