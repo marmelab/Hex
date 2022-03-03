@@ -5,13 +5,13 @@ import { UsersService } from 'src/users/users.service';
 export interface UserDataInjectedInRequestAfterAuth {
   id: number;
   username: string;
-  admin?: boolean;
+  admin: boolean;
 }
 
 export interface JWTPayload {
   username: string;
   sub: number;
-  admin?: boolean;
+  admin: boolean;
 }
 
 @Injectable()
