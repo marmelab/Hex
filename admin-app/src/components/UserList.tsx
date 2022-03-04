@@ -8,12 +8,13 @@ import {
   Show,
   SimpleShowLayout,
   ReferenceManyField,
+  TextInput,
 } from 'react-admin';
 
 interface UserListProps {}
 
 export const UserList = (props: UserListProps) => (
-  <List {...props}>
+  <List {...props} filters={userFilters}>
     <Datagrid rowClick="show">
       <NumberField source="id" />
       <TextField source="username" />
@@ -23,6 +24,8 @@ export const UserList = (props: UserListProps) => (
     </Datagrid>
   </List>
 );
+
+const userFilters = [<TextInput label="Username" source="username" />];
 
 export const UserShow = () => (
   <Show>
