@@ -1,4 +1,11 @@
-import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Roles } from 'src/auth/roles.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
@@ -12,7 +19,15 @@ import { User } from './user.entity';
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 @Controller('api/admin/users')
 export class ApiAdminUsersController {
-  constructor(private readonly gamesService: ApiAdminUsersService) {}
+  constructor(private readonly usersService: ApiAdminUsersService) {}
+
+  @Roles('admin')
+  @Get(':id')
+  async findOne(@Param('id') id: number): Promise<User> {
+    const user = await this.usersService.findOne(id);
+    if (user === undefined) throw new NotFoundException();
+    return user;
+  }
 
   @Roles('admin')
   @Get()
@@ -20,6 +35,6 @@ export class ApiAdminUsersController {
     @Query('s', new SimpleJsonParsePipe<UsersSearchParams>())
     searchParams?: UsersSearchParams,
   ): Promise<{ data: User[]; total: number }> {
-    return this.gamesService.findMany(searchParams);
+    return this.usersService.findMany(searchParams);
   }
 }
