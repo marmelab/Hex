@@ -32,7 +32,7 @@ type UsersWhereType = FindConditions<User>;
 export class ApiAdminUsersService {
   constructor(
     @InjectRepository(User)
-    private usersRespository: Repository<User>,
+    private usersRepository: Repository<User>,
   ) {}
 
   async findMany(
@@ -49,13 +49,17 @@ export class ApiAdminUsersService {
       if (searchParams.skip) findOptions.skip = searchParams.skip;
       if (searchParams.take) findOptions.take = searchParams.take;
     }
-    const [result, total] = await this.usersRespository.findAndCount(
+    const [result, total] = await this.usersRepository.findAndCount(
       findOptions,
     );
     return {
       data: result,
       total,
     };
+  }
+
+  findOne(id: number): Promise<User> {
+    return this.usersRepository.findOne(id);
   }
 
   convertToFindOptionsOrder(sorts: UsersSortColumn[]): UsersOrderType {

@@ -51,22 +51,17 @@ describe('ApiAdminGameService', () => {
           column: 'id',
           order: 'ASC',
         },
-        {
-          column: 'player2',
-          order: 'DESC',
-        },
       ];
       expect(gameService.convertToFindOptionsOrder(sort)).toEqual({
         createdAt: 'DESC',
         id: 'ASC',
-        player2: 'DESC',
       });
     });
 
     it('should convert an array of filters to a typeorm where type"', () => {
       const filter: GamesFilter[] = [
         {
-          column: 'player1',
+          column: 'player1.id',
           value: 17,
         },
         {
@@ -75,7 +70,7 @@ describe('ApiAdminGameService', () => {
         },
       ];
       expect(gameService.convertToFindOptionsWhere(filter)).toEqual({
-        player1: 17,
+        player1: { id: 17 },
         status: 'ENDED',
       });
     });

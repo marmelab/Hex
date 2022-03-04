@@ -40,16 +40,45 @@ const dataProvider: DataProvider = {
     }));
   },
 
-  getOne: (resource) => {
-    throw Error('This function is not yet implemented');
+  getOne: (resource, params) => {
+    const url = `${adminApiUrl}/${resource}/${params.id}`;
+
+    return httpClient(url).then(({ json }) => ({
+      data: json,
+    }));
   },
 
   getMany: (resource) => {
     throw Error('This function is not yet implemented');
   },
 
-  getManyReference: (resource) => {
-    throw Error('This function is not yet implemented');
+  getManyReference: (resource, params) => {
+    const { page, perPage } = params.pagination;
+    const { field, order } = params.sort;
+    const filter = [
+      ...Object.keys(params.filter).map((key) => ({
+        column: key,
+        value: params.filter[key],
+      })),
+      {
+        column: params.target,
+        value: params.id,
+      },
+    ];
+    const query = {
+      s: JSON.stringify({
+        skip: (page - 1) * perPage,
+        take: perPage,
+        sort: [{ column: field, order: order }],
+        filter,
+      }),
+    };
+    const url = `${adminApiUrl}/${resource}?${stringify(query)}`;
+
+    return httpClient(url).then(({ json }) => ({
+      data: json.data,
+      total: json.total,
+    }));
   },
 
   update: (resource) => {

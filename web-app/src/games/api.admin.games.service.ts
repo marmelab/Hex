@@ -6,12 +6,12 @@ import { Game } from './game.entity';
 import type { SortOrder } from '../nest-common/types';
 
 export interface GamesSortColumn {
-  column: 'id' | 'player1' | 'player2' | 'createdAt' | 'updatedAt';
+  column: 'id' | 'createdAt' | 'updatedAt';
   order: SortOrder;
 }
 
 export interface GamesFilter {
-  column: 'id' | 'player1' | 'player2' | 'status';
+  column: 'id' | 'player1.id' | 'player2.id' | 'status';
   value: any;
 }
 
@@ -86,12 +86,6 @@ export class ApiAdminGamesService {
         case 'id':
           order.id = sort.order;
           break;
-        case 'player1':
-          order.player1 = sort.order;
-          break;
-        case 'player2':
-          order.player2 = sort.order;
-          break;
       }
     });
     return order;
@@ -104,11 +98,11 @@ export class ApiAdminGamesService {
         case 'id':
           where.id = filter.value;
           break;
-        case 'player1':
-          where.player1 = filter.value;
+        case 'player1.id':
+          where.player1 = { id: filter.value };
           break;
-        case 'player2':
-          where.player2 = filter.value;
+        case 'player2.id':
+          where.player2 = { id: filter.value };
           break;
         case 'status':
           where.status = filter.value;
