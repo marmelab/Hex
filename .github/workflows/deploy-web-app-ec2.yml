@@ -2,24 +2,24 @@ name: Web app EC2 deployment
 on:
   push:
     branches:
-    - main
+      - fix-sessionid-behind-proxy
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: Staging AWS
-    
+
     steps:
-      - uses: actions/checkout@v2 
+      - uses: actions/checkout@v2
 
       - name: Deploy in EC2
         env:
-            PRIVATE_KEY: ${{ secrets.AWS_EC2_PRIVATE_KEY }}
-            HOSTNAME : ${{ secrets.AWS_EC2_PUBLIC_IP }}
-            USERNAME : ${{ secrets.AWS_EC2_USERNAME }}
-            WEBAPP_ENV_VARS: ${{ secrets.WEBAPP_ENV_VARS }}
-            POSTGRES_ENV_VARS: ${{ secrets.POSTGRES_ENV_VARS }}
-            
+          PRIVATE_KEY: ${{ secrets.AWS_EC2_PRIVATE_KEY }}
+          HOSTNAME: ${{ secrets.AWS_EC2_PUBLIC_IP }}
+          USERNAME: ${{ secrets.AWS_EC2_USERNAME }}
+          WEBAPP_ENV_VARS: ${{ secrets.WEBAPP_ENV_VARS }}
+          POSTGRES_ENV_VARS: ${{ secrets.POSTGRES_ENV_VARS }}
+
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           echo "$WEBAPP_ENV_VARS" > ./web-app/.env
