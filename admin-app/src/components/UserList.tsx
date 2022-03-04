@@ -9,6 +9,7 @@ import {
   SimpleShowLayout,
   ReferenceManyField,
   TextInput,
+  NumberInput,
 } from 'react-admin';
 
 interface UserListProps {}
@@ -25,7 +26,10 @@ export const UserList = (props: UserListProps) => (
   </List>
 );
 
-const userFilters = [<TextInput label="Username" source="username" />];
+const userFilters = [
+  <TextInput label="Username" source="username" />,
+  <NumberInput label="Nb of games" source="nbGames" />,
+];
 
 export const UserShow = () => (
   <Show>
