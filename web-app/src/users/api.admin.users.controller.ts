@@ -2,7 +2,7 @@ import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Roles } from 'src/auth/roles.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
-import { SimpleJsonParsePipe } from './api.admin.users.pipes';
+import { SimpleJsonParsePipe } from '../nest-common/simpleJsonParse.pipes';
 import {
   ApiAdminUsersService,
   UsersSearchParams,
