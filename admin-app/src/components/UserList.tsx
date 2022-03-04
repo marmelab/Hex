@@ -20,7 +20,7 @@ export const UserList = (props: UserListProps) => (
       <TextField source="username" />
       <DateField source="createdAt" />
       <DateField source="updatedAt" />
-      <NumberField source="nb_games" label="Nb of games" />
+      <NumberField source="nbGames" label="Nb of games" />
     </Datagrid>
   </List>
 );
