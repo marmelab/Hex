@@ -11,6 +11,7 @@ async function bootstrap() {
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('hbs');
   registerHandlebarsHelpers();
+  app.set('trust proxy', 1);
   app.use(
     session({
       secret: 'my-secret',
