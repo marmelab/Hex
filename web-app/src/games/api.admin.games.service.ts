@@ -3,8 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FindConditions, FindManyOptions, Repository } from 'typeorm';
 import { EntityFieldsNames } from 'typeorm/common/EntityFieldsNames';
 import { Game } from './game.entity';
-
-export type SortOrder = 'ASC' | 'DESC';
+import type { SortOrder } from '../nest-common/types';
 
 export interface GamesSortColumn {
   column: 'id' | 'player1' | 'player2' | 'createdAt' | 'updatedAt';
@@ -23,11 +22,11 @@ export interface GamesSearchParams {
   take?: number;
 }
 
-type GameOrderType = {
+type GamesOrderType = {
   [P in EntityFieldsNames<Game>]?: 'ASC' | 'DESC';
 };
 
-type GameWhereType = FindConditions<Game>;
+type GamesWhereType = FindConditions<Game>;
 
 @Injectable()
 export class ApiAdminGamesService {
@@ -74,8 +73,8 @@ export class ApiAdminGamesService {
     return this.gamesRepository.delete(ids);
   }
 
-  convertToFindOptionsOrder(sorts: GamesSortColumn[]): GameOrderType {
-    const order: GameOrderType = {};
+  convertToFindOptionsOrder(sorts: GamesSortColumn[]): GamesOrderType {
+    const order: GamesOrderType = {};
     sorts.forEach((sort) => {
       switch (sort.column) {
         case 'createdAt':
@@ -98,8 +97,8 @@ export class ApiAdminGamesService {
     return order;
   }
 
-  convertToFindOptionsWhere(filters: GamesFilter[]): GameWhereType {
-    const where: GameWhereType = {};
+  convertToFindOptionsWhere(filters: GamesFilter[]): GamesWhereType {
+    const where: GamesWhereType = {};
     filters.forEach((filter) => {
       switch (filter.column) {
         case 'id':
