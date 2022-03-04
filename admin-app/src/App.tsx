@@ -16,7 +16,7 @@ const myFakeDataProvider = fakeDataProvider({
 });
 
 const App = () => (
-  <Admin dataProvider={myFakeDataProvider} authProvider={authProvider}>
+  <Admin dataProvider={dataProvider} authProvider={authProvider}>
     <Resource name="games" list={GameList} icon={GameIcon} />
     <Resource name="users" list={UserList} icon={UserIcon} show={UserShow} />
   </Admin>
