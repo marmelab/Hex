@@ -15,6 +15,7 @@ RUN yarn build
 FROM node:12-alpine As production
 
 ENV TYPEORM_ENTITIES=dist/**/*.entity.js
+ENV TYPEORM_SUBSCRIBERS=dist/**/*.subscriber.js
 ENV TYPEORM_SYNCHRONIZE=true
 ENV NODE_ENV=production
 

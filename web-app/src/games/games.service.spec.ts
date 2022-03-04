@@ -64,6 +64,7 @@ function createUser(userId: number, username: string): User {
     lastSessionId: '',
     createdAt: undefined,
     updatedAt: undefined,
+    nbGames: 0,
   };
 }
 
