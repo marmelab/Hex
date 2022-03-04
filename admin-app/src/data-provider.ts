@@ -55,18 +55,22 @@ const dataProvider: DataProvider = {
   getManyReference: (resource, params) => {
     const { page, perPage } = params.pagination;
     const { field, order } = params.sort;
+    const filter = [
+      ...Object.keys(params.filter).map((key) => ({
+        column: key,
+        value: params.filter[key],
+      })),
+      {
+        column: params.target,
+        value: params.id,
+      },
+    ];
     const query = {
       s: JSON.stringify({
         skip: (page - 1) * perPage,
         take: perPage,
         sort: [{ column: field, order: order }],
-        filter: Object.keys({
-          ...params.filter,
-          [params.target]: params.id,
-        }).map((key) => ({
-          column: key,
-          value: params.filter[key],
-        })),
+        filter,
       }),
     };
     const url = `${adminApiUrl}/${resource}?${stringify(query)}`;
