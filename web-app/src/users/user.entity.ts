@@ -20,6 +20,9 @@ export class User {
   @Column({ nullable: true, select: false })
   lastSessionId: string;
 
+  @Column({ default: 0 })
+  nbGames: number;
+
   @CreateDateColumn()
   createdAt: Date;
 
