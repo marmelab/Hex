@@ -3,8 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FindConditions, FindManyOptions, Repository } from 'typeorm';
 import { EntityFieldsNames } from 'typeorm/common/EntityFieldsNames';
 import { Game } from './game.entity';
-
-export type SortOrder = 'ASC' | 'DESC';
+import type { SortOrder } from '../nest-common/types';
 
 export interface GamesSortColumn {
   column: 'id' | 'player1' | 'player2' | 'createdAt' | 'updatedAt';

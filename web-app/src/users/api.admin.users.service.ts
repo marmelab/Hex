@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from './user.entity';
 import { FindConditions, FindManyOptions, Repository } from 'typeorm';
 import { EntityFieldsNames } from 'typeorm/common/EntityFieldsNames';
-import { User } from './user.entity';
-
-export type SortOrder = 'ASC' | 'DESC';
+import type { SortOrder } from '../nest-common/types';
 
 export interface UsersSortColumn {
   column: 'id' | 'username' | 'createdAt' | 'updatedAt';
