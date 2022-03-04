@@ -6,12 +6,12 @@ import { EntityFieldsNames } from 'typeorm/common/EntityFieldsNames';
 import type { SortOrder } from '../nest-common/types';
 
 export interface UsersSortColumn {
-  column: 'id' | 'username' | 'createdAt' | 'updatedAt';
+  column: 'id' | 'username' | 'createdAt' | 'updatedAt' | 'nbGames';
   order: SortOrder;
 }
 
 export interface UsersFilter {
-  column: 'id' | 'username';
+  column: 'id' | 'username' | 'nbGames';
   value: any;
 }
 
@@ -78,6 +78,9 @@ export class ApiAdminUsersService {
         case 'username':
           order.username = sort.order;
           break;
+        case 'nbGames':
+          order.nbGames = sort.order;
+          break;
       }
     });
     return order;
@@ -92,6 +95,9 @@ export class ApiAdminUsersService {
           break;
         case 'username':
           where.username = filter.value;
+          break;
+        case 'nbGames':
+          where.nbGames = filter.value;
           break;
       }
     });
