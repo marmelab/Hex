@@ -1,12 +1,11 @@
 {
-    "type": "postgres",
-    "host": "127.0.0.1",
-    "port": 5432,
-    "username": "postgres",
-    "password": "postgres",
-    "database": "test",
-    "entities": [
-        "dist/**/*.entity.js"
-    ],
-    "synchronize": true
+  "type": "postgres",
+  "host": "127.0.0.1",
+  "port": 5432,
+  "username": "postgres",
+  "password": "postgres",
+  "database": "test",
+  "entities": ["dist/**/*.entity.js"],
+  "subscribers": ["dist/**/*.subscriber.js"],
+  "synchronize": true
 }
