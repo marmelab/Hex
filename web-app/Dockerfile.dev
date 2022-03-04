@@ -1,6 +1,7 @@
 FROM node:12-alpine
 
 ENV TYPEORM_ENTITIES=dist/**/*.entity.js
+ENV TYPEORM_SUBSCRIBERS=dist/**/*.entity.js
 ENV TYPEORM_SYNCHRONIZE=true
 ENV NODE_ENV=development
 

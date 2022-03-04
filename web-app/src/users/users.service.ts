@@ -60,8 +60,8 @@ export class UsersService {
   async incrementNbGames(userId: number): Promise<void> {
     const user = await this.usersRepository.findOne(userId);
     if (user) {
+      user.nbGames += 1;
+      await this.usersRepository.save(user);
     }
-    user.nbGames += 1;
-    await this.usersRepository.save(user);
   }
 }
