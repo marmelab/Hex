@@ -9,6 +9,7 @@ import { ApiGamesController } from './api.games.controller';
 import { UsersModule } from 'src/users/users.module';
 import { ApiAdminGamesService } from './api.admin.games.service';
 import { ApiAdminGamesController } from './api.admin.games.controller';
+import { GamesSubscriber } from './games.subscriber';
 
 @Module({
   imports: [
@@ -22,6 +23,6 @@ import { ApiAdminGamesController } from './api.admin.games.controller';
     UsersModule,
   ],
   controllers: [GamesController, ApiGamesController, ApiAdminGamesController],
-  providers: [GamesService, ApiAdminGamesService],
+  providers: [GamesService, ApiAdminGamesService, GamesSubscriber],
 })
 export class GamesModule {}
