@@ -1,4 +1,4 @@
-import { createGraphFromGameState, HexBoardGraph } from './graph';
+import { createGraphFromGameState } from './graph';
 import { doesPathExist } from './pathfinding';
 import { Coordinates, deepCloneObject } from './utils';
 
@@ -18,6 +18,18 @@ export interface Cell {
 }
 
 export type StoneColor = 'black' | 'white';
+
+export type ClosenessToGameEnd =
+  | 'WON'
+  | 'LOST'
+  | 'ONE_MOVE_TO_WIN'
+  | 'ONE_MOVE_TO_LOOSE'
+  | 'UNDETERMINED';
+
+export interface NextMoveHint {
+  closenessToGameEnd: ClosenessToGameEnd;
+  suggestedNextMove?: Coordinates;
+}
 
 const BLACK_NODE_START = 'black-start';
 const BLACK_NODE_END = 'black-end';
@@ -128,4 +140,55 @@ export function updateGameState(
   newGameState.winner = getWinnerDataIfExist.winner;
   newGameState.winningPath = getWinnerDataIfExist.winningPath;
   return newGameState;
+}
+
+export function getNextMoveHint(
+  state: GameState,
+  player: StoneColor,
+): NextMoveHint {
+  // First, determine if game is already won
+  if (state.winner) {
+    return {
+      closenessToGameEnd: player === state.winner ? 'WON' : 'LOST',
+    };
+  }
+  // Else, try if the current player can win by playing one stone
+  let winningMove = getWinningMoveIfAny(state, player);
+  if (winningMove) {
+    return {
+      closenessToGameEnd: 'ONE_MOVE_TO_WIN',
+      suggestedNextMove: winningMove,
+    };
+  }
+  // Else, try if the opponent can win by playing one stone
+  const opponent: StoneColor = player === 'black' ? 'white' : 'black';
+  winningMove = getWinningMoveIfAny(state, opponent);
+  if (winningMove) {
+    return {
+      closenessToGameEnd: 'ONE_MOVE_TO_LOOSE',
+      suggestedNextMove: winningMove,
+    };
+  }
+  // Otherwise, return undefined
+  return {
+    closenessToGameEnd: 'UNDETERMINED',
+  };
+}
+
+function getWinningMoveIfAny(
+  state: GameState,
+  player: StoneColor,
+): Coordinates {
+  for (const [y, row] of state.board.entries()) {
+    for (const [x, cell] of row.entries()) {
+      if (cell.value === 'empty') {
+        const attemptedGameState = deepCloneObject(state);
+        attemptedGameState.board[y][x].value = player;
+        if (playerHasWon(attemptedGameState, player).hasWon) {
+          return { x, y };
+        }
+      }
+    }
+  }
+  return null;
 }
