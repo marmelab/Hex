@@ -1,7 +1,7 @@
 import * as jkstra from 'jkstra';
 import { BLACK_NODE_END, BLACK_NODE_START, GameState, StoneColor, WHITE_NODE_END, WHITE_NODE_START } from './gameState';
 import { createWinDetectionGraph } from './graphWinDetection';
-import { HexBoardWinDetectionGraph } from './graphWinDetection';
+import { createWinPredictionGraph, UNDEFINED_EDGE_COST } from './graphWinPrediction';
 import { Coordinates } from './utils';
 
 export function getWinningPathIfExist(
@@ -27,4 +27,25 @@ export function getWinningPathIfExist(
     };
   }
   return { hasWon: false, winningPath: null };
+}
+
+export function getWinnablePathCost(
+  gameState: GameState,
+  stoneColor: StoneColor,
+): number {
+  const hexBoardWinPredictionGraph = createWinPredictionGraph(gameState, stoneColor);
+  const dijkstra = new jkstra.algos.Dijkstra(hexBoardWinPredictionGraph.winPrediction);
+  let shortestPath = dijkstra.shortestPath(
+    hexBoardWinPredictionGraph.vertexMap.get(stoneColor === "black" ? BLACK_NODE_START : WHITE_NODE_START),
+    hexBoardWinPredictionGraph.vertexMap.get(stoneColor === "black" ? BLACK_NODE_END : WHITE_NODE_END),
+    {
+      edgeCost: function (edge) {
+        return edge.data;
+      }
+    });
+  if (!shortestPath) return -1;
+  const cost = Object.keys(shortestPath).reduce(function (previous, key) {
+    return shortestPath[key].data === UNDEFINED_EDGE_COST ? previous : previous + shortestPath[key].data
+  }, 0);
+  return cost;
 }
