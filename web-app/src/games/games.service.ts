@@ -9,6 +9,9 @@ import {
   updateGameState,
   initNewGameState,
   DEFAULT_BOARD_SIZE,
+  StoneColor,
+  getNextMoveHint,
+  NextMoveHint,
 } from '../common/gameState';
 import { Coordinates, deepCloneObject } from '../common/utils';
 import { UsersService } from '../users/users.service';
@@ -117,5 +120,11 @@ export class GamesService {
       : this.haveTwoPlayersJoinedIn(game)
       ? 'RUNNING'
       : 'INITIALIZED';
+  }
+
+  getNextMoveHint(game: Game, playerName: string): NextMoveHint {
+    const player: StoneColor =
+      playerName === game.player1.username ? 'white' : 'black';
+    return getNextMoveHint(game.state, player);
   }
 }
