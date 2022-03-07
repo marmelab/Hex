@@ -51,34 +51,14 @@ function createEdgesFromGameState(
     row.forEach((cell, x) => {
       if (cell.value == stoneColor) {
         const currentCell: Coordinates = { y: y, x: x };
-        let neighbor: Coordinates;
-        // 1st possible neighbor
-        neighbor = { y: y, x: x + 1 };
-        createEdgePairForNeighbor(
+        const directNeighborCells = [{ y: y, x: x + 1 }, { y: y + 1, x: x }, { y: y + 1, x: x - 1 }];
+        directNeighborCells.forEach(neighbor => createEdgePairForNeighbor(
           gameState,
           hexBoardGraph,
           stoneColor,
           currentCell,
           neighbor,
-        );
-        // 2nd possible neighbor
-        neighbor = { y: y + 1, x: x };
-        createEdgePairForNeighbor(
-          gameState,
-          hexBoardGraph,
-          stoneColor,
-          currentCell,
-          neighbor,
-        );
-        // 3rd possible neighbor
-        neighbor = { y: y + 1, x: x - 1 };
-        createEdgePairForNeighbor(
-          gameState,
-          hexBoardGraph,
-          stoneColor,
-          currentCell,
-          neighbor,
-        );
+        ));
       }
     });
   });
