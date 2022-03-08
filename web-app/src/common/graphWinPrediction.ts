@@ -46,7 +46,7 @@ function createVertices(
     addVertex(hexBoardWinPredictionGraph, WHITE_NODE_END);
   }
 
-  // Add node for each cell on the board that's are not of the opposite color
+  // Add vertex for each cell on the board that's are not of the opposite color
   gameState.board.forEach((row, y) => {
     row.forEach((_cell, x) => {
       if (_cell.value === stoneColor || _cell.value === "empty") {
@@ -95,17 +95,23 @@ function createStartEndEdges(
 ) {
   gameState.board.forEach((_, i) => {
     if (stoneColor === "black") {
-      addEdgeWithCost(hexBoardWinPredictionGraph, `${i}-${gameState.board.length - 1}`, BLACK_NODE_END, UNDEFINED_EDGE_COST);
       const currentFirstColumnCellValue = gameState.board[i][0].value;
       if (currentFirstColumnCellValue !== "white") {
         addEdgeWithCost(hexBoardWinPredictionGraph, BLACK_NODE_START, `${i}-0`, currentFirstColumnCellValue === "black" ? LOW_EDGE_COST : HIGH_EDGE_COST);
       }
+      const currentLastColumnCellValue = gameState.board[i][gameState.board.length - 1].value;
+      if (currentLastColumnCellValue !== "white") {
+        addEdgeWithCost(hexBoardWinPredictionGraph, `${i}-${gameState.board.length - 1}`, BLACK_NODE_END, UNDEFINED_EDGE_COST);
+      }
     }
     else {
-      addEdgeWithCost(hexBoardWinPredictionGraph, `${gameState.board.length - 1}-${i}`, WHITE_NODE_END, UNDEFINED_EDGE_COST);
       const currentFirstRowCellValue = gameState.board[0][i].value;
       if (currentFirstRowCellValue !== "black") {
         addEdgeWithCost(hexBoardWinPredictionGraph, WHITE_NODE_START, `0-${i}`, currentFirstRowCellValue === "white" ? LOW_EDGE_COST : HIGH_EDGE_COST);
+      }
+      const currentLastRowCellValue = gameState.board[gameState.board.length - 1][i].value;
+      if (currentLastRowCellValue !== "black") {
+        addEdgeWithCost(hexBoardWinPredictionGraph, `${gameState.board.length - 1}-${i}`, WHITE_NODE_END, UNDEFINED_EDGE_COST);
       }
     }
   });
