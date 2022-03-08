@@ -77,7 +77,6 @@ function arrayBoardToBinaryBoardByColor(
       prevRow |
       row.reduce((prev, cell) => {
         currentBit = currentBit >> 1;
-        console.log(`currentBit=${currentBit}`);
         return cell.value === color ? prev | currentBit : prev;
       }, 0),
     0,
