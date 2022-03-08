@@ -75,13 +75,19 @@ function createPlayableCellEdges(
           { y: y - 1, x: x + 1 }, { y: y + 1, x: x - 1 },
         ];
         directNeighborCells.forEach(neighbor => {
-          if (!doesCellExist(gameState, neighbor) || doesCellExistAndHaveStone(gameState, neighbor, stoneColor === "black" ? "white" : "black")) return;
-          const cost = doesCellExistAndHaveStone(gameState, neighbor, stoneColor) ? LOW_EDGE_COST : HIGH_EDGE_COST;
-          addEdgeWithCost(hexBoardWinPredictionGraph, `${currentCell.y}-${currentCell.x}`, `${neighbor.y}-${neighbor.x}`, cost);
+          if (doesCellCouldBeOnVictoryPath(gameState, stoneColor, neighbor)) {
+            const cost = doesCellExistAndHaveStone(gameState, neighbor, stoneColor) ? LOW_EDGE_COST : HIGH_EDGE_COST;
+            addEdgeWithCost(hexBoardWinPredictionGraph, `${currentCell.y}-${currentCell.x}`, `${neighbor.y}-${neighbor.x}`, cost);
+          }
         })
       }
     })
   });
+}
+
+function doesCellCouldBeOnVictoryPath(gameState: GameState, stoneColor: StoneColor, coordinates: Coordinates) {
+  const opponentColor = stoneColor === "black" ? "white" : "black";
+  return (!doesCellExist(gameState, coordinates) || doesCellExistAndHaveStone(gameState, coordinates, opponentColor)) ? false : true;
 }
 
 /**
