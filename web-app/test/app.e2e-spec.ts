@@ -94,8 +94,10 @@ describe('AppController (e2e)', () => {
       .expect(302);
   });
 
-  it(`GET /games/1/hint should return I'm one move from winning`, async () => {
-    const res = await request(app.getHttpServer()).get('/games/1/hint').send();
+  it(`GET /games/1?hint=true should return I'm one move from winning`, async () => {
+    const res = await request(app.getHttpServer())
+      .get('/games/1?hint=true')
+      .send();
     expect(res.statusCode).toEqual(200);
     expect(res.text).toMatch('ONE_MOVE_TO_WIN');
     expect(res.text).toMatch('Suggested next move: (1, 0)');

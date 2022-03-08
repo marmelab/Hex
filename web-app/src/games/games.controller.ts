@@ -5,6 +5,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   Redirect,
   Render,
   Req,
@@ -13,6 +14,10 @@ import { GamesService, GameAndDisplayStatus } from './games.service';
 import { Request } from 'express';
 import { Game } from './game.entity';
 import { NextMoveHint } from 'src/common/gameState';
+
+type GetGameResponse =
+  | GameAndDisplayStatus
+  | (GameAndDisplayStatus & NextMoveHint);
 
 @Controller('games')
 export class GamesController {
@@ -47,22 +52,13 @@ export class GamesController {
   @Render('game')
   async getGame(
     @Param('id') id: number,
+    @Query('hint') hint: boolean,
     @Req() req: Request,
-  ): Promise<GameAndDisplayStatus> {
-    const game = await this.gameService.findGameById(id);
-    return this.gameService.getGameAndDisplayStatus(game, req.sessionID);
-  }
-
-  @Get(':id/hint')
-  @Render('game')
-  async getNextMoveHint(
-    @Param('id') id: number,
-    @Req() req: Request,
-  ): Promise<GameAndDisplayStatus & NextMoveHint> {
+  ): Promise<GetGameResponse> {
     const game = await this.gameService.findGameById(id);
     return {
       ...this.gameService.getGameAndDisplayStatus(game, req.sessionID),
-      ...this.gameService.getNextMoveHint(game, req.sessionID),
+      ...(hint && this.gameService.getNextMoveHint(game, req.sessionID)),
     };
   }
 
