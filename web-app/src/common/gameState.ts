@@ -1,4 +1,3 @@
-import { createWinDetectionGraph } from './graphWinDetection';
 import { getWinningPathIfExist } from './pathfinding';
 import { Coordinates, deepCloneObject } from './utils';
 
@@ -55,10 +54,7 @@ export function playerHasWon(
   gameState: GameState,
   stoneColor: StoneColor,
 ): { hasWon: boolean; winningPath: Coordinates[] } {
-  const HexBoardWinDetectionGraph = createWinDetectionGraph(gameState, stoneColor);
-  return stoneColor == 'black'
-    ? getWinningPathIfExist(HexBoardWinDetectionGraph, BLACK_NODE_START, BLACK_NODE_END)
-    : getWinningPathIfExist(HexBoardWinDetectionGraph, WHITE_NODE_START, WHITE_NODE_END);
+  return getWinningPathIfExist(gameState, stoneColor);
 }
 
 export function doesCellExistAndHaveStone(
