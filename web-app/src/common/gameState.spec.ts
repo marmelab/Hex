@@ -412,6 +412,7 @@ describe('Get a hint about the next move', () => {
 
     const expected: NextMoveHint = {
       closenessToGameEnd: 'UNDETERMINED',
+      suggestedNextMove: { x: 2, y: 4 }
     };
     expect(output).toStrictEqual(expected);
   });
@@ -429,6 +430,7 @@ describe('Get a hint about the next move', () => {
 
     const expected: NextMoveHint = {
       closenessToGameEnd: 'UNDETERMINED',
+      suggestedNextMove: { x: 1, y: 3 }
     };
     expect(output).toStrictEqual(expected);
   });
