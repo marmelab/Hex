@@ -2,7 +2,7 @@ import { GameState, StoneColor } from './gameState';
 import { Coordinates, deepCloneObject } from './utils';
 import { getWinnablePathCost } from './pathfinding';
 
-export function getNextPlayAdvice(gameState: GameState, stoneColor: StoneColor): Coordinates {
+export function getNextPlaySuggestion(gameState: GameState, stoneColor: StoneColor): Coordinates {
   const allPotentialPlays = [];
   gameState.board.forEach((row, y) => {
     row.forEach((cell, x) => {
