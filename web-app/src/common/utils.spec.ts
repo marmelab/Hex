@@ -19,7 +19,7 @@ describe('convert an array representation of the board to a binary one', () => {
     expect(ouput).toStrictEqual({
       whiteBoard: 0b010010010,
       blackBoard: 0b000100101,
-      boardSize: 9,
+      boardSize: 3,
     });
   });
 
@@ -36,7 +36,7 @@ describe('convert an array representation of the board to a binary one', () => {
     expect(ouput).toStrictEqual({
       whiteBoard: 0b000000000,
       blackBoard: 0b111111111,
-      boardSize: 9,
+      boardSize: 3,
     });
   });
 
@@ -53,7 +53,7 @@ W W W
     expect(ouput).toStrictEqual({
       whiteBoard: 0b111111111,
       blackBoard: 0b000000000,
-      boardSize: 9,
+      boardSize: 3,
     });
   });
 
@@ -72,7 +72,7 @@ W W W
     expect(ouput).toStrictEqual({
       whiteBoard: 0b0100001000010110000100000,
       blackBoard: 0b0001010000101000000010001,
-      boardSize: 25,
+      boardSize: 5,
     });
   });
 });
@@ -83,7 +83,7 @@ describe('convert a binary representation of the board to an array', () => {
     const input = {
       whiteBoard: 0b010010010,
       blackBoard: 0b000100101,
-      boardSize: 9,
+      boardSize: 3,
     };
     // when
     const ouput = binaryBoardToArrayBoard(input);
@@ -102,7 +102,7 @@ describe('convert a binary representation of the board to an array', () => {
     const input = {
       whiteBoard: 0b000000000,
       blackBoard: 0b111111111,
-      boardSize: 9,
+      boardSize: 3,
     };
     // when
     const ouput = binaryBoardToArrayBoard(input);
@@ -121,7 +121,7 @@ describe('convert a binary representation of the board to an array', () => {
     const input = {
       whiteBoard: 0b111111111,
       blackBoard: 0b000000000,
-      boardSize: 9,
+      boardSize: 3,
     };
     // when
     const ouput = binaryBoardToArrayBoard(input);
@@ -140,7 +140,7 @@ W W W
     const input = {
       whiteBoard: 0b0100001000010110000100000,
       blackBoard: 0b0001010000101000000010001,
-      boardSize: 25,
+      boardSize: 5,
     };
     // when
     const ouput = binaryBoardToArrayBoard(input);

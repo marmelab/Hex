@@ -58,7 +58,7 @@ export function parseGameStateFromMultilineString(
 export function arrayBoardToBinaryBoard(
   board: Array<Array<Cell>>,
 ): BinaryBoard {
-  const boardSize = board.length * board[0].length;
+  const boardSize = board.length;
   return {
     whiteBoard: arrayBoardToBinaryBoardByColor(board, boardSize, 'white'),
     blackBoard: arrayBoardToBinaryBoardByColor(board, boardSize, 'black'),
@@ -78,7 +78,7 @@ function arrayBoardToBinaryBoardByColor(
         (prev, cell, x) =>
           prev +
           (cell.value === color
-            ? Math.pow(2, boardSize - 1 - (y * row.length + x))
+            ? Math.pow(2, boardSize * boardSize - 1 - (y * boardSize + x))
             : 0),
         0,
       ),
@@ -89,14 +89,13 @@ function arrayBoardToBinaryBoardByColor(
 export function binaryBoardToArrayBoard(
   board: BinaryBoard,
 ): Array<Array<Cell>> {
-  const rowLength = Math.sqrt(board.boardSize);
   const result: Array<Array<Cell>> = [];
-  for (let y = 0; y < rowLength; y++) {
+  for (let y = 0; y < board.boardSize; y++) {
     result[y] = [];
-    for (let x = 0; x < rowLength; x++) {
+    for (let x = 0; x < board.boardSize; x++) {
       const filter: number = Math.pow(
         2,
-        board.boardSize - 1 - (y * rowLength + x),
+        board.boardSize * board.boardSize - 1 - (y * board.boardSize + x),
       );
       if (board.whiteBoard & filter) result[y][x] = { value: 'white' };
       else if (board.blackBoard & filter) result[y][x] = { value: 'black' };
