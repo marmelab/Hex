@@ -15,10 +15,11 @@ export function getNextPlaySuggestion(gameState: GameState, stoneColor: StoneCol
   const winCostForPotentialPlays = allPotentialPlays.map(playPosition => {
     const potentialGameState = deepCloneObject(gameState) as GameState;
     potentialGameState.board[playPosition.y][playPosition.x].value = stoneColor;
-    return { playPosition, cost: getWinnablePathCost(potentialGameState, stoneColor) }
+    const opponentColor = stoneColor === "black" ? "white" : "black";
+    return { playPosition, currentPlayerWinCost: getWinnablePathCost(potentialGameState, stoneColor), opponentWinCost: getWinnablePathCost(potentialGameState, opponentColor) }
   });
 
   return winCostForPotentialPlays.reduce(function (prev, curr) {
-    return prev.cost < curr.cost ? prev : curr;
+    return (prev.currentPlayerWinCost - prev.opponentWinCost) < (curr.currentPlayerWinCost - prev.opponentWinCost) ? prev : curr;
   }).playPosition;
 }

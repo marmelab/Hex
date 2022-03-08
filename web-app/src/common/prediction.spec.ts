@@ -101,4 +101,22 @@ describe('Should get an advice for the next play', () => {
 
     expect(() => getNextPlaySuggestion(input, "white")).toThrowError();
   });
+
+  it('Should get a good advice related to the possibilities of the opponent', () => {
+    const input = parseGameStateFromMultilineString(`
+    ⬢ ⬢ ⬢ ⬢ ⬡ ⬡ ⬡ ⬡ ⬡
+     ⬡ ⬡ ⬡ ⬡ ⬢ ⬡ ⬡ ⬡ ⬡
+      ⬡ ⬡ ⬡ ⬡ ⬡ ⬢ ⬡ ⬡ ⬡
+       ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬢ ⬡ ⬡
+        ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬢ ⬢
+         ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
+          ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
+           ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ 
+            ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
+    `);
+
+    const nextPlayAdvice = getNextPlaySuggestion(input, "white");
+
+    expect(nextPlayAdvice).toStrictEqual({ x: 1, y: 1 });
+  });
 });
