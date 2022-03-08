@@ -2,7 +2,6 @@ import * as jkstra from 'jkstra';
 import { BLACK_NODE_END, BLACK_NODE_START, GameState, StoneColor, WHITE_NODE_END, WHITE_NODE_START } from './gameState';
 import { createWinDetectionGraph } from './graphWinDetection';
 import { HexBoardWinDetectionGraph } from './graphWinDetection';
-import { HexBoardGraph } from './graph';
 import { Coordinates } from './utils';
 
 export function getWinningPathIfExist(
