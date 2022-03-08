@@ -88,15 +88,13 @@ export function binaryBoardToArrayBoard(
   board: BinaryBoard,
 ): Array<Array<Cell>> {
   const result: Array<Array<Cell>> = [];
+  let currentBit = 1 << (board.boardSize * board.boardSize);
   for (let y = 0; y < board.boardSize; y++) {
     result[y] = [];
     for (let x = 0; x < board.boardSize; x++) {
-      const filter: number = Math.pow(
-        2,
-        board.boardSize * board.boardSize - 1 - (y * board.boardSize + x),
-      );
-      if (board.whiteBoard & filter) result[y][x] = { value: 'white' };
-      else if (board.blackBoard & filter) result[y][x] = { value: 'black' };
+      currentBit = currentBit >> 1;
+      if (board.whiteBoard & currentBit) result[y][x] = { value: 'white' };
+      else if (board.blackBoard & currentBit) result[y][x] = { value: 'black' };
       else result[y][x] = { value: 'empty' };
     }
   }
