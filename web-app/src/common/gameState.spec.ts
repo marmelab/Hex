@@ -4,6 +4,8 @@ import {
   playerHasWon,
   initNewGameState,
   updateGameState,
+  getNextMoveHint,
+  NextMoveHint,
 } from './gameState';
 import { parseGameStateFromMultilineString } from './utils';
 
@@ -323,5 +325,111 @@ describe('Update game state based on a user action', () => {
         [{ value: 'white' }, { value: 'empty' }, { value: 'empty' }],
       ],
     });
+  });
+});
+
+describe('Get a hint about the next move', () => {
+  it('Should reply WON if I already won the game', () => {
+    const input = parseGameStateFromMultilineString(`
+⬡ W ⬡ ⬡ ⬡
+ ⬡ W ⬡ W ⬡
+  ⬡ ⬡ ⬢ ⬢ ⬡
+   ⬢ ⬢ ⬡ ⬢ ⬡
+    ⬡ W ⬡ ⬢ ⬢
+        `);
+
+    const output = getNextMoveHint(input, 'black');
+
+    const expected: NextMoveHint = {
+      closenessToGameEnd: 'WON',
+    };
+    expect(output).toStrictEqual(expected);
+  });
+
+  it('Should reply LOST if my opponent has already won the game', () => {
+    const input = parseGameStateFromMultilineString(`
+⬡ W ⬡ ⬡ ⬡
+ ⬡ W ⬡ W ⬡
+  ⬡ ⬡ ⬢ ⬢ ⬡
+   ⬢ ⬢ ⬡ ⬢ ⬡
+    ⬡ W ⬡ ⬢ ⬢
+        `);
+
+    const output = getNextMoveHint(input, 'white');
+
+    const expected: NextMoveHint = {
+      closenessToGameEnd: 'LOST',
+    };
+    expect(output).toStrictEqual(expected);
+  });
+
+  it('Should reply ONE_MOVE_TO_WIN if I am black in this situation', () => {
+    const input = parseGameStateFromMultilineString(`
+⬡ W ⬡ ⬡ ⬡
+ ⬡ W ⬡ W ⬡
+  ⬡ ⬡ ⬢ ⬡ ⬡
+   ⬢ ⬢ ⬡ ⬢ ⬡
+    ⬡ W ⬡ ⬢ ⬢
+        `);
+
+    const output = getNextMoveHint(input, 'black');
+
+    const expected: NextMoveHint = {
+      closenessToGameEnd: 'ONE_MOVE_TO_WIN',
+      suggestedNextMove: { x: 3, y: 2 },
+    };
+    expect(output).toStrictEqual(expected);
+  });
+
+  it('Should reply ONE_MOVE_TO_LOOSE if I am white in this situation', () => {
+    const input = parseGameStateFromMultilineString(`
+⬡ W ⬡ ⬡ ⬡
+ ⬡ W ⬡ W ⬡
+  ⬡ ⬡ ⬢ ⬡ ⬡
+   ⬢ ⬢ ⬡ ⬢ ⬡
+    ⬡ W ⬡ ⬢ ⬢
+        `);
+
+    const output = getNextMoveHint(input, 'white');
+
+    const expected: NextMoveHint = {
+      closenessToGameEnd: 'ONE_MOVE_TO_LOOSE',
+      suggestedNextMove: { x: 3, y: 2 },
+    };
+    expect(output).toStrictEqual(expected);
+  });
+
+  it('Should reply UNDETERMINED if I am black in this situation', () => {
+    const input = parseGameStateFromMultilineString(`
+⬡ W ⬡ ⬡ ⬡
+ ⬡ W ⬡ W ⬡
+  ⬡ ⬡ ⬢ ⬡ ⬡
+   ⬢ ⬡ ⬡ ⬡ ⬡
+    ⬡ W ⬡ ⬢ ⬢
+        `);
+
+    const output = getNextMoveHint(input, 'black');
+
+    const expected: NextMoveHint = {
+      closenessToGameEnd: 'UNDETERMINED',
+    };
+    expect(output).toStrictEqual(expected);
+  });
+
+  it('Should reply UNDETERMINED if I am white in this situation', () => {
+    const input = parseGameStateFromMultilineString(`
+⬡ W ⬡ ⬡ ⬡
+ ⬡ W ⬡ W ⬡
+  ⬡ ⬡ ⬢ ⬡ ⬡
+   ⬢ ⬡ ⬡ ⬡ ⬡
+    ⬡ W ⬡ ⬢ ⬢
+        `);
+
+    const output = getNextMoveHint(input, 'white');
+
+    const expected: NextMoveHint = {
+      closenessToGameEnd: 'UNDETERMINED',
+    };
+    expect(output).toStrictEqual(expected);
   });
 });
