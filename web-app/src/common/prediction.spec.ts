@@ -82,14 +82,14 @@ describe('Should get an advice for the next play', () => {
 
   it('Should get a good advice', () => {
     const input = parseGameStateFromMultilineString(`
-  ⬡ ⬡ ⬡
+  W ⬡ ⬡
    ⬡ W ⬡
-    W ⬡ ⬡
+    ⬡ ⬡ ⬡
   `);
 
     const nextPlayAdvice = getNextPlaySuggestion(input, "white");
 
-    expect(nextPlayAdvice).toStrictEqual({ x: 2, y: 0 });
+    expect(areCoordinatesEquals(nextPlayAdvice, { x: 1, y: 2 }) || areCoordinatesEquals(nextPlayAdvice, { x: 2, y: 2 })).toBeTruthy();
   });
 
   it('Should get an obvious advice', () => {
