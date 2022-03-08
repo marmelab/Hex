@@ -24,6 +24,7 @@ const mockGamesRepository = {
     });
   },
   save: (game: Game): Game => {
+    mockedGame = game;
     return game;
   },
   create: (game: Game): Game => {
@@ -38,6 +39,7 @@ const mockUsersRepository = {
     });
   },
   save: (user: User): User => {
+    mockedUser = user;
     return user;
   },
   create: (user: User): User => {
@@ -90,5 +92,12 @@ describe('AppController (e2e)', () => {
       .post('/games')
       .send({ fromFile: true })
       .expect(302);
+  });
+
+  it(`GET /games/1/hint should return I'm one move from winning`, async () => {
+    const res = await request(app.getHttpServer()).get('/games/1/hint').send();
+    expect(res.statusCode).toEqual(200);
+    expect(res.text).toMatch('ONE_MOVE_TO_WIN');
+    expect(res.text).toMatch('Suggested next move: (1, 0)');
   });
 });
