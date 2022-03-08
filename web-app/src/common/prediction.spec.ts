@@ -1,7 +1,10 @@
 import expect from 'expect';
-import { parseGameStateFromMultilineString } from './utils';
+import { Coordinates, parseGameStateFromMultilineString } from './utils';
 import { getNextPlayAdvice } from './prediction';
-import exp from 'constants';
+
+function areCoordinatesEquals(coord1: Coordinates, coord2: Coordinates) {
+  return coord1.x === coord2.x && coord1.y === coord2.y;
+}
 
 describe('Get an advice for the next play', () => {
   it('Get a good advice', () => {
@@ -13,7 +16,7 @@ describe('Get an advice for the next play', () => {
 
     const nextPlayAdvice = getNextPlayAdvice(input, "black");
 
-    expect(nextPlayAdvice).toStrictEqual({ x: 2, y: 2 });
+    expect(areCoordinatesEquals(nextPlayAdvice, { x: 2, y: 2 }) || areCoordinatesEquals(nextPlayAdvice, { x: 2, y: 1 })).toBeTruthy();
   });
 
   it('Get a good advice', () => {
@@ -25,7 +28,7 @@ describe('Get an advice for the next play', () => {
 
     const nextPlayAdvice = getNextPlayAdvice(input, "black");
 
-    expect(nextPlayAdvice).toStrictEqual({ x: 1, y: 2 });
+    expect(areCoordinatesEquals(nextPlayAdvice, { x: 1, y: 2 }) || areCoordinatesEquals(nextPlayAdvice, { x: 1, y: 1 })).toBeTruthy();
   });
 
 
@@ -38,7 +41,7 @@ describe('Get an advice for the next play', () => {
 
     const nextPlayAdvice = getNextPlayAdvice(input, "black");
 
-    expect(nextPlayAdvice).toStrictEqual({ x: 0, y: 2 });
+    expect(areCoordinatesEquals(nextPlayAdvice, { x: 0, y: 2 }) || areCoordinatesEquals(nextPlayAdvice, { x: 0, y: 1 })).toBeTruthy();
   });
 
   it('Get a good advice', () => {
@@ -50,7 +53,7 @@ describe('Get an advice for the next play', () => {
 
     const nextPlayAdvice = getNextPlayAdvice(input, "white");
 
-    expect(nextPlayAdvice).toStrictEqual({ x: 0, y: 0 });
+    expect(areCoordinatesEquals(nextPlayAdvice, { x: 0, y: 0 }) || areCoordinatesEquals(nextPlayAdvice, { x: 1, y: 1 })).toBeTruthy();
   });
 
   it('Get a good advice', () => {
@@ -62,7 +65,7 @@ describe('Get an advice for the next play', () => {
 
     const nextPlayAdvice = getNextPlayAdvice(input, "white");
 
-
+    expect(areCoordinatesEquals(nextPlayAdvice, { x: 0, y: 1 }) || areCoordinatesEquals(nextPlayAdvice, { x: 1, y: 1 })).toBeTruthy();
   });
 
   it('Get a good advice', () => {
@@ -74,6 +77,6 @@ describe('Get an advice for the next play', () => {
 
     const nextPlayAdvice = getNextPlayAdvice(input, "white");
 
-    expect({ x: 1, y: 2 } === { x: 1, y: 2 }).toBeTruthy();
+    expect(areCoordinatesEquals(nextPlayAdvice, { x: 0, y: 2 }) || areCoordinatesEquals(nextPlayAdvice, { x: 1, y: 2 })).toBeTruthy();
   });
 });
