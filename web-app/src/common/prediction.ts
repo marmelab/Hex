@@ -1,6 +1,6 @@
 import { GameState, StoneColor } from './gameState';
 import { Coordinates, deepCloneObject } from './utils';
-import { getWinnablePathCost } from './pathfinding';
+import { getNbMovesNeededToWin } from './pathfinding';
 
 export function getNextPlaySuggestion(gameState: GameState, stoneColor: StoneColor): Coordinates {
   const allPotentialPlays = [];
@@ -15,7 +15,7 @@ export function getNextPlaySuggestion(gameState: GameState, stoneColor: StoneCol
   const winCostForPotentialPlays = allPotentialPlays.map(playPosition => {
     const potentialGameState = deepCloneObject(gameState) as GameState;
     potentialGameState.board[playPosition.y][playPosition.x].value = stoneColor;
-    return { playPosition, cost: getWinnablePathCost(potentialGameState, stoneColor) }
+    return { playPosition, cost: getNbMovesNeededToWin(potentialGameState, stoneColor) }
   });
 
   return winCostForPotentialPlays.reduce(function (prev, curr) {
