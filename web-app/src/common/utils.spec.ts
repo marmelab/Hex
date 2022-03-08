@@ -1,6 +1,7 @@
 import expect from 'expect';
 import {
   arrayBoardToBinaryBoard,
+  binaryBoardToArrayBoard,
   parseGameStateFromMultilineString,
 } from './utils';
 
@@ -18,6 +19,7 @@ describe('convert an array representation of the board to a binary one', () => {
     expect(ouput).toStrictEqual({
       whiteBoard: 0b010010010,
       blackBoard: 0b000100101,
+      boardSize: 9,
     });
   });
 
@@ -34,6 +36,7 @@ describe('convert an array representation of the board to a binary one', () => {
     expect(ouput).toStrictEqual({
       whiteBoard: 0b000000000,
       blackBoard: 0b111111111,
+      boardSize: 9,
     });
   });
 
@@ -50,6 +53,7 @@ W W W
     expect(ouput).toStrictEqual({
       whiteBoard: 0b111111111,
       blackBoard: 0b000000000,
+      boardSize: 9,
     });
   });
 
@@ -68,6 +72,87 @@ W W W
     expect(ouput).toStrictEqual({
       whiteBoard: 0b0100001000010110000100000,
       blackBoard: 0b0001010000101000000010001,
+      boardSize: 25,
     });
+  });
+});
+
+describe('convert a binary representation of the board to an array', () => {
+  it('should convert this 3x3 binary board into its array representation', () => {
+    // given
+    const input = {
+      whiteBoard: 0b010010010,
+      blackBoard: 0b000100101,
+      boardSize: 9,
+    };
+    // when
+    const ouput = binaryBoardToArrayBoard(input);
+    // then
+    expect(ouput).toStrictEqual(
+      parseGameStateFromMultilineString(`
+⬡ W ⬡
+ ⬢ W ⬡
+  ⬢ W ⬢
+        `).board,
+    );
+  });
+
+  it('should convert this 3x3 binary board with only black stones into its array representation', () => {
+    // given
+    const input = {
+      whiteBoard: 0b000000000,
+      blackBoard: 0b111111111,
+      boardSize: 9,
+    };
+    // when
+    const ouput = binaryBoardToArrayBoard(input);
+    // then
+    expect(ouput).toStrictEqual(
+      parseGameStateFromMultilineString(`
+⬢ ⬢ ⬢
+ ⬢ ⬢ ⬢
+  ⬢ ⬢ ⬢
+        `).board,
+    );
+  });
+
+  it('should convert this 3x3 binary board with only white stones into its array representation', () => {
+    // given
+    const input = {
+      whiteBoard: 0b111111111,
+      blackBoard: 0b000000000,
+      boardSize: 9,
+    };
+    // when
+    const ouput = binaryBoardToArrayBoard(input);
+    // then
+    expect(ouput).toStrictEqual(
+      parseGameStateFromMultilineString(`
+W W W
+ W W W
+  W W W
+        `).board,
+    );
+  });
+
+  it('should convert this 5x5 binary board into its array representation', () => {
+    // given
+    const input = {
+      whiteBoard: 0b0100001000010110000100000,
+      blackBoard: 0b0001010000101000000010001,
+      boardSize: 25,
+    };
+    // when
+    const ouput = binaryBoardToArrayBoard(input);
+    // then
+    expect(ouput).toStrictEqual(
+      parseGameStateFromMultilineString(`
+⬡ W ⬡ ⬢ ⬡
+ ⬢ W ⬡ ⬡ ⬡
+  ⬢ W ⬢ W W
+   ⬡ ⬡ ⬡ ⬡ W
+    ⬢ ⬡ ⬡ ⬡ ⬢
+        `).board,
+    );
   });
 });
