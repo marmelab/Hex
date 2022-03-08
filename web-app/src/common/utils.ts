@@ -71,17 +71,15 @@ function arrayBoardToBinaryBoardByColor(
   boardSize: number,
   color: StoneColor,
 ): number {
+  let currentBit = 1 << (boardSize * boardSize);
   return board.reduce(
-    (prevRow, row, y) =>
-      prevRow +
-      row.reduce(
-        (prev, cell, x) =>
-          prev +
-          (cell.value === color
-            ? Math.pow(2, boardSize * boardSize - 1 - (y * boardSize + x))
-            : 0),
-        0,
-      ),
+    (prevRow, row) =>
+      prevRow |
+      row.reduce((prev, cell) => {
+        currentBit = currentBit >> 1;
+        console.log(`currentBit=${currentBit}`);
+        return cell.value === color ? prev | currentBit : prev;
+      }, 0),
     0,
   );
 }
