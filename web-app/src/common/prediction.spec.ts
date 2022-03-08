@@ -16,7 +16,7 @@ describe('Should get an advice for the next play', () => {
 
     const nextPlayAdvice = getNextPlaySuggestion(input, "black");
 
-    expect(areCoordinatesEquals(nextPlayAdvice, { x: 2, y: 2 }) || areCoordinatesEquals(nextPlayAdvice, { x: 2, y: 1 })).toBeTruthy();
+    expect(areCoordinatesEquals(nextPlayAdvice, { x: 2, y: 1 }) || areCoordinatesEquals(nextPlayAdvice, { x: 2, y: 2 })).toBeTruthy();
   });
 
   it('Should get a good advice', () => {
@@ -82,14 +82,14 @@ describe('Should get an advice for the next play', () => {
 
   it('Should get a good advice', () => {
     const input = parseGameStateFromMultilineString(`
-  ⬡ ⬡ ⬡
+  W ⬡ ⬡
    ⬡ W ⬡
-    W ⬡ ⬡
+    ⬡ ⬡ ⬡
   `);
 
     const nextPlayAdvice = getNextPlaySuggestion(input, "white");
 
-    expect(nextPlayAdvice).toStrictEqual({ x: 2, y: 0 });
+    expect(areCoordinatesEquals(nextPlayAdvice, { x: 1, y: 2 }) || areCoordinatesEquals(nextPlayAdvice, { x: 2, y: 2 })).toBeTruthy();
   });
 
   it('Should get an obvious advice', () => {
@@ -116,19 +116,15 @@ describe('Should get an advice for the next play', () => {
 
   it('Should get a good advice related to the possibilities of the opponent', () => {
     const input = parseGameStateFromMultilineString(`
-    ⬢ ⬢ ⬢ ⬢ ⬡ ⬡ ⬡ ⬡ ⬡
-     ⬡ ⬡ ⬡ ⬡ ⬢ ⬡ ⬡ ⬡ ⬡
-      ⬡ ⬡ ⬡ ⬡ ⬡ ⬢ ⬡ ⬡ ⬡
-       ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬢ ⬡ ⬡
-        ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬢ ⬢
-         ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
-          ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
-           ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ 
-            ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
+    ⬡ ⬡ ⬡ ⬡ ⬡
+     ⬡ ⬡ ⬡ ⬡ ⬡
+      ⬡ ⬡ ⬢ W ⬡
+       ⬡ ⬢ ⬡ W ⬡
+        ⬡ ⬡ ⬡ ⬡ ⬡
     `);
 
     const nextPlayAdvice = getNextPlaySuggestion(input, "white");
 
-    expect(nextPlayAdvice).toStrictEqual({ x: 1, y: 1 });
+    expect(nextPlayAdvice).toStrictEqual({ x: 3, y: 1 });
   });
 });
