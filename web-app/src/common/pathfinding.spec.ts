@@ -96,6 +96,18 @@ describe('Shortest path cost', () => {
 
     const cost = getWinnablePathCost(input, "white");
 
+    expect(cost).toStrictEqual(201);
+  });
+
+  it('Should return a valid winning path cost', () => {
+    const input = parseGameStateFromMultilineString(`
+  ⬡ ⬡ W
+   ⬡ W ⬡
+    W ⬡ ⬡
+  `);
+
+    const cost = getWinnablePathCost(input, 'white');
+
     expect(cost).toStrictEqual(3);
   });
 
@@ -126,7 +138,7 @@ describe('Shortest path cost', () => {
 
     const cost = getWinnablePathCost(input, "black");
 
-    expect(cost).toStrictEqual(9);
+    expect(cost).toStrictEqual(409);
   });
 
   it('Should return a negative winning path cost', () => {

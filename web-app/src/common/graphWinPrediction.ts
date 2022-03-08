@@ -72,7 +72,7 @@ function createPlayableCellEdges(
         const directNeighborCells = [
           { y: y, x: x - 1 }, { y: y, x: x + 1 },
           { y: y - 1, x: x }, { y: y + 1, x: x },
-          { y: y - 1, x: x - 1 }, { y: y + 1, x: x + 1 },
+          { y: y - 1, x: x + 1 }, { y: y + 1, x: x - 1 },
         ];
         directNeighborCells.forEach(neighbor => {
           if (!doesCellExist(gameState, neighbor) || doesCellExistAndHaveStone(gameState, neighbor, stoneColor === "black" ? "white" : "black")) return;
