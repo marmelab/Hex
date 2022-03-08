@@ -10,6 +10,7 @@ export function getNextPlayAdvice(gameState: GameState, stoneColor: StoneColor):
         allPotentialPlays.push({ x, y })
     })
   });
+  if (allPotentialPlays.length === 0) throw new Error("There is no playable cell in the given board.")
 
   const winCostForPotentialPlays = allPotentialPlays.map(playPosition => {
     const potentialGameState = deepCloneObject(gameState) as GameState;
