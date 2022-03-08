@@ -1,6 +1,6 @@
 import expect from 'expect';
 import { parseGameStateFromMultilineString } from './utils';
-import { getWinnablePathCost } from './pathfinding';
+import { getNbMovesNeededToWin } from './pathfinding';
 
 describe('Shortest path cost', () => {
   it('Should return a valid winning path cost', () => {
@@ -10,9 +10,9 @@ describe('Shortest path cost', () => {
     ⬢ ⬡ ⬡
   `);
 
-    const cost = getWinnablePathCost(input, "black");
+    const cost = getNbMovesNeededToWin(input, "black");
 
-    expect(cost).toStrictEqual(201);
+    expect(cost).toStrictEqual(2);
   });
 
   it('Should return a valid winning path cost', () => {
@@ -22,9 +22,9 @@ describe('Shortest path cost', () => {
     ⬢ ⬢ ⬡
   `);
 
-    const cost = getWinnablePathCost(input, "black");
+    const cost = getNbMovesNeededToWin(input, "black");
 
-    expect(cost).toStrictEqual(102);
+    expect(cost).toStrictEqual(1);
   });
 
   it('Should return a valid winning path cost', () => {
@@ -34,9 +34,9 @@ describe('Shortest path cost', () => {
     ⬡ ⬡ ⬢
   `);
 
-    const cost = getWinnablePathCost(input, "black");
+    const cost = getNbMovesNeededToWin(input, "black");
 
-    expect(cost).toStrictEqual(102);
+    expect(cost).toStrictEqual(1);
   });
 
   it('Should return a valid winning path cost', () => {
@@ -46,9 +46,9 @@ describe('Shortest path cost', () => {
     ⬡ ⬡ ⬡
   `);
 
-    const cost = getWinnablePathCost(input, "black");
+    const cost = getNbMovesNeededToWin(input, "black");
 
-    expect(cost).toStrictEqual(102);
+    expect(cost).toStrictEqual(1);
   });
 
   it('Should return a valid winning path cost', () => {
@@ -58,9 +58,9 @@ describe('Shortest path cost', () => {
     ⬡ ⬡ ⬡
   `);
 
-    const cost = getWinnablePathCost(input, "black");
+    const cost = getNbMovesNeededToWin(input, "black");
 
-    expect(cost).toStrictEqual(102);
+    expect(cost).toStrictEqual(1);
   });
 
   it('Should return a valid winning path cost', () => {
@@ -70,9 +70,9 @@ describe('Shortest path cost', () => {
     ⬡ ⬡ ⬡
   `);
 
-    const cost = getWinnablePathCost(input, "white");
+    const cost = getNbMovesNeededToWin(input, "white");
 
-    expect(cost).toStrictEqual(300);
+    expect(cost).toStrictEqual(3);
   });
 
   it('Should return a valid winning path cost', () => {
@@ -82,9 +82,9 @@ describe('Shortest path cost', () => {
     ⬡ ⬡ ⬡
   `);
 
-    const cost = getWinnablePathCost(input, "black");
+    const cost = getNbMovesNeededToWin(input, "black");
 
-    expect(cost).toStrictEqual(3);
+    expect(cost).toStrictEqual(0);
   });
 
   it('Should return a valid winning path cost', () => {
@@ -94,9 +94,9 @@ describe('Shortest path cost', () => {
     ⬡ ⬡ W
   `);
 
-    const cost = getWinnablePathCost(input, "white");
+    const cost = getNbMovesNeededToWin(input, "white");
 
-    expect(cost).toStrictEqual(201);
+    expect(cost).toStrictEqual(2);
   });
 
   it('Should return a valid winning path cost', () => {
@@ -106,9 +106,9 @@ describe('Shortest path cost', () => {
     W ⬡ ⬡
   `);
 
-    const cost = getWinnablePathCost(input, 'white');
+    const cost = getNbMovesNeededToWin(input, 'white');
 
-    expect(cost).toStrictEqual(3);
+    expect(cost).toStrictEqual(0);
   });
 
   it('Should return a valid winning path cost', () => {
@@ -118,9 +118,9 @@ describe('Shortest path cost', () => {
     ⬢ ⬢ ⬢
   `);
 
-    const cost = getWinnablePathCost(input, "black");
+    const cost = getNbMovesNeededToWin(input, "black");
 
-    expect(cost).toStrictEqual(3);
+    expect(cost).toStrictEqual(0);
   });
 
   it('Should return a valid winning path cost', () => {
@@ -136,9 +136,9 @@ describe('Shortest path cost', () => {
           ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
   `);
 
-    const cost = getWinnablePathCost(input, "black");
+    const cost = getNbMovesNeededToWin(input, "black");
 
-    expect(cost).toStrictEqual(409);
+    expect(cost).toStrictEqual(4);
   });
 
   it('Should return a negative winning path cost', () => {
@@ -148,7 +148,7 @@ describe('Shortest path cost', () => {
     ⬢ ⬢ ⬢
   `);
 
-    const cost = getWinnablePathCost(input, "white");
+    const cost = getNbMovesNeededToWin(input, "white");
 
     expect(cost).toStrictEqual(-1);
   });
