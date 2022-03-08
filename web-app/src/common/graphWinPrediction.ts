@@ -75,7 +75,7 @@ function createPlayableCellEdges(
           { y: y - 1, x: x + 1 }, { y: y + 1, x: x - 1 },
         ];
         directNeighborCells.forEach(neighbor => {
-          if (doesCellCouldBeOnVictoryPath(gameState, stoneColor, neighbor)) {
+          if (canBePartOfAWiningPath(gameState, stoneColor, neighbor)) {
             const cost = doesCellExistAndHaveStone(gameState, neighbor, stoneColor) ? LOW_EDGE_COST : HIGH_EDGE_COST;
             addEdgeWithCost(hexBoardWinPredictionGraph, `${currentCell.y}-${currentCell.x}`, `${neighbor.y}-${neighbor.x}`, cost);
           }
@@ -85,7 +85,7 @@ function createPlayableCellEdges(
   });
 }
 
-function doesCellCouldBeOnVictoryPath(gameState: GameState, stoneColor: StoneColor, coordinates: Coordinates) {
+function canBePartOfAWiningPath(gameState: GameState, stoneColor: StoneColor, coordinates: Coordinates) {
   const opponentColor = stoneColor === "black" ? "white" : "black";
   return (!doesCellExist(gameState, coordinates) || doesCellExistAndHaveStone(gameState, coordinates, opponentColor)) ? false : true;
 }
