@@ -1,5 +1,4 @@
-import { createGraphFromGameState } from './graph';
-import { doesPathExist } from './pathfinding';
+import { getWinningPathIfExist } from './pathfinding';
 import { Coordinates, deepCloneObject } from './utils';
 
 export const DEFAULT_BOARD_SIZE = 19;
@@ -31,10 +30,10 @@ export interface NextMoveHint {
   suggestedNextMove?: Coordinates;
 }
 
-const BLACK_NODE_START = 'black-start';
-const BLACK_NODE_END = 'black-end';
-const WHITE_NODE_START = 'white-start';
-const WHITE_NODE_END = 'white-end';
+export const BLACK_NODE_START = 'black-start';
+export const BLACK_NODE_END = 'black-end';
+export const WHITE_NODE_START = 'white-start';
+export const WHITE_NODE_END = 'white-end';
 
 export function getWinner(gameState: GameState): {
   winner: StoneColor;
@@ -55,10 +54,7 @@ export function playerHasWon(
   gameState: GameState,
   stoneColor: StoneColor,
 ): { hasWon: boolean; winningPath: Coordinates[] } {
-  const hexBoardGraph = createGraphFromGameState(gameState, stoneColor);
-  return stoneColor == 'black'
-    ? doesPathExist(hexBoardGraph, BLACK_NODE_START, BLACK_NODE_END)
-    : doesPathExist(hexBoardGraph, WHITE_NODE_START, WHITE_NODE_END);
+  return getWinningPathIfExist(gameState, stoneColor);
 }
 
 export function doesCellExistAndHaveStone(

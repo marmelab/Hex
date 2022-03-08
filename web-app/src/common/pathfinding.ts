@@ -1,19 +1,21 @@
 import * as jkstra from 'jkstra';
-import { HexBoardGraph } from './graph';
+import { BLACK_NODE_END, BLACK_NODE_START, GameState, StoneColor, WHITE_NODE_END, WHITE_NODE_START } from './gameState';
+import { createWinDetectionGraph } from './graphWinDetection';
+import { HexBoardWinDetectionGraph } from './graphWinDetection';
 import { Coordinates } from './utils';
 
-export function doesPathExist(
-  hexBoardGraph: HexBoardGraph,
-  startNodeId: string,
-  endNodeId: string,
+export function getWinningPathIfExist(
+  gameState: GameState,
+  stoneColor: StoneColor,
 ): { hasWon: boolean; winningPath: Coordinates[] } {
-  const dijkstra = new jkstra.algos.Dijkstra(hexBoardGraph.graph);
-  const shortestPath = dijkstra.shortestPath(
-    hexBoardGraph.vertexMap.get(startNodeId),
-    hexBoardGraph.vertexMap.get(endNodeId),
+  const hexBoardWinDetectionGraph = createWinDetectionGraph(gameState, stoneColor);
+  const dijkstra = new jkstra.algos.Dijkstra(hexBoardWinDetectionGraph.winDetectionGraph);
+  const winningPath = dijkstra.shortestPath(
+    hexBoardWinDetectionGraph.vertexMap.get(stoneColor === "black" ? BLACK_NODE_START : WHITE_NODE_START),
+    hexBoardWinDetectionGraph.vertexMap.get(stoneColor === "black" ? BLACK_NODE_END : WHITE_NODE_END)
   );
-  if (shortestPath) {
-    const shortestPathWithoutStartNode = shortestPath.slice(1);
+  if (winningPath) {
+    const shortestPathWithoutStartNode = winningPath.slice(1);
     return {
       hasWon: true,
       winningPath: shortestPathWithoutStartNode.map((node) => {
