@@ -66,6 +66,17 @@
           {{/each}}
         </div>
       </div>
+      <div class="box-footer">
+        <div class="hint">
+          <a href="/games/{{game.id}}?hint=true">Hint</a>
+          {{#if closenessToGameEnd}}
+            <p>Closeness to game's end: {{closenessToGameEnd}}</p>
+          {{/if}}
+          {{#if suggestedNextMove}}
+            <p>Suggested next move: ({{suggestedNextMove.x}}, {{suggestedNextMove.y}})</p>
+          {{/if}}
+        </div>
+      </div>
     </div>
   </body>
 </html>
