@@ -171,3 +171,13 @@ span[data-player='white'] {
   top: calc(var(--hexWidth) * 1.1 / 2 - var(--winningCharacterSize) / 4);
   left: calc(var(--hexWidth) / 2 - var(--winningCharacterSize) / 4);
 }
+
+.box-footer {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  min-height: 50px;
+}
+
+.box-footer p {
+  margin: 5px 0;
+}

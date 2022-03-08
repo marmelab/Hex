@@ -12,6 +12,7 @@ import {
 import { GamesService, GameAndDisplayStatus } from './games.service';
 import { Request } from 'express';
 import { Game } from './game.entity';
+import { NextMoveHint } from 'src/common/gameState';
 
 @Controller('games')
 export class GamesController {
@@ -50,6 +51,19 @@ export class GamesController {
   ): Promise<GameAndDisplayStatus> {
     const game = await this.gameService.findGameById(id);
     return this.gameService.getGameAndDisplayStatus(game, req.sessionID);
+  }
+
+  @Get(':id/hint')
+  @Render('game')
+  async getNextMoveHint(
+    @Param('id') id: number,
+    @Req() req: Request,
+  ): Promise<GameAndDisplayStatus & NextMoveHint> {
+    const game = await this.gameService.findGameById(id);
+    return {
+      ...this.gameService.getGameAndDisplayStatus(game, req.sessionID),
+      ...this.gameService.getNextMoveHint(game, req.sessionID),
+    };
   }
 
   @Post(':id')
