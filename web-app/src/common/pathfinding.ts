@@ -1,19 +1,20 @@
 import * as jkstra from 'jkstra';
+import { HexBoardWinDetectionGraph } from './graphWinDetection';
 import { HexBoardGraph } from './graph';
 import { Coordinates } from './utils';
 
-export function doesPathExist(
-  hexBoardGraph: HexBoardGraph,
+export function getWinningPathIfExist(
+  hexBoardWinDetectionGraph: HexBoardWinDetectionGraph,
   startNodeId: string,
   endNodeId: string,
 ): { hasWon: boolean; winningPath: Coordinates[] } {
-  const dijkstra = new jkstra.algos.Dijkstra(hexBoardGraph.graph);
-  const shortestPath = dijkstra.shortestPath(
-    hexBoardGraph.vertexMap.get(startNodeId),
-    hexBoardGraph.vertexMap.get(endNodeId),
+  const dijkstra = new jkstra.algos.Dijkstra(hexBoardWinDetectionGraph.winDetectionGraph);
+  const winningPath = dijkstra.winningPath(
+    hexBoardWinDetectionGraph.vertexMap.get(startNodeId),
+    hexBoardWinDetectionGraph.vertexMap.get(endNodeId),
   );
-  if (shortestPath) {
-    const shortestPathWithoutStartNode = shortestPath.slice(1);
+  if (winningPath) {
+    const shortestPathWithoutStartNode = winningPath.slice(1);
     return {
       hasWon: true,
       winningPath: shortestPathWithoutStartNode.map((node) => {
