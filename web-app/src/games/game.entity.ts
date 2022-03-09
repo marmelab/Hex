@@ -34,4 +34,7 @@ export class Game {
 
   @Column()
   status: 'INITIALIZED' | 'RUNNING' | 'ENDED';
+
+  @Column({ default: false })
+  soloMode: boolean;
 }

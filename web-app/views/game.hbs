@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" {{#needToWaitForOpponent readyToPlay currentPlayerTurnToPlay}}http-equiv="refresh" content="5"
+    <meta charset="utf-8" {{#needToWaitForOpponent readyToPlay currentPlayerTurnToPlay}}http-equiv="refresh" content="3"
       {{/needToWaitForOpponent}} />
     <title>Hex</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
@@ -29,7 +29,7 @@
               Player 1 (white): {{game.player1.username}}
             </p>
             <p>
-              Player 2 (black): {{game.player2.username}}
+              Player 2 (black): {{#if game.soloMode}}BOT{{else}}{{game.player2.username}}{{/if}}
             </p>
           {{else}}
             <p data-cy="winner">The winner is : {{game.state.winner}}</p>
