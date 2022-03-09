@@ -22,6 +22,6 @@ export function getNextPlaySuggestion(gameState: GameState, stoneColor: StoneCol
 
   const winningPlays = winCostForPotentialPlays.filter(play => play.myWinCost === 0);
   return winningPlays.length > 0 ? winningPlays[0].playPosition : winCostForPotentialPlays.reduce(function (prev, curr) {
-    return prev.winCost < curr.winCost ? prev : curr;
+    return prev.winCost <= curr.winCost ? prev : curr;
   }).playPosition;
 }
