@@ -115,7 +115,7 @@ describe('Get a suggestion for the next play', () => {
     expect(() => getNextPlaySuggestion(input, "white")).toThrowError();
   });
 
-  it('Should get a good advice related to the possibilities of the opponent', () => {
+  it('Should get a suggestion to play on x:3,y:1 based on the two players', () => {
     const input = parseGameStateFromMultilineString(`
     ⬡ ⬡ ⬡ ⬡ ⬡
      ⬡ ⬡ ⬡ ⬡ ⬡
