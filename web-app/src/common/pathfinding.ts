@@ -15,10 +15,10 @@ export function getWinningPathIfExist(
     hexBoardWinDetectionGraph.vertexMap.get(stoneColor === "black" ? BLACK_NODE_END : WHITE_NODE_END)
   );
   if (winningPath) {
-    const shortestPathWithoutStartNode = winningPath.slice(1);
+    const winningPathWithoutStartNode = winningPath.slice(1);
     return {
       hasWon: true,
-      winningPath: shortestPathWithoutStartNode.map((node) => {
+      winningPath: winningPathWithoutStartNode.map((node) => {
         return {
           x: parseInt(node.from.data.split('-')[1]),
           y: parseInt(node.from.data.split('-')[0]),
@@ -35,7 +35,7 @@ export function getNbMovesNeededToWin(
 ): number {
   const hexBoardWinPredictionGraph = createWinPredictionGraph(gameState, stoneColor);
   const dijkstra = new jkstra.algos.Dijkstra(hexBoardWinPredictionGraph.winPrediction);
-  let shortestPath = dijkstra.shortestPath(
+  const shortestPath = dijkstra.shortestPath(
     hexBoardWinPredictionGraph.vertexMap.get(stoneColor === "black" ? BLACK_NODE_START : WHITE_NODE_START),
     hexBoardWinPredictionGraph.vertexMap.get(stoneColor === "black" ? BLACK_NODE_END : WHITE_NODE_END),
     {
