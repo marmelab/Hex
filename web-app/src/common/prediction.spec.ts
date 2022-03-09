@@ -132,10 +132,10 @@ describe('Get a suggestion for the next play', () => {
   it('Should get a suggestion to play on one from 3 possible coordinates', () => {
     const input = parseGameStateFromMultilineString(`
     ⬡ W ⬡ ⬡ ⬡
-     ⬡ ⬡ ⬡ E ⬢
+     ⬡ ⬡ ⬡ ⬡ ⬢
       W ⬡ ⬢ W ⬡
-       E ⬢ ⬡ W ⬡
-        E ⬡ ⬡ ⬡ ⬡
+       ⬡ ⬢ ⬡ W ⬡
+        ⬡ ⬡ ⬡ ⬡ ⬡
     `);
 
     const nextPlayAdvice = getNextPlaySuggestion(input, "black");
