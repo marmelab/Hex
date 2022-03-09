@@ -10,7 +10,7 @@
   </head>
   <body>
 
-    <div class="gameboard">
+    <div class="gameboard grid grid-cols-1 gap-10 h-screen place-content-start place-items-center p-6">
 
       <div class="box-header">
         {{#areEqual game.state.winner null}}
@@ -63,10 +63,9 @@
         </div>
       </div>
 
-      <div class="box-footer">
         {{#areEqual currentPlayerTurnToPlay true}}
-        <div class="hint">
-          <a href="/games/{{game.id}}?hint=true">Hint</a>
+        <div class="hint text-center">
+          <a href="/games/{{game.id}}?hint=true">Get a hint!</a>
           {{#if closenessToGameEnd}}
             <p>Closeness to game's end: {{closenessToGameEnd}}</p>
           {{/if}}
@@ -76,7 +75,7 @@
         </div>
         {{/areEqual}}
         {{#areEqual readyToPlay true}}
-        <div class="absolute bottom-0">
+        <div>
           <p>
               Player 1 (white): {{game.player1.username}}
           </p>
@@ -85,9 +84,8 @@
           </p>
         </div>
         {{/areEqual}}
-      </div>
 
     </div>
-    
+
   </body>
 </html>

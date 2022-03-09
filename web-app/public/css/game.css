@@ -1,12 +1,12 @@
 /* Great source: https://css-tricks.com/hexagons-and-beyond-flexible-responsive-grid-patterns-sans-media-queries/ */
 
-.gameboard {
+/* .gameboard {
   display: grid;
   place-self: center;
   justify-content: center;
-}
+} */
 
-.box-header {
+/* .box-header {
   margin-top: 25px;
   margin-bottom: 25px;
   min-height: 50px;
@@ -14,7 +14,7 @@
 
 .box-header p {
   margin: 5px 0;
-}
+} */
 
 .current-player {
   text-transform: uppercase;
@@ -172,7 +172,7 @@ span[data-player='white'] {
   left: calc(var(--hexWidth) / 2 - var(--winningCharacterSize) / 4);
 }
 
-.box-footer {
+/* .box-footer {
   margin-top: 25px;
   margin-bottom: 25px;
   min-height: 50px;
@@ -180,4 +180,4 @@ span[data-player='white'] {
 
 .box-footer p {
   margin: 5px 0;
-}
+} */
