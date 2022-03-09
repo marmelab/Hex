@@ -49,7 +49,7 @@ export function parseGameStateFromMultilineString(
           }),
       ),
   } as GameState;
-  const getWinnerDataIfExist = getWinner(parsedGameState);
+  const getWinnerDataIfExist = getWinner(parsedGameState.board);
   parsedGameState.winner = getWinnerDataIfExist.winner;
   parsedGameState.winningPath = getWinnerDataIfExist.winningPath;
   return parsedGameState;

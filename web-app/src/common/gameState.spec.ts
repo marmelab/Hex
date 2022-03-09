@@ -18,7 +18,7 @@ describe('check whether player has won the game', () => {
   ⬡ W ⬡
         `);
     // when
-    const ouputWhite = playerHasWon(input, 'white');
+    const ouputWhite = playerHasWon(input.board, 'white');
     // then
     expect(ouputWhite.hasWon).toStrictEqual(true);
   });
@@ -31,7 +31,7 @@ describe('check whether player has won the game', () => {
   ⬡ ⬡ ⬡
         `);
     // when
-    const ouputBlack = playerHasWon(input, 'black');
+    const ouputBlack = playerHasWon(input.board, 'black');
     // then
     expect(ouputBlack.hasWon).toStrictEqual(true);
   });
@@ -44,8 +44,8 @@ describe('check whether player has won the game', () => {
   ⬡ ⬡ ⬢
         `);
     // when
-    const outputBlack = playerHasWon(input, 'black');
-    const outputWhite = playerHasWon(input, 'white');
+    const outputBlack = playerHasWon(input.board, 'black');
+    const outputWhite = playerHasWon(input.board, 'white');
     // then
     expect(outputBlack.hasWon && outputWhite.hasWon).toStrictEqual(false);
   });
@@ -58,7 +58,7 @@ describe('check whether player has won the game', () => {
   W ⬡ ⬡
         `);
     // when
-    const outputWhite = playerHasWon(input, 'white');
+    const outputWhite = playerHasWon(input.board, 'white');
     // then
     expect(outputWhite.hasWon).toStrictEqual(true);
   });
@@ -71,8 +71,8 @@ describe('check whether player has won the game', () => {
   ⬡ ⬡ ⬡
         `);
     // when
-    const outputBlack = playerHasWon(input, 'black');
-    const outputWhite = playerHasWon(input, 'white');
+    const outputBlack = playerHasWon(input.board, 'black');
+    const outputWhite = playerHasWon(input.board, 'white');
     // then
     expect(outputBlack.hasWon && outputWhite.hasWon).toStrictEqual(false);
   });
@@ -87,7 +87,7 @@ describe('check whether player has won the game', () => {
     ⬡ ⬡ W ⬡ ⬡
         `);
     // when
-    const outputWhite = playerHasWon(input, 'white');
+    const outputWhite = playerHasWon(input.board, 'white');
     // then
     expect(outputWhite.hasWon).toStrictEqual(true);
   });
@@ -102,8 +102,8 @@ describe('check whether player has won the game', () => {
     ⬡ ⬡ ⬢ ⬡ ⬡
         `);
     // when
-    const outputBlack = playerHasWon(input, 'black');
-    const outputWhite = playerHasWon(input, 'white');
+    const outputBlack = playerHasWon(input.board, 'black');
+    const outputWhite = playerHasWon(input.board, 'white');
     // then
     expect(outputBlack.hasWon && outputWhite.hasWon).toStrictEqual(false);
   });
@@ -118,7 +118,7 @@ describe('check whether player has won the game', () => {
     ⬡ ⬡ ⬡ ⬡ ⬡
         `);
     // when
-    const outputBlack = playerHasWon(input, 'black');
+    const outputBlack = playerHasWon(input.board, 'black');
     // then
     expect(outputBlack.hasWon).toStrictEqual(true);
   });
