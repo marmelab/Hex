@@ -51,7 +51,7 @@ export class ApiGamesController {
   ): Promise<GameAndDisplayStatus> {
     let game = await this.gamesService.findGameById(id);
     if (game === undefined) throw new NotFoundException();
-    game = await this.gamesService.applyMove(game, params.nextMove);
+    game = await this.gamesService.handlePlayerMove(game, params.nextMove);
     return this.gamesService.getGameAndDisplayStatus(game, req.user.username);
   }
 

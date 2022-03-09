@@ -75,7 +75,7 @@ export class GamesController {
     @Req() req: Request,
   ): Promise<GameAndDisplayStatus> {
     let game = await this.gameService.findGameById(id);
-    game = await this.gameService.applyMove(game, gameParams);
+    game = await this.gameService.handlePlayerMove(game, gameParams);
     return this.gameService.getGameAndDisplayStatus(game, req.sessionID);
   }
 }

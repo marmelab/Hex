@@ -39,16 +39,20 @@ export class GamesService {
     return gameState;
   }
 
-  async applyMove(game: Game, coordinates: Coordinates): Promise<Game> {
+  async handlePlayerMove(game: Game, coordinates: Coordinates): Promise<Game> {
     const updatedGame = await this.updateGameState(game, coordinates);
     if (!updatedGame.state.winner && updatedGame.soloMode) {
-      const nextMove = getNextMoveHint(
-        updatedGame.state,
-        'black',
-      ).suggestedNextMove;
-      this.updateGameState(updatedGame, nextMove);
+      this.handleBotMove(updatedGame);
     }
     return updatedGame;
+  }
+
+  private handleBotMove(updatedGame: Game) {
+    const nextMove = getNextMoveHint(
+      updatedGame.state,
+      'black',
+    ).suggestedNextMove;
+    this.updateGameState(updatedGame, nextMove);
   }
 
   async updateGameState(game: Game, coordinates: Coordinates): Promise<Game> {
