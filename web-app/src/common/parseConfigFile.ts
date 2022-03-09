@@ -34,7 +34,7 @@ export function parseConfigFile(
     winner: null,
     winningPath: null,
   };
-  const getWinnerDataIfExist = getWinner(gameState);
+  const getWinnerDataIfExist = getWinner(gameState.board);
   gameState.winner = getWinnerDataIfExist.winner;
   gameState.winningPath = getWinnerDataIfExist.winningPath;
   return gameState;

@@ -10,7 +10,7 @@ describe('Get a suggestion for the next play', () => {
     ⬢ ⬢ ⬡
   `);
 
-    const nextPlayAdvice = getNextPlaySuggestion(input, "black");
+    const nextPlayAdvice = getNextPlaySuggestion(input.board, "black");
 
     expect(areExpectedCoordinatesInList(nextPlayAdvice, [{ x: 2, y: 2 }, { x: 2, y: 1 }])).toBeTruthy();
   });
@@ -22,7 +22,7 @@ describe('Get a suggestion for the next play', () => {
     ⬢ ⬡ ⬢
   `);
 
-    const nextPlayAdvice = getNextPlaySuggestion(input, "black");
+    const nextPlayAdvice = getNextPlaySuggestion(input.board, "black");
 
     expect(nextPlayAdvice).toStrictEqual({ x: 1, y: 2 });
   });
@@ -35,7 +35,7 @@ describe('Get a suggestion for the next play', () => {
     ⬡ ⬢ ⬢
   `);
 
-    const nextPlayAdvice = getNextPlaySuggestion(input, "black");
+    const nextPlayAdvice = getNextPlaySuggestion(input.board, "black");
 
     expect(nextPlayAdvice).toStrictEqual({ x: 0, y: 2 });
   });
@@ -47,7 +47,7 @@ describe('Get a suggestion for the next play', () => {
     W ⬡ ⬡
   `);
 
-    const nextPlayAdvice = getNextPlaySuggestion(input, "white");
+    const nextPlayAdvice = getNextPlaySuggestion(input.board, "white");
     expect(areExpectedCoordinatesInList(nextPlayAdvice, [{ x: 0, y: 0 }, { x: 1, y: 0 }])).toBeTruthy();
   });
 
@@ -58,7 +58,7 @@ describe('Get a suggestion for the next play', () => {
     W ⬡ ⬡
   `);
 
-    const nextPlayAdvice = getNextPlaySuggestion(input, "white");
+    const nextPlayAdvice = getNextPlaySuggestion(input.board, "white");
 
     expect(nextPlayAdvice).toStrictEqual({ x: 0, y: 1 });
   });
@@ -70,7 +70,7 @@ describe('Get a suggestion for the next play', () => {
     ⬡ ⬡ ⬡
   `);
 
-    const nextPlayAdvice = getNextPlaySuggestion(input, "white");
+    const nextPlayAdvice = getNextPlaySuggestion(input.board, "white");
 
     expect(nextPlayAdvice).toStrictEqual({ x: 0, y: 2 });
   });
@@ -82,7 +82,7 @@ describe('Get a suggestion for the next play', () => {
     ⬡ ⬡ ⬡
   `);
 
-    const nextPlayAdvice = getNextPlaySuggestion(input, "white");
+    const nextPlayAdvice = getNextPlaySuggestion(input.board, "white");
     expect(areExpectedCoordinatesInList(nextPlayAdvice, [
       { x: 0, y: 2 },
       { x: 1, y: 2 },
@@ -100,7 +100,7 @@ describe('Get a suggestion for the next play', () => {
     ⬢ ⬢ ⬢
   `);
 
-    const nextPlayAdvice = getNextPlaySuggestion(input, "white");
+    const nextPlayAdvice = getNextPlaySuggestion(input.board, "white");
 
     expect(nextPlayAdvice).toStrictEqual({ x: 1, y: 1 });
   });
@@ -112,7 +112,7 @@ describe('Get a suggestion for the next play', () => {
     ⬢ ⬢ ⬢
   `);
 
-    expect(() => getNextPlaySuggestion(input, "white")).toThrowError();
+    expect(() => getNextPlaySuggestion(input.board, "white")).toThrowError();
   });
 
   it('Should get a suggestion to play on x:3,y:1', () => {
@@ -124,7 +124,7 @@ describe('Get a suggestion for the next play', () => {
         ⬡ ⬡ ⬡ ⬡ ⬡
     `);
 
-    const nextPlayAdvice = getNextPlaySuggestion(input, "white");
+    const nextPlayAdvice = getNextPlaySuggestion(input.board, "white");
 
     expect(nextPlayAdvice).toStrictEqual({ x: 3, y: 1 });
   });
@@ -138,7 +138,7 @@ describe('Get a suggestion for the next play', () => {
         ⬡ ⬡ ⬡ ⬡ ⬡
     `);
 
-    const nextPlayAdvice = getNextPlaySuggestion(input, "black");
+    const nextPlayAdvice = getNextPlaySuggestion(input.board, "black");
 
     expect(areExpectedCoordinatesInList(nextPlayAdvice, [
       { x: 3, y: 1 },

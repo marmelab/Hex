@@ -38,15 +38,15 @@ export const BLACK_NODE_END = 'black-end';
 export const WHITE_NODE_START = 'white-start';
 export const WHITE_NODE_END = 'white-end';
 
-export function getWinner(gameState: GameState): {
+export function getWinner(board: Board): {
   winner: StoneColor;
   winningPath: Coordinates[];
 } {
-  const blackPlayerResult = playerHasWon(gameState, 'black');
+  const blackPlayerResult = playerHasWon(board, 'black');
   if (blackPlayerResult.hasWon) {
     return { winner: 'black', winningPath: blackPlayerResult.winningPath };
   }
-  const whitePlayerResult = playerHasWon(gameState, 'white');
+  const whitePlayerResult = playerHasWon(board, 'white');
   if (whitePlayerResult.hasWon) {
     return { winner: 'white', winningPath: whitePlayerResult.winningPath };
   }
@@ -54,30 +54,30 @@ export function getWinner(gameState: GameState): {
 }
 
 export function playerHasWon(
-  gameState: GameState,
+  board: Board,
   stoneColor: StoneColor,
 ): { hasWon: boolean; winningPath: Coordinates[] } {
-  return getWinningPathIfExist(gameState, stoneColor);
+  return getWinningPathIfExist(board, stoneColor);
 }
 
 export function doesCellExistAndHaveStone(
-  gameState: GameState,
+  board: Board,
   cell: Coordinates,
   stoneColor: StoneColor,
 ): boolean {
   return (
-    doesCellExist(gameState, cell) && cellHasStone(gameState, cell, stoneColor)
+    doesCellExist(board, cell) && cellHasStone(board, cell, stoneColor)
   );
 }
 
 export function doesCellExist(
-  gameState: GameState,
+  board: Board,
   cell: Coordinates,
 ): boolean {
-  if (cell.y < 0 || cell.y >= gameState.board.length) {
+  if (cell.y < 0 || cell.y >= board.length) {
     return false;
   }
-  if (cell.x < 0 || cell.x >= gameState.board[cell.y].length) {
+  if (cell.x < 0 || cell.x >= board[cell.y].length) {
     return false;
   }
   return true;
@@ -89,14 +89,14 @@ export function doesCellExist(
  * has a stone on it and this stone is of the given color.
  */
 export function cellHasStone(
-  gameState: GameState,
+  board: Board,
   cell: Coordinates,
   stoneColor?: StoneColor,
 ): boolean {
   if (stoneColor) {
-    return gameState.board[cell.y][cell.x].value == stoneColor;
+    return board[cell.y][cell.x].value == stoneColor;
   } else {
-    return gameState.board[cell.y][cell.x].value !== 'empty';
+    return board[cell.y][cell.x].value !== 'empty';
   }
 }
 
@@ -121,10 +121,10 @@ export function updateGameState(
   previousState: GameState,
   nextMove: Coordinates,
 ): GameState {
-  if (!doesCellExist(previousState, nextMove)) {
+  if (!doesCellExist(previousState.board, nextMove)) {
     throw new Error('Given coordinates are outside the scope of the board.');
   }
-  if (cellHasStone(previousState, nextMove)) {
+  if (cellHasStone(previousState.board, nextMove)) {
     throw new Error('A stone is already set in the selected cell.');
   }
   const newTurn: StoneColor = previousState.turn == 'white' ? 'black' : 'white';
@@ -135,7 +135,7 @@ export function updateGameState(
     winningPath: null,
   };
   newGameState.board[nextMove.y][nextMove.x].value = previousState.turn;
-  const getWinnerDataIfExist = getWinner(newGameState);
+  const getWinnerDataIfExist = getWinner(newGameState.board);
   newGameState.winner = getWinnerDataIfExist.winner;
   newGameState.winningPath = getWinnerDataIfExist.winningPath;
   return newGameState;
@@ -152,7 +152,7 @@ export function getNextMoveHint(
     };
   }
   // Else, try if the current player can win by playing one stone
-  let winningMove = getWinningMoveIfAny(state, player);
+  let winningMove = getWinningMoveIfAny(state.board, player);
   if (winningMove) {
     return {
       closenessToGameEnd: 'ONE_MOVE_TO_WIN',
@@ -161,7 +161,7 @@ export function getNextMoveHint(
   }
   // Else, try if the opponent can win by playing one stone
   const opponent: StoneColor = player === 'black' ? 'white' : 'black';
-  winningMove = getWinningMoveIfAny(state, opponent);
+  winningMove = getWinningMoveIfAny(state.board, opponent);
   if (winningMove) {
     return {
       closenessToGameEnd: 'ONE_MOVE_TO_LOOSE',
@@ -171,24 +171,23 @@ export function getNextMoveHint(
   // Otherwise, return undefined and get a advice for the next play
   return {
     closenessToGameEnd: 'UNDETERMINED',
-    suggestedNextMove: getNextPlaySuggestion(state, player)
+    suggestedNextMove: getNextPlaySuggestion(state.board, player)
   };
 }
 
 function getWinningMoveIfAny(
-  state: GameState,
+  board: Board,
   player: StoneColor,
 ): Coordinates {
-  for (const [y, row] of state.board.entries()) {
+  for (const [y, row] of board.entries()) {
     for (const [x, cell] of row.entries()) {
       if (cell.value === 'empty') {
-        const attemptedGameState = deepCloneObject(state);
-        attemptedGameState.board[y][x].value = player;
-        if (playerHasWon(attemptedGameState, player).hasWon) {
+        const attemptedBoard = deepCloneObject(board) as Board;
+        attemptedBoard[y][x].value = player;
+        if (playerHasWon(attemptedBoard, player).hasWon) {
           return { x, y };
         }
       }
     }
   }
-  return null;
 }
