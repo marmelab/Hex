@@ -250,14 +250,14 @@ function createCell(
       hover: {
         // Add hover effect only if cell is playable
         fg:
-          !cellHasStone(gameState, { x, y }) && !gameState.winner
+          !cellHasStone(gameState.board, { x, y }) && !gameState.winner
             ? HOVER_FG_COLOR
             : getCellDisplayColor(gameState.board[y][x]),
       },
     },
   });
   // If cell is playable, add "on-click" event to it
-  if (!cellHasStone(gameState, { x, y }) && !gameState.winner) {
+  if (!cellHasStone(gameState.board, { x, y }) && !gameState.winner) {
     cellBox.on('click', () => {
       gameState = updateGameState(gameState, { x, y });
       renderBoard(gameState, screen);
