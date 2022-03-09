@@ -3,7 +3,7 @@ import { parseGameStateFromMultilineString } from './utils';
 import { getNbMovesNeededToWin } from './pathfinding';
 
 describe('Shortest path cost', () => {
-  it('Should return a valid winning path cost', () => {
+  it('Should return a winning path cost of 2', () => {
     const input = parseGameStateFromMultilineString(`
   ⬡ ⬡ ⬡
    ⬡ ⬡ ⬡
@@ -15,7 +15,7 @@ describe('Shortest path cost', () => {
     expect(cost).toStrictEqual(2);
   });
 
-  it('Should return a valid winning path cost', () => {
+  it('Should return a winning path cost of 1', () => {
     const input = parseGameStateFromMultilineString(`
   ⬡ ⬡ ⬡
    ⬡ ⬡ ⬡
@@ -27,7 +27,7 @@ describe('Shortest path cost', () => {
     expect(cost).toStrictEqual(1);
   });
 
-  it('Should return a valid winning path cost', () => {
+  it('Should return a winning path cost of 1', () => {
     const input = parseGameStateFromMultilineString(`
   ⬡ ⬢ ⬢
    ⬡ ⬡ ⬡
@@ -39,7 +39,7 @@ describe('Shortest path cost', () => {
     expect(cost).toStrictEqual(1);
   });
 
-  it('Should return a valid winning path cost', () => {
+  it('Should return a winning path cost of 1', () => {
     const input = parseGameStateFromMultilineString(`
   ⬢ ⬡ ⬢
    ⬡ ⬡ ⬡
@@ -51,7 +51,7 @@ describe('Shortest path cost', () => {
     expect(cost).toStrictEqual(1);
   });
 
-  it('Should return a valid winning path cost', () => {
+  it('Should return a winning path cost of 1', () => {
     const input = parseGameStateFromMultilineString(`
   ⬢ ⬢ ⬡
    ⬡ ⬡ ⬡
@@ -63,7 +63,7 @@ describe('Shortest path cost', () => {
     expect(cost).toStrictEqual(1);
   });
 
-  it('Should return a valid winning path cost', () => {
+  it('Should return a winning path cost of 3', () => {
     const input = parseGameStateFromMultilineString(`
   ⬡ ⬡ ⬡
    ⬡ ⬡ ⬡
@@ -75,7 +75,7 @@ describe('Shortest path cost', () => {
     expect(cost).toStrictEqual(3);
   });
 
-  it('Should return a valid winning path cost', () => {
+  it('Should return a winning path cost of 0', () => {
     const input = parseGameStateFromMultilineString(`
   ⬢ ⬢ ⬢
    ⬡ ⬡ ⬡
@@ -87,7 +87,7 @@ describe('Shortest path cost', () => {
     expect(cost).toStrictEqual(0);
   });
 
-  it('Should return a valid winning path cost', () => {
+  it('Should return a winning path cost of 2', () => {
     const input = parseGameStateFromMultilineString(`
   W ⬡ ⬡
    ⬡ W ⬡
@@ -99,7 +99,7 @@ describe('Shortest path cost', () => {
     expect(cost).toStrictEqual(2);
   });
 
-  it('Should return a valid winning path cost', () => {
+  it('Should return a winning path cost of 0', () => {
     const input = parseGameStateFromMultilineString(`
   ⬡ ⬡ W
    ⬡ W ⬡
@@ -111,7 +111,7 @@ describe('Shortest path cost', () => {
     expect(cost).toStrictEqual(0);
   });
 
-  it('Should return a valid winning path cost', () => {
+  it('Should return a winning path cost of 0', () => {
     const input = parseGameStateFromMultilineString(`
   ⬢ ⬢ ⬢
    ⬢ ⬢ ⬢
@@ -123,7 +123,7 @@ describe('Shortest path cost', () => {
     expect(cost).toStrictEqual(0);
   });
 
-  it('Should return a valid winning path cost', () => {
+  it('Should return a winning path cost of 4', () => {
     const input = parseGameStateFromMultilineString(`
   ⬢ ⬢ ⬢ ⬢ ⬡ ⬡ ⬡ ⬡ ⬡
    ⬡ ⬡ ⬡ ⬡ ⬢ ⬡ ⬡ ⬡ ⬡
@@ -141,7 +141,7 @@ describe('Shortest path cost', () => {
     expect(cost).toStrictEqual(4);
   });
 
-  it('Should return a negative winning path cost', () => {
+  it('Should return a winning path cost of -1', () => {
     const input = parseGameStateFromMultilineString(`
   ⬢ ⬢ ⬢
    ⬢ ⬢ ⬢
