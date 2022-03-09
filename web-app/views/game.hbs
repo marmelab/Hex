@@ -6,18 +6,18 @@
     <title>Hex</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
     <link rel="stylesheet" type="text/css" href="/css/game.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
     <div class="gameboard">
       <div class="box-header">
         {{#areEqual game.state.winner null}}
           {{#areEqual readyToPlay true}}
-            <p>
-              Current player:
-              <span class="current-player" data-player="{{game.state.turn}}">{{game.state.turn}}</span>
-            </p>
+            {{#areEqual currentPlayerTurnToPlay true}}
+            <p><span class="current-player" data-player="{{game.state.turn}}">{{game.state.turn}}</span>, your move!</p>
+            {{/areEqual}}
             {{#areEqual currentPlayerTurnToPlay false}}
-              <p>Waiting for other player to make their move...</p>
+              <p>Waiting <span class="current-player" data-player="{{game.state.turn}}">{{game.state.turn}}</span> to make their move...</p>
             {{/areEqual}}
           {{else}}
             <p>Awaiting player 2...</p>
@@ -25,12 +25,6 @@
               Send <a href="/games/{{game.id}}/join">this link</a> for second player to join
             </p>
           {{/areEqual}}
-            <p>
-              Player 1 (white): {{game.player1.username}}
-            </p>
-            <p>
-              Player 2 (black): {{game.player2.username}}
-            </p>
           {{else}}
             <p data-cy="winner">The winner is : {{game.state.winner}}</p>
             <form action="/" method="get">
@@ -67,6 +61,7 @@
         </div>
       </div>
       <div class="box-footer">
+        {{#areEqual currentPlayerTurnToPlay true}}
         <div class="hint">
           <a href="/games/{{game.id}}?hint=true">Hint</a>
           {{#if closenessToGameEnd}}
@@ -76,6 +71,17 @@
             <p>Suggested next move: ({{suggestedNextMove.x}}, {{suggestedNextMove.y}})</p>
           {{/if}}
         </div>
+        {{/areEqual}}
+        {{#areEqual readyToPlay true}}
+        <div class="absolute bottom-0">
+          <p>
+              Player 1 (white): {{game.player1.username}}
+          </p>
+          <p>
+              Player 2 (black): {{game.player2.username}}
+          </p>
+        </div>
+        {{/areEqual}}
       </div>
     </div>
   </body>
