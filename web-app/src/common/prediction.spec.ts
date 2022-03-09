@@ -28,7 +28,7 @@ describe('Should get an advice for the next play', () => {
 
     const nextPlayAdvice = getNextPlaySuggestion(input, "black");
 
-    expect(areCoordinatesEquals(nextPlayAdvice, { x: 1, y: 2 }) || areCoordinatesEquals(nextPlayAdvice, { x: 1, y: 1 })).toBeTruthy();
+    expect(nextPlayAdvice).toStrictEqual({ x: 1, y: 2 });
   });
 
 
@@ -41,7 +41,7 @@ describe('Should get an advice for the next play', () => {
 
     const nextPlayAdvice = getNextPlaySuggestion(input, "black");
 
-    expect(areCoordinatesEquals(nextPlayAdvice, { x: 0, y: 2 }) || areCoordinatesEquals(nextPlayAdvice, { x: 0, y: 1 })).toBeTruthy();
+    expect(nextPlayAdvice).toStrictEqual({ x: 0, y: 2 });
   });
 
   it('Should get a good advice', () => {
@@ -65,7 +65,7 @@ describe('Should get an advice for the next play', () => {
 
     const nextPlayAdvice = getNextPlaySuggestion(input, "white");
 
-    expect(areCoordinatesEquals(nextPlayAdvice, { x: 0, y: 1 }) || areCoordinatesEquals(nextPlayAdvice, { x: 1, y: 1 })).toBeTruthy();
+    expect(nextPlayAdvice).toStrictEqual({ x: 0, y: 1 });
   });
 
   it('Should get a good advice', () => {
@@ -77,7 +77,7 @@ describe('Should get an advice for the next play', () => {
 
     const nextPlayAdvice = getNextPlaySuggestion(input, "white");
 
-    expect(areCoordinatesEquals(nextPlayAdvice, { x: 0, y: 2 }) || areCoordinatesEquals(nextPlayAdvice, { x: 1, y: 2 })).toBeTruthy();
+    expect(nextPlayAdvice).toStrictEqual({ x: 0, y: 2 });
   });
 
   it('Should get a good advice', () => {
@@ -88,8 +88,13 @@ describe('Should get an advice for the next play', () => {
   `);
 
     const nextPlayAdvice = getNextPlaySuggestion(input, "white");
-
-    expect(areCoordinatesEquals(nextPlayAdvice, { x: 1, y: 2 }) || areCoordinatesEquals(nextPlayAdvice, { x: 2, y: 2 })).toBeTruthy();
+    expect(
+      areCoordinatesEquals(nextPlayAdvice, { x: 0, y: 2 }) ||
+      areCoordinatesEquals(nextPlayAdvice, { x: 1, y: 2 }) ||
+      areCoordinatesEquals(nextPlayAdvice, { x: 1, y: 0 }) ||
+      areCoordinatesEquals(nextPlayAdvice, { x: 2, y: 0 }) ||
+      areCoordinatesEquals(nextPlayAdvice, { x: 0, y: 1 })
+    ).toBeTruthy();
   });
 
   it('Should get an obvious advice', () => {
