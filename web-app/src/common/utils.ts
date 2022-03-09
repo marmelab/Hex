@@ -1,4 +1,4 @@
-import { Cell, GameState, getWinner, StoneColor } from './gameState';
+import { Board, Cell, GameState, getWinner, StoneColor } from './gameState';
 export interface Coordinates {
   x: number;
   y: number;
@@ -55,9 +55,7 @@ export function parseGameStateFromMultilineString(
   return parsedGameState;
 }
 
-export function arrayBoardToBinaryBoard(
-  board: Array<Array<Cell>>,
-): BinaryBoard {
+export function arrayBoardToBinaryBoard(board: Board): BinaryBoard {
   const boardSize = board.length;
   return {
     whiteBoard: arrayBoardToBinaryBoardByColor(board, boardSize, 'white'),
@@ -67,7 +65,7 @@ export function arrayBoardToBinaryBoard(
 }
 
 function arrayBoardToBinaryBoardByColor(
-  board: Array<Array<Cell>>,
+  board: Board,
   boardSize: number,
   color: StoneColor,
 ): number {
@@ -83,10 +81,8 @@ function arrayBoardToBinaryBoardByColor(
   );
 }
 
-export function binaryBoardToArrayBoard(
-  board: BinaryBoard,
-): Array<Array<Cell>> {
-  const result: Array<Array<Cell>> = [];
+export function binaryBoardToArrayBoard(board: BinaryBoard): Board {
+  const result: Board = [];
   let currentBit = 1 << (board.boardSize * board.boardSize);
   for (let y = 0; y < board.boardSize; y++) {
     result[y] = [];
