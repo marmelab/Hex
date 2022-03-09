@@ -1,6 +1,6 @@
 import * as jkstra from 'jkstra';
 import {
-  doesCellExist, doesCellExistAndHaveStone, GameState, StoneColor,
+  doesCellExist, doesCellExistAndHaveStone, Board, StoneColor,
   BLACK_NODE_START, BLACK_NODE_END, WHITE_NODE_START, WHITE_NODE_END
 } from './gameState';
 import { Coordinates } from './utils';
@@ -19,21 +19,21 @@ export interface HexBoardWinPredictionGraph {
  * It doesn't add vertex/edges for the cells of the opposite color because it's not needed for this calculation.
  */
 export function createWinPredictionGraph(
-  gameState: GameState,
+  board: Board,
   stoneColor: StoneColor,
 ): HexBoardWinPredictionGraph {
   const hexBoardWinPredictionGraph: HexBoardWinPredictionGraph = {
     winPrediction: new jkstra.Graph(),
     vertexMap: new Map<string, jkstra.Vertex>(),
   };
-  createVertices(gameState, hexBoardWinPredictionGraph, stoneColor);
-  createStartEndEdges(gameState, hexBoardWinPredictionGraph, stoneColor);
-  createPlayableCellEdges(gameState, hexBoardWinPredictionGraph, stoneColor);
+  createVertices(board, hexBoardWinPredictionGraph, stoneColor);
+  createStartEndEdges(board, hexBoardWinPredictionGraph, stoneColor);
+  createPlayableCellEdges(board, hexBoardWinPredictionGraph, stoneColor);
   return hexBoardWinPredictionGraph;
 }
 
 function createVertices(
-  gameState: GameState,
+  board: Board,
   hexBoardWinPredictionGraph: HexBoardWinPredictionGraph,
   stoneColor: StoneColor
 ) {
@@ -47,7 +47,7 @@ function createVertices(
   }
 
   // Add vertex for each cell on the board that's are not of the opposite color
-  gameState.board.forEach((row, y) => {
+  board.forEach((row, y) => {
     row.forEach((cell, x) => {
       if (cell.value === stoneColor || cell.value === "empty") {
         addVertex(hexBoardWinPredictionGraph, `${y}-${x}`);
@@ -61,11 +61,11 @@ function addVertex(hexBoardWinPredictionGraph: HexBoardWinPredictionGraph, id: s
 }
 
 function createPlayableCellEdges(
-  gameState: GameState,
+  board: Board,
   hexBoardWinPredictionGraph: HexBoardWinPredictionGraph,
   stoneColor: StoneColor,
 ) {
-  gameState.board.forEach((row, y) => {
+  board.forEach((row, y) => {
     row.forEach((cell, x) => {
       if (cell.value == stoneColor || cell.value == "empty") {
         const currentCell: Coordinates = { y: y, x: x };
@@ -75,8 +75,8 @@ function createPlayableCellEdges(
           { y: y - 1, x: x + 1 }, { y: y + 1, x: x - 1 },
         ];
         directNeighborCells.forEach(neighbor => {
-          if (canBePartOfAWiningPath(gameState, stoneColor, neighbor)) {
-            const cost = doesCellExistAndHaveStone(gameState, neighbor, stoneColor) ? LOW_EDGE_COST : HIGH_EDGE_COST;
+          if (canBePartOfAWiningPath(board, stoneColor, neighbor)) {
+            const cost = doesCellExistAndHaveStone(board, neighbor, stoneColor) ? LOW_EDGE_COST : HIGH_EDGE_COST;
             addEdgeWithCost(hexBoardWinPredictionGraph, `${currentCell.y}-${currentCell.x}`, `${neighbor.y}-${neighbor.x}`, cost);
           }
         })
@@ -85,9 +85,9 @@ function createPlayableCellEdges(
   });
 }
 
-function canBePartOfAWiningPath(gameState: GameState, stoneColor: StoneColor, coordinates: Coordinates) {
+function canBePartOfAWiningPath(board: Board, stoneColor: StoneColor, coordinates: Coordinates) {
   const opponentColor = stoneColor === "black" ? "white" : "black";
-  return (!doesCellExist(gameState, coordinates) || doesCellExistAndHaveStone(gameState, coordinates, opponentColor)) ? false : true;
+  return (!doesCellExist(board, coordinates) || doesCellExistAndHaveStone(board, coordinates, opponentColor)) ? false : true;
 }
 
 /**
@@ -95,29 +95,29 @@ function canBePartOfAWiningPath(gameState: GameState, stoneColor: StoneColor, co
  * White color borders are top-bottom and black color border are left-right.
  */
 function createStartEndEdges(
-  gameState: GameState,
+  board: Board,
   hexBoardWinPredictionGraph: HexBoardWinPredictionGraph,
   stoneColor: StoneColor,
 ) {
-  gameState.board.forEach((_, i) => {
+  board.forEach((_, i) => {
     if (stoneColor === "black") {
-      const currentFirstColumnCellValue = gameState.board[i][0].value;
+      const currentFirstColumnCellValue = board[i][0].value;
       if (currentFirstColumnCellValue !== "white") {
         addEdgeWithCost(hexBoardWinPredictionGraph, BLACK_NODE_START, `${i}-0`, currentFirstColumnCellValue === "black" ? LOW_EDGE_COST : HIGH_EDGE_COST);
       }
-      const currentLastColumnCellValue = gameState.board[i][gameState.board.length - 1].value;
+      const currentLastColumnCellValue = board[i][board.length - 1].value;
       if (currentLastColumnCellValue !== "white") {
-        addEdgeWithCost(hexBoardWinPredictionGraph, `${i}-${gameState.board.length - 1}`, BLACK_NODE_END, UNDEFINED_EDGE_COST);
+        addEdgeWithCost(hexBoardWinPredictionGraph, `${i}-${board.length - 1}`, BLACK_NODE_END, UNDEFINED_EDGE_COST);
       }
     }
     else {
-      const currentFirstRowCellValue = gameState.board[0][i].value;
+      const currentFirstRowCellValue = board[0][i].value;
       if (currentFirstRowCellValue !== "black") {
         addEdgeWithCost(hexBoardWinPredictionGraph, WHITE_NODE_START, `0-${i}`, currentFirstRowCellValue === "white" ? LOW_EDGE_COST : HIGH_EDGE_COST);
       }
-      const currentLastRowCellValue = gameState.board[gameState.board.length - 1][i].value;
+      const currentLastRowCellValue = board[board.length - 1][i].value;
       if (currentLastRowCellValue !== "black") {
-        addEdgeWithCost(hexBoardWinPredictionGraph, `${gameState.board.length - 1}-${i}`, WHITE_NODE_END, UNDEFINED_EDGE_COST);
+        addEdgeWithCost(hexBoardWinPredictionGraph, `${board.length - 1}-${i}`, WHITE_NODE_END, UNDEFINED_EDGE_COST);
       }
     }
   });

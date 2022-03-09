@@ -1,6 +1,6 @@
 import * as jkstra from 'jkstra';
 import {
-  doesCellExistAndHaveStone, GameState, StoneColor,
+  doesCellExistAndHaveStone, Board, StoneColor,
   BLACK_NODE_START, BLACK_NODE_END, WHITE_NODE_START, WHITE_NODE_END
 } from './gameState';
 import { Coordinates } from './utils';
@@ -11,7 +11,7 @@ export interface HexBoardWinDetectionGraph {
 }
 
 export function createWinDetectionGraph(
-  gameState: GameState,
+  board: Board,
   stoneColor: StoneColor,
 ): HexBoardWinDetectionGraph {
   const hexBoardWinDetectionGraph: HexBoardWinDetectionGraph = {
@@ -19,14 +19,14 @@ export function createWinDetectionGraph(
     vertexMap: new Map<string, jkstra.Vertex>(),
   };
 
-  createVerticesFromBoard(gameState, hexBoardWinDetectionGraph);
-  createEdgesFromGameState(gameState, hexBoardWinDetectionGraph, stoneColor);
+  createVerticesFromBoard(board, hexBoardWinDetectionGraph);
+  createEdgesFromGameState(board, hexBoardWinDetectionGraph, stoneColor);
 
   return hexBoardWinDetectionGraph;
 }
 
 function createVerticesFromBoard(
-  gameState: GameState,
+  board: Board,
   hexBoardWinDetectionGraph: HexBoardWinDetectionGraph,
 ) {
   // Add start and end nodes
@@ -36,7 +36,7 @@ function createVerticesFromBoard(
   addVertex(hexBoardWinDetectionGraph, WHITE_NODE_END);
 
   // Add node for each cell on the board
-  gameState.board.forEach((row, y) => {
+  board.forEach((row, y) => {
     row.forEach((_cell, x) => {
       addVertex(hexBoardWinDetectionGraph, `${y}-${x}`);
     });
@@ -44,19 +44,19 @@ function createVerticesFromBoard(
 }
 
 function createEdgesFromGameState(
-  gameState: GameState,
+  board: Board,
   hexBoardWinDetectionGraph: HexBoardWinDetectionGraph,
   stoneColor: StoneColor,
 ) {
   // Add edge pair for all nodes with one of its 3 possible neighbors
   // if the stone color matches
-  gameState.board.forEach((row, y) => {
+  board.forEach((row, y) => {
     row.forEach((cell, x) => {
       if (cell.value == stoneColor) {
         const currentCell: Coordinates = { y: y, x: x };
         const directNeighborCells = [{ y: y, x: x + 1 }, { y: y + 1, x: x }, { y: y + 1, x: x - 1 }];
         directNeighborCells.forEach(neighbor => createEdgePairForNeighbor(
-          gameState,
+          board,
           hexBoardWinDetectionGraph,
           stoneColor,
           currentCell,
@@ -67,22 +67,22 @@ function createEdgesFromGameState(
   });
 
   // Add edges for start and end nodes
-  gameState.board.forEach((_, i) => {
+  board.forEach((_, i) => {
     addEdge(hexBoardWinDetectionGraph, BLACK_NODE_START, `${i}-0`);
-    addEdge(hexBoardWinDetectionGraph, `${i}-${gameState.board.length - 1}`, BLACK_NODE_END);
+    addEdge(hexBoardWinDetectionGraph, `${i}-${board.length - 1}`, BLACK_NODE_END);
     addEdge(hexBoardWinDetectionGraph, WHITE_NODE_START, `0-${i}`);
-    addEdge(hexBoardWinDetectionGraph, `${gameState.board.length - 1}-${i}`, WHITE_NODE_END);
+    addEdge(hexBoardWinDetectionGraph, `${board.length - 1}-${i}`, WHITE_NODE_END);
   });
 }
 
 function createEdgePairForNeighbor(
-  gameState: GameState,
+  board: Board,
   hexBoardWinDetectionGraph: HexBoardWinDetectionGraph,
   stoneColor: StoneColor,
   currentCell: Coordinates,
   neighbor: Coordinates,
 ) {
-  if (doesCellExistAndHaveStone(gameState, neighbor, stoneColor)) {
+  if (doesCellExistAndHaveStone(board, neighbor, stoneColor)) {
     addBidirectionalEdge(
       hexBoardWinDetectionGraph,
       `${currentCell.y}-${currentCell.x}`,

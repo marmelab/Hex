@@ -1,14 +1,14 @@
 import * as jkstra from 'jkstra';
-import { BLACK_NODE_END, BLACK_NODE_START, GameState, StoneColor, WHITE_NODE_END, WHITE_NODE_START } from './gameState';
+import { BLACK_NODE_END, BLACK_NODE_START, Board, StoneColor, WHITE_NODE_END, WHITE_NODE_START } from './gameState';
 import { createWinDetectionGraph } from './graphWinDetection';
 import { createWinPredictionGraph, HIGH_EDGE_COST, LOW_EDGE_COST, UNDEFINED_EDGE_COST } from './graphWinPrediction';
 import { Coordinates } from './utils';
 
 export function getWinningPathIfExist(
-  gameState: GameState,
+  board: Board,
   stoneColor: StoneColor,
 ): { hasWon: boolean; winningPath: Coordinates[] } {
-  const hexBoardWinDetectionGraph = createWinDetectionGraph(gameState, stoneColor);
+  const hexBoardWinDetectionGraph = createWinDetectionGraph(board, stoneColor);
   const dijkstra = new jkstra.algos.Dijkstra(hexBoardWinDetectionGraph.winDetectionGraph);
   const winningPath = dijkstra.shortestPath(
     hexBoardWinDetectionGraph.vertexMap.get(stoneColor === "black" ? BLACK_NODE_START : WHITE_NODE_START),
@@ -30,10 +30,10 @@ export function getWinningPathIfExist(
 }
 
 export function getNbMovesNeededToWin(
-  gameState: GameState,
+  board: Board,
   stoneColor: StoneColor,
 ): number {
-  const hexBoardWinPredictionGraph = createWinPredictionGraph(gameState, stoneColor);
+  const hexBoardWinPredictionGraph = createWinPredictionGraph(board, stoneColor);
   const dijkstra = new jkstra.algos.Dijkstra(hexBoardWinPredictionGraph.winPrediction);
   const shortestPath = dijkstra.shortestPath(
     hexBoardWinPredictionGraph.vertexMap.get(stoneColor === "black" ? BLACK_NODE_START : WHITE_NODE_START),

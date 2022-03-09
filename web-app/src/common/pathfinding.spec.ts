@@ -10,7 +10,7 @@ describe('Shortest path cost', () => {
     ⬢ ⬡ ⬡
   `);
 
-    const cost = getNbMovesNeededToWin(input, "black");
+    const cost = getNbMovesNeededToWin(input.board, "black");
 
     expect(cost).toStrictEqual(2);
   });
@@ -22,7 +22,7 @@ describe('Shortest path cost', () => {
     ⬢ ⬢ ⬡
   `);
 
-    const cost = getNbMovesNeededToWin(input, "black");
+    const cost = getNbMovesNeededToWin(input.board, "black");
 
     expect(cost).toStrictEqual(1);
   });
@@ -34,7 +34,7 @@ describe('Shortest path cost', () => {
     ⬡ ⬡ ⬢
   `);
 
-    const cost = getNbMovesNeededToWin(input, "black");
+    const cost = getNbMovesNeededToWin(input.board, "black");
 
     expect(cost).toStrictEqual(1);
   });
@@ -46,7 +46,7 @@ describe('Shortest path cost', () => {
     ⬡ ⬡ ⬡
   `);
 
-    const cost = getNbMovesNeededToWin(input, "black");
+    const cost = getNbMovesNeededToWin(input.board, "black");
 
     expect(cost).toStrictEqual(1);
   });
@@ -58,7 +58,7 @@ describe('Shortest path cost', () => {
     ⬡ ⬡ ⬡
   `);
 
-    const cost = getNbMovesNeededToWin(input, "black");
+    const cost = getNbMovesNeededToWin(input.board, "black");
 
     expect(cost).toStrictEqual(1);
   });
@@ -70,7 +70,7 @@ describe('Shortest path cost', () => {
     ⬡ ⬡ ⬡
   `);
 
-    const cost = getNbMovesNeededToWin(input, "white");
+    const cost = getNbMovesNeededToWin(input.board, "white");
 
     expect(cost).toStrictEqual(3);
   });
@@ -82,7 +82,7 @@ describe('Shortest path cost', () => {
     ⬡ ⬡ ⬡
   `);
 
-    const cost = getNbMovesNeededToWin(input, "black");
+    const cost = getNbMovesNeededToWin(input.board, "black");
 
     expect(cost).toStrictEqual(0);
   });
@@ -94,7 +94,7 @@ describe('Shortest path cost', () => {
     ⬡ ⬡ W
   `);
 
-    const cost = getNbMovesNeededToWin(input, "white");
+    const cost = getNbMovesNeededToWin(input.board, "white");
 
     expect(cost).toStrictEqual(2);
   });
@@ -106,7 +106,7 @@ describe('Shortest path cost', () => {
     W ⬡ ⬡
   `);
 
-    const cost = getNbMovesNeededToWin(input, 'white');
+    const cost = getNbMovesNeededToWin(input.board, 'white');
 
     expect(cost).toStrictEqual(0);
   });
@@ -118,7 +118,7 @@ describe('Shortest path cost', () => {
     ⬢ ⬢ ⬢
   `);
 
-    const cost = getNbMovesNeededToWin(input, "black");
+    const cost = getNbMovesNeededToWin(input.board, "black");
 
     expect(cost).toStrictEqual(0);
   });
@@ -136,7 +136,7 @@ describe('Shortest path cost', () => {
           ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
   `);
 
-    const cost = getNbMovesNeededToWin(input, "black");
+    const cost = getNbMovesNeededToWin(input.board, "black");
 
     expect(cost).toStrictEqual(4);
   });
@@ -148,7 +148,7 @@ describe('Shortest path cost', () => {
     ⬢ ⬢ ⬢
   `);
 
-    const cost = getNbMovesNeededToWin(input, "white");
+    const cost = getNbMovesNeededToWin(input.board, "white");
 
     expect(cost).toStrictEqual(-1);
   });
