@@ -48,3 +48,12 @@ export function parseGameStateFromMultilineString(
   parsedGameState.winningPath = getWinnerDataIfExist.winningPath;
   return parsedGameState;
 }
+
+export function areCoordinatesEquals(coord1: Coordinates, coord2: Coordinates): boolean {
+  return coord1.x === coord2.x && coord1.y === coord2.y;
+}
+
+export function areExpectedCoordinatesInList(expectedCoords: Coordinates, listPotentialCoords: Coordinates[]): boolean {
+  return listPotentialCoords.some(potentialCoords => areCoordinatesEquals(potentialCoords, expectedCoords));
+}
+

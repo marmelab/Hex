@@ -1,4 +1,5 @@
 import { getWinningPathIfExist } from './pathfinding';
+import { getNextPlaySuggestion } from './prediction';
 import { Coordinates, deepCloneObject } from './utils';
 
 export const DEFAULT_BOARD_SIZE = 19;
@@ -165,9 +166,10 @@ export function getNextMoveHint(
       suggestedNextMove: winningMove,
     };
   }
-  // Otherwise, return undefined
+  // Otherwise, return undefined and get a advice for the next play
   return {
     closenessToGameEnd: 'UNDETERMINED',
+    suggestedNextMove: getNextPlaySuggestion(state, player)
   };
 }
 
