@@ -9,14 +9,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
+
     <div class="gameboard">
+
       <div class="box-header">
         {{#areEqual game.state.winner null}}
           {{#areEqual readyToPlay true}}
             {{#areEqual currentPlayerTurnToPlay true}}
             <p><span class="current-player" data-player="{{game.state.turn}}">{{game.state.turn}}</span>, your move!</p>
-            {{/areEqual}}
-            {{#areEqual currentPlayerTurnToPlay false}}
+            {{else}}
               <p>Waiting <span class="current-player" data-player="{{game.state.turn}}">{{game.state.turn}}</span> to make their move...</p>
             {{/areEqual}}
           {{else}}
@@ -32,6 +33,7 @@
             </form>
         {{/areEqual}}
       </div>
+
       <div class=" hex-board-frame" style="--rows: {{game.state.board.length}}">
         <div class="left-edge"></div>
         <div class="right-edge"></div>
@@ -60,6 +62,7 @@
           {{/each}}
         </div>
       </div>
+
       <div class="box-footer">
         {{#areEqual currentPlayerTurnToPlay true}}
         <div class="hint">
@@ -83,6 +86,8 @@
         </div>
         {{/areEqual}}
       </div>
+
     </div>
+    
   </body>
 </html>
