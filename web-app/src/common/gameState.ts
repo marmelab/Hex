@@ -6,8 +6,10 @@ export const DEFAULT_BOARD_SIZE = 19;
 const DEFAULT_CELL_VALUE: Cell = { value: 'empty' };
 const NEW_GAME_STARTING_STONE_COLOR = 'white';
 
+export type Board = Array<Array<Cell>>;
+
 export interface GameState {
-  board: Array<Array<Cell>>;
+  board: Board;
   turn: StoneColor;
   winner: StoneColor | null;
   winningPath: Coordinates[] | null;
