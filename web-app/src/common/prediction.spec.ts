@@ -114,4 +114,37 @@ describe('Get a suggestion for the next play', () => {
 
     expect(() => getNextPlaySuggestion(input, "white")).toThrowError();
   });
+
+  it('Should get a suggestion to play on x:3,y:1', () => {
+    const input = parseGameStateFromMultilineString(`
+    ⬡ ⬡ ⬡ ⬡ ⬡
+     ⬡ ⬡ ⬡ ⬡ ⬡
+      ⬡ ⬡ ⬢ W ⬡
+       ⬡ ⬢ ⬡ W ⬡
+        ⬡ ⬡ ⬡ ⬡ ⬡
+    `);
+
+    const nextPlayAdvice = getNextPlaySuggestion(input, "white");
+
+    expect(nextPlayAdvice).toStrictEqual({ x: 3, y: 1 });
+  });
+
+  it('Should get a suggestion to play on one from 3 possible coordinates', () => {
+    const input = parseGameStateFromMultilineString(`
+    ⬡ W ⬡ ⬡ ⬡
+     ⬡ ⬡ ⬡ ⬡ ⬢
+      W ⬡ ⬢ W ⬡
+       ⬡ ⬢ ⬡ W ⬡
+        ⬡ ⬡ ⬡ ⬡ ⬡
+    `);
+
+    const nextPlayAdvice = getNextPlaySuggestion(input, "black");
+
+    expect(areExpectedCoordinatesInList(nextPlayAdvice, [
+      { x: 3, y: 1 },
+      { x: 0, y: 3 },
+      { x: 0, y: 4 },
+    ])
+    ).toBeTruthy();
+  });
 });
