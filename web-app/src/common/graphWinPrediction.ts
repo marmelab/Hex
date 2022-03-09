@@ -48,8 +48,8 @@ function createVertices(
 
   // Add vertex for each cell on the board that's are not of the opposite color
   gameState.board.forEach((row, y) => {
-    row.forEach((_cell, x) => {
-      if (_cell.value === stoneColor || _cell.value === "empty") {
+    row.forEach((cell, x) => {
+      if (cell.value === stoneColor || cell.value === "empty") {
         addVertex(hexBoardWinPredictionGraph, `${y}-${x}`);
       }
     });
