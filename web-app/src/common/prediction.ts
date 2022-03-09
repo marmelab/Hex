@@ -19,6 +19,6 @@ export function getNextPlaySuggestion(gameState: GameState, stoneColor: StoneCol
   });
 
   return winCostForPotentialPlays.reduce(function (prev, curr) {
-    return prev.cost < curr.cost ? prev : curr;
+    return prev.cost <= curr.cost ? prev : curr;
   }).playPosition;
 }
