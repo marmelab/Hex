@@ -2,7 +2,7 @@ import { Board, StoneColor } from './gameState';
 import { Coordinates, deepCloneObject } from './utils';
 import { getNbMovesNeededToWin } from './pathfinding';
 
-interface PlayPrediction {
+export interface PlayPrediction {
   coordinates: Coordinates;
   playerRemainingMovesToWin: number;
   opponentRemainingMovesToWin: number;
@@ -20,16 +20,6 @@ export function getNextPlaySuggestion(
     getPlayPrediction(board, coordinates, stoneColor),
   );
   return getBestPossiblePlay(playPredictions).coordinates;
-}
-
-export function getMinimaxNextPlaySuggestion(
-  board: Board,
-  stoneColor: StoneColor,
-  maxDepth: number,
-): Coordinates {
-  return getBestPossiblePlay(
-    getMinimaxPlayPredictions(board, stoneColor, maxDepth),
-  ).coordinates;
 }
 
 function getPlayableCells(board: Board): Coordinates[] {
@@ -84,7 +74,7 @@ function getWorstPossiblePlay(
   });
 }
 
-function getMinimaxPlayPredictions(
+export function getMinimaxPlayPredictions(
   board: Board,
   stoneColor: StoneColor,
   maxDepth: number,

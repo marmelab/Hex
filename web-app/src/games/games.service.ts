@@ -51,7 +51,7 @@ export class GamesService {
     const nextMove = getNextMoveHint(
       updatedGame.state,
       'black',
-    ).suggestedNextMove;
+    ).suggestedNextMoves[0].coordinates; // TODO - add random selection here
     this.updateGameState(updatedGame, nextMove);
   }
 
@@ -162,6 +162,28 @@ export class GamesService {
   getNextMoveHint(game: Game, playerName: string): NextMoveHint {
     const player: StoneColor =
       playerName === game.player1.username ? 'white' : 'black';
-    return getNextMoveHint(game.state, player);
+    const nextMoveHint = getNextMoveHint(game.state, player);
+    // Normalize the scores to 0, if applicable
+    if (
+      nextMoveHint.suggestedNextMoves &&
+      nextMoveHint.suggestedNextMoves.length
+    ) {
+      const maxScore = Math.max(
+        ...nextMoveHint.suggestedNextMoves.map(function (prediction) {
+          return prediction.score;
+        }),
+      );
+      return {
+        ...nextMoveHint,
+        suggestedNextMoves: nextMoveHint.suggestedNextMoves.map((move) => {
+          return {
+            ...move,
+            score: move.score - maxScore,
+          };
+        }),
+      };
+    } else {
+      return nextMoveHint;
+    }
   }
 }
