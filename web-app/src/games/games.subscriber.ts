@@ -26,7 +26,11 @@ export class GamesSubscriber implements EntitySubscriberInterface<Game> {
   }
 
   afterUpdate(event: UpdateEvent<Game>): void | Promise<any> {
-    if (event.updatedRelations.some((x) => x.propertyName == 'player2')) {
+    if (
+      event.updatedRelations.some((x) => x.propertyName == 'player2') &&
+      event.entity.player2 &&
+      event.entity.player2.id
+    ) {
       this.userService.incrementNbGames(event.entity.player2.id);
     }
   }

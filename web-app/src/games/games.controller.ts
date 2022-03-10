@@ -26,16 +26,21 @@ export class GamesController {
   @Post('')
   @Redirect('/')
   async createNewGame(
-    @Body() gameParams: { size?: number; fromFile?: boolean },
+    @Body()
+    gameParams: { size?: number; fromFile?: boolean; soloMode?: boolean },
     @Req() req: Request,
   ) {
     let newGame: Game;
     if (gameParams.fromFile) {
-      newGame = await this.gameService.createNewGameFromFile(req.sessionID);
+      newGame = await this.gameService.createNewGameFromFile(
+        req.sessionID,
+        !!gameParams.soloMode,
+      );
     } else {
       newGame = await this.gameService.createNewGame(
         gameParams.size,
         req.sessionID,
+        !!gameParams.soloMode,
       );
     }
     return { url: `/games/${newGame.id}` };
@@ -70,7 +75,7 @@ export class GamesController {
     @Req() req: Request,
   ): Promise<GameAndDisplayStatus> {
     let game = await this.gameService.findGameById(id);
-    game = await this.gameService.updateGameState(game, gameParams);
+    game = await this.gameService.handlePlayerMove(game, gameParams);
     return this.gameService.getGameAndDisplayStatus(game, req.sessionID);
   }
 }

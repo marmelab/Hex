@@ -47,6 +47,7 @@ function createGameEntityFromGameState(gameState: GameState): Game {
     createdAt: null,
     updatedAt: null,
     status: 'INITIALIZED',
+    soloMode: false,
   };
 }
 
@@ -134,7 +135,7 @@ describe('GameService', () => {
   describe('root', () => {
     it('should return an empty board of 11x11"', async () => {
       expect(
-        (await gameService.createNewGame(11, 'sessionID')).state.board,
+        (await gameService.createNewGame(11, 'sessionID', false)).state.board,
       ).toEqual(
         parseGameStateFromMultilineString(`
 ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡ ⬡
@@ -156,7 +157,7 @@ describe('GameService', () => {
     expect(
       (
         await gameService.updateGameState(
-          await gameService.createNewGame(11, 'sessionID'),
+          await gameService.createNewGame(11, 'sessionID', false),
           {
             x: 1,
             y: 1,

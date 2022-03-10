@@ -39,6 +39,22 @@ export class GamesService {
     return gameState;
   }
 
+  async handlePlayerMove(game: Game, coordinates: Coordinates): Promise<Game> {
+    const updatedGame = await this.updateGameState(game, coordinates);
+    if (!updatedGame.state.winner && updatedGame.soloMode) {
+      this.handleBotMove(updatedGame);
+    }
+    return updatedGame;
+  }
+
+  private handleBotMove(updatedGame: Game) {
+    const nextMove = getNextMoveHint(
+      updatedGame.state,
+      'black',
+    ).suggestedNextMove;
+    this.updateGameState(updatedGame, nextMove);
+  }
+
   async updateGameState(game: Game, coordinates: Coordinates): Promise<Game> {
     const updatedGame: Game = deepCloneObject(game);
     updatedGame.state = updateGameState(game.state, coordinates);
@@ -54,7 +70,11 @@ export class GamesService {
     return this.gamesRepository.findOne(id);
   }
 
-  async createNewGame(size: number, player1Username: string): Promise<Game> {
+  async createNewGame(
+    size: number,
+    player1Username: string,
+    soloMode: boolean,
+  ): Promise<Game> {
     if (!size) {
       size = DEFAULT_BOARD_SIZE;
     } else {
@@ -65,22 +85,32 @@ export class GamesService {
       state: initNewGameState(size),
       player1,
       status: 'INITIALIZED',
+      soloMode,
     });
     return this.gamesRepository.save(game);
   }
 
-  async createNewGameFromFile(player1Username: string): Promise<Game> {
+  async createNewGameFromFile(
+    player1Username: string,
+    soloMode: boolean,
+  ): Promise<Game> {
     const player1 = await this.usersService.getOrCreate(player1Username);
     const game = this.gamesRepository.create({
       state: this.getBoardStateFromFile(),
       player1,
       status: 'INITIALIZED',
+      soloMode,
     });
     return this.gamesRepository.save(game);
   }
 
   async joinGame(gameId: number, player2Username: string): Promise<Game> {
     const game = await this.gamesRepository.findOne(gameId);
+    if (game.soloMode) {
+      throw Error(
+        `Game ${gameId} is a solo game. A second player cannot join in.`,
+      );
+    }
     if (!game.player2) {
       if (player2Username !== game.player1.username) {
         game.player2 = await this.usersService.getOrCreate(player2Username);
@@ -106,18 +136,25 @@ export class GamesService {
   ): GameAndDisplayStatus {
     const gameAndStatus: GameAndDisplayStatus = {
       game: game,
-      readyToPlay: this.haveTwoPlayersJoinedIn(game),
-      currentPlayerTurnToPlay:
-        (game.state.turn === 'white' && playerName === game.player1.username) ||
-        (game.state.turn === 'black' && playerName === game.player2.username),
+      readyToPlay: this.haveTwoPlayersJoinedIn(game) || game.soloMode,
+      currentPlayerTurnToPlay: this.isCurrentPlayerTurnToPlay(game, playerName),
     };
     return gameAndStatus;
+  }
+
+  private isCurrentPlayerTurnToPlay(game: Game, playerName: string): boolean {
+    return !!(
+      (game.state.turn === 'white' && playerName === game.player1.username) ||
+      (game.state.turn === 'black' &&
+        game.player2 &&
+        playerName === game.player2.username)
+    );
   }
 
   computeStatusFromGame(game: Game): 'INITIALIZED' | 'RUNNING' | 'ENDED' {
     return game.state.winner
       ? 'ENDED'
-      : this.haveTwoPlayersJoinedIn(game)
+      : this.haveTwoPlayersJoinedIn(game) || game.soloMode
       ? 'RUNNING'
       : 'INITIALIZED';
   }
