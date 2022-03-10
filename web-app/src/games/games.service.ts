@@ -47,12 +47,11 @@ export class GamesService {
     return updatedGame;
   }
 
-  private handleBotMove(updatedGame: Game) {
-    const nextMove = getNextMoveHint(
-      updatedGame.state,
-      'black',
-    ).suggestedNextMove;
-    this.updateGameState(updatedGame, nextMove);
+  private handleBotMove(game: Game) {
+    setTimeout(() => {
+      const nextMove = getNextMoveHint(game.state, 'black');
+      this.updateGameState(game, nextMove.suggestedNextMove);
+    }, 300);
   }
 
   async updateGameState(game: Game, coordinates: Coordinates): Promise<Game> {
@@ -159,7 +158,7 @@ export class GamesService {
       : 'INITIALIZED';
   }
 
-  getNextMoveHint(game: Game, playerName: string): NextMoveHint {
+  async getNextMoveHint(game: Game, playerName: string): Promise<NextMoveHint> {
     const player: StoneColor =
       playerName === game.player1.username ? 'white' : 'black';
     return getNextMoveHint(game.state, player);
