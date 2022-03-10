@@ -47,6 +47,8 @@ span[data-player='white'] {
   --winningCharacter: '*';
   /* The font size of the winning character*/
   --winningCharacterSize: 10px;
+  /* The color of the winning character*/
+  --winningCharacterColor: green;
   /* last variable `--rows` holds the number of rows and is injected by the template */
 }
 
@@ -167,9 +169,30 @@ span[data-player='white'] {
 .cell[data-winningCell='true']:after {
   content: var(--winningCharacter);
   font-size: var(--winningCharacterSize);
+  color: var(--winningCharacterColor);
   position: absolute;
   top: calc(var(--hexWidth) * 1.1 / 2 - var(--winningCharacterSize) / 4);
   left: calc(var(--hexWidth) / 2 - var(--winningCharacterSize) / 4);
+}
+
+.cell[data-suggestedCell='black'] {
+  animation: blackSuggestedCell infinite 2s;
+}
+
+.cell[data-suggestedCell='white'] {
+  animation: whiteSuggestedCell infinite 2s;
+}
+
+@keyframes blackSuggestedCell {  
+  0% { background-color: black; }
+  50% { background-color: red; }
+  100% { background-color: black; }
+}
+
+@keyframes whiteSuggestedCell {  
+  0% { background-color: white; }
+  50% { background-color: red; }
+  100% { background-color: white; }
 }
 
 /* .box-footer {

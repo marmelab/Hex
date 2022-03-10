@@ -71,6 +71,22 @@ export function registerHandlebarsHelpers() {
       );
     },
   );
+  handlebars.registerHelper(
+    'isCellSuggested',
+    function (
+      suggestedCell: Coordinates,
+      cellXCoord: number,
+      cellYCoord: number,
+      turn: StoneColor,
+    ) {
+      return (
+        suggestedCell &&
+        suggestedCell.x == cellXCoord &&
+        suggestedCell.y == cellYCoord &&
+        turn
+      );
+    },
+  );
 }
 
 export function unregisterHandlebarsHelpers() {
@@ -79,4 +95,5 @@ export function unregisterHandlebarsHelpers() {
   handlebars.unregisterHelper('cellCanBePlayed');
   handlebars.unregisterHelper('needToWaitForOpponent');
   handlebars.unregisterHelper('isCellInWinningPath');
+  handlebars.unregisterHelper('isCellSuggested');
 }
