@@ -137,14 +137,18 @@ export class GamesService {
     const gameAndStatus: GameAndDisplayStatus = {
       game: game,
       readyToPlay: this.haveTwoPlayersJoinedIn(game) || game.soloMode,
-      currentPlayerTurnToPlay: !!(
-        (game.state.turn === 'white' && playerName === game.player1.username) ||
-        (game.state.turn === 'black' &&
-          game.player2 &&
-          playerName === game.player2.username)
-      ),
+      currentPlayerTurnToPlay: this.isCurrentPlayerTurnToPlay(game, playerName),
     };
     return gameAndStatus;
+  }
+
+  private isCurrentPlayerTurnToPlay(game: Game, playerName: string): boolean {
+    return !!(
+      (game.state.turn === 'white' && playerName === game.player1.username) ||
+      (game.state.turn === 'black' &&
+        game.player2 &&
+        playerName === game.player2.username)
+    );
   }
 
   computeStatusFromGame(game: Game): 'INITIALIZED' | 'RUNNING' | 'ENDED' {
