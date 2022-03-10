@@ -6,38 +6,34 @@
     <title>Hex</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
     <link rel="stylesheet" type="text/css" href="/css/game.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
-    <div class="gameboard">
+
+    <div class="gameboard grid grid-cols-1 gap-10 h-screen place-content-start place-items-center p-6">
+
       <div class="box-header">
         {{#areEqual game.state.winner null}}
           {{#areEqual readyToPlay true}}
-            <p>
-              Current player:
-              <span class="current-player" data-player="{{game.state.turn}}">{{game.state.turn}}</span>
-            </p>
-            {{#areEqual currentPlayerTurnToPlay false}}
-              <p>Waiting for other player to make their move...</p>
+            {{#areEqual currentPlayerTurnToPlay true}}
+            <p><span class="current-player" data-player="{{game.state.turn}}">{{game.state.turn}}</span>, your move!</p>
+            {{else}}
+              <p>Waiting <span class="current-player" data-player="{{game.state.turn}}">{{game.state.turn}}</span> to make their move...</p>
             {{/areEqual}}
           {{else}}
             <p>Awaiting player 2...</p>
             <p>
-              Send <a href="/games/{{game.id}}/join">this link</a> for second player to join
+              Send <a class="underline text-slate-100" href="/games/{{game.id}}/join">this link</a> for second player to join
             </p>
           {{/areEqual}}
-            <p>
-              Player 1 (white): {{game.player1.username}}
-            </p>
-            <p>
-              Player 2 (black): {{game.player2.username}}
-            </p>
           {{else}}
-            <p data-cy="winner">The winner is : {{game.state.winner}}</p>
+            <p data-cy="winner">The winner is : <span class="current-player" data-player="{{game.state.winner}}">{{game.state.winner}}</span></p>
             <form action="/" method="get">
-              <input type="submit" value="Return to home page" data-cy="backHomePage">
+              <input type="submit" value="Return to home page" data-cy="backHomePage" class="underline text-slate-100">
             </form>
         {{/areEqual}}
       </div>
+
       <div class=" hex-board-frame" style="--rows: {{game.state.board.length}}">
         <div class="left-edge"></div>
         <div class="right-edge"></div>
@@ -53,7 +49,7 @@
                   <input type="hidden" name="y" value="{{@../index}}" />
                   <input type="submit" id="form-{{@../index}}-{{@index}}" style="display:none;" />
                   <label for="form-{{@../index}}-{{@index}}" tabindex="0">
-                    <div class="cell" data-color="{{this.value}}">
+                    <div class="cell" data-color="{{this.value}}" data-suggestedCell="{{isCellSuggested @root.suggestedNextMove @index @../index @root.game.state.turn}}">
                     </div>
                   </label>
                 </form>
@@ -66,17 +62,28 @@
           {{/each}}
         </div>
       </div>
-      <div class="box-footer">
-        <div class="hint">
-          <a href="/games/{{game.id}}?hint=true">Hint</a>
+
+        {{#areEqual currentPlayerTurnToPlay true}}
+        <div class="hint text-center">
           {{#if closenessToGameEnd}}
             <p>Closeness to game's end: {{closenessToGameEnd}}</p>
-          {{/if}}
-          {{#if suggestedNextMove}}
-            <p>Suggested next move: ({{suggestedNextMove.x}}, {{suggestedNextMove.y}})</p>
+          {{else}}
+            <a class="underline text-slate-100" href="/games/{{game.id}}?hint=true">Get a hint!</a>
           {{/if}}
         </div>
-      </div>
+        {{/areEqual}}
+        {{#areEqual readyToPlay true}}
+        <div class="text-sm font-mono">
+          <p>
+              Player 1 (white): {{game.player1.username}}
+          </p>
+          <p>
+              Player 2 (black): {{game.player2.username}}
+          </p>
+        </div>
+        {{/areEqual}}
+
     </div>
+
   </body>
 </html>

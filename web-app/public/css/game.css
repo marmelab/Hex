@@ -1,21 +1,5 @@
 /* Great source: https://css-tricks.com/hexagons-and-beyond-flexible-responsive-grid-patterns-sans-media-queries/ */
 
-.gameboard {
-  display: grid;
-  place-self: center;
-  justify-content: center;
-}
-
-.box-header {
-  margin-top: 25px;
-  margin-bottom: 25px;
-  min-height: 50px;
-}
-
-.box-header p {
-  margin: 5px 0;
-}
-
 .current-player {
   text-transform: uppercase;
   font-weight: bold;
@@ -47,6 +31,8 @@ span[data-player='white'] {
   --winningCharacter: '*';
   /* The font size of the winning character*/
   --winningCharacterSize: 10px;
+  /* The color of the winning character*/
+  --winningCharacterColor: green;
   /* last variable `--rows` holds the number of rows and is injected by the template */
 }
 
@@ -167,17 +153,28 @@ span[data-player='white'] {
 .cell[data-winningCell='true']:after {
   content: var(--winningCharacter);
   font-size: var(--winningCharacterSize);
+  color: var(--winningCharacterColor);
   position: absolute;
   top: calc(var(--hexWidth) * 1.1 / 2 - var(--winningCharacterSize) / 4);
   left: calc(var(--hexWidth) / 2 - var(--winningCharacterSize) / 4);
 }
 
-.box-footer {
-  margin-top: 25px;
-  margin-bottom: 25px;
-  min-height: 50px;
+.cell[data-suggestedCell='black'] {
+  animation: blackSuggestedCell infinite 2s;
 }
 
-.box-footer p {
-  margin: 5px 0;
+.cell[data-suggestedCell='white'] {
+  animation: whiteSuggestedCell infinite 2s;
+}
+
+@keyframes blackSuggestedCell {  
+  0% { background-color: black; }
+  50% { background-color: red; }
+  100% { background-color: black; }
+}
+
+@keyframes whiteSuggestedCell {  
+  0% { background-color: white; }
+  50% { background-color: red; }
+  100% { background-color: white; }
 }
