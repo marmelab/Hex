@@ -1,7 +1,13 @@
 import * as jkstra from 'jkstra';
 import {
-  doesCellExist, doesCellExistAndHaveStone, Board, StoneColor,
-  BLACK_NODE_START, BLACK_NODE_END, WHITE_NODE_START, WHITE_NODE_END
+  doesCellExist,
+  doesCellExistAndHaveStone,
+  Board,
+  StoneColor,
+  BLACK_NODE_START,
+  BLACK_NODE_END,
+  WHITE_NODE_START,
+  WHITE_NODE_END,
 } from './gameState';
 import { Coordinates } from './utils';
 
@@ -35,13 +41,12 @@ export function createWinPredictionGraph(
 function createVertices(
   board: Board,
   hexBoardWinPredictionGraph: HexBoardWinPredictionGraph,
-  stoneColor: StoneColor
+  stoneColor: StoneColor,
 ) {
-  if (stoneColor === "black") {
+  if (stoneColor === 'black') {
     addVertex(hexBoardWinPredictionGraph, BLACK_NODE_START);
     addVertex(hexBoardWinPredictionGraph, BLACK_NODE_END);
-  }
-  else {
+  } else {
     addVertex(hexBoardWinPredictionGraph, WHITE_NODE_START);
     addVertex(hexBoardWinPredictionGraph, WHITE_NODE_END);
   }
@@ -49,15 +54,21 @@ function createVertices(
   // Add vertex for each cell on the board that's are not of the opposite color
   board.forEach((row, y) => {
     row.forEach((cell, x) => {
-      if (cell.value === stoneColor || cell.value === "empty") {
+      if (cell.value === stoneColor || cell.value === 'empty') {
         addVertex(hexBoardWinPredictionGraph, `${y}-${x}`);
       }
     });
   });
 }
 
-function addVertex(hexBoardWinPredictionGraph: HexBoardWinPredictionGraph, id: string) {
-  hexBoardWinPredictionGraph.vertexMap.set(id, hexBoardWinPredictionGraph.winPrediction.addVertex(id));
+function addVertex(
+  hexBoardWinPredictionGraph: HexBoardWinPredictionGraph,
+  id: string,
+) {
+  hexBoardWinPredictionGraph.vertexMap.set(
+    id,
+    hexBoardWinPredictionGraph.winPrediction.addVertex(id),
+  );
 }
 
 function createPlayableCellEdges(
@@ -67,27 +78,44 @@ function createPlayableCellEdges(
 ) {
   board.forEach((row, y) => {
     row.forEach((cell, x) => {
-      if (cell.value == stoneColor || cell.value == "empty") {
+      if (cell.value == stoneColor || cell.value == 'empty') {
         const currentCell: Coordinates = { y: y, x: x };
         const directNeighborCells = [
-          { y: y, x: x - 1 }, { y: y, x: x + 1 },
-          { y: y - 1, x: x }, { y: y + 1, x: x },
-          { y: y - 1, x: x + 1 }, { y: y + 1, x: x - 1 },
+          { y: y, x: x - 1 },
+          { y: y, x: x + 1 },
+          { y: y - 1, x: x },
+          { y: y + 1, x: x },
+          { y: y - 1, x: x + 1 },
+          { y: y + 1, x: x - 1 },
         ];
-        directNeighborCells.forEach(neighbor => {
+        directNeighborCells.forEach((neighbor) => {
           if (canBePartOfAWiningPath(board, stoneColor, neighbor)) {
-            const cost = doesCellExistAndHaveStone(board, neighbor, stoneColor) ? LOW_EDGE_COST : HIGH_EDGE_COST;
-            addEdgeWithCost(hexBoardWinPredictionGraph, `${currentCell.y}-${currentCell.x}`, `${neighbor.y}-${neighbor.x}`, cost);
+            const cost = doesCellExistAndHaveStone(board, neighbor, stoneColor)
+              ? LOW_EDGE_COST
+              : HIGH_EDGE_COST;
+            addEdgeWithCost(
+              hexBoardWinPredictionGraph,
+              `${currentCell.y}-${currentCell.x}`,
+              `${neighbor.y}-${neighbor.x}`,
+              cost,
+            );
           }
-        })
+        });
       }
-    })
+    });
   });
 }
 
-function canBePartOfAWiningPath(board: Board, stoneColor: StoneColor, coordinates: Coordinates) {
-  const opponentColor = stoneColor === "black" ? "white" : "black";
-  return (!doesCellExist(board, coordinates) || doesCellExistAndHaveStone(board, coordinates, opponentColor)) ? false : true;
+function canBePartOfAWiningPath(
+  board: Board,
+  stoneColor: StoneColor,
+  coordinates: Coordinates,
+) {
+  const opponentColor = stoneColor === 'black' ? 'white' : 'black';
+  return !doesCellExist(board, coordinates) ||
+    doesCellExistAndHaveStone(board, coordinates, opponentColor)
+    ? false
+    : true;
 }
 
 /**
@@ -100,24 +128,45 @@ function createStartEndEdges(
   stoneColor: StoneColor,
 ) {
   board.forEach((_, i) => {
-    if (stoneColor === "black") {
+    if (stoneColor === 'black') {
       const currentFirstColumnCellValue = board[i][0].value;
-      if (currentFirstColumnCellValue !== "white") {
-        addEdgeWithCost(hexBoardWinPredictionGraph, BLACK_NODE_START, `${i}-0`, currentFirstColumnCellValue === "black" ? LOW_EDGE_COST : HIGH_EDGE_COST);
+      if (currentFirstColumnCellValue !== 'white') {
+        addEdgeWithCost(
+          hexBoardWinPredictionGraph,
+          BLACK_NODE_START,
+          `${i}-0`,
+          currentFirstColumnCellValue === 'black'
+            ? LOW_EDGE_COST
+            : HIGH_EDGE_COST,
+        );
       }
       const currentLastColumnCellValue = board[i][board.length - 1].value;
-      if (currentLastColumnCellValue !== "white") {
-        addEdgeWithCost(hexBoardWinPredictionGraph, `${i}-${board.length - 1}`, BLACK_NODE_END, UNDEFINED_EDGE_COST);
+      if (currentLastColumnCellValue !== 'white') {
+        addEdgeWithCost(
+          hexBoardWinPredictionGraph,
+          `${i}-${board.length - 1}`,
+          BLACK_NODE_END,
+          UNDEFINED_EDGE_COST,
+        );
       }
-    }
-    else {
+    } else {
       const currentFirstRowCellValue = board[0][i].value;
-      if (currentFirstRowCellValue !== "black") {
-        addEdgeWithCost(hexBoardWinPredictionGraph, WHITE_NODE_START, `0-${i}`, currentFirstRowCellValue === "white" ? LOW_EDGE_COST : HIGH_EDGE_COST);
+      if (currentFirstRowCellValue !== 'black') {
+        addEdgeWithCost(
+          hexBoardWinPredictionGraph,
+          WHITE_NODE_START,
+          `0-${i}`,
+          currentFirstRowCellValue === 'white' ? LOW_EDGE_COST : HIGH_EDGE_COST,
+        );
       }
       const currentLastRowCellValue = board[board.length - 1][i].value;
-      if (currentLastRowCellValue !== "black") {
-        addEdgeWithCost(hexBoardWinPredictionGraph, `${board.length - 1}-${i}`, WHITE_NODE_END, UNDEFINED_EDGE_COST);
+      if (currentLastRowCellValue !== 'black') {
+        addEdgeWithCost(
+          hexBoardWinPredictionGraph,
+          `${board.length - 1}-${i}`,
+          WHITE_NODE_END,
+          UNDEFINED_EDGE_COST,
+        );
       }
     }
   });

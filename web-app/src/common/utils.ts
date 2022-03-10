@@ -1,4 +1,4 @@
-import { Board, Cell, GameState, getWinner, StoneColor } from './gameState';
+import { Board, GameState, getWinner, StoneColor } from './gameState';
 export interface Coordinates {
   x: number;
   y: number;
@@ -20,7 +20,9 @@ export function encodeObjectForQueryString(objectToEncode): string {
   return encodeURI(JSON.stringify(objectToEncode));
 }
 
-export function parseObjectFromEncodedQuerystring(stringToParse): Object {
+export function parseObjectFromEncodedQuerystring(
+  stringToParse,
+): Record<string, unknown> {
   return JSON.parse(decodeURI(stringToParse));
 }
 

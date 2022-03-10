@@ -24,7 +24,7 @@ export function parseConfigFile(
     throw Error(`Malformed config file ${filePath}`);
   }
   const rowsCount = data.length;
-  let board = [];
+  const board = [];
   for (const row of data) {
     board.push(parseRow(row, rowsCount, filePath));
   }
@@ -79,8 +79,8 @@ function parseRow(row: any, rowsCount: number, filePath: string): Array<Cell> {
       `Malformed config file ${filePath}: all rows should contain ${rowsCount} cells`,
     );
   }
-  let parsedRow: Array<Cell> = [];
-  for (let cell of row) {
+  const parsedRow: Array<Cell> = [];
+  for (const cell of row) {
     parsedRow.push(parseCell(cell));
   }
   return parsedRow;
