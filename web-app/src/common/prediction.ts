@@ -79,6 +79,10 @@ function getBestPossiblePlay(potentialPlays: PlayPrediction[]): PlayPrediction {
 function getWorstPossiblePlay(
   potentialPlays: PlayPrediction[],
 ): PlayPrediction {
+  const loosingPlays = potentialPlays.filter(
+    (play) => play.opponentRemainingMovesToWin === 0,
+  );
+  if (loosingPlays.length > 0) return loosingPlays[0];
   return potentialPlays.reduce(function (prev, curr) {
     return prev.score >= curr.score ? prev : curr;
   });
@@ -95,18 +99,22 @@ function getMinimaxPlayPredictions(
       getPlayPrediction(board, coordinates, stoneColor),
     );
   } else {
+    const isCurrentPlayerTurnToPlay = currentDepth % 2 === 1;
+    const opponentColor = stoneColor === 'black' ? 'white' : 'black';
     return getPlayableCells(board).map((coordinates) => {
       const potentialBoard = deepCloneObject(board) as Board;
-      potentialBoard[coordinates.y][coordinates.x].value = stoneColor;
+      potentialBoard[coordinates.y][coordinates.x].value =
+        isCurrentPlayerTurnToPlay ? stoneColor : opponentColor;
       const nextPlaySuggestions = getMinimaxPlayPredictions(
         potentialBoard,
         stoneColor,
         maxDepth,
         currentDepth + 1,
       );
-      return currentDepth % 2
+      const selectedPrediction = isCurrentPlayerTurnToPlay
         ? getWorstPossiblePlay(nextPlaySuggestions)
         : getBestPossiblePlay(nextPlaySuggestions);
+      return selectedPrediction;
     });
   }
 }
