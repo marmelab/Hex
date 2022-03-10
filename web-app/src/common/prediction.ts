@@ -18,11 +18,11 @@ export function getNextPlaySuggestion(board: Board, stoneColor: StoneColor): Coo
   return getBestPossiblePlay(playPredictions).coordinates;
 }
 
-export async function getMinimaxNextPlaySuggestion(
+export function getMinimaxNextPlaySuggestion(
   board: Board,
   stoneColor: StoneColor,
   maxDepth: number,
-): Promise<Coordinates> {
+): Coordinates {
   return getBestPossiblePlay(
     getMinimaxPlayPredictions(board, stoneColor, maxDepth),
   ).coordinates;

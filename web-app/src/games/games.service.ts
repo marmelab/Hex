@@ -40,7 +40,6 @@ export class GamesService {
   }
 
   async handlePlayerMove(game: Game, coordinates: Coordinates): Promise<Game> {
-    console.log(`handle player1's move`);
     const updatedGame = await this.updateGameState(game, coordinates);
     if (!updatedGame.state.winner && updatedGame.soloMode) {
       this.handleBotMove(updatedGame);
@@ -48,16 +47,11 @@ export class GamesService {
     return updatedGame;
   }
 
-  private handleBotMove(updatedGame: Game) {
-    console.log(`handle bot's move`);
-    getNextMoveHint(updatedGame.state, 'black').then((nextMove) => {
-      console.log(
-        `finished computing bot's move: ${JSON.stringify(
-          nextMove.suggestedNextMove,
-        )}`,
-      );
-      this.updateGameState(updatedGame, nextMove.suggestedNextMove);
-    });
+  private handleBotMove(game: Game) {
+    setTimeout(() => {
+      const nextMove = getNextMoveHint(game.state, 'black');
+      this.updateGameState(game, nextMove.suggestedNextMove);
+    }, 300);
   }
 
   async updateGameState(game: Game, coordinates: Coordinates): Promise<Game> {

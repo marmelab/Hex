@@ -139,10 +139,10 @@ export function updateGameState(
   return newGameState;
 }
 
-export async function getNextMoveHint(
+export function getNextMoveHint(
   state: GameState,
   player: StoneColor,
-): Promise<NextMoveHint> {
+): NextMoveHint {
   // First, determine if game is already won
   if (state.winner) {
     return {
@@ -169,11 +169,7 @@ export async function getNextMoveHint(
   // Otherwise, return undefined and get a advice for the next play
   return {
     closenessToGameEnd: 'UNDETERMINED',
-    suggestedNextMove: await getMinimaxNextPlaySuggestion(
-      state.board,
-      player,
-      2,
-    ),
+    suggestedNextMove: getMinimaxNextPlaySuggestion(state.board, player, 2),
   };
 }
 
