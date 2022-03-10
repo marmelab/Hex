@@ -63,7 +63,8 @@ export class GamesController {
     const game = await this.gameService.findGameById(id);
     return {
       ...this.gameService.getGameAndDisplayStatus(game, req.sessionID),
-      ...(hint && this.gameService.getNextMoveHint(game, req.sessionID)),
+      ...(hint &&
+        (await this.gameService.getNextMoveHint(game, req.sessionID))),
     };
   }
 

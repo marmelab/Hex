@@ -1,5 +1,8 @@
 import { getWinningPathIfExist } from './pathfinding';
-import { getNextPlaySuggestion } from './prediction';
+import {
+  getMinimaxNextPlaySuggestion,
+  getNextPlaySuggestion,
+} from './prediction';
 import { Coordinates, deepCloneObject } from './utils';
 
 export const DEFAULT_BOARD_SIZE = 19;
@@ -65,15 +68,10 @@ export function doesCellExistAndHaveStone(
   cell: Coordinates,
   stoneColor: StoneColor,
 ): boolean {
-  return (
-    doesCellExist(board, cell) && cellHasStone(board, cell, stoneColor)
-  );
+  return doesCellExist(board, cell) && cellHasStone(board, cell, stoneColor);
 }
 
-export function doesCellExist(
-  board: Board,
-  cell: Coordinates,
-): boolean {
+export function doesCellExist(board: Board, cell: Coordinates): boolean {
   if (cell.y < 0 || cell.y >= board.length) {
     return false;
   }
@@ -141,10 +139,10 @@ export function updateGameState(
   return newGameState;
 }
 
-export function getNextMoveHint(
+export async function getNextMoveHint(
   state: GameState,
   player: StoneColor,
-): NextMoveHint {
+): Promise<NextMoveHint> {
   // First, determine if game is already won
   if (state.winner) {
     return {
@@ -171,7 +169,11 @@ export function getNextMoveHint(
   // Otherwise, return undefined and get a advice for the next play
   return {
     closenessToGameEnd: 'UNDETERMINED',
-    suggestedNextMove: getNextPlaySuggestion(state.board, player)
+    suggestedNextMove: await getMinimaxNextPlaySuggestion(
+      state.board,
+      player,
+      2,
+    ),
   };
 }
 

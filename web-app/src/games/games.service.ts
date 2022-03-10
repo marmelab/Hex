@@ -40,6 +40,7 @@ export class GamesService {
   }
 
   async handlePlayerMove(game: Game, coordinates: Coordinates): Promise<Game> {
+    console.log(`handle player1's move`);
     const updatedGame = await this.updateGameState(game, coordinates);
     if (!updatedGame.state.winner && updatedGame.soloMode) {
       this.handleBotMove(updatedGame);
@@ -48,11 +49,15 @@ export class GamesService {
   }
 
   private handleBotMove(updatedGame: Game) {
-    const nextMove = getNextMoveHint(
-      updatedGame.state,
-      'black',
-    ).suggestedNextMove;
-    this.updateGameState(updatedGame, nextMove);
+    console.log(`handle bot's move`);
+    getNextMoveHint(updatedGame.state, 'black').then((nextMove) => {
+      console.log(
+        `finished computing bot's move: ${JSON.stringify(
+          nextMove.suggestedNextMove,
+        )}`,
+      );
+      this.updateGameState(updatedGame, nextMove.suggestedNextMove);
+    });
   }
 
   async updateGameState(game: Game, coordinates: Coordinates): Promise<Game> {
@@ -159,7 +164,7 @@ export class GamesService {
       : 'INITIALIZED';
   }
 
-  getNextMoveHint(game: Game, playerName: string): NextMoveHint {
+  async getNextMoveHint(game: Game, playerName: string): Promise<NextMoveHint> {
     const player: StoneColor =
       playerName === game.player1.username ? 'white' : 'black';
     return getNextMoveHint(game.state, player);

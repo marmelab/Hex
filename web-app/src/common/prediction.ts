@@ -18,56 +18,91 @@ export function getNextPlaySuggestion(board: Board, stoneColor: StoneColor): Coo
   return getBestPossiblePlay(playPredictions).coordinates;
 }
 
-export function getMinimaxNextPlaySuggestion(board: Board, stoneColor: StoneColor, maxDepth: number,): Coordinates {
-  return getBestPossiblePlay(getMinimaxPlayPredictions(board, stoneColor, maxDepth)).coordinates;
+export async function getMinimaxNextPlaySuggestion(
+  board: Board,
+  stoneColor: StoneColor,
+  maxDepth: number,
+): Promise<Coordinates> {
+  return getBestPossiblePlay(
+    getMinimaxPlayPredictions(board, stoneColor, maxDepth),
+  ).coordinates;
 }
 
 function getPlayableCells(board: Board): Coordinates[] {
   const playableCells = [];
   board.forEach((row, y) => {
     row.forEach((cell, x) => {
-      if (cell.value === "empty")
-        playableCells.push({ x, y })
-    })
+      if (cell.value === 'empty') playableCells.push({ x, y });
+    });
   });
   return playableCells;
 }
 
-function getPlayPrediction(board: Board, coordinates: Coordinates, stoneColor: StoneColor): PlayPrediction {
+function getPlayPrediction(
+  board: Board,
+  coordinates: Coordinates,
+  stoneColor: StoneColor,
+): PlayPrediction {
   const potentialBoard = deepCloneObject(board) as Board;
   potentialBoard[coordinates.y][coordinates.x].value = stoneColor;
-  const playerRemainingMovesToWin = getNbMovesNeededToWin(potentialBoard, stoneColor);
-  const opponentColor = stoneColor === "black" ? "white" : "black";
-  const opponentRemainingMovesToWin = getNbMovesNeededToWin(potentialBoard, opponentColor);
-  return { coordinates, playerRemainingMovesToWin, opponentRemainingMovesToWin, score: playerRemainingMovesToWin - opponentRemainingMovesToWin }
+  const playerRemainingMovesToWin = getNbMovesNeededToWin(
+    potentialBoard,
+    stoneColor,
+  );
+  const opponentColor = stoneColor === 'black' ? 'white' : 'black';
+  const opponentRemainingMovesToWin = getNbMovesNeededToWin(
+    potentialBoard,
+    opponentColor,
+  );
+  return {
+    coordinates,
+    playerRemainingMovesToWin,
+    opponentRemainingMovesToWin,
+    score: playerRemainingMovesToWin - opponentRemainingMovesToWin,
+  };
 }
 
 function getBestPossiblePlay(potentialPlays: PlayPrediction[]): PlayPrediction {
-  const winningPlays = potentialPlays.filter(play => play.playerRemainingMovesToWin === 0);
+  const winningPlays = potentialPlays.filter(
+    (play) => play.playerRemainingMovesToWin === 0,
+  );
   if (winningPlays.length > 0) return winningPlays[0];
   return potentialPlays.reduce(function (prev, curr) {
     return prev.score <= curr.score ? prev : curr;
   });
 }
 
-function getWorstPossiblePlay(potentialPlays: PlayPrediction[]): PlayPrediction {
+function getWorstPossiblePlay(
+  potentialPlays: PlayPrediction[],
+): PlayPrediction {
   return potentialPlays.reduce(function (prev, curr) {
     return prev.score >= curr.score ? prev : curr;
   });
 }
 
-function getMinimaxPlayPredictions(board: Board, stoneColor: StoneColor, maxDepth: number, currentDepth: number = 1): PlayPrediction[] {
+function getMinimaxPlayPredictions(
+  board: Board,
+  stoneColor: StoneColor,
+  maxDepth: number,
+  currentDepth: number = 1,
+): PlayPrediction[] {
   if (currentDepth === maxDepth) {
-    return getPlayableCells(board).map(coordinates =>
-      getPlayPrediction(board, coordinates, stoneColor)
+    return getPlayableCells(board).map((coordinates) =>
+      getPlayPrediction(board, coordinates, stoneColor),
     );
-  }
-  else {
-    return getPlayableCells(board).map(coordinates => {
+  } else {
+    return getPlayableCells(board).map((coordinates) => {
       const potentialBoard = deepCloneObject(board) as Board;
       potentialBoard[coordinates.y][coordinates.x].value = stoneColor;
-      const nextPlaySuggestions = getMinimaxPlayPredictions(potentialBoard, stoneColor, maxDepth, currentDepth + 1);
-      return currentDepth % 2 ? getWorstPossiblePlay(nextPlaySuggestions) : getBestPossiblePlay(nextPlaySuggestions);
+      const nextPlaySuggestions = getMinimaxPlayPredictions(
+        potentialBoard,
+        stoneColor,
+        maxDepth,
+        currentDepth + 1,
+      );
+      return currentDepth % 2
+        ? getWorstPossiblePlay(nextPlaySuggestions)
+        : getBestPossiblePlay(nextPlaySuggestions);
     });
   }
 }
