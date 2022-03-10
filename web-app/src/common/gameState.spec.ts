@@ -7,7 +7,10 @@ import {
   getNextMoveHint,
   NextMoveHint,
 } from './gameState';
-import { parseGameStateFromMultilineString, areExpectedCoordinatesInList } from './utils';
+import {
+  parseGameStateFromMultilineString,
+  areExpectedCoordinatesInList,
+} from './utils';
 
 describe('check whether player has won the game', () => {
   it('should say WIN for white with a 3x3 board with a vertical path', () => {
@@ -411,8 +414,8 @@ describe('Get a hint about the next move', () => {
     const output = getNextMoveHint(input, 'black');
 
     expect(output.closenessToGameEnd).toStrictEqual('UNDETERMINED');
-    expect(areExpectedCoordinatesInList(output.suggestedNextMove,
-      [
+    expect(
+      areExpectedCoordinatesInList(output.suggestedNextMove, [
         { x: 4, y: 1 },
         { x: 1, y: 2 },
         { x: 3, y: 2 },
@@ -420,8 +423,8 @@ describe('Get a hint about the next move', () => {
         { x: 1, y: 3 },
         { x: 2, y: 3 },
         { x: 3, y: 3 },
-        { x: 2, y: 4 }
-      ])
+        { x: 2, y: 4 },
+      ]),
     ).toBeTruthy();
   });
 
@@ -437,11 +440,11 @@ describe('Get a hint about the next move', () => {
     const output = getNextMoveHint(input, 'white');
 
     expect(output.closenessToGameEnd).toStrictEqual('UNDETERMINED');
-    expect(areExpectedCoordinatesInList(output.suggestedNextMove,
-      [
+    expect(
+      areExpectedCoordinatesInList(output.suggestedNextMove, [
         { x: 1, y: 2 },
         { x: 1, y: 3 },
-      ])
+      ]),
     ).toBeTruthy();
   });
 });

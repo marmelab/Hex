@@ -5,7 +5,6 @@ import {
   Put,
   Get,
   Param,
-  Req,
   UseGuards,
   NotFoundException,
   Request,

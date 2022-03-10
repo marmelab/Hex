@@ -1,7 +1,12 @@
 import * as jkstra from 'jkstra';
 import {
-  doesCellExistAndHaveStone, Board, StoneColor,
-  BLACK_NODE_START, BLACK_NODE_END, WHITE_NODE_START, WHITE_NODE_END
+  doesCellExistAndHaveStone,
+  Board,
+  StoneColor,
+  BLACK_NODE_START,
+  BLACK_NODE_END,
+  WHITE_NODE_START,
+  WHITE_NODE_END,
 } from './gameState';
 import { Coordinates } from './utils';
 
@@ -54,14 +59,20 @@ function createEdgesFromGameState(
     row.forEach((cell, x) => {
       if (cell.value == stoneColor) {
         const currentCell: Coordinates = { y: y, x: x };
-        const directNeighborCells = [{ y: y, x: x + 1 }, { y: y + 1, x: x }, { y: y + 1, x: x - 1 }];
-        directNeighborCells.forEach(neighbor => createEdgePairForNeighbor(
-          board,
-          hexBoardWinDetectionGraph,
-          stoneColor,
-          currentCell,
-          neighbor,
-        ));
+        const directNeighborCells = [
+          { y: y, x: x + 1 },
+          { y: y + 1, x: x },
+          { y: y + 1, x: x - 1 },
+        ];
+        directNeighborCells.forEach((neighbor) =>
+          createEdgePairForNeighbor(
+            board,
+            hexBoardWinDetectionGraph,
+            stoneColor,
+            currentCell,
+            neighbor,
+          ),
+        );
       }
     });
   });
@@ -69,9 +80,17 @@ function createEdgesFromGameState(
   // Add edges for start and end nodes
   board.forEach((_, i) => {
     addEdge(hexBoardWinDetectionGraph, BLACK_NODE_START, `${i}-0`);
-    addEdge(hexBoardWinDetectionGraph, `${i}-${board.length - 1}`, BLACK_NODE_END);
+    addEdge(
+      hexBoardWinDetectionGraph,
+      `${i}-${board.length - 1}`,
+      BLACK_NODE_END,
+    );
     addEdge(hexBoardWinDetectionGraph, WHITE_NODE_START, `0-${i}`);
-    addEdge(hexBoardWinDetectionGraph, `${board.length - 1}-${i}`, WHITE_NODE_END);
+    addEdge(
+      hexBoardWinDetectionGraph,
+      `${board.length - 1}-${i}`,
+      WHITE_NODE_END,
+    );
   });
 }
 
@@ -91,8 +110,14 @@ function createEdgePairForNeighbor(
   }
 }
 
-function addVertex(hexBoardWinDetectionGraph: HexBoardWinDetectionGraph, id: string) {
-  hexBoardWinDetectionGraph.vertexMap.set(id, hexBoardWinDetectionGraph.winDetectionGraph.addVertex(id));
+function addVertex(
+  hexBoardWinDetectionGraph: HexBoardWinDetectionGraph,
+  id: string,
+) {
+  hexBoardWinDetectionGraph.vertexMap.set(
+    id,
+    hexBoardWinDetectionGraph.winDetectionGraph.addVertex(id),
+  );
 }
 
 function addEdge(

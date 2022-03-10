@@ -5,7 +5,7 @@ import { encodeObjectForQueryString, Coordinates } from '../common/utils';
 export function registerHandlebarsHelpers() {
   handlebars.registerHelper(
     'encodeObjectAsQueryString',
-    function (objectToEncode: Object): string {
+    function (objectToEncode: Record<string, unknown>): string {
       return encodeObjectForQueryString(objectToEncode);
     },
   );

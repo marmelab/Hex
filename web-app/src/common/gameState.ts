@@ -65,15 +65,10 @@ export function doesCellExistAndHaveStone(
   cell: Coordinates,
   stoneColor: StoneColor,
 ): boolean {
-  return (
-    doesCellExist(board, cell) && cellHasStone(board, cell, stoneColor)
-  );
+  return doesCellExist(board, cell) && cellHasStone(board, cell, stoneColor);
 }
 
-export function doesCellExist(
-  board: Board,
-  cell: Coordinates,
-): boolean {
+export function doesCellExist(board: Board, cell: Coordinates): boolean {
   if (cell.y < 0 || cell.y >= board.length) {
     return false;
   }
@@ -171,14 +166,11 @@ export function getNextMoveHint(
   // Otherwise, return undefined and get a advice for the next play
   return {
     closenessToGameEnd: 'UNDETERMINED',
-    suggestedNextMove: getNextPlaySuggestion(state.board, player)
+    suggestedNextMove: getNextPlaySuggestion(state.board, player),
   };
 }
 
-function getWinningMoveIfAny(
-  board: Board,
-  player: StoneColor,
-): Coordinates {
+function getWinningMoveIfAny(board: Board, player: StoneColor): Coordinates {
   for (const [y, row] of board.entries()) {
     for (const [x, cell] of row.entries()) {
       if (cell.value === 'empty') {
