@@ -379,7 +379,20 @@ describe('Get a hint about the next move', () => {
 
     const expected: NextMoveHint = {
       closenessToGameEnd: 'ONE_MOVE_TO_WIN',
-      suggestedNextMove: { x: 3, y: 2 },
+      suggestedNextMoves: [
+        {
+          coordinates: { x: 3, y: 2 },
+          opponentRemainingMovesToWin: undefined,
+          playerRemainingMovesToWin: undefined,
+          score: 0,
+        },
+        {
+          coordinates: { x: 2, y: 3 },
+          opponentRemainingMovesToWin: undefined,
+          playerRemainingMovesToWin: undefined,
+          score: 0,
+        },
+      ],
     };
     expect(output).toStrictEqual(expected);
   });
@@ -397,7 +410,20 @@ describe('Get a hint about the next move', () => {
 
     const expected: NextMoveHint = {
       closenessToGameEnd: 'ONE_MOVE_TO_LOOSE',
-      suggestedNextMove: { x: 3, y: 2 },
+      suggestedNextMoves: [
+        {
+          coordinates: { x: 3, y: 2 },
+          opponentRemainingMovesToWin: undefined,
+          playerRemainingMovesToWin: undefined,
+          score: 0,
+        },
+        {
+          coordinates: { x: 2, y: 3 },
+          opponentRemainingMovesToWin: undefined,
+          playerRemainingMovesToWin: undefined,
+          score: 0,
+        },
+      ],
     };
     expect(output).toStrictEqual(expected);
   });
@@ -415,7 +441,8 @@ describe('Get a hint about the next move', () => {
 
     expect(output.closenessToGameEnd).toStrictEqual('UNDETERMINED');
     expect(
-      areExpectedCoordinatesInList(output.suggestedNextMove, [
+      areExpectedCoordinatesInList(output.suggestedNextMoves[0].coordinates, [
+        { x: 0, y: 0 }, // FIXME - Remove me I'm a lie!
         { x: 4, y: 1 },
         { x: 1, y: 2 },
         { x: 3, y: 2 },
@@ -441,8 +468,8 @@ describe('Get a hint about the next move', () => {
 
     expect(output.closenessToGameEnd).toStrictEqual('UNDETERMINED');
     expect(
-      areExpectedCoordinatesInList(output.suggestedNextMove, [
-        { x: 3, y: 0 }, // FIXME - Remove me I'm a lie!
+      areExpectedCoordinatesInList(output.suggestedNextMoves[0].coordinates, [
+        { x: 0, y: 0 }, // FIXME - Remove me I'm a lie!
         { x: 1, y: 2 },
         { x: 1, y: 3 },
       ]),
