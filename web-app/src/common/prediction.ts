@@ -17,7 +17,7 @@ export function getNextPlaySuggestion(
   if (playableCells.length === 0)
     throw new Error('There is no playable cell in the given board.');
   const playPredictions = playableCells.map((coordinates) =>
-    getPlayPrediction(board, coordinates, stoneColor),
+    getPlayPrediction(board, coordinates, stoneColor, stoneColor),
   );
   return getBestPossiblePlay(playPredictions).coordinates;
 }
@@ -46,9 +46,10 @@ function getPlayPrediction(
   board: Board,
   coordinates: Coordinates,
   stoneColor: StoneColor,
+  playAsColor: StoneColor,
 ): PlayPrediction {
   const potentialBoard = deepCloneObject(board) as Board;
-  potentialBoard[coordinates.y][coordinates.x].value = stoneColor;
+  potentialBoard[coordinates.y][coordinates.x].value = playAsColor;
   const playerRemainingMovesToWin = getNbMovesNeededToWin(
     potentialBoard,
     stoneColor,
@@ -94,13 +95,18 @@ function getMinimaxPlayPredictions(
   maxDepth: number,
   currentDepth = 1,
 ): PlayPrediction[] {
+  const isCurrentPlayerTurnToPlay = currentDepth % 2 === 1;
+  const opponentColor = stoneColor === 'black' ? 'white' : 'black';
   if (currentDepth === maxDepth) {
     return getPlayableCells(board).map((coordinates) =>
-      getPlayPrediction(board, coordinates, stoneColor),
+      getPlayPrediction(
+        board,
+        coordinates,
+        stoneColor,
+        isCurrentPlayerTurnToPlay ? stoneColor : opponentColor,
+      ),
     );
   } else {
-    const isCurrentPlayerTurnToPlay = currentDepth % 2 === 1;
-    const opponentColor = stoneColor === 'black' ? 'white' : 'black';
     return getPlayableCells(board).map((coordinates) => {
       const potentialBoard = deepCloneObject(board) as Board;
       potentialBoard[coordinates.y][coordinates.x].value =
