@@ -167,7 +167,7 @@ describe('Get a suggestion for the next play', () => {
 });
 
 describe('Get a suggestion for the next play based on minimax', () => {
-  it('', () => {
+  it('Should get a suggestion to play at (4, 0) as WHITE on this 5x5 board with depth 3 minimax', () => {
     const input = parseGameStateFromMultilineString(`
     ⬡ ⬡ ⬡ ⬡ ⬡
      ⬡ ⬡ ⬡ ⬡ ⬡
@@ -185,7 +185,7 @@ describe('Get a suggestion for the next play based on minimax', () => {
     expect(nextPlayAdvice).toStrictEqual({ x: 4, y: 0 });
   });
 
-  it('', () => {
+  it('Should get a suggestion to play at (0, 1) as WHITE on this 2x2 board with depth 2 minimax', () => {
     const input = parseGameStateFromMultilineString(`
     W ⬡
      ⬡ ⬢
@@ -200,7 +200,7 @@ describe('Get a suggestion for the next play based on minimax', () => {
     expect(nextPlayAdvice).toStrictEqual({ x: 0, y: 1 });
   });
 
-  it('', () => {
+  it('Should get a suggestion to play at (0, 1) as BLACK on this 2x2 board with depth 2 minimax', () => {
     const input = parseGameStateFromMultilineString(`
     W ⬡
      ⬡ ⬢
@@ -215,7 +215,7 @@ describe('Get a suggestion for the next play based on minimax', () => {
     expect(nextPlayAdvice).toStrictEqual({ x: 0, y: 1 });
   });
 
-  it('', () => {
+  it('Should get a suggestion to play at (1, 1) as BLACK on this 2x2 board with depth 2 minimax', () => {
     const input = parseGameStateFromMultilineString(`
     ⬡ W
      ⬢ ⬡
@@ -230,7 +230,7 @@ describe('Get a suggestion for the next play based on minimax', () => {
     expect(nextPlayAdvice).toStrictEqual({ x: 1, y: 1 });
   });
 
-  it('', () => {
+  it('Should get a suggestion to play at (1, 1) as WHITE on this 2x2 board with depth 2 minimax', () => {
     const input = parseGameStateFromMultilineString(`
     ⬡ W
      ⬢ ⬡
@@ -244,7 +244,7 @@ describe('Get a suggestion for the next play based on minimax', () => {
 
     expect(nextPlayAdvice).toStrictEqual({ x: 1, y: 1 });
   });
-  it('', () => {
+  it('Should get a suggestion to play at (1, 0) or (0,1) as WHITE on this 2x2 board with depth 2 minimax', () => {
     const input = parseGameStateFromMultilineString(`
     ⬡ ⬡
      ⬡ ⬡
@@ -263,7 +263,7 @@ describe('Get a suggestion for the next play based on minimax', () => {
       ]),
     ).toBeTruthy();
   });
-  it('', () => {
+  it('Should get a suggestion to play at (1, 1) or (0, 1) as BLACK on this 2x2 board with depth 2 minimax', () => {
     const input = parseGameStateFromMultilineString(`
     ⬡ ⬡
      ⬡ ⬡
