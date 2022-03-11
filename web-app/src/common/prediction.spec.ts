@@ -3,7 +3,10 @@ import {
   parseGameStateFromMultilineString,
   areExpectedCoordinatesInList,
 } from './utils';
-import { getNextPlaySuggestion, getMinimaxPlayPredictions } from './prediction';
+import {
+  getNextPlaySuggestion,
+  getMinimaxNextPlaySuggestion,
+} from './prediction';
 
 describe('Get a suggestion for the next play', () => {
   it('Should get a suggestion to play on x:2,y:2 or x:2,y:1', () => {
@@ -201,8 +204,11 @@ describe('Get a suggestion for the next play based on minimax', () => {
      ⬡ ⬢
   `);
 
-    const nextPlayAdvice = getMinimaxPlayPredictions(input.board, 'black', 2)[0]
-      .coordinates;
+    const nextPlayAdvice = getMinimaxNextPlaySuggestion(
+      input.board,
+      'black',
+      2,
+    );
 
     expect(nextPlayAdvice).toStrictEqual({ x: 0, y: 1 });
   });

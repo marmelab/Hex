@@ -75,7 +75,9 @@ function getPlayPrediction(
   };
 }
 
-function getBestPossiblePlay(potentialPlays: PlayPrediction[]): PlayPrediction {
+export function getBestPossiblePlay(
+  potentialPlays: PlayPrediction[],
+): PlayPrediction {
   return potentialPlays.reduce(function (prev, curr) {
     return prev.score <= curr.score ? prev : curr;
   });
