@@ -85,6 +85,9 @@ export class GamesService {
     } else {
       size = +size;
     }
+    if (soloMode && size > 9) {
+      size = 9;
+    }
     const player1 = await this.usersService.getOrCreate(player1Username);
     const game = this.gamesRepository.create({
       state: initNewGameState(size),
@@ -164,7 +167,7 @@ export class GamesService {
       : 'INITIALIZED';
   }
 
-  getNextMoveHint(game: Game, playerName: string): NextMoveHint {
+  async getNextMoveHint(game: Game, playerName: string): Promise<NextMoveHint> {
     const player: StoneColor =
       playerName === game.player1.username ? 'white' : 'black';
     const nextMoveHint = getNextMoveHint(game.state, player);
