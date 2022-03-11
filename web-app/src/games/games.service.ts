@@ -15,6 +15,10 @@ import {
 } from '../common/gameState';
 import { Coordinates, deepCloneObject } from '../common/utils';
 import { UsersService } from '../users/users.service';
+import {
+  getBestPossiblePlay,
+  getBestPossiblePlays,
+} from '../common/prediction';
 
 export interface GameAndDisplayStatus {
   game: Game;
@@ -47,11 +51,13 @@ export class GamesService {
     return updatedGame;
   }
 
-  private handleBotMove(game: Game) {
-    setTimeout(() => {
-      const nextMove = getNextMoveHint(game.state, 'black');
-      this.updateGameState(game, nextMove.suggestedNextMove);
-    }, 300);
+  private handleBotMove(updatedGame: Game) {
+    const nextMoves = getBestPossiblePlays(
+      getNextMoveHint(updatedGame.state, 'black').suggestedNextMoves,
+    );
+    const randomNextMove =
+      nextMoves[Math.floor(Math.random() * nextMoves.length)];
+    this.updateGameState(updatedGame, randomNextMove.coordinates);
   }
 
   async updateGameState(game: Game, coordinates: Coordinates): Promise<Game> {
@@ -161,6 +167,26 @@ export class GamesService {
   async getNextMoveHint(game: Game, playerName: string): Promise<NextMoveHint> {
     const player: StoneColor =
       playerName === game.player1.username ? 'white' : 'black';
-    return getNextMoveHint(game.state, player);
+    const nextMoveHint = getNextMoveHint(game.state, player);
+    // Normalize the scores to 0, if applicable
+    if (
+      nextMoveHint.suggestedNextMoves &&
+      nextMoveHint.suggestedNextMoves.length
+    ) {
+      const minScore = getBestPossiblePlay(
+        nextMoveHint.suggestedNextMoves,
+      ).score;
+      return {
+        ...nextMoveHint,
+        suggestedNextMoves: nextMoveHint.suggestedNextMoves.map((move) => {
+          return {
+            ...move,
+            score: minScore - move.score,
+          };
+        }),
+      };
+    } else {
+      return nextMoveHint;
+    }
   }
 }
