@@ -59,19 +59,23 @@ function getPlayPrediction(
     potentialBoard,
     opponentColor,
   );
+  let score = 0;
+  if (playerRemainingMovesToWin === 0) {
+    score = -100;
+  } else if (opponentRemainingMovesToWin === 0) {
+    score = 100;
+  } else {
+    score = playerRemainingMovesToWin - opponentRemainingMovesToWin;
+  }
   return {
     coordinates,
     playerRemainingMovesToWin,
     opponentRemainingMovesToWin,
-    score: playerRemainingMovesToWin - opponentRemainingMovesToWin,
+    score,
   };
 }
 
 function getBestPossiblePlay(potentialPlays: PlayPrediction[]): PlayPrediction {
-  const winningPlays = potentialPlays.filter(
-    (play) => play.playerRemainingMovesToWin === 0,
-  );
-  if (winningPlays.length > 0) return winningPlays[0];
   return potentialPlays.reduce(function (prev, curr) {
     return prev.score <= curr.score ? prev : curr;
   });
@@ -80,10 +84,6 @@ function getBestPossiblePlay(potentialPlays: PlayPrediction[]): PlayPrediction {
 function getWorstPossiblePlay(
   potentialPlays: PlayPrediction[],
 ): PlayPrediction {
-  const loosingPlays = potentialPlays.filter(
-    (play) => play.opponentRemainingMovesToWin === 0,
-  );
-  if (loosingPlays.length > 0) return loosingPlays[0];
   return potentialPlays.reduce(function (prev, curr) {
     return prev.score >= curr.score ? prev : curr;
   });
