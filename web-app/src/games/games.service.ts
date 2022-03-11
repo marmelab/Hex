@@ -15,6 +15,10 @@ import {
 } from '../common/gameState';
 import { Coordinates, deepCloneObject } from '../common/utils';
 import { UsersService } from '../users/users.service';
+import {
+  getBestPossiblePlay,
+  getBestPossiblePlays,
+} from '../common/prediction';
 
 export interface GameAndDisplayStatus {
   game: Game;
@@ -48,10 +52,9 @@ export class GamesService {
   }
 
   private handleBotMove(updatedGame: Game) {
-    const nextMoves = getNextMoveHint(
-      updatedGame.state,
-      'black',
-    ).suggestedNextMoves;
+    const nextMoves = getBestPossiblePlays(
+      getNextMoveHint(updatedGame.state, 'black').suggestedNextMoves,
+    );
     const randomNextMove =
       nextMoves[Math.floor(Math.random() * nextMoves.length)];
     this.updateGameState(updatedGame, randomNextMove.coordinates);
@@ -170,11 +173,9 @@ export class GamesService {
       nextMoveHint.suggestedNextMoves &&
       nextMoveHint.suggestedNextMoves.length
     ) {
-      const minScore = Math.min(
-        ...nextMoveHint.suggestedNextMoves.map(function (prediction) {
-          return prediction.score;
-        }),
-      );
+      const minScore = getBestPossiblePlay(
+        nextMoveHint.suggestedNextMoves,
+      ).score;
       return {
         ...nextMoveHint,
         suggestedNextMoves: nextMoveHint.suggestedNextMoves.map((move) => {

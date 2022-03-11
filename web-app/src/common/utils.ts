@@ -109,7 +109,6 @@ export function areExpectedCoordinatesInList(
   expectedCoords: Coordinates,
   listPotentialCoords: Coordinates[],
 ): boolean {
-  console.log(`expectedCoords=${JSON.stringify(expectedCoords)}`);
   return listPotentialCoords.some((potentialCoords) =>
     areCoordinatesEquals(potentialCoords, expectedCoords),
   );

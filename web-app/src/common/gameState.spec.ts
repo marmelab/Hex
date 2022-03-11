@@ -383,13 +383,13 @@ describe('Get a hint about the next move', () => {
         {
           coordinates: { x: 3, y: 2 },
           opponentRemainingMovesToWin: undefined,
-          playerRemainingMovesToWin: 1,
+          playerRemainingMovesToWin: undefined,
           score: 0,
         },
         {
           coordinates: { x: 2, y: 3 },
           opponentRemainingMovesToWin: undefined,
-          playerRemainingMovesToWin: 1,
+          playerRemainingMovesToWin: undefined,
           score: 0,
         },
       ],
@@ -414,13 +414,13 @@ describe('Get a hint about the next move', () => {
         {
           coordinates: { x: 3, y: 2 },
           opponentRemainingMovesToWin: undefined,
-          playerRemainingMovesToWin: 1,
+          playerRemainingMovesToWin: undefined,
           score: 0,
         },
         {
           coordinates: { x: 2, y: 3 },
           opponentRemainingMovesToWin: undefined,
-          playerRemainingMovesToWin: 1,
+          playerRemainingMovesToWin: undefined,
           score: 0,
         },
       ],

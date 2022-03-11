@@ -187,7 +187,7 @@ function getWinningMoves(board: Board, player: StoneColor): PlayPrediction[] {
     return {
       coordinates: move,
       opponentRemainingMovesToWin: undefined,
-      playerRemainingMovesToWin: 1,
+      playerRemainingMovesToWin: undefined,
       score: 0,
     };
   });
