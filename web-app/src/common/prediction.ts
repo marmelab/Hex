@@ -120,6 +120,7 @@ function getMinimaxPlayPredictions(
       const selectedPrediction = isCurrentPlayerTurnToPlay
         ? getWorstPossiblePlay(nextPlaySuggestions)
         : getBestPossiblePlay(nextPlaySuggestions);
+      selectedPrediction.coordinates = coordinates;
       return selectedPrediction;
     });
   }
