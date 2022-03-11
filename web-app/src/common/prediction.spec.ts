@@ -175,11 +175,13 @@ describe('Get a suggestion for the next play based on minimax', () => {
        ⬡ ⬢ ⬡ W ⬡
         ⬡ ⬡ ⬡ ⬡ ⬡
   `);
+
     const nextPlayAdvice = getMinimaxNextPlaySuggestion(
       input.board,
       'white',
       3,
     );
+
     expect(nextPlayAdvice).toStrictEqual({ x: 4, y: 0 });
   });
   it('', () => {
@@ -187,11 +189,13 @@ describe('Get a suggestion for the next play based on minimax', () => {
     W ⬡
      ⬡ ⬢
   `);
+
     const nextPlayAdvice = getMinimaxNextPlaySuggestion(
       input.board,
       'white',
       2,
     );
+
     expect(nextPlayAdvice).toStrictEqual({ x: 0, y: 1 });
   });
   it('', () => {
@@ -199,11 +203,13 @@ describe('Get a suggestion for the next play based on minimax', () => {
     W ⬡
      ⬡ ⬢
   `);
+
     const nextPlayAdvice = getMinimaxNextPlaySuggestion(
       input.board,
       'black',
       2,
     );
+
     expect(nextPlayAdvice).toStrictEqual({ x: 0, y: 1 });
   });
   it('', () => {
@@ -211,11 +217,13 @@ describe('Get a suggestion for the next play based on minimax', () => {
     ⬡ W
      ⬢ ⬡
   `);
+
     const nextPlayAdvice = getMinimaxNextPlaySuggestion(
       input.board,
       'black',
       2,
     );
+
     expect(nextPlayAdvice).toStrictEqual({ x: 1, y: 1 });
   });
   it('', () => {
@@ -223,11 +231,51 @@ describe('Get a suggestion for the next play based on minimax', () => {
     ⬡ W
      ⬢ ⬡
   `);
+
     const nextPlayAdvice = getMinimaxNextPlaySuggestion(
       input.board,
       'white',
       2,
     );
+
     expect(nextPlayAdvice).toStrictEqual({ x: 1, y: 1 });
+  });
+  it('', () => {
+    const input = parseGameStateFromMultilineString(`
+    ⬡ ⬡
+     ⬡ ⬡
+  `);
+
+    const nextPlayAdvice = getMinimaxNextPlaySuggestion(
+      input.board,
+      'white',
+      2,
+    );
+
+    expect(
+      areExpectedCoordinatesInList(nextPlayAdvice, [
+        { x: 1, y: 0 },
+        { x: 0, y: 1 },
+      ]),
+    ).toBeTruthy();
+  });
+  it('', () => {
+    const input = parseGameStateFromMultilineString(`
+    ⬡ ⬡
+     ⬡ ⬡
+  `);
+
+    const nextPlayAdvice = getMinimaxNextPlaySuggestion(
+      input.board,
+      'black',
+      2,
+    );
+
+    expect(
+      areExpectedCoordinatesInList(nextPlayAdvice, [
+        { x: 1, y: 0 },
+        { x: 0, y: 1 },
+      ]),
+    ).toBeTruthy();
   });
 });
