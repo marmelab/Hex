@@ -164,7 +164,7 @@ export class GamesService {
       : 'INITIALIZED';
   }
 
-  getNextMoveHint(game: Game, playerName: string): NextMoveHint {
+  async getNextMoveHint(game: Game, playerName: string): Promise<NextMoveHint> {
     const player: StoneColor =
       playerName === game.player1.username ? 'white' : 'black';
     const nextMoveHint = getNextMoveHint(game.state, player);

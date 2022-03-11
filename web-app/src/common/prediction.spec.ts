@@ -3,7 +3,10 @@ import {
   parseGameStateFromMultilineString,
   areExpectedCoordinatesInList,
 } from './utils';
-import { getNextPlaySuggestion, getMinimaxPlayPredictions } from './prediction';
+import {
+  getNextPlaySuggestion,
+  getMinimaxNextPlaySuggestion,
+} from './prediction';
 
 describe('Get a suggestion for the next play', () => {
   it('Should get a suggestion to play on x:2,y:2 or x:2,y:1', () => {
@@ -164,16 +167,115 @@ describe('Get a suggestion for the next play', () => {
 });
 
 describe('Get a suggestion for the next play based on minimax', () => {
-  it('Should get a suggestion to play on the center of an empty board', () => {
+  it('', () => {
     const input = parseGameStateFromMultilineString(`
-  ⬡ ⬡ ⬡
-   ⬡ ⬡ ⬡
-    ⬡ ⬡ ⬡
+    ⬡ ⬡ ⬡ ⬡ ⬡
+     ⬡ ⬡ ⬡ ⬡ ⬡
+      ⬡ ⬡ ⬢ W ⬡
+       ⬡ ⬢ ⬡ W ⬡
+        ⬡ ⬡ ⬡ ⬡ ⬡
   `);
 
-    const nextPlayAdvice = getMinimaxPlayPredictions(input.board, 'black', 2)[0]
-      .coordinates;
+    const nextPlayAdvice = getMinimaxNextPlaySuggestion(
+      input.board,
+      'white',
+      3,
+    );
+
+    expect(nextPlayAdvice).toStrictEqual({ x: 4, y: 0 });
+  });
+  it('', () => {
+    const input = parseGameStateFromMultilineString(`
+    W ⬡
+     ⬡ ⬢
+  `);
+
+    const nextPlayAdvice = getMinimaxNextPlaySuggestion(
+      input.board,
+      'white',
+      2,
+    );
 
     expect(nextPlayAdvice).toStrictEqual({ x: 0, y: 1 });
+  });
+  it('', () => {
+    const input = parseGameStateFromMultilineString(`
+    W ⬡
+     ⬡ ⬢
+  `);
+
+    const nextPlayAdvice = getMinimaxNextPlaySuggestion(
+      input.board,
+      'black',
+      2,
+    );
+
+    expect(nextPlayAdvice).toStrictEqual({ x: 0, y: 1 });
+  });
+  it('', () => {
+    const input = parseGameStateFromMultilineString(`
+    ⬡ W
+     ⬢ ⬡
+  `);
+
+    const nextPlayAdvice = getMinimaxNextPlaySuggestion(
+      input.board,
+      'black',
+      2,
+    );
+
+    expect(nextPlayAdvice).toStrictEqual({ x: 1, y: 1 });
+  });
+  it('', () => {
+    const input = parseGameStateFromMultilineString(`
+    ⬡ W
+     ⬢ ⬡
+  `);
+
+    const nextPlayAdvice = getMinimaxNextPlaySuggestion(
+      input.board,
+      'white',
+      2,
+    );
+
+    expect(nextPlayAdvice).toStrictEqual({ x: 1, y: 1 });
+  });
+  it('', () => {
+    const input = parseGameStateFromMultilineString(`
+    ⬡ ⬡
+     ⬡ ⬡
+  `);
+
+    const nextPlayAdvice = getMinimaxNextPlaySuggestion(
+      input.board,
+      'white',
+      2,
+    );
+
+    expect(
+      areExpectedCoordinatesInList(nextPlayAdvice, [
+        { x: 1, y: 0 },
+        { x: 0, y: 1 },
+      ]),
+    ).toBeTruthy();
+  });
+  it('', () => {
+    const input = parseGameStateFromMultilineString(`
+    ⬡ ⬡
+     ⬡ ⬡
+  `);
+
+    const nextPlayAdvice = getMinimaxNextPlaySuggestion(
+      input.board,
+      'black',
+      2,
+    );
+
+    expect(
+      areExpectedCoordinatesInList(nextPlayAdvice, [
+        { x: 1, y: 0 },
+        { x: 0, y: 1 },
+      ]),
+    ).toBeTruthy();
   });
 });

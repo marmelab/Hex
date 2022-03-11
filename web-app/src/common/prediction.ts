@@ -17,7 +17,7 @@ export function getNextPlaySuggestion(
   if (playableCells.length === 0)
     throw new Error('There is no playable cell in the given board.');
   const playPredictions = playableCells.map((coordinates) =>
-    getPlayPrediction(board, coordinates, stoneColor),
+    getPlayPrediction(board, coordinates, stoneColor, stoneColor),
   );
   return getBestPossiblePlay(playPredictions).coordinates;
 }
@@ -27,9 +27,23 @@ export function getMinimaxNextPlaySuggestion(
   stoneColor: StoneColor,
   maxDepth: number,
 ): Coordinates {
-  return getBestPossiblePlay(
-    getMinimaxPlayPredictions(board, stoneColor, maxDepth),
-  ).coordinates;
+  minimaxLogs = '';
+  log(
+    `Minimax algo initialized with a max depth of ${maxDepth} for player ${stoneColor}`,
+  );
+  const nextPlaySuggestions = getMinimaxPlayPredictions(
+    board,
+    stoneColor,
+    maxDepth,
+  );
+  log('\n\nMatrice de choix du coup suggéré pour le joueur : ');
+  log(getStringBoard(board, nextPlaySuggestions));
+  const bestPlay = getBestPossiblePlay(nextPlaySuggestions);
+  log(
+    `Result : ${stoneColor} suggested move is ${bestPlay.coordinates.x},${bestPlay.coordinates.y} with a score of ${bestPlay.score}`,
+  );
+  console.log(minimaxLogs);
+  return bestPlay.coordinates;
 }
 
 function getPlayableCells(board: Board): Coordinates[] {
@@ -46,9 +60,10 @@ function getPlayPrediction(
   board: Board,
   coordinates: Coordinates,
   stoneColor: StoneColor,
+  playAsColor: StoneColor,
 ): PlayPrediction {
   const potentialBoard = deepCloneObject(board) as Board;
-  potentialBoard[coordinates.y][coordinates.x].value = stoneColor;
+  potentialBoard[coordinates.y][coordinates.x].value = playAsColor;
   const playerRemainingMovesToWin = getNbMovesNeededToWin(
     potentialBoard,
     stoneColor,
@@ -58,21 +73,25 @@ function getPlayPrediction(
     potentialBoard,
     opponentColor,
   );
+  let score = 0;
+  if (playerRemainingMovesToWin === 0) {
+    score = -100;
+  } else if (opponentRemainingMovesToWin === 0) {
+    score = 100;
+  } else {
+    score = playerRemainingMovesToWin - opponentRemainingMovesToWin;
+  }
   return {
     coordinates,
     playerRemainingMovesToWin,
     opponentRemainingMovesToWin,
-    score: playerRemainingMovesToWin - opponentRemainingMovesToWin,
+    score,
   };
 }
 
 export function getBestPossiblePlay(
   potentialPlays: PlayPrediction[],
 ): PlayPrediction {
-  const winningPlays = potentialPlays.filter(
-    (play) => play.playerRemainingMovesToWin === 0,
-  );
-  if (winningPlays.length > 0) return winningPlays[0];
   return potentialPlays.reduce(function (prev, curr) {
     return prev.score <= curr.score ? prev : curr;
   });
@@ -81,13 +100,7 @@ export function getBestPossiblePlay(
 export function getBestPossiblePlays(
   potentialPlays: PlayPrediction[],
 ): PlayPrediction[] {
-  const winningPlays = potentialPlays.filter(
-    (play) => play.playerRemainingMovesToWin === 0,
-  );
-  if (winningPlays.length > 0) return winningPlays;
-  const minScore = potentialPlays.reduce(function (prev, curr) {
-    return prev.score <= curr.score ? prev : curr;
-  }).score;
+  const minScore = getBestPossiblePlay(potentialPlays).score;
   return potentialPlays.filter((play) => play.score === minScore);
 }
 
@@ -105,23 +118,74 @@ export function getMinimaxPlayPredictions(
   maxDepth: number,
   currentDepth = 1,
 ): PlayPrediction[] {
+  const isCurrentPlayerTurnToPlay = currentDepth % 2 === 1;
+  const opponentColor = stoneColor === 'black' ? 'white' : 'black';
   if (currentDepth === maxDepth) {
     return getPlayableCells(board).map((coordinates) =>
-      getPlayPrediction(board, coordinates, stoneColor),
+      getPlayPrediction(
+        board,
+        coordinates,
+        stoneColor,
+        isCurrentPlayerTurnToPlay ? stoneColor : opponentColor,
+      ),
     );
   } else {
     return getPlayableCells(board).map((coordinates) => {
       const potentialBoard = deepCloneObject(board) as Board;
-      potentialBoard[coordinates.y][coordinates.x].value = stoneColor;
+      potentialBoard[coordinates.y][coordinates.x].value =
+        isCurrentPlayerTurnToPlay ? stoneColor : opponentColor;
       const nextPlaySuggestions = getMinimaxPlayPredictions(
         potentialBoard,
         stoneColor,
         maxDepth,
         currentDepth + 1,
       );
-      return currentDepth % 2
+      log(
+        `\n\nMatrice de choix pour ${
+          isCurrentPlayerTurnToPlay ? 'opposant' : 'joueur'
+        } : `,
+      );
+      log(getStringBoard(potentialBoard, nextPlaySuggestions));
+      const selectedPrediction = isCurrentPlayerTurnToPlay
         ? getWorstPossiblePlay(nextPlaySuggestions)
         : getBestPossiblePlay(nextPlaySuggestions);
+      log(
+        `${
+          isCurrentPlayerTurnToPlay ? opponentColor : stoneColor
+        } choose to play on ${selectedPrediction.coordinates.x},${
+          selectedPrediction.coordinates.y
+        } with a score of ${selectedPrediction.score} at depth ${
+          currentDepth + 1
+        }`,
+      );
+      selectedPrediction.coordinates = coordinates;
+      return selectedPrediction;
     });
   }
+}
+
+function getStringBoard(board: Board, predictions: PlayPrediction[]) {
+  let stringifiedBoard = '';
+  for (let y = 0; y < board.length; y++) {
+    stringifiedBoard += '\n';
+    for (let x = 0; x < board[y].length; x++) {
+      stringifiedBoard += '|';
+      const cellVal = board[y][x].value;
+      if (cellVal === 'empty') {
+        const cellScoreIfExist = predictions.filter(
+          (predict) =>
+            predict.coordinates.x === x && predict.coordinates.y === y,
+        )[0];
+        stringifiedBoard += cellScoreIfExist ? cellScoreIfExist.score : 'x';
+      } else {
+        stringifiedBoard += cellVal[0];
+      }
+    }
+  }
+  return stringifiedBoard;
+}
+
+let minimaxLogs = '';
+function log(logToAdd) {
+  minimaxLogs += '\n' + logToAdd;
 }
