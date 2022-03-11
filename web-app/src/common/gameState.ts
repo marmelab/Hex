@@ -1,5 +1,5 @@
 import { getWinningPathIfExist } from './pathfinding';
-import { getNextPlaySuggestion } from './prediction';
+import { getMinimaxPlayPredictions, PlayPrediction } from './prediction';
 import { Coordinates, deepCloneObject } from './utils';
 
 export const DEFAULT_BOARD_SIZE = 19;
@@ -30,7 +30,7 @@ export type ClosenessToGameEnd =
 
 export interface NextMoveHint {
   closenessToGameEnd: ClosenessToGameEnd;
-  suggestedNextMove?: Coordinates;
+  suggestedNextMoves?: PlayPrediction[];
 }
 
 export const BLACK_NODE_START = 'black-start';
@@ -147,39 +147,48 @@ export function getNextMoveHint(
     };
   }
   // Else, try if the current player can win by playing one stone
-  let winningMove = getWinningMoveIfAny(state.board, player);
-  if (winningMove) {
+  let winningMoves = getWinningMoves(state.board, player);
+  if (winningMoves && winningMoves.length) {
     return {
       closenessToGameEnd: 'ONE_MOVE_TO_WIN',
-      suggestedNextMove: winningMove,
+      suggestedNextMoves: winningMoves,
     };
   }
   // Else, try if the opponent can win by playing one stone
   const opponent: StoneColor = player === 'black' ? 'white' : 'black';
-  winningMove = getWinningMoveIfAny(state.board, opponent);
-  if (winningMove) {
+  winningMoves = getWinningMoves(state.board, opponent);
+  if (winningMoves && winningMoves.length) {
     return {
       closenessToGameEnd: 'ONE_MOVE_TO_LOOSE',
-      suggestedNextMove: winningMove,
+      suggestedNextMoves: winningMoves,
     };
   }
   // Otherwise, return undefined and get a advice for the next play
   return {
     closenessToGameEnd: 'UNDETERMINED',
-    suggestedNextMove: getNextPlaySuggestion(state.board, player),
+    suggestedNextMoves: getMinimaxPlayPredictions(state.board, player, 2),
   };
 }
 
-function getWinningMoveIfAny(board: Board, player: StoneColor): Coordinates {
+function getWinningMoves(board: Board, player: StoneColor): PlayPrediction[] {
+  const winningMoves: Coordinates[] = [];
   for (const [y, row] of board.entries()) {
     for (const [x, cell] of row.entries()) {
       if (cell.value === 'empty') {
         const attemptedBoard = deepCloneObject(board) as Board;
         attemptedBoard[y][x].value = player;
         if (playerHasWon(attemptedBoard, player).hasWon) {
-          return { x, y };
+          winningMoves.push({ x, y });
         }
       }
     }
   }
+  return winningMoves.map((move) => {
+    return {
+      coordinates: move,
+      opponentRemainingMovesToWin: undefined,
+      playerRemainingMovesToWin: undefined,
+      score: 0,
+    };
+  });
 }

@@ -1,5 +1,6 @@
 import { handlebars } from 'hbs';
 import { StoneColor } from 'src/common/gameState';
+import { PlayPrediction } from 'src/common/prediction';
 import { encodeObjectForQueryString, Coordinates } from '../common/utils';
 
 export function registerHandlebarsHelpers() {
@@ -74,16 +75,18 @@ export function registerHandlebarsHelpers() {
   handlebars.registerHelper(
     'isCellSuggested',
     function (
-      suggestedCell: Coordinates,
+      predictions: PlayPrediction[],
       cellXCoord: number,
       cellYCoord: number,
-      turn: StoneColor,
     ) {
       return (
-        suggestedCell &&
-        suggestedCell.x == cellXCoord &&
-        suggestedCell.y == cellYCoord &&
-        turn
+        predictions &&
+        predictions.length &&
+        predictions.find(
+          (prediction) =>
+            prediction.coordinates.x == cellXCoord &&
+            prediction.coordinates.y == cellYCoord,
+        )?.score
       );
     },
   );
