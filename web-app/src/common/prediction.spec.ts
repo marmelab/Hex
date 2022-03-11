@@ -182,6 +182,7 @@ describe('Get a suggestion for the next play based on minimax', () => {
     );
     expect(nextPlayAdvice).toStrictEqual({ x: 4, y: 0 });
   });
+
   it('', () => {
     const input = parseGameStateFromMultilineString(`
     W ⬡
@@ -194,6 +195,7 @@ describe('Get a suggestion for the next play based on minimax', () => {
     );
     expect(nextPlayAdvice).toStrictEqual({ x: 0, y: 1 });
   });
+
   it('', () => {
     const input = parseGameStateFromMultilineString(`
     W ⬡
@@ -206,6 +208,7 @@ describe('Get a suggestion for the next play based on minimax', () => {
     );
     expect(nextPlayAdvice).toStrictEqual({ x: 0, y: 1 });
   });
+
   it('', () => {
     const input = parseGameStateFromMultilineString(`
     ⬡ W
@@ -218,6 +221,7 @@ describe('Get a suggestion for the next play based on minimax', () => {
     );
     expect(nextPlayAdvice).toStrictEqual({ x: 1, y: 1 });
   });
+
   it('', () => {
     const input = parseGameStateFromMultilineString(`
     ⬡ W
@@ -229,5 +233,52 @@ describe('Get a suggestion for the next play based on minimax', () => {
       2,
     );
     expect(nextPlayAdvice).toStrictEqual({ x: 1, y: 1 });
+  });
+
+  it('Should get a suggestion to play anything as WHITE on this 3x3 board since I have probably lost', () => {
+    const input = parseGameStateFromMultilineString(`
+  ⬡ ⬢ ⬡
+   W ⬢ ⬡
+    ⬡ W ⬡
+  `);
+
+    const nextPlayAdvice = getMinimaxNextPlaySuggestion(
+      input.board,
+      'white',
+      2,
+    );
+
+    expect(
+      areExpectedCoordinatesInList(nextPlayAdvice, [
+        { x: 0, y: 0 },
+        { x: 2, y: 0 },
+        { x: 2, y: 1 },
+        { x: 0, y: 2 },
+        { x: 2, y: 2 },
+      ]),
+    ).toBeTruthy();
+  });
+
+  it('Should get a suggestion to play anything but (2, 2) as BLACK on this 3x3 board', () => {
+    const input = parseGameStateFromMultilineString(`
+  ⬡ ⬢ ⬡
+   W ⬢ ⬡
+    ⬡ W ⬡
+  `);
+
+    const nextPlayAdvice = getMinimaxNextPlaySuggestion(
+      input.board,
+      'black',
+      2,
+    );
+
+    expect(
+      areExpectedCoordinatesInList(nextPlayAdvice, [
+        { x: 0, y: 0 },
+        { x: 2, y: 0 },
+        { x: 2, y: 1 },
+        { x: 0, y: 2 },
+      ]),
+    ).toBeTruthy();
   });
 });
