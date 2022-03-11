@@ -85,6 +85,9 @@ export class GamesService {
     } else {
       size = +size;
     }
+    if (soloMode && size > 9) {
+      size = 9;
+    }
     const player1 = await this.usersService.getOrCreate(player1Username);
     const game = this.gamesRepository.create({
       state: initNewGameState(size),
