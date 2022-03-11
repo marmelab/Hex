@@ -163,27 +163,45 @@ span[data-player='white'] {
   animation: suggestedCell-0 infinite 2s;
 }
 
-@keyframes suggestedCell-0 {  
-  0% { background-color: #eea; }
-  50% { background-color: #f00; }
-  100% { background-color: #eea; }
+@keyframes suggestedCell-0 {
+  0% {
+    background-color: #eea;
+  }
+  50% {
+    background-color: rgb(255, 0, 0);
+  }
+  100% {
+    background-color: #eea;
+  }
 }
 
 .cell[data-suggestedCellScore='-1'] {
   animation: suggestedCell-1 infinite 2s;
 }
 
-@keyframes suggestedCell-1 {  
-  0% { background-color: #eea; }
-  50% { background-color: #f55; }
-  100% { background-color: #eea; }
+@keyframes suggestedCell-1 {
+  0% {
+    background-color: #eea;
+  }
+  50% {
+    background-color: rgb(255, 115, 115);
+  }
+  100% {
+    background-color: #eea;
+  }
 }
 .cell[data-suggestedCellScore='-2'] {
   animation: suggestedCell-2 infinite 2s;
 }
 
-@keyframes suggestedCell-2 {  
-  0% { background-color: #eea; }
-  50% { background-color: #f99; }
-  100% { background-color: #eea; }
+@keyframes suggestedCell-2 {
+  0% {
+    background-color: #eea;
+  }
+  50% {
+    background-color: rgb(250, 200, 200);
+  }
+  100% {
+    background-color: #eea;
+  }
 }
