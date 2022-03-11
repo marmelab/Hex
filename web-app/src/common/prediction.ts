@@ -36,6 +36,7 @@ export function getMinimaxNextPlaySuggestion(
     stoneColor,
     maxDepth,
   );
+  log('\n\nMatrice de choix du coup suggéré pour le joueur : ');
   log(getStringBoard(board, nextPlaySuggestions));
   const bestPlay = getBestPossiblePlay(nextPlaySuggestions);
   log(
@@ -139,11 +140,15 @@ export function getMinimaxPlayPredictions(
         maxDepth,
         currentDepth + 1,
       );
-      log(getStringBoard(board, nextPlaySuggestions));
+      log(
+        `\n\nMatrice de choix pour ${
+          isCurrentPlayerTurnToPlay ? 'opposant' : 'joueur'
+        } : `,
+      );
+      log(getStringBoard(potentialBoard, nextPlaySuggestions));
       const selectedPrediction = isCurrentPlayerTurnToPlay
         ? getWorstPossiblePlay(nextPlaySuggestions)
         : getBestPossiblePlay(nextPlaySuggestions);
-      selectedPrediction.coordinates = coordinates;
       log(
         `${
           isCurrentPlayerTurnToPlay ? opponentColor : stoneColor
@@ -153,6 +158,7 @@ export function getMinimaxPlayPredictions(
           currentDepth + 1
         }`,
       );
+      selectedPrediction.coordinates = coordinates;
       return selectedPrediction;
     });
   }
