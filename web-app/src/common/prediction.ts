@@ -27,9 +27,22 @@ export function getMinimaxNextPlaySuggestion(
   stoneColor: StoneColor,
   maxDepth: number,
 ): Coordinates {
-  return getBestPossiblePlay(
-    getMinimaxPlayPredictions(board, stoneColor, maxDepth),
-  ).coordinates;
+  minimaxLogs = '';
+  log(
+    `Minimax algo initialized with a max depth of ${maxDepth} for player ${stoneColor}`,
+  );
+  const nextPlaySuggestions = getMinimaxPlayPredictions(
+    board,
+    stoneColor,
+    maxDepth,
+  );
+  log(getStringBoard(board, nextPlaySuggestions));
+  const bestPlay = getBestPossiblePlay(nextPlaySuggestions);
+  log(
+    `Result : ${stoneColor} suggested move is ${bestPlay.coordinates.x},${bestPlay.coordinates.y} with a score of ${bestPlay.score}`,
+  );
+  console.log(minimaxLogs);
+  return bestPlay.coordinates;
 }
 
 function getPlayableCells(board: Board): Coordinates[] {
@@ -126,11 +139,47 @@ export function getMinimaxPlayPredictions(
         maxDepth,
         currentDepth + 1,
       );
+      log(getStringBoard(board, nextPlaySuggestions));
       const selectedPrediction = isCurrentPlayerTurnToPlay
         ? getWorstPossiblePlay(nextPlaySuggestions)
         : getBestPossiblePlay(nextPlaySuggestions);
       selectedPrediction.coordinates = coordinates;
+      log(
+        `${
+          isCurrentPlayerTurnToPlay ? opponentColor : stoneColor
+        } choose to play on ${selectedPrediction.coordinates.x},${
+          selectedPrediction.coordinates.y
+        } with a score of ${selectedPrediction.score} at depth ${
+          currentDepth + 1
+        }`,
+      );
       return selectedPrediction;
     });
   }
+}
+
+function getStringBoard(board: Board, predictions: PlayPrediction[]) {
+  let stringifiedBoard = '';
+  for (let y = 0; y < board.length; y++) {
+    stringifiedBoard += '\n';
+    for (let x = 0; x < board[y].length; x++) {
+      stringifiedBoard += '|';
+      const cellVal = board[y][x].value;
+      if (cellVal === 'empty') {
+        const cellScoreIfExist = predictions.filter(
+          (predict) =>
+            predict.coordinates.x === x && predict.coordinates.y === y,
+        )[0];
+        stringifiedBoard += cellScoreIfExist ? cellScoreIfExist.score : 'x';
+      } else {
+        stringifiedBoard += cellVal[0];
+      }
+    }
+  }
+  return stringifiedBoard;
+}
+
+let minimaxLogs = '';
+function log(logToAdd) {
+  minimaxLogs += '\n' + logToAdd;
 }
